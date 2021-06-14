@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuite Insomnia App Recommendation</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="./plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="./plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="./plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+    <script language="javascript">
+
+        window.onload = function displayTable(){
+                            var urlDomain = window.localStorage.getItem("urlDomain");
+                            let url = urlDomain + 'insomnia/v1/admin/randblock';
+                            let authToken = window.localStorage.getItem("token");
+
+                            $.ajax({
+                                url: url,
+                                type: 'GET',
+                                dataType: 'json',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': '*/*'
+                                },
+
+                                success: function(result){
+                                    console.log(result);
+
+                                        $(result).each(function(i, def){
+
+                                            window["td"+i+1]= document.createElement('td');
+                                            window["td"+i+1].style.border = '1px solid #dddddd';
+                                            window["td"+i+1].style.textAlign = 'left';
+                                            window["td"+i+1].style.padding = '8px';
+
+                                            window["td"+i+2] = document.createElement('td');
+                                            window["td"+i+2].style.border = '1px solid #dddddd';
+                                            window["td"+i+2].style.textAlign = 'left';
+                                            window["td"+i+2].style.padding = '8px';
+
+                                            window["td"+i+3] = document.createElement('td');
+                                            window["td"+i+3].style.border = '1px solid #dddddd';
+                                            window["td"+i+3].style.textAlign = 'left';
+                                            window["td"+i+3].style.padding = '8px';
+
+                                            window["td"+i+4] = document.createElement('td');
+                                            window["td"+i+4].style.border = '1px solid #dddddd';
+                                            window["td"+i+4].style.textAlign = 'left';
+                                            window["td"+i+4].style.padding = '8px';
+
+                                            window["td"+i+5] = document.createElement('td');
+                                            window["td"+i+5].style.border = '1px solid #dddddd';
+                                            window["td"+i+5].style.textAlign = 'left';
+                                            window["td"+i+5].style.padding = '8px';
+
+                                            window["td"+i+6] = document.createElement('td');
+                                            window["td"+i+6].style.border = '1px solid #dddddd';
+                                            window["td"+i+6].style.textAlign = 'left';
+                                            window["td"+i+6].style.padding = '8px';
+
+                                            window["td"+i+7] = document.createElement('td');
+                                            window["td"+i+7].style.border = '1px solid #dddddd';
+                                            window["td"+i+7].style.textAlign = 'left';
+                                            window["td"+i+7].style.padding = '8px';
+
+
+                                            $("#randTBody").append($("<tr>")
+                                            .append($(window["td"+i+1]).append(def.id))
+                                            .append($(window["td"+i+2]).append(def.patientName))
+                                            .append($(window["td"+i+3]).append(def.block))
+                                            .append($(window["td"+i+4]).append(def.stratGroup))
+                                            .append($(window["td"+i+5]).append(def.stratValue))
+                                            .append($(window["td"+i+6]).append(def.studyGroupID))
+                                            .append($(window["td"+i+7]).append(def.groupName)));
+
+
+                                        });
+
+                                },
+                                error: function(msg){
+
+                                    sweetAlert("Unable To Display Randomization Table","Please try again shortly","error");
+                                }
+                            });
+                            }
+
+          </script>
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="patient-dashboard.html">
+                    <b class="logo-abbr">
+                        <!-- <img src="images/logo.png" alt="">  -->
+                    </b>
+                    <span class="logo-compact">
+                        <!-- <img src="./images/logo-compact.png" alt=""> -->
+                    </span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <ul class="clearfix">
+
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a></li>
+                                        <li><a href="../index.html" onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Provider Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./provider-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Apps</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./page-insomnia.html">Insomnia</a></li>
+                            <li><a href="./page-insomnia.html">Anxiety</a></li>
+                            <li><a href="./page-insomnia.html">Caregiver</a></li>
+                            <!-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
+                            <li><a href="./layout-vertical.html">Vertical</a></li>
+                            <li><a href="./layout-horizontal.html">Horizontal</a></li>
+                            <li><a href="./layout-boxed.html">Boxed</a></li>
+                            <li><a href="./layout-wide.html">Wide</a></li>
+
+
+                            <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
+                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Provider Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./app-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Patient List</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-list.html">Records</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+
+                    <div class="col-lg-12 hidden" id="screen1">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title" id="elligHead">Eligibility Screening</h4>
+
+                                <div class="basic-form">
+                                    <form id="formInsomnia">
+
+                                        <div class="form-group" id="firstQ">
+                                            <label class="lblQuestion">Is your patient currently prescribed any medication(s) to treat insomnia?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly1();" id="prescYes" value="prescYes" name="optradio1"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly1();" id="prescNo" value="prescNo" name="optradio1"> No</label>
+                                        </div>
+
+
+                                        <div class="form-group hidden" id="secondQ1">
+                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <span class="placeholder" id="bzra"><b title="">?</b></span> for sleep?</label>
+                                                <span class="glyphicon glyphicon-phone" data-toggle="tooltip" title="Call Us"></span>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly2();" id="forSleepYes" name="optradio2"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly2();" id="forSleepNo" name="optradio2"> No</label><br/>
+
+                                            <input type='button' class='buttonBackTxt' onclick="goBack('secondQ1','firstQ');" value='Back'/>
+                                        </div>
+
+                                        <div class="form-group hidden" id="thirdQ2">
+                                            <label class="lblQuestion">Is the patient regularly taking Benzodiazepines and/or Z-drugs (BZRAs*) for any other conditions other than sleep?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly3();" id="notForSleepYes" name="optradio3"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly3();" id="notForSleepNo" name="optradio3"> No</label><br/>
+
+                                            <input type='button' class='buttonBackTxt' onclick="goBackQ2('thirdQ2','secondQ1');" value='Back'/>
+                                        </div>
+
+                                        <div class="form-group hidden" id="thirdQ1">
+                                            <label class="lblQuestion">How many benzodiazepines and/or Z-drugs is your patient taking for sleep?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly4();" id="good" value="good" name="optradio4"> One(1)</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly4();" id="good2" value="good" name="optradio4"> Two(2)</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly4();" id="bad" value="bad" name="optradio4"> More Than Two(2)</label><br/>
+
+                                            <input type='button' class='buttonBackTxt' onclick="goBack('thirdQ1','secondQ1');" value='Back'/>
+                                        </div>
+
+                                        <div class="hidden" id="trial1Demo">
+
+                                            <div id='errorContainer'></div>
+
+                                            <label class="lblQuestion">Health enSuite Insomnia Study</label>
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="patFName" placeholder="Patient’s First Name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="patLName"  placeholder="Patient’s Last Name" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" id="patAge" placeholder="Age (Years)" max="3" required>
+                                            </div>
+
+                                            <div id='ageError' style="color: red; font-weight: bolder;"></div><br/>
+
+                                            <div class="form-group">
+                                                <label class="lblQuestion">Gender:</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t1Male" value="MALE" name="optradio5" checked> MALE</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t1Female" value="FEMALE" name="optradio5"> FEMALE</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t1Other" value="OTHER" name="optradio5"> OTHER</label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="patEmail"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
+                                            </div>
+
+
+
+                                            <div class="general-button">
+                                                <button type="submit" id="btnBackTrial16" onclick="goBack('trial1Demo','thirdQ2');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
+                                                <button type="button" class="btn mb-1 btn-outline-dark" id="btnTrial16">Submit</button>
+                                            </div>
+
+                                        </div>
+
+
+
+                                        <!-- <div id="printSample" class="hidden">
+                                            <div id="printdivcontent">
+                                                <div style= "text-align:center; font-weight: bold;">Health enSuite Insomnia</div><br/>
+                                                <div style= "text-align:justify; ">
+                                                    <label>Referral Code: </label> <label id="refCode" style="font-weight: bold;"></label>
+                                                </div>  <br/>
+                                                <div style= "text-align:justify; ">
+                                                    <label>Username: </label> <label id="usName" style="font-weight: bold;"></label>
+                                                </div>  <br/>
+                                                <div style= "text-align:justify; ">
+                                                    <label>Password: </label> <label id="ps" style="font-weight: bold;"></label>
+                                                </div>  <br/>
+                                                <div style= "text-align:justify; ">
+                                                    Here are the steps to follow to be able to access the Health enSuite Insomnia app:
+                                                </div> <br/>
+                                                <div style= "text-align:justify; ">
+                                                    Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
+                                                </div> <br/>
+                                                <div style= "text-align:justify; ">
+                                                    Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here.
+                                                </div><br/>
+                                                <div style= "text-align:justify; ">
+                                                    Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
+                                                </div><br/>
+                                                <div style= "text-align:justify; ">
+                                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5
+                                                </div> <br/>
+                                                <div> Best regards,</div>
+                                                <div> Health enSuite team</div>
+                                            </div> <br/>
+                                            <div class="general-button">
+                                                <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv();" >Print</button>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="form-group hidden" id="fourthQ1">
+                                            <label class="lblQuestion">Is the patient willing to taper their BZRAs?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly5();" id="willingYes" name="optradio6"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly5();" id="willingNo" name="optradio6"> No</label><br/>
+
+                                            <input type='button' class='buttonBackTxt' onclick="goBack('fourthQ1','thirdQ1');" value='Back'/>
+                                        </div>
+
+                                        <div class="form-group hidden" id="fifthQ1">
+                                            <label class="lblQuestion">Is the patient regularly taking Benzodiazepines and/or Z-drugs (BZRAs*) for any other conditions other than sleep?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepYes" name="optradio7"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepNo" name="optradio7"> No</label><br/>
+
+                                            <input type='button' class='buttonBackTxt' onclick="goBack('fifthQ1','fourthQ1');" value='Back'/>
+                                        </div>
+
+
+                                        <div class="hidden" id="trial2Demo">
+
+
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12 hidden" id="printSample">
+                        <div class="card">
+                            <div class="card-body">
+                                    <div id="printdivcontent">
+                                        <div style= "text-align:center; font-weight: bold;">Patient Randomization Details</div><br/>
+                                        <div style= "text-align:justify; ">
+                                            <label>Patient Block: </label> <label id="pBlock" style="font-weight: bold;"></label>
+                                        </div>  <br/>
+                                        <div style= "text-align:justify; ">
+                                            <label>Patient Strata: </label> <label id="pStrata" style="font-weight: bold;"></label>
+                                        </div>  <br/>
+                                        <div style= "text-align:justify; ">
+                                            <label>Patient Strata Value: </label> <label id="pStrataV" style="font-weight: bold;"></label>
+                                        </div>  <br/>
+
+                                        <div style= "text-align:justify; ">
+                                            <label>Patient Group ID: </label> <label id="pGroupID" style="font-weight: bold;"></label>
+                                        </div>  <br/>
+                                        <div style= "text-align:justify; ">
+                                            <label>Patient Group Name: </label> <label id="pGroupN" style="font-weight: bold;"></label>
+                                        </div>  <br/>
+
+                                    </div> <br/>
+                                    <div class="general-button">
+                                        <button type="button" class="btn mb-1 btn-outline-dark lblAdjust" onclick="startOver();" >Start Over</button>
+                                        <button type="button" id="btnRandTable" class="btn mb-1 btn-outline-danger lblAdjust" >View All</button>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12" id="randDisplay">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h4>Randomization Table</h4>
+                                </div>
+
+                                <div class="scrollit">
+                                    <div class="table-responsive" >
+
+                                        <table class="table table-bordered" id="randTable">
+                                            <thead id="taperTHead2">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Patient Name</th>
+                                                    <th>Patient Block</th>
+                                                    <th>Strata Group</th>
+                                                    <th>Strata Value</th>
+                                                    <th>Study Group ID</th>
+                                                    <th>Group Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="randTBody">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><br/>
+                                <!-- <div class="general-button">
+                                    <button type="button" class="btn mb-1 btn-outline-dark lblAdjust" onclick="startOver();" >Start Over</button>
+                                </div> -->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/randomAPI.js"></script>
+
+    <!-- Chartjs -->
+    <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+    <!-- Circle progress -->
+    <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+    <!-- Datamap -->
+    <script src="./plugins/d3v3/index.js"></script>
+    <script src="./plugins/topojson/topojson.min.js"></script>
+    <script src="./plugins/datamaps/datamaps.world.min.js"></script>
+    <!-- Morrisjs -->
+    <script src="./plugins/raphael/raphael.min.js"></script>
+    <script src="./plugins/morris/morris.min.js"></script>
+    <!-- Pignose Calender -->
+    <script src="./plugins/moment/moment.min.js"></script>
+    <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <!-- ChartistJS -->
+    <script src="./plugins/chartist/js/chartist.min.js"></script>
+    <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+    <!-- <script src="./js/dashboard/dashboard-1.js"></script> -->
+
+    <script src="./plugins/moment/moment.js"></script>
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="./plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script src="./js/plugins-init/form-pickers-init.js"></script>
+
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

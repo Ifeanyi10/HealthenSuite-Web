@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuite Patient Level 6 Program Content</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+    <script language="javascript">
+
+        window.onload =  function() {
+            $('#exampleModalLevel6').modal('show');
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="patient-dashboard.html">
+                    <b class="logo-abbr">
+                        <!-- <img src="images/logo.png" alt="">  -->
+                    </b>
+                    <span class="logo-compact">
+                        <!-- <img src="./images/logo-compact.png" alt=""> -->
+                    </span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <ul class="clearfix">
+                        
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="patient-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li>
+
+                                        <li><a href="../index.html" onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Patient Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Patient Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
+                        </a>
+                        <ul aria-expanded="false" id="sleepLink">
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm spClock" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Sleep Clock</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-clock.html">My Sleep Clock</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-graph menu-icon"></i><span class="nav-text">Sleep Report</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-report.html">My Sleep Report</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Sleep Medication</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./sleep-medication.html">My Sleep Medication</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./task-list.html">My Task List</a></li>
+                            <li><a href="./program-content.html">My Progress</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">User Guide</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My User Guide</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
+                            <li><a href="./feedback.html">Feedback</a></li>
+                        </ul>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    
+                    <div class="justifyDiv">
+                                    
+                        <div class="bootstrap-modal">
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModalLevel6">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalTitle">Welcome to Level 6!</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>In the final part of Health enSuite Insomnia, we will focus on what you have learned so far and how to maintain your progress in the future.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title colorPrimary">Level 6: Maintaining Your Progress</h4><hr>
+                                <div class="justifyDiv">
+                                    People sometimes worry that improvements in their sleep will not last. This can be especially true for someone who has struggled with insomnia for many years. Don’t let this fear derail your progress.
+                                </div>
+                                <div class="justifyDiv">
+                                    It is normal to have a poor night’s sleep from time to time. You might encounter setbacks, but you now have skills you can use to manage these challenges. You will never be back at “square one”.
+                                </div>
+                                <div class="justifyDiv">
+                                    Take a moment to reflect on what a setback might look like for you. Are you worried you will have a bad night’s sleep? Are you afraid of having a totally sleepless night or several bad nights in a row? Write down what you think will happen. 
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="worriedTxt" placeholder="Enter your response here">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="justifyDiv">
+                                    Now think about what you can do if this happens. Use the strategies that have helped you improve your sleep so far. 
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="strategyTxt" placeholder="Enter your strategy here">
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div>
+                                    <!-- <h3 class="consentInfoHeadSmall">These strategies might include:</h3> -->
+                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">These strategies might include:</label>
+                                    <div class="consentInfoBody">
+                                        •	Staying up past your normal bed time to increase sleep drive. 
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Going to bed and waking up at the same time every day. 
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Tracking your sleep using the sleep diary. 
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Using your sleep clock to increase sleep efficiency. 
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Using the sleep hygiene checklist. 
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Only going to bed when you feel sleepy. 
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Getting out of bed if you don’t fall asleep within 20-30 minutes
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Relaxation techniques
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Avoiding “all or nothing” thinking
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Reminding yourself that one bad night does not mean you will have a string of bad nights.  
+                                    </div>
+                                    <div class="consentInfoBody">
+                                        •	Remembering that you can function tomorrow even if you had a poor night’s sleep. 
+                                    </div>
+                                </div>
+
+                                <div class="justifyDiv" id="forTrial2">
+                                    There can be setbacks as you work towards the goal of sleeping drug-free. Talk with your health care provider about your plan for reducing your use of sleeping pills and discuss any modifications as needed. It is better to modify your plan rather than abandoning it altogether. You might need to adjust the plan because of withdrawal symptoms or events in your life like an especially stressful period at work. 
+                                </div>
+
+                                <div class="justifyDiv">
+                                    Over the last few weeks you have learned a lot of new strategies to manage your sleep. You can continue to use any of the tools within the Health enSuite app to help support your improved sleep habits. 
+                                </div>
+
+                                <div class="sleepDiv">
+                                    <input type='button' class='btn-primary' id="btnSubmitLV6" value='Click To Conclude Level 6' disabled/>
+                                </div>
+
+                                <div class="sleepDiv">
+                                    <a href="program-content.html" class="txt1">
+                                        <strong>Return to Dashboard</strong>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="bootstrap-modal">
+                    <!-- Modal Change Email-->
+                    <div class="modal fade" id="loginModal">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitle">Patient Quick Login</h5>
+                                    <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                    </button> -->
+                                </div>
+                                <div class="modal-body">
+                                    <div class="lookup">
+                                        You have been away! Please sign in again. This is to ensure that your account is not access by someone else.
+                                    </div>
+                                    <form class="mt-5 mb-5 login-input">
+
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="quickUsername" placeholder="Username">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" id="quickPass" placeholder="Password">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnQuickLogin" class="btn btn-primary">Sign In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                    
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="js/levelsAPI.js"></script>
+    <script src="js/sleepDairyInit.js"></script>
+    <script src="js/MoreFunction.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

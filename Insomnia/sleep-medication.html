@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuite Patient Sleep Medication</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+    <script language="javascript">
+
+                    window.onload = function getPatientsProfile(){
+                            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/dashboard/medicationdetails';
+                            let authToken = window.localStorage.getItem("patientToken");
+                            let trialNo = 0;
+                            //alert(authToken);
+                            $.ajax({
+                                url: url,
+                                type: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': '*/*',
+                                    'Authorization': 'Bearer '+ authToken
+                                },
+                                success: function(result){
+                                    console.log(result);
+                                    trialNo = result.trialType
+                                    if(trialNo == 1){
+                                        document.getElementById('trial1Med').style.display = 'block';
+                                    }else if(trialNo == 2){
+                                        document.getElementById('trial2Med').style.display = 'block';
+                                    }
+                                    // window.localStorage.setItem("patientsID", result.id);
+
+                                    // window.localStorage.setItem("patientLastName", result.lastName);
+                                    // window.localStorage.setItem("patientFirstName", result.firstName);
+                                    // window.localStorage.setItem("patientPhone", result.phoneNumber);
+                                    // window.localStorage.setItem("patientEmail", result.email);
+                                    // console.log(window.localStorage.getItem("patientsID"));
+                                },
+                                error: function(msg){
+                                    console.log("Loading Patients details failed");
+                                }
+                            });
+                        }
+
+          </script>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="../index.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <!-- <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div> -->
+                <div class="header-left">
+                    <!-- <div class="input-group icons">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                        </div>
+                        <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
+                        <div class="drop-down animated flipInX d-md-none">
+                            <form action="#">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </form>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="patient-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li>
+
+                                        <li><a href="../index.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Patient Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Patient Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
+                        </a>
+                        <ul aria-expanded="false" id="sleepLink">
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Sleep Clock</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-clock.html">My Sleep Clock</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-graph menu-icon"></i><span class="nav-text">Sleep Report</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-report.html">My Sleep Report</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Sleep Medication</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./sleep-medication.html">My Sleep Medication</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./task-list.html">My Task List</a></li>
+                            <li><a href="./program-content.html">My Progress</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">User Guide</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My User Guide</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
+                            <li><a href="./feedback.html">Feedback</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">SLEEP DIARY</h4>
+                                <h5 class="mt-3">Completed <span class="float-right">10%</span></h5>
+                                <div class="progress" style="height: 9px">
+                                    <div class="progress-bar bg-danger wow  progress-" style="width: 10%;" role="progressbar"><span class="sr-only">60% Complete</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div> -->
+
+                    <div class="col-lg-12 col-md-12 col-sm-12" >
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">My Sleep Medication</h4>
+
+                                <div id="sleepM">
+                                    <div class="hidden" id="trial2Med" style="margin-top: 10px;">
+                                        <div class="col-md-6">
+                                            <label>How much <strong id="medName1"></strong> did you take today? </label>
+                                            <div class="input-group">
+                                                <!-- <select class="form-control" id="doseOpt" onchange="this.nextElementSibling.value=this.value">
+                                                    <option value=""></option>
+                                                </select>
+                                                <input class="hidden" type="text" name="format" value=""/> -->
+                                                <input class="form-control" list="doseOpt" name="doseVal" id="doseVal">
+                                                <datalist id="doseOpt">
+                                                    <!-- <option value="Internet Explorer">
+                                                    <option value="Firefox">
+                                                    <option value="Chrome">
+                                                    <option value="Opera">
+                                                    <option value="Safari"> -->
+                                                </datalist>
+                                            </div>
+
+                                            <div>
+                                                <label class="sleepMargin">How much <strong id="medName2"></strong> did you take today? </label>
+                                                <div class="input-group">
+                                                    <input class="form-control" list="doseOpt2" name="doseVal2" id="doseVal2">
+                                                    <datalist id="doseOpt2"> </datalist>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" id="medQ2">
+                                                <label class="lblQuestion sleepMargin">Did you take any other medications before going to sleep?</label><br/>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="removeSupport('otherMedInfo');" id="otherTakeNo" name="optradio1" value="No"> No</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="showSupport('otherMedInfo');" id="otherTakeYes" name="optradio1"> Yes</label>
+                                            </div>
+
+                                            <div class="hidden" id="otherMedInfo">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="sleepMargin">Medication name:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="otherMedName" placeholder="Enter medication name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="sleepMargin">Amount taken:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="otherAmTaken" placeholder="Enter amount taken">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="general-button">
+                                            <button type="submit" onclick="hideDisplay('sleepM', 'sleepD');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
+                                            <button type="button" class="btn mb-1 btn-outline-light">Submit</button>
+                                            <!-- <button type="button" id="btnSubmitDairy" class="btn mb-1 btn-outline-light">Submit</button> -->
+                                        </div>
+                                    </div>
+
+
+                                    <div class="hidden" id="trial1Med" style="margin-top: 10px;">
+                                        <div class="col-md-6">
+                                            
+                                            <div class="form-group" id="medQ1">
+                                                <label class="lblQuestion sleepMargin">Did you take any medications before going to sleep?</label><br/>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="removeSupport('anyMedInfo');" id="anyTakeNo" name="optradio2" value="No"> No</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="showSupport('anyMedInfo');" id="anyTakeYes" name="optradio2"> Yes</label>
+                                            </div>
+
+                                            <div class="hidden" id="anyMedInfo">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="sleepMargin">Medication name:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="anyMedName" placeholder="Enter medication name">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="sleepMargin">Amount taken:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" id="anyAmTaken" placeholder="Enter amount taken">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sleepDiv">
+                                            <button type="submit" onclick="hideDisplay('sleepM', 'sleepD');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button>
+                                            <button type="button" class="btn mb-1 btn-outline-light">Submit</button>
+                                            <!-- <button type="button" id="btnSubmitDairy" class="btn mb-1 btn-outline-light">Submit</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="./plugins/moment/moment.js"></script>
+
+
+    <script src="js/MoreFunction.js"></script>
+    <script src="js/sleepDairyInit.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

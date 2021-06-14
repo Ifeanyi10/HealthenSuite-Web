@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Health enSuite Patient Consent Form</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script> -->
+
+<!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href="images/icons/logo.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> -->
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="js/sweetalert/css/sweetalert.css" rel="stylesheet">
+<!--===============================================================================================-->
+</head>
+<body class="colorBackground">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" >
+					<span class="login100-form-title-1">
+						Insomnia App Consent Form
+					</span>
+				</div>
+
+                <div class="login100-form2">
+
+                    <!-- <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <div>
+                                <a href="index.html" class="txt2">
+                                    <strong>Contact Us</strong>
+                                </a>
+                            </div>
+                        </div>
+
+                        
+                    </div> -->
+
+                    <!-- <div class="card"> -->
+                            
+                            <div class="basic-form m-b-30" id="consBody">
+                                <form id="myConsentForm">
+                                    
+                                    <div class="space"  id="first">
+                                        <div class="light-head">
+                                            <h1 class="consentInfoHead" style="font-style: normal;">Study Information</h1>
+                                            <h3 class="consentInfoHeadSmall">Research Title:</h3>
+                                            <h3 class="consentInfoHeadSmall">Evaluating App-based Treatments for Chronic Insomnia in Adults: Health enSuite Insomnia Study</h3>
+                                        </div>
+                                        
+                                        <div class="info-content">
+                                            <h3 class="consentInfoHeadSmall">How to contact the Team?</h3>
+                                            <div>
+                                                <label class="consentInfoBody">Email: <strong style="font-weight: lighter;">TeamHealthEnSuite@iwk.nshealth.ca</strong></label>
+                                                <!-- <label class="consentInfoBody">TeamHealthEnSuite@iwk.nshealth.ca</label> -->
+                                            </div>
+                                            
+                                            <div>
+                                                <label class="consentInfoBody">Phone: <strong style="font-weight: lighter;">(902) 470 7934 or call toll-free number: 1-877-341-8309 press 5</strong></label>
+                                                <!-- <label class="consentInfoBody">(902) 470 7934 or call toll-free number: 1-877-341-8309 press 5</label> -->
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('first', 'second', 'cont1');" id="cont1" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('first', 'second', 'cont1');" id="cont1" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="hidden space" id="second">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">Introduction</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <div class="justifyDiv">
+                                                    You are being invited to take part in the Health enSuite Insomnia Study.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Before you decide if you want to take part in this research study, it is important that you understand the purpose of the study, the risks and benefits, and what you will be asked to do.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    You do not have to take part in this study. Taking part is entirely voluntary (your choice). 
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Informed consent starts with the initial contact about the study and continues until the end of the study.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    You may contact study staff to answer any questions you have by calling toll-free (no charge) 1-877-341-8309 ext 5 or by clicking the <strong>Contact us</strong> button from the app.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    You may decide not to take part or you may withdraw from the study at any time. This will not affect the care you or your family members will receive from your health care provider. 
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">This study is voluntary. I do not have to take part and can leave the study at any time.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans1');" id="workYes1" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans1');" id="workNo1" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans1">
+                                                TRUE: You do not have to take part in this study.
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('second','first');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('second', 'third', 'cont2');" id="cont2" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('second', 'third', 'cont2');" id="cont2" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+
+                                    </div>
+
+                                    <div class="hidden space" id="third">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">Why are the researchers doing the study?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                Many Canadians struggle to get to sleep and stay asleep at night. Our goal is to develop programs that can address this problem and help people sleep better. 
+                                            </div>
+
+                                            <div class="justifyDiv">
+                                                This research project aims to compare two different online treatments for adults with chronic insomnia. Both treatments will be delivered using the Health enSuite Insomnia app.  We are testing different ways of delivering information and advice to change thoughts and behaviours related to insomnia. 
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">The treatments delivered via Health enSuite Insomnia app are already proven to work.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans2');" id="workYes2" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans2');" id="workNo2" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans2">
+                                                FALSE: Health enSuite Insomnia is a new program. The content it delivers is based on existing cognitive behavioural treatments that have been found to improve sleep. The purpose of this study is to determine if these treatments can be delivered effectively through an app.
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('third','second');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('third', 'fourth', 'cont3');" id="cont3" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('third', 'fourth', 'cont3');" id="cont3" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+
+
+                                    <div class="hidden space" id="fourth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">How will the researchers do the study?</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <div class="justifyDiv">
+                                                    This study uses a randomized controlled design. This means that you will be randomly assigned to one of two treatment groups. You cannot choose which treatment you would like to receive during the study. After the study is over, you will have the opportunity to access the other treatment if you would like.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Our goal is to recruit a sample of up to 415 adults with chronic insomnia from across Canada. About half of them will be assigned to one type of treatment and the others will be assigned to another type of treatment. We will test to see whether there are any improvements in insomnia symptoms and related sleep patterns over time. We are interested in whether people who received one treatment tend to do better over time than people who received the other treatment. 
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    All aspects of this study will be completed online within the Health enSuite Insomnia app. This app was designed specifically for this study. The information collected will be kept confidential. You can download this app to use on your smartphone or access it through a web browser. The content in both versions is the same, so you can use whichever format you prefer.  
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">I can chose the treatment group I want.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans3');" id="workYes3" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans3');" id="workNo3" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans3">
+                                                FALSE: Your treatment group will be randomly assigned. 
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('fourth','third');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('fourth', 'fifth', 'cont4');" id="cont4" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('fourth', 'fifth', 'cont4');" id="cont4" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="fifth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">What will I be asked to do?</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <div class="justifyDiv">
+                                                    If you agree to participate in the study, the first step is to complete the baseline assessment. You will be asked to complete a series of questionnaires about your background, insomnia symptoms, and general physical and mental health. For the next 14 days, we will ask you to complete a brief “sleep diary” each morning. This “diary” is completed within the Health enSuite app and asks about your sleep the night before. It should not take more than a few minutes to complete each sleep diary. The baseline assessment is important because it lets us know how you were doing before the treatment begins.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    After you have completed the baseline assessment, you will be randomly assigned to one of two treatment groups. Both groups will receive information about the causes of insomnia and cognitive behavioural strategies to relieve insomnia symptoms and improve sleep. In one group all of the information you will receive is available from the beginning. If you are assigned to this treatment condition, you will be able to revisit this content within the Health enSuite app as often as you like over the next 8 weeks.   In the other group, the content is organized in a series of modules or levels. Only the content for Level 1 will be available in the first week. To advance to Level 2 you will need to complete specific tasks within the program. There are a total of 6 levels each with new content and features designed to help improve sleep.  If you are assigned to this group, you will receive notifications prompting you to complete different tasks within the app (e.g., completing sleep diaries).
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    At the end of 8 weeks and again 3 months later, we will ask you to complete follow-up assessments. These will be similar to the baseline assessment. Each will involve completing sleep diaries for 14 days, in addition to a set of questionnaires about your physical and mental health. It is important that you complete the follow-up assessment so that we know how well the treatment you received worked for you. If it was successful, we want to know. If it was not successful, we want to know that too.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">I will be asked to answer questions about my sleep only once.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans4');" id="workYes4" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans4');" id="workNo4" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans4">
+                                                FALSE: You will be asked the questions about your sleep multiple times over the course of several months. 
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('fifth','fourth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('fifth', 'sixth', 'cont5');" id="cont5" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('fifth', 'sixth', 'cont5');" id="cont5" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="sixth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">What are the burdens, harms, and potential harms?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                Some aspects of the treatments we are testing may initially worsen your insomnia symptoms. You may be asked to temporarily reduce the amount of time you spend in bed trying to sleep. This may result in less sleep and greater fatigue during the day.  You may also experience worse mood or increased irritability. These potential discomforts should all be temporary. 
+                                            </div><br/>
+                                            <div class="justifyDiv">
+                                                If you experience severe discomfort or distress associated with restricted sleep, please contact the study coordinator by emailing <strong>TeamHealthEnSuite@iwk.nshealth.ca</strong> or calling call <strong>((902) 470 7934 or toll-free number: 1-877-341-8309 press 5)</strong>. You may also use the Contact Us button on the Health enSuite Insomnia homepage to report any problems. 
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">I may experience some discomfort if I participate in this study.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans5');" id="workYes5" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans5');" id="workNo5" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans5">
+                                                TRUE: If you experience discomfort, it should only be temporary. 	
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('sixth','fifth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('sixth', 'seventh', 'cont6');" id="cont6" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('sixth', 'seventh', 'cont6');" id="cont6" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="seventh">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">What are the possible benefits?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                It is possible that you will experience some benefits from participating in this study. This could include improvements in your insomnia symptoms and daytime functioning. It is possible that these improvements will persist long after treatment. You may learn more about your insomnia and how your lifestyle, habits and beliefs impact your ability to get adequate sleep.
+                                            </div>
+                                            <div class="justifyDiv">
+                                                Your participation in this study may also benefit others. The outcomes of this study could help other people to gain access to effective treatment that was previously unavailable.
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">This study is guaranteed to cure my insomnia.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans6');" id="workYes6" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans6');" id="workNo6" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans6">
+                                                FALSE: It is possible that you will experience improvements in your sleep, but this is not guaranteed. 	
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('seventh','sixth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('seventh', 'eight', 'cont7');" id="cont7" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('seventh', 'eight', 'cont7');" id="cont7" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="eight">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">Can I withdraw from the study?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                Your participation in this study is voluntary. You may withdraw from the study at any time. Withdrawing from the study at any time will not affect the care you or your family will receive from your health care provider.
+                                            </div>
+                                            <div class="justifyDiv">
+                                                To withdraw from the study you can use the “Voluntary Withdrawal” tab within Health enSuite Insomnia app, or you can contact us by email (TeamHealthEnSuite@iwk.nshealth.ca) or phone ((902) 470 7934 or toll-free number: 1-877-341-8309 press 5).
+                                            </div>
+                                            <div class="justifyDiv">
+                                                You will be sent an email confirming that you have withdrawn from the study. Information from any assessments you have completed (e.g., questionnaires, sleep diaries) will be retained, but will not be linked with any information that could be used to identify you. 
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">I may decide NOT to take part in the study – even after I sign the Consent Form.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans7');" id="workYes7" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans7');" id="workNo7" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans7">
+                                                TRUE: You may stop taking part in the study at any time and may ask that your personal information (name and contact information) be removed from the study.	
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('eight','seventh');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('eight', 'nineth', 'cont8');" id="cont8" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('eight', 'nineth', 'cont8');" id="cont8" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+    
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="nineth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall">Will the study cost me anything?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                It does not cost anything to participate in the study. To be eligible for the study however, you will need to have regular access to an internet connected device (smartphone, tablet, or computer). We do not provide you with a smartphone, tablet, computer, or internet access.
+                                            </div>
+                                            <div class="justifyDiv">
+                                                If you have limited internet access you should check with your service provider to make sure that you will not go over your allowed access per month, which may result in extra costs on your monthly bill.
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">The study staff will cover the cost of my Internet service.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans8');" id="workYes8" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans8');" id="workNo8" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans8">
+                                                FALSE: We do not provide internet service. Using this online program is similar to reading other text on the Internet or watching short YouTube videos. However, you should always be aware of your Internet usage so that you do not go over your limit (if you have one). 	
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('nineth','eight');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('nineth', 'tenth', 'cont9');" id="cont9" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('nineth', 'tenth', 'cont9');" id="cont9" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="tenth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">Are there any conflicts of interest? What about possible profit from commercialization?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                You should know that Dr. McGrath owns the Health enSuite apps. He intends to form a not-for-profit company to distribute Health enSuite in Canada. 
+                                            </div>
+                                            <div class="justifyDiv">
+                                                He may form a for-profit company for distribution in other countries and may profit if any of the Health enSuite apps are commercialized in the future. If the program is commercialized and makes a profit, study participants will not receive any of these profits.
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            <!-- <div>
+                                                <label class="lblQuestionConsent">The study staff will cover the cost of my internet service.</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans8');" id="workYes8" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans8');" id="workNo8" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans8">
+                                                FALSE: We do not provide internet service. Using this online program is similar to reading other text on the Internet or watching short YouTube videos. However, you should always be aware of your Internet usage so that you do not go over your limit (if you have one). 	
+                                            </div>
+     -->
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('tenth','nineth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('tenth', 'eleventh', 'cont10');" id="cont10" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('tenth', 'eleventh', 'cont10');" id="cont10" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="eleventh">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">How will I be informed of the study results?</h3>
+                                            </div> 
+                                            <div class="justifyDiv">
+                                                At the end of this form, you will be asked if you would like to receive an email summarizing the study results. You may not receive results for several months following participation in this study as we will need time to analyze the data and interpret the findings.
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="info-content empt">
+                                           
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('eleventh','tenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('eleventh', 'twelveth', 'cont11');" id="cont11" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('eleventh', 'twelveth', 'cont11');" id="cont11" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="twelveth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">How will my privacy be protected?</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <div class="justifyDiv">
+                                                    Information you give us throughout the study will be kept confidential. Your personal, identifying information (e.g., name, date of birth) will only be seen by people directly involved in the study (researchers and study staff). When the study results are shared with someone outside the research team, your personal, identifying information will not be included. 
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    None of the information you enter on Health enSuite Insomnia will be accessible or visible to other participants in the study. Only members of the research team will have access to data collected in Health enSuite Insomnia.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Audits of this study could be done by the funding sources (CIHR) or the IWK Health Centre’s Research Ethics Board. In the case of an audit your file could be reviewed. Anyone performing an audit would also keep your identity confidential.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Health care providers/institutions may help us to recruit participants for the study. We may share information with them about their patients who are using Health enSuite Insomnia.  
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">When the study is published, people will know I was a part of the study.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans9');" id="workYes9" name="optradio12"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans9');" id="workNo9" name="optradio12"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans9">
+                                                FALSE: All information gathered about you during the study is private and confidential. Identifying information will not be included in any presentation or publication of the results of the study.
+                                            </div>
+
+                                            <div>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="saveNotShare(this);" id="doNotShare" name="optradioNone"><strong> Please do NOT share my information with my health care provider.</strong></label>
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('twelveth','eleventh');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('twelveth', 'thirteenth', 'cont12');" id="cont12" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('twelveth', 'thirteenth', 'cont12');" id="cont12" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="thirteenth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">How will my information be stored?</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <div class="justifyDiv">
+                                                    All of the information you give us during the study will be stored in secure, password-protected databases on Canadian Web Hosting and IWK Health Centre servers located within Canada. 
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Your answers to the questionnaires may be stored on your smartphone or tablet if you complete them while the device is offline. The next time your device is online, your answers will be uploaded to the secure online database. 
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    Any paper records related to your participation will be stored in a locked filing cabinet at the IWK Health Centre. 
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    At the end of the study, the data collected as part of this study will be archived for a minimum of 5 years. The study information that will be archived will be de-identified and will not include any of your personal information (name, contact information). The archived de-identified information will be stored in a secure location within the IWK Health Centre or outside of the IWK Health Centre. 
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-content">
+                                            <div>
+                                                <label class="lblQuestionConsent">De-identified (no names or contact information) study information will be stored for years after the study results have been published.</label><br/>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans10');" id="workYes10" name="optradio"> True</label>
+                                                <label class="radio-inline mr-3-consent">
+                                                    <input type="radio" onclick="hideDispalyConsentAnswer('ans10');" id="workNo10" name="optradio"> False</label>
+                                            </div>
+                                            
+                                            <div class="hidden" id="ans10">
+                                                TRUE: De-identified study data will be stored securely for a minimum of five years after study results have been published. This is allows the study results to be verified, if needed, and is recommended by the Research Ethics Board. 
+                                            </div>
+    
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('thirteenth','twelveth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('thirteenth', 'fourteenth', 'cont13');" id="cont13" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('thirteenth', 'fourteenth', 'cont13');" id="cont13" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="fourteenth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">Are there things I can do to protect my privacy?</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <div class="justifyDiv">
+                                                    When you login to Health enSuite Insomnia, you will be asked to provide a username and password. By not sharing your username and password you can help to protect your privacy. We suggest NOT saving your login information on your web browser. If you are using a public computer, or are in a public area (e.g., library, internet café, etc.) make sure to log off and close any open browser windows so others cannot access your account after you leave.
+                                                </div>
+                                                <div class="justifyDiv">
+                                                    When we email you about the study, we will only use your first name or nickname (if you provide one). We will not put your personal, identifying information in any email (e.g., phone number, date of birth). We cannot guarantee the security of using email. Please do not send confidential or sensitive (private) information by email.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('fourteenth','thirteenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('fourteenth', 'fifteenth', 'cont14');" id="cont14" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('fourteenth', 'fifteenth', 'cont14');" id="cont14" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="fifteenth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">What if I have study questions or problems?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                You may contact us by phone or email with questions or problems. Our contact information is below:
+                                            </div>
+                                            <div>
+                                                <label class="consentInfoBody">Email: <strong style="font-weight: lighter;">TeamHealthEnSuite@iwk.nshealth.ca</strong></label>
+                                                <!-- <label class="consentInfoBody">TeamHealthEnSuite@iwk.nshealth.ca</label> -->
+                                            </div>
+                                            
+                                            <div>
+                                                <label class="consentInfoBody">Phone: <strong style="font-weight: lighter;">(902) 470 7934 or call toll-free number: 1-877-341-8309 press 5</strong></label>
+                                                <!-- <label class="consentInfoBody">(902) 470 7934 or call toll-free number: 1-877-341-8309 press 5</label> -->
+                                            </div>
+                                            <div class="justifyDiv">
+                                                Rekha Dhonde, our research coordinator, will be available to answer your call Monday to Friday from 10:00 am – 4:00 pm Atlantic Time. You may leave a message if our Research Coordinator is unable to take your call or you need to call outside of our working hours.
+                                            </div>
+
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('fifteenth','fourteenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('fifteenth', 'sixteenth', 'cont15');" id="cont15" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('fifteenth', 'sixteenth', 'cont15');" id="cont15" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="sixteenth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">What are my research rights?</h3>
+                                            </div>
+                                            <div class="justifyDiv">
+                                                Completing this online consent form indicates that you have agreed to take part in this research and for your responses to be used.  In no way does this waive your legal rights nor release the investigators or the IWK Health Centre from their legal and professional responsibilities. If you have any questions at any time during or after the study about research in general you may contact the Research Office of the IWK Health Centre at (902) 470-8520, Monday to Friday between 9a.m. and 5p.m 
+                                            </div>
+                                            <div class="justifyDiv">
+                                                <strong>If you would you like to speak to a member of the Research Team about this Consent Form or ask questions about the study before you decide to take part, please click the Contact Us button or call toll-free: 1-877-341-8309 press 5.</strong>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('sixteenth','fifteenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('sixteenth', 'seventeenth', 'cont16');" id="cont16" value='I would like to participate'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('sixteenth', 'seventeenth', 'cont16');" id="cont16" value="bad" name="cont1"> I would like to participate.</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="seventeenth">
+                                        <div class="light-head">
+                                            <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">Participant Consent:</h3>
+                                            </div>
+                                            <div class="scrollit">
+                                                <!-- <div class="justifyDiv">
+                                                    Please click beside each statement if you AGREE.
+                                                </div><br/>
+                                                
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox-1" name="iAgree">
+                                                    <label class="custom-control-label" for="checkbox-1">I have read this Information and Consent Form and have had the chance to ask questions which have been answered to my satisfaction before agreeing to take part.</label>
+                                                </div><br/>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox-2" name="iAgree">
+                                                    <label class="custom-control-label" for="checkbox-2">I understand the nature of the study and I understand the potential risks. </label>
+                                                </div><br/>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox-3" name="iAgree">
+                                                    <label class="custom-control-label" for="checkbox-3">I understand that my personal information will not be shared with anyone without my consent.</label>
+                                                </div><br/>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox-4" name="iAgree">
+                                                    <label class="custom-control-label" for="checkbox-4">I understand that I have the right to withdraw from the study at any time without affecting my care.</label>
+                                                </div><br/>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox-5" name="iAgree">
+                                                    <label class="custom-control-label" for="checkbox-5">I understand that I will receive a copy of this Consent Form via email at the address that I provide.</label>
+                                                </div><br/>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkbox-6" name="iAgree">
+                                                    <label class="custom-control-label" for="checkbox-6">I agree to inform and update the research team if my phone number and/or my email address changes. </label>
+                                                </div> -->
+
+                                                <label class="consentInfoHeadSmall justifyDiv">Please click beside each statement if you AGREE.</label>
+
+                                                <div class="form-check mb-3">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="iAgree" value="check-1">  I have read this Information and Consent Form and have had the chance to ask questions which have been answered to my satisfaction before agreeing to take part.</label>
+                                                </div>
+                                                <div class="form-check mb-3">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="iAgree" value="check-2">  I understand the nature of the study and I understand the potential risks.</label>
+                                                </div>
+                                                <div class="form-check mb-3">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="iAgree" value="check-3">  I understand that my personal information will not be shared with anyone without my consent.</label>
+                                                </div>
+                                                <div class="form-check mb-3">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="iAgree" value="check-4">  I understand that I have the right to withdraw from the study at any time without affecting my care.</label>
+                                                </div>
+                                                <div class="form-check mb-3">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="iAgree" value="check-5">  I understand that I will receive a copy of this Consent Form via email at the address that I provide.</label>
+                                                </div>
+                                                <div class="form-check mb-3">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="iAgree" value="check-6">  I agree to inform and update the research team if my phone number and/or my email address changes.</label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('seventeenth','sixteenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="checkAgreeConsent('seventeenth', 'eighteenth', 'cont17', 'myConsentForm', 'iAgree');" id="cont17" value='Submit'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="checkAgreeConsent('seventeenth', 'eighteenth', 'cont17', 'myConsentForm', 'iAgree');" id="cont17" value="bad" name="cont1"> Submit</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="eighteenth">
+                                        <div class="light-head">
+                                            <!-- <div>
+                                                <h3 class="consentInfoHeadSmall justifyDiv">Participant Consent:</h3>
+                                            </div>                                    -->
+                                            
+                                            <!-- <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="sendSummary" >
+                                                <label class="custom-control-label" for="sendSummary">I would like a summary of the study results emailed to me.</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="beContatcted" >
+                                                <label class="custom-control-label" for="beContatcted">I would like to be contacted for future studies by this research team.</label>
+                                            </div> -->
+
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" id="sendSummary" value="check-5">  I would like a summary of the study results emailed to me.</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" id="beContatcted" value="check-6">  I would like to be contacted for future studies by this research team.</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('eighteenth','seventeenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="hideDispalyConsent('eighteenth', 'nineteenth', 'cont18');" id="cont18" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="hideDispalyConsent('eighteenth', 'nineteenth', 'cont18');" id="cont18" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden space" id="nineteenth">
+                                        <div class="light-head">
+
+                                            <div class="justifyDiv">
+                                                You have the option of allowing your study data to be re-used by approved researchers.  Any of your personal information (i.e. your name, address, telephone number) that can identify you will be removed before files are shared with other researchers. Researchers that wish to use study data must:
+                                            </div>
+                                            <div class="consentInfoBody">
+                                                1) Have their new study approved by an ethics board.
+                                            </div>
+                                            
+                                            <div class="consentInfoBody">
+                                                2) Sign an agreement ensuring your confidentiality and restricting use to only the approved study.
+                                            </div><br/>
+
+                                            <!-- <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="finalAgree" >
+                                                <label class="custom-control-label" for="finalAgree">I agree for my study data to be used for future research. I understand that my study data may be made available to other researchers, but <strong>my identity will be protected</strong> and <strong> my confidentiality will be preserved</strong>.</label>
+                                            </div> -->
+
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" id="finalAgree" value="check-6">  I agree for my study data to be used for future research. I understand that my study data may be made available to other researchers, but <strong>my identity will be protected</strong> and <strong> my confidentiality will be preserved</strong>.</label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="info-content empt">
+                                            
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('nineteenth','eighteenth');" value='Back'/>
+                                                <input type='button' class='btn-primary' onclick="checkAgreement('nineteenth', 'twentieth', 'cont19', 'finalAgree');" id="cont19" value='Continue'/>
+                                                <!-- <label class="radio-inline mr-3">
+                                                    <input type="radio" onclick="checkAgreement('nineteenth', 'twentieth', 'cont19', 'finalAgree');" id="cont19" value="bad" name="cont1"> Continue</label> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden" id="twentieth">
+                                        <div class="light-head">
+
+                                            <div>
+                                                <h3 class="consentInfoHead justifyDiv" style="font-style: normal;">Electronic Signature</h3>
+                                            </div>
+
+                                            <div class="justifyDiv">
+                                                By providing your email address you freely agree to take part in the study according to the terms outlined in this Consent Form.
+                                            </div>
+                                            
+                                            <!-- <div class="form-group">
+                                                <input type="text" class="form-control" id="patFName" placeholder="Full Name" required>
+                                            </div> -->
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="patEmail"  placeholder="Email Address" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="patEmailVer" placeholder="Verify Email Address" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                            </div>
+                                            <div class="form-group" id="divCheckEmailMatch"></div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="patLNum"  placeholder="Mobile Number" pattern="([0|\+[0-9]{1,5})?([7-9][0-9]{9})$" min="10" required title="Only Canadian number with optional code is allowed E.g 9001112222, +1 900 111 2222, +19001112222, 900-111-2222" data-toggle="tooltip" data-placement="right">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="patNickName" placeholder="Name or Nickname used for communications from study staff:" >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="continue">
+                                            <!-- <input type='button' class='buttontxt' onclick="goBackConsent('twentieth','nineteenth');" value='Back'/> -->
+                                            <!-- <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="checkAgreement('nineteenth', 'twentieth', 'cont19', 'finalAgree');" id="cont19" value="bad" name="cont1"> Submit</label> -->
+                                                <!-- <div class="container-login100-form-btn">
+                                                    <button class="login100-form-btn btn2" onclick="goBackConsent('twentieth','nineteenth');">
+                                                        Back
+                                                    </button>
+    
+                                                    <button class="login100-form-btn" id="btnConcentSubmit">
+                                                        Submit Consent
+                                                    </button>     
+                                                </div> -->
+                                            <input type='button' class='btn-secondary colorOff' onclick="goBackConsent('twentieth','nineteenth');" value='Back'/>
+                                            <input type='button' class='btn-primary' id="btnConcentSubmit" value='Submit'/>
+                                                
+                                        </div>
+                                    </div>
+
+                                    <div class="hidden" id="twentyfirst">
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+
+                            
+
+
+                            <div class="flex-sb-m w-full p-b-10" style="margin-left: 0px;">
+                                <div class="contact100-form-checkbox">
+                                    <a href="referral.html" class="txt1">
+                                        <strong>I do not want to continue.</strong>
+                                    </a>
+                                </div>
+        
+                                <div>
+                                    
+                                </div>
+                            </div>
+
+
+                <!-- </div> -->
+				
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+    <script src="js/MyFunctions.js"></script>
+    <!-- <script src="plugins/common/common.min.js"></script> -->
+    <!-- <script src="js/custom.min.js"></script> -->
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/consentAPICalls.js"></script>
+    <script src="js/sweetalert/js/sweetalert.min.js"></script>
+
+    <!-- <script src="js/jquery.backstretch.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        'use strict';
+        /* ========================== */
+        /* ::::::: Backstrech ::::::: */
+        /* ========================== */
+		// You may also attach Backstretch to a block-level element
+        $.backstretch(
+            [
+                "images/hosp1.png",
+                "images/hosp2.jpg",
+                "images/hosp3.jpg",
+                "images/hosp4.jpg"
+            ],
+
+            {
+                duration: 10000,
+                fade: 2000
+			}
+        );
+	</script> -->
+
+</body>
+</html>

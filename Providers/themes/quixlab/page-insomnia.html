@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="./plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="./plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="./plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                
+                <div class="header-left">
+                    <!-- <div class="input-group icons">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                        </div>
+                        <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
+                        <div class="drop-down animated flipInX d-md-none">
+                            <form action="#">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </form>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+                        
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        
+                                        <li><a href="index.html" onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Provider Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./provider-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Apps</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./page-insomnia.html">Insomnia Application</a></li>
+                            <li><a href="./layout-one-column.html">Anxiety Application</a></li>
+                            <li><a href="./layout-two-column.html">Caregiver Application</a></li>
+                            <!-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
+                            <li><a href="./layout-vertical.html">Vertical</a></li>
+                            <li><a href="./layout-horizontal.html">Horizontal</a></li>
+                            <li><a href="./layout-boxed.html">Boxed</a></li>
+                            <li><a href="./layout-wide.html">Wide</a></li>
+                            
+                            
+                            <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
+                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="nav-label">Provider Profile</li>
+
+                    <!-- <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-envelope menu-icon"></i> <span class="nav-text">Email</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./email-inbox.html">Inbox</a></li>
+                            <li><a href="./email-read.html">Read</a></li>
+                            <li><a href="./email-compose.html">Compose</a></li>
+                        </ul>
+                    </li> -->
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Views</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./app-profile.html">Profile</a></li>
+                            <li><a href="./app-calender.html">Calender</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-label">Patient Records</li>
+
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i> <span class="nav-text">Patient List</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-list.html">Records</a></li>
+                            <!-- <li><a href="./chart-morris.html">Morris</a></li>
+                            <li><a href="./chart-chartjs.html">Chartjs</a></li>
+                            <li><a href="./chart-chartist.html">Chartist</a></li>
+                            <li><a href="./chart-sparkline.html">Sparkline</a></li>
+                            <li><a href="./chart-peity.html">Peity</a></li> -->
+                        </ul>
+                    </li>
+                    <!-- <li class="nav-label">UI Components</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">UI Components</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./ui-accordion.html">Accordion</a></li>
+                            <li><a href="./ui-alert.html">Alert</a></li>
+                            <li><a href="./ui-badge.html">Badge</a></li>
+                            <li><a href="./ui-button.html">Button</a></li>
+                            <li><a href="./ui-button-group.html">Button Group</a></li>
+                            <li><a href="./ui-cards.html">Cards</a></li>
+                            <li><a href="./ui-carousel.html">Carousel</a></li>
+                            <li><a href="./ui-dropdown.html">Dropdown</a></li>
+                            <li><a href="./ui-list-group.html">List Group</a></li>
+                            <li><a href="./ui-media-object.html">Media Object</a></li>
+                            <li><a href="./ui-modal.html">Modal</a></li>
+                            <li><a href="./ui-pagination.html">Pagination</a></li>
+                            <li><a href="./ui-popover.html">Popover</a></li>
+                            <li><a href="./ui-progressbar.html">Progressbar</a></li>
+                            <li><a href="./ui-tab.html">Tab</a></li>
+                            <li><a href="./ui-typography.html">Typography</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./uc-nestedable.html">Nestedable</a></li>
+                            <li><a href="./uc-noui-slider.html">Noui Slider</a></li>
+                            <li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
+                            <li><a href="./uc-toastr.html">Toastr</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="widgets.html" aria-expanded="false">
+                            <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
+                        </a>
+                    </li>
+                    <li class="nav-label">Forms</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./form-basic.html">Basic Form</a></li>
+                            <li><a href="./form-validation.html">Form Validation</a></li>
+                            <li><a href="./form-step.html">Step Form</a></li>
+                            <li><a href="./form-editor.html">Editor</a></li>
+                            <li><a href="./form-picker.html">Picker</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-label">Table</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-menu menu-icon"></i><span class="nav-text">Table</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./table-basic.html" aria-expanded="false">Basic Table</a></li>
+                            <li><a href="./table-datatable.html" aria-expanded="false">Data Table</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-label">Pages</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./page-login.html">Login</a></li>
+                            <li><a href="./page-register.html">Register</a></li>
+                            <li><a href="./page-lock.html">Lock Screen</a></li>
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="./page-error-404.html">Error 404</a></li>
+                                    <li><a href="./page-error-403.html">Error 403</a></li>
+                                    <li><a href="./page-error-400.html">Error 400</a></li>
+                                    <li><a href="./page-error-500.html">Error 500</a></li>
+                                    <li><a href="./page-error-503.html">Error 503</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    
+                    <div class="col-lg-12" id="screen1">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Eligibilty Screening</h4>
+                                
+                                <div class="basic-form">
+                                    <form id="formInsomnia">
+                                        
+                                        <div class="form-group" id="firstQ">
+                                            <label class="lblQuestion">Is your patient currently prescribed any medication(s) to treat insomnia?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly1();" id="prescYes" value="prescYes" name="optradio1"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly1();" id="prescNo" value="prescNo" name="optradio1"> No</label>
+                                        </div>
+
+                                        <div class="form-group hidden" id="secondQ1">
+                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs for sleep? </label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly2();" id="forSleepYes" name="optradio2"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly2();" id="forSleepNo" name="optradio2"> No</label>
+                                        </div>
+
+                                        <div class="form-group hidden" id="thirdQ2">
+                                            <label class="lblQuestion">Is the patient regularly taking Benzodiazepines and/or Z-drugs (BZRAs*) for any other conditions other than sleep?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly3();" id="notForSleepYes" name="optradio3"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly3();" id="notForSleepNo" name="optradio3"> No</label>
+                                        </div>
+
+                                        <div class="form-group hidden" id="thirdQ1">
+                                            <label class="lblQuestion">How many?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly4();" id="good" value="good" name="optradio4"> One(1)</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly4();" id="good2" value="good" name="optradio4"> Two(2)</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly4();" id="bad" value="bad" name="optradio4"> More Than Two(2)</label>
+                                        </div>
+
+                                        <div class="hidden" id="trial1Demo">
+
+                                            <div id='errorContainer'></div>
+
+                                            <label class="lblQuestion">Trial 1</label>
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="patFName" placeholder="Patient First Name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="patLName"  placeholder="Patient Last Name" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" id="patAge" placeholder="Age (Years)" max="3" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="patEmail"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="lblQuestion">Gender:</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t1Male" value="MALE" name="optradio5" checked> MALE</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t1Female" value="FEMALE" name="optradio5"> FEMALE</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t1Other" value="OTHER" name="optradio5"> OTHER</label>
+                                            </div>
+
+                                            <div class="general-button">
+                                                <button type="button" class="btn mb-1 btn-outline-light" id="btnTrial1">Submit</button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group hidden" id="fourthQ1">
+                                            <label class="lblQuestion">Is the patient willing to taper their BZRAs?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly5();" id="willingYes" name="optradio6"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly5();" id="willingNo" name="optradio6"> No</label>
+                                        </div>
+
+                                        <div class="form-group hidden" id="fifthQ1">
+                                            <label class="lblQuestion">Is the patient regularly taking Benzodiazepines and/or Z-drugs (BZRAs*) for any other conditions other than sleep?</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepYes" name="optradio7"> Yes</label>
+                                            <label class="radio-inline mr-3">
+                                                <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepNo" name="optradio7"> No</label>
+                                        </div>
+
+
+                                        <div class="hidden" id="trial2Demo">
+
+                                            <div id='errorContainer2'></div>
+
+                                            <label class="lblQuestion">Trial 2</label>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="pat2FName" placeholder="Patient First Name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="pat2LName"  placeholder="Patient Last Name" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" id="pat2Age" placeholder="Age (Years)" max="3" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="pat2Email"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="lblQuestion">Gender:</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t2Male" value="MALE" name="optradio21" checked> MALE</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t2Female" value="FEMALE" name="optradio21"> FEMALE</label>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" id="t2Other" value="OTHER" name="optradio21"> OTHER</label>
+                                            </div>
+
+                                            <div class="general-button">
+                                                <button type="button" class="btn mb-1 btn-outline-light" id="btnTrial2">Submit</button>
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12 hidden" id="screen2">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">BZRAs Currently Prescribed</h4>
+                                
+                                <div class="basic-form">
+                                    <form id="medForm">
+                                        <div class="form-group" id="disp1">
+                                            
+                                            <label class="lblQuestion">Select the BZRA medication(s) the patient is currently taking regularly for insomnia: No more than two may be selected.</label>
+
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Alprazolam"  onchange="validateMedCheck();">Alprazolam (Xanax, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Bromazepam" onchange="validateMedCheck();">Bromazepam (Lectopam, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Buspirone"onchange="validateMedCheck();">Buspirone (Buspar, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Chlordiazepoxide" onchange="validateMedCheck();">Chlordiazepoxide (Librium, capsule)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Clonazepam" onchange="validateMedCheck();">Clonazepam (Rivotril, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Clorazepate" onchange="validateMedCheck();">Clorazepate (Tranxene, capsule)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Diazepam" onchange="validateMedCheck();">Diazepam (Valium, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Eszopiclone" onchange="validateMedCheck();">Eszopiclone (Lunesta, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Flurazepam" onchange="validateMedCheck();">Flurazepam Dalmane, capsule)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Lorazepam" onchange="validateMedCheck();">Lorazepam (Ativan, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Nitrazepam" onchange="validateMedCheck();">Nitrazepam (Mogadon, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Oxazepam" onchange="validateMedCheck();">Oxazepam (Serax, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Temazepam" onchange="validateMedCheck();">Temazepam (Restoril, capsule)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Triazolam" onchange="validateMedCheck();">Triazolam (Halcion, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Zopiclone" onchange="validateMedCheck();">Zopiclone (Imovane, tablet)</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Zolpidem" onchange="validateMedCheck();">Zolpidem (Sublinox, tablet)</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="general-button">
+                                            <button type="button" id="btnMedSelect" class="btn mb-1 btn-outline-light" onclick="displaySreeen3();" disabled>Next</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 hidden" id="screen3">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">BZRA Regimen Details</h4>
+                                <div class="basic-form">
+                                    <form>
+                                        <div id='errorContainer3'></div>
+
+                                        <div class="lblQuestion">This page is designed to capture the starting point for the medication tapering. 
+                                            If the patient is tapering their current medication, enter the dose that is currently being taken. This may be different from the dose that was prescribed.  
+                                            You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication.
+                                        </div>
+                                        <label class="lblQuestion">Medication 1:</label>
+                                        <div class="form-group">
+                                            <select id="idMedications1" class="form-control"></select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" id="dosage" name="dosage" placeholder="Current dose (mg)" minlength="10"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <select id="inputDuration" class="form-control">
+                                                <option value="10">Duration of medication (e.g less than 14 days)</option>
+                                                <option value="10">less than 14 days</option>
+                                                <option value="20">14 to 29 days</option>
+                                                <option value="60">30 days to less than 4 months</option>
+                                                <option value="180">4 months or more, less than 12 months</option>
+                                                <option value="360">1 year or more, less than 2 years</option>
+                                                <option value="720">2 years or more, less than 4 years</option>
+                                                <option value="2600">4 years or more</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="hidden" id="med2">
+                                            <label class="lblQuestion">Medication 2:</label>
+
+                                            <div class="form-group">
+                                                <select id="idMedications2" class="form-control"></select>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <input type="number" class="form-control" id="dosage2" name="dosage2" placeholder="Current dose (mg)" minlength="10" disabled/>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <select id="inputDuration2" class="form-control">
+                                                    <option value="10">Duration of medication (e.g less than 14 days)</option>
+                                                    <option value="10">less than 14 days</option>
+                                                    <option value="20">14 to 29 days</option>
+                                                    <option value="60">30 days to less than 4 months</option>
+                                                    <option value="180">4 months or more, less than 12 months</option>
+                                                    <option value="360">1 year or more, less than 2 years</option>
+                                                    <option value="720">2 years or more, less than 4 years</option>
+                                                    <option value="2600">4 years or more</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="general-button">
+                                            <button type="button" id="btnMedication" class="btn mb-1 btn-outline-light">Next</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Note</h4>
+                                <p class="text-muted"><code></code>
+                                </p>
+                                <div id="accordion-one" class="accordion">
+                                    <div class="card">
+                                        <!-- <div class="card-header">
+                                            <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa" aria-hidden="true"></i> Accordion Header One</h5>
+                                        </div> -->
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordion-one">
+                                            <div class="card-body">Some BZRAs are not easily tapered due to dosage formulation limitation. This includes capsules (chlordiazepoxide, clorazepate, flurazepam, temazepam) and specially formulated tablets (zolpidem orally disintegrating tablets). You may wish to switch to an equivalent dose of an alternative BZRA available in multiple tablet strengths that can further split into smaller doses. Taper schedule are available for shorter (oxazepam), intermediate (lorazepam), and longer (clonazepam) half-life BZRAs.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-12 hidden" id="screen4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h4>Proposed Taper Schedule</h4>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Week</th>
+                                                <th>Drug</th>
+                                                <th>Rounded Dose</th>
+                                                <th>Unrounded Dose</th>
+                                                <th>Dose Combination</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>1</th>
+                                                <td>Week 1</td>
+                                                <td>Alprazolam</td>
+                                                <td>
+                                                    <!-- <select class="selectAdjust">        
+                                                    <option value="volvo">10</option>
+                                                    <option value="saab">7.5</option>
+                                                    <option value="mercedes">5</option>
+                                                    <option value="audi">2.5</option>
+                                                    </select> -->
+                                                    5
+                                                </td>
+                                                <td>6.8</td>
+                                                <td>5 X 1</td>
+                                            </tr>
+                                            <tr>
+                                                <th>2</th>
+                                                <td>Week 2</td>
+                                                <td>Alprazolam</td>
+                                                <td>
+                                                    5
+                                                </td>
+                                                <td>6.8</td>
+                                                <td>5 X 1</td>
+                                            </tr>
+                                            <tr>
+                                                <th>3</th>
+                                                <td>Week 3</td>
+                                                <td>Alprazolam/td>
+                                                <td>
+                                                    5
+                                                </td>
+                                                <td>6.8</td>
+                                                <td>5 X 1</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Taper Schedule Adjustment</h4>
+                                <div class="basic-form">
+                                    <form class="form-inline">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <label class="sr-only">Password</label>
+                                            <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="3">
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label class="sr-only">Recompute</label>
+                                            <label class="lblAdjust">Increase or decrease the total number of weeks and click 'Recompute'</label>
+                                            <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
+                                        </div>
+                                        <button type="submit" id="btnRecompute" class="btn btn-dark mb-2">Recompute</button>
+                                    </form>
+
+                                    <form class="form-inline">
+                                        <div class="form-group mb-2">
+                                            <label class="lblAdjust">Click 'Reset' to return to the original computer generated taper schedule</label>
+                                            <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
+                                        </div>
+                                        <button type="submit" id="btnReset" class="btn btn-dark mb-2">Reset</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Taper Start Date</h4>
+                                <div class="basic-form">
+                                    <form class="form-inline">
+                                        <div class="form-group mb-2">
+                                            <label class="lblAdjust">Select a start date for this taper schedule within the next 2 weeks</label>
+                                            <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
+                                        </div>
+                                        <input type="text" class="form-control bootstrapMaterialDatePicker" onchange="validateStartDate();" placeholder="YYYY-MM-DD" id="mdate">
+                                    </form>
+
+                                    <form class="form-inline">
+                                        <div class="form-group mb-2">
+                                            <label class="lblAdjust"><strong>This program is currently designed to support patients who are willing to start tapering within 2 weeks</strong></label>
+                                            <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
+                                        </div>
+                                       
+                                    </form>
+                                </div>
+
+                                <div class="general-button">
+                                    <button type="button" id="btnStartDate" class="btn mb-1 btn-outline-light" onclick="displaySreeen5();" disabled>Next</button>
+                                </div>
+                            </div>
+                        </div>
+                                    
+                    </div>
+
+
+
+                    <div class="col-lg-12 hidden" id="screen5">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- <h4 class="card-title">BZRAs Currently Prescribed</h4> -->
+                                
+                                <div class="basic-form">
+                                    <form id="medFormFinal">
+                                        <div class="form-group">
+                                            
+                                            <div class="lblQuestion">The tapering schedule is ready to print. Please confirm that this patient has insomnia
+                                                and would benefit from cognitive behavioural therapy.
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-check mb-3">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" id="chkLast" class="form-check-input" value="" onchange="validateLastSubmit();">Cognitive behavioural therapy is recommended 
+                                                    for <label id="pName"><strong> Paul Smith</strong></label>. I would like to refer him/her to Health enSuite 
+                                                    Insomnia Study.</label>
+                                            </div>
+                                        </div>
+                                        <div class="general-button">
+                                            <button type="button" id="btnSubmitTrial2" class="btn mb-1 btn-outline-light" disabled>Submit</button>
+                                            <button type="button" class="btn mb-1 btn-outline-danger">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>   
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuit Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/MoreFunction.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/AppsApiCalls.js"></script>
+
+    <!-- Chartjs -->
+    <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+    <!-- Circle progress -->
+    <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+    <!-- Datamap -->
+    <script src="./plugins/d3v3/index.js"></script>
+    <script src="./plugins/topojson/topojson.min.js"></script>
+    <script src="./plugins/datamaps/datamaps.world.min.js"></script>
+    <!-- Morrisjs -->
+    <script src="./plugins/raphael/raphael.min.js"></script>
+    <script src="./plugins/morris/morris.min.js"></script>
+    <!-- Pignose Calender -->
+    <script src="./plugins/moment/moment.min.js"></script>
+    <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <!-- ChartistJS -->
+    <script src="./plugins/chartist/js/chartist.min.js"></script>
+    <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+    <!-- <script src="./js/dashboard/dashboard-1.js"></script> -->
+
+    <script src="./plugins/moment/moment.js"></script>
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="./plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script src="./js/plugins-init/form-pickers-init.js"></script>
+
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

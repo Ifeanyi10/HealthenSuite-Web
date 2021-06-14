@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuite Provider Profile</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+    <script language="javascript">
+
+        window.onload = function getProviderProfile(){
+                                    window.localStorage.setItem("loginError", false);
+                                    let proName = window.localStorage.getItem("providerName");
+                                    if(proName == " "){
+                                        window.localStorage.setItem("loginError", true);
+                                        window.location.href = "provider-login.html";
+                                    }else{
+                                        document.getElementById('provProfName').innerHTML =  window.localStorage.getItem("providerName");
+                                        document.getElementById('provProfEmail').innerHTML =  window.localStorage.getItem("providerEmail");
+                                        document.getElementById('provProfPh').innerHTML =  window.localStorage.getItem("providerPhone");
+                                        document.getElementById('provProfMailAdd').innerHTML =  window.localStorage.getItem("providerAddress");
+                                        document.getElementById('provProfProvice').innerHTML =  window.localStorage.getItem("providerProvince");
+                                    }
+                        }
+    
+          </script>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="provider-dashboard.html">
+                    <b class="logo-abbr">
+                        <!-- <img src="images/logo.png" alt="">  -->
+                    </b>
+                    <span class="logo-compact">
+                        <!-- <img src="./images/logo-compact.png" alt=""> -->
+                    </span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <ul class="clearfix">
+                        
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile   dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                         <li><a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a></li>
+                                        <li><a href="../index.html"  onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Provider Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./provider-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Apps</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./page-insomnia.html">Insomnia</a></li>
+                            <li><a href="./page-insomnia.html">Anxiety</a></li>
+                            <li><a href="./page-insomnia.html">Caregiver</a></li>
+                            <!-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
+                            <li><a href="./layout-vertical.html">Vertical</a></li>
+                            <li><a href="./layout-horizontal.html">Horizontal</a></li>
+                            <li><a href="./layout-boxed.html">Boxed</a></li>
+                            <li><a href="./layout-wide.html">Wide</a></li>
+                            
+                            
+                            <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
+                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Provider Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./app-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Patient List</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-list.html">Records</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <!-- row -->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="media align-items-center mb-4">
+                                    <img class="mr-3" src="images/user/form-user.png" width="80" height="80" alt="">
+                                    <div class="media-body">
+                                        <h3 class="card-title colorPrimary" id="provProfName"></h3>
+                                        <button type="button" onclick="fillEditField('provProfName', 'currentName');" class='btnEdit' data-toggle="modal" data-target="#exampleModalName">
+                                            <i class="icon-note menu-icon"></i><span class="nav-text">Edit</span>
+                                          </button>
+                                        <!-- <p class="text-muted mb-0" id="provProfProvice"></p> -->
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-3 profileAlign">Province:</div>
+                                    <div class="col-lg-9" style="text-align: left;" id="provProfProvice"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 profileAlign">Address:</div>
+                                    <div class="col-lg-9" style="text-align: left;" id="provProfMailAdd"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 profileAlign">Mobile:</div>
+                                    <div class="col-lg-9" style="text-align: left;" id="provProfPh"></div>
+                                </div>
+                                <div class="row" style="margin-bottom: 20px;">
+                                    <div class="col-lg-3 profileAlign">Email:</div>
+                                    <div class="col-lg-6" style="text-align: left;" id="provProfEmail" style="display: inline-block;"></div>
+                                    <div class="col-lg-3" style="text-align: left; font-weight: bold;"><button type="button" onclick="fillEditField('provProfEmail', 'currentEmail');" class='btnEdit' data-toggle="modal" data-target="#exampleModalEmail">
+                                        <i class="icon-note menu-icon"></i><span class="nav-text">Edit</span>
+                                      </button></div>
+                                </div>
+
+                                <!-- <h4>Address</h4>
+                                <p class="text-muted" id="provProfMailAdd"></p> -->
+                                <!-- <ul class="card-profile__info">
+                                    <li class="mb-1"><strong class="text-dark mr-4" style="text-align: right; display: inline-block;">Province:</strong> <span id="provProfProvice"></span></li>
+                                    <li class="mb-1"><strong class="text-dark mr-4">Address:</strong> <span id="provProfMailAdd"></span></li>
+                                    <li class="mb-1"><strong class="text-dark mr-4">Mobile:</strong> <span id="provProfPh"></span></li>
+                                    <li><strong class="text-dark mr-4" style="text-align: right; display: inline-block;">Email:</strong> <span id="provProfEmail"></span> 
+                                        <button type="button" onclick="fillEditField('provProfEmail', 'currentEmail');" class='btnEdit' data-toggle="modal" data-target="#exampleModalEmail">
+                                            <i class="icon-note menu-icon"></i><span class="nav-text">Edit</span>
+                                          </button>
+                                    </li>
+                                </ul> -->
+
+                                <div class="bootstrap-modal">
+                                    <!-- Button trigger modal -->
+                                    <!-- <input type='button' class='buttonBackTxt' data-toggle="modal" data-target="#exampleModalPassword" value='Change Password'/> -->
+                                    <button type="button" class='btnEdit' data-toggle="modal" data-target="#exampleModalPassword">
+                                        <i class="icon-note menu-icon"></i><span class="nav-text">Change Password</span>
+                                      </button>
+                                    <!-- Modal Change Password-->
+                                    <div class="modal fade" id="exampleModalPassword">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Change Password</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="mt-5 mb-5 login-input">
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="currentPass" placeholder="Enter Current Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="newPass" placeholder="Enter New Password">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="confirmNewPass" placeholder="Re-type New Password">
+                                                        </div>
+                                                        <div id="divCheckUpdatePWordMatch"></div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="btnChangePass" class="btn btn-primary" disabled>Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bootstrap-modal">
+                                    <!-- Modal Change Email-->
+                                    <div class="modal fade" id="exampleModalEmail">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Update Email Address</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="mt-5 mb-5 login-input">
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="currentEmail" placeholder="Current Email Address" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="newEmail" placeholder="Enter New Email Address">
+                                                        </div>
+                                                        
+                                                        <div id="divEmailErrorMsg"></div>
+
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="confirmNewEmail" placeholder="Confirm New Email Address" disabled>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="btnChangeEmail" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bootstrap-modal">
+                                    <!-- Modal Change Name-->
+                                    <div class="modal fade" id="exampleModalName">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Update Profile Name</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="mt-5 mb-5 login-input">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="currentName" placeholder="Current Full Name" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="newName" placeholder="Enter New Full Name">
+                                                        </div>
+                                                        <div id="divNameErrorMsg"></div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" id="btnChangeName" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="bootstrap-modal">
+                                    <!-- Modal Change Email-->
+                                    <div class="modal fade" id="loginModal">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalTitle">Provider Quick Login</h5>
+                                                    <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button> -->
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="lookup">
+                                                        You have been away! Please sign in again. This is to ensure that your account is not access by someone else.
+                                                    </div>
+                                                    <form class="mt-5 mb-5 login-input">
+
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="quickUsername" placeholder="Username">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="quickPass" placeholder="Password">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" id="btnQuickLogin" class="btn btn-primary">Sign In</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>   
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/updatePasswordAPI.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

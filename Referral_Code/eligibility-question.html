@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Health enSuite Patient Eligibilty Questionnaire</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/logo.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css"> -->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="js/sweetalert/css/sweetalert.css" rel="stylesheet">
+<!--===============================================================================================-->
+</head>
+<body class="colorBackground">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" >
+					<span class="login100-form-title-1">
+						Your eligibility for this Study
+					</span>
+				</div>
+                
+                <div class="login100-form2">
+
+                    <!-- <div class="card"> -->
+                            
+                            <div class="basic-form m-b-70">
+                                <form class="login100-form2 validate-form" id="formEligible">
+
+                                    <div class="scrollit">
+
+                                    <div class="form-group" id="firstQ">
+                                        <label class="lblQuestion">Are you 18 years old or older? </label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly1('firstQ','secondQ','disqualify1','olderYes','olderNo');" id="olderYes" value="prescYes" name="optradio"> Yes</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly1('firstQ','secondQ','disqualify1','olderYes','olderNo');" id="olderNo" value="prescNo" name="optradio"> No</label>
+                                    </div>
+
+                                    <div class="form-group hidden" id="disqualify1">
+                                        <div class="flex-sb-m w-full p-b-50">
+                                            <label class="lblQuestion">You must be 18 years old or older to participate in this study.</label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group hidden" id="secondQ">
+                                        <label class="lblQuestion">Do you have regular access to an internet connected device (e.g., tablet, computer, smartphone)?</label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly2('secondQ','thirdQ','disqualify2','internetYes','internetNo');" id="internetYes" name="optradio2"> Yes</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly2('secondQ','thirdQ','disqualify2','internetYes','internetNo');" id="internetNo" name="optradio2"> No</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('secondQ','firstQ');" value='Back'/> -->
+                                    </div>
+
+                                    <div class="form-group hidden" id="disqualify2">
+                                        <div class="flex-sb-m w-full p-b-50">
+                                            <label class="lblQuestion">To access the Health enSuite Insomnia program you need regular access to a device with an internet connection.</label><br/>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group hidden" id="thirdQ">
+                                        <label class="lblQuestion">Have you experienced any of the following problems at least 3 nights per week in the last 3 months?</label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="symptomHideDispaly();" id="symp1" value="It takes more than 30 minutes for you to fall asleep after you get into bed at night." name="optSleep"> It takes more than 30 minutes for me to fall asleep after I get into bed at night.</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="symptomHideDispaly();" id="symp2" value="You wake up in the middle of the night and stay awake for more than 30 minutes." name="optSleep"> I wake up in the middle of the night and stay awake for more than 30 minutes.</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="symptomHideDispaly();" id="symp3" value="You get less than 5 hours of sleep per night." name="optSleep"> I get less than 5 hours of sleep per night.</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="symptomHideDispaly();" id="symp4" value="Your difficulty sleeping is causing you a lot of distress." name="optSleep"> My difficulty sleeping is causing me a lot of distress.</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="symptomHideDispaly();" id="symp5" value="Your difficulty sleeping has impaired your ability to work or affected your relationships with friends and family." name="optSleep"> My difficulty sleeping has impaired my ability to work or affected my relationships with friends and family.</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="symptomHideDispaly();" id="noSymp" value="bad" name="optSleep"> I have not experienced any of these symptoms for at least 3 nights per week in the last 3 months.</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('thirdQ','secondQ');" value='Back'/> -->
+                                    </div>
+
+                                    <div class="form-group hidden" id="disqualify3">
+                                        <div class="flex-sb-m w-full p-b-50">
+                                            <label class="lblQuestion">Health enSuite Insomnia is unlikely to help you if you are not experiencing difficulty sleeping.</label>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-group hidden" id="fourthQ">
+                                        <label class="lblQuestion">Do you regularly work at night (i.e., night shifts or overtime) at least 3 nights per week?</label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly4('fourthQ','fifthQ','disqualify4','workNo','workYes');" id="workYes" name="optradio4"> Yes</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly4('fourthQ','fifthQ','disqualify4','workNo','workYes');" id="workNo" name="optradio4"> No</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('fourthQ','thirdQ');" value='Back'/> -->
+                                    </div>
+
+                                    <div class="form-group hidden" id="disqualify4">
+                                        <div class="flex-sb-m w-full p-b-50">
+                                            <label class="lblQuestion">Health enSuite Insomnia is not designed for sleep problems related changing work schedules or shift work.</label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group hidden" id="fifthQ">
+                                        <label class="lblQuestion">Do you expect to be working at night regularly in the next 3 months (i.e., nightshifts or overtime at least 3 nights per week)?</label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly5('fifthQ','sixthQ','disqualify4','nightNo','nightYes');" id="nightYes" name="optradio5"> Yes</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly5('fifthQ','sixthQ','disqualify4','nightNo','nightYes');" id="nightNo" name="optradio5"> No</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('fifthQ','fourthQ');" value='Back'/> -->
+                                    </div>
+
+
+                                    <div class="form-group hidden" id="sixthQ">
+                                        <label class="lblQuestion">Are you currently pregnant or trying to become pregnant?</label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly6('sixthQ','seventhQ','disqualify6','pregnantNo','pregnantYes');" id="pregnantYes" name="optradio6"> Yes</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly6('sixthQ','seventhQ','disqualify6','pregnantNo','pregnantYes');" id="pregnantNo" name="optradio6"> No</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('sixthQ','fifthQ');" value='Back'/> -->
+                                    </div>
+
+                                    <div class="form-group hidden" id="disqualify6">
+                                        <div class="flex-sb-m w-full p-b-50">
+                                            <label class="lblQuestion">Health enSuite Insomnia is not designed to address sleep disturbances related to pregnancy or caring for an infant.</label>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="form-group hidden" id="seventhQ">
+                                        <label class="lblQuestion">Are you a primary caregiver for a child who is less than one year old?</label><br/>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly7('seventhQ','submit','disqualify6','childNo','childYes');" id="childYes" name="optradio7"> Yes</label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="hideDispaly7('seventhQ','submit','disqualify6','childNo','childYes');" id="childNo" name="optradio7"> No</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('seventhQ','sixthQ');" value='Back'/> -->
+                                    </div>
+
+                                    <div class="form-group hidden" id="submit">
+                                       
+                                        <label class="lblQuestion">Thank you for answering our questions. You are eligible for the Health enSuite Insomnia Study.</label>
+                                        <label class="lblQuestion">The next step involves learning about the study and making a decision about whether you would like to participate.</label>
+                                        <label class="lblQuestion p-b-40">This informed consent process may take up to 30 minutes to complete.</label><br/>
+                                        
+                                        
+                                        <label class="radio-inline mr-3 p-b-30">
+                                            <input type="radio" onclick="decideToConsent();" id="begin" name="optradio"> I am ready to begin the online consent process.  </label>
+                                        <label class="radio-inline mr-3">
+                                            <input type="radio" onclick="decideToConsent();" id="wait" name="optradio"> I would like to complete this step at another time</label>
+                                        <!-- </br></br>
+                                        <input type='button' class='btn-secondary' onclick="goBackConsent('submit','seventhQ');" value='Back'/> -->
+                                    </div>
+
+                                    <div class="form-group hidden" id="waitInfo">
+                                        <label class="lblQuestion">You will need to enter your referral code again when you are ready to continue.</label>
+                                    </div>
+
+                                    </div>
+
+                                </form>
+
+                    </div>
+                    
+
+                    <div class="flex-sb-m w-full p-b-10">
+                        <div class="contact100-form-checkbox">
+                            <a href="referral.html" class="txt1">
+                                <strong>I do not want to continue.</strong>
+                            </a>
+                        </div>
+
+                        <div>
+                            
+                        </div>
+                    </div>
+
+                <!-- </div> -->
+				
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+    <script src="js/MyFunctions.js"></script>
+    <!-- <script src="plugins/common/common.min.js"></script> -->
+    <!-- <script src="js/custom.min.js"></script> -->
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/sweetalert/js/sweetalert.min.js"></script>
+
+    <!-- <script src="js/jquery.backstretch.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        'use strict';
+        /* ========================== */
+        /* ::::::: Backstrech ::::::: */
+        /* ========================== */
+		// You may also attach Backstretch to a block-level element
+        $.backstretch(
+            [
+                "images/hosp1.png",
+                "images/hosp2.jpg",
+                "images/hosp3.jpg",
+                "images/hosp4.jpg"
+            ],
+
+            {
+                duration: 10000,
+                fade: 2000
+			}
+        );
+	</script> -->
+
+</body>
+</html>

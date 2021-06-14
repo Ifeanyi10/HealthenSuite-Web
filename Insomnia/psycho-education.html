@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuite Patient Level 1 Program Content</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="patient-dashboard.html">
+                    <b class="logo-abbr">
+                        <!-- <img src="images/logo.png" alt="">  -->
+                    </b>
+                    <span class="logo-compact">
+                        <!-- <img src="./images/logo-compact.png" alt=""> -->
+                    </span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <ul class="clearfix">
+
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="patient-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li>
+
+                                        <li><a href="../index.html" onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Patient Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Patient Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
+                        </a>
+                        <ul aria-expanded="false" id="sleepLink">
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm spClock" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Sleep Clock</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-clock.html">My Sleep Clock</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-graph menu-icon"></i><span class="nav-text">Sleep Report</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-report.html">My Sleep Report</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Sleep Medication</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./sleep-medication.html">My Sleep Medication</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./task-list.html">My Task List</a></li>
+                            <li><a href="./psycho-education.html">Psychoeducation</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">User Guide</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My User Guide</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
+                            <li><a href="./feedback.html">Feedback</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">SLEEP DIARY</h4>
+                                <h5 class="mt-3">Completed <span class="float-right">10%</span></h5>
+                                <div class="progress" style="height: 9px">
+                                    <div class="progress-bar bg-danger wow  progress-" style="width: 10%;" role="progressbar"><span class="sr-only">60% Complete</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div> -->
+
+
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title colorPrimary">Psychoeducation </h4><hr>
+
+
+                                <div id="colTwo">
+
+                                    <!-- <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Introduction to Health enSuite:</label>
+                                    <ul class="nav nav-pills mb-3">
+                                        <li class="nav-item"><a href="#navpills-1" class="nav-link active" data-toggle="tab" aria-expanded="false">What is insomnia?</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#navpills-2" class="nav-link" data-toggle="tab" aria-expanded="false">What causes insomnia?</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true">How program work?</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#navpills-4" class="nav-link" data-toggle="tab" aria-expanded="true">Sleeping pills</a>
+                                        </li>
+                                        <li class="nav-item"><a href="#navpills-5" class="nav-link" data-toggle="tab" aria-expanded="true">Getting support</a>
+                                        </li>
+                                    </ul> -->
+                                    <div class="tab-content br-n pn">
+                                        <div id="navpills-1" class="tab-pane active">
+                                            <div class="row align-items-center">
+                                                <div class="col-sm-6 col-md-4 col-xl-2">
+                                                    <img src="images/big/Insomnia-img.jpg" alt="" class="img-fluid thumbnail m-r-15">
+                                                </div>
+                                                <div class="col-sm-6 col-md-8 col-xl-10">
+                                                    <!-- <h3 class="consentInfoHeadSmall">What is insomnia?</h3> -->
+                                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">What is insomnia?</label>
+                                                    <p>Insomnia is more than just getting a poor night’s sleep. Everyone can have difficulty sleeping from time to time. For people with insomnia, difficulty sleeping becomes a regular and persistent problem. This could involve difficulty falling asleep, difficulty staying asleep, or both. Some people with insomnia wake up frequently throughout the night and have trouble getting back to sleep. Others wake up too early in the morning.</p>
+                                                    <p>Insomnia is not the result of a lack of opportunity to sleep. People with insomnia experience sleep disruptions even though they had a reasonable chance to sleep.</p>
+
+                                                    <form id="formSituation">
+                                                        <div class="form-group">
+                                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Which of the following best describes your situation (check all that apply):</label>
+
+                                                            <div class="form-check mb-3">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="It often takes me more than 30 minutes to fall asleep.">It often takes me more than 30 minutes to fall asleep.</label>
+                                                            </div>
+                                                            <div class="form-check mb-3">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="I wake up frequently throughout the night and have trouble getting back to sleep.">I wake up frequently throughout the night and have trouble getting back to sleep.</label>
+                                                            </div>
+                                                            <div class="form-check mb-3">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="I regularly wake up too early in the morning and cannot get back to sleep.">I regularly wake up too early in the morning and cannot get back to sleep.</label>
+                                                            </div>
+                                                            <div class="form-check mb-3">
+                                                                <label class="form-check-label">
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="My sleep quality is poor. I would like to improve the quality of my sleep.">My sleep quality is poor. I would like to improve the quality of my sleep.</label>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <p>Over the next few weeks you will learn strategies to help resolve this problem.</p>
+                                                </div>
+                                            </div>
+                                            <div class="general-button">
+                                                <!-- <button type="submit" onclick="hideDisplay('colTwo', 'colOne');" class="btn-secondary" style="margin-right: 30px;">Back</button> -->
+                                                <button type="button" id="btnNext1" onclick="displayNav('navpills-1', 'navpills-2');" class="btn-primary goRight" disabled>Next</button>
+                                            </div>
+                                        </div>
+
+                                        <div id="navpills-2" class="tab-pane">
+
+                                            <div class="row align-items-center">
+                                                <div class="col-sm-6 col-md-4 col-xl-2">
+                                                    <img src="images/big/causesInsomnia-img.jpg" alt="" class="img-fluid thumbnail m-r-15">
+                                                </div>
+                                                <div class="col-sm-6 col-md-8 col-xl-10">
+                                                    <!-- <h3 class="consentInfoHeadSmall">What causes insomnia?</h3> -->
+                                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">What causes insomnia?</label>
+                                                    <p>Usually, insomnia is not caused by a chemical imbalance. Most of the time it is caused by habits, lifestyle, and problematic ways of thinking about sleep. Solutions that focus on these underlying causes of insomnia have the best chance of long-term success.</p>
+                                                    <p>Sometimes medical conditions interfere with sleep.  If these are left untreated, changes to your sleep routine might not be enough. Talk with your health care provider about any medical conditions you may have that may be affecting your sleep.</p>
+                                                </div>
+                                            </div>
+                                            <div class="general-button">
+                                                <button type="submit" onclick="displayNav('navpills-2', 'navpills-1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" onclick="displayNav('navpills-2', 'navpills-3');" class="btn-primary goRight">Next</button>
+                                            </div>
+                                        </div>
+
+                                        <div id="navpills-3" class="tab-pane">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-12">
+                                                    <!-- <h3 class="consentInfoHeadSmall">How does this program work?</h3> -->
+                                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">How does this program work?</label>
+                                                    <p>Health enSuite Insomnia is based on a cognitive behavioural approach to treating insomnia.  The goal is to change old ways of thinking and behaving and learn new, more effective ways of thinking and behaving. Every week, you will learn new skills to help you sleep better at night and feel better during the day. Here is an outline of what to expect in the weeks to come.</p>
+                                                    <div class="consentInfoBody">
+                                                        Week 1 (this week): Introduction to Health EnSuite: Insomnia
+                                                    </div>
+                                                    <div class="consentInfoBody">
+                                                        Week 2: Introduction sleep restriction therapy and using the sleep restriction clock
+                                                    </div>
+                                                    <div class="consentInfoBody">
+                                                        Week 3: Changing behaviours and improving sleep hygiene
+                                                    </div>
+                                                    <div class="consentInfoBody">
+                                                        Week 4: Relaxation techniques
+                                                    </div>
+                                                    <div class="consentInfoBody">
+                                                        Week 5: Changing negative thoughts related to sleep
+                                                    </div>
+                                                    <div class="consentInfoBody">
+                                                        Week 6: Setback prevention and planning for the future
+                                                    </div>
+                                                    <p>It may take a few weeks before you start to notice a difference in your sleep quality. Don’t get discouraged. Changing habits can be difficult and take time. The key to success is to stick with the program and practice the skills you are learning every day.</p>
+                                                </div>
+                                            </div>
+                                            <div class="general-button">
+                                                <button type="submit" onclick="displayNav('navpills-3', 'navpills-2');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" onclick="displayNav('navpills-3', 'navpills-4');" class="btn-primary goRight">Next</button>
+                                            </div>
+                                        </div>
+
+                                        <div id="navpills-4" class="tab-pane">
+
+
+                                                <div class="row align-items-center">
+                                                    <div class="col-sm-6 col-md-4 col-xl-2">
+                                                        <img src="images/big/sleepPills1-img.jpg" alt="" class="img-fluid thumbnail m-r-15">
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-8 col-xl-10">
+                                                        <!-- <h3 class="consentInfoHeadSmall">Sleeping pills</h3> -->
+                                                        <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Sleeping pills</label>
+                                                        <p>Sleeping pills may seem like an easy way to manage your sleep. Unfortunately sleeping pills only work as a short term remedy for sleep problems. After a few weeks, sleeping pills can become less effective in promoting good sleep. But many people continue using sleeping pills for weeks or even years. This can happen even when there are adverse side effects like daytime drowsiness and difficulty concentrating.</p>
+                                                        <p>Your health care provider has recommended a plan that will gradually reduce the amount  of the sleeping pills you are taking. The goal is for you to eventually be able to stop taking sleeping pills and get a good night’s sleep.</p>
+                                                        <p>How is it going so far?</p>
+                                                        <form id="formFeeling">
+                                                            <div class="form-group">
+                                                                <label class="lblQuestion">Which of the following best describes your feelings about this plan?</label>
+
+                                                                <div class="form-check mb-3">
+                                                                    <label class="form-check-label">
+                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('confident', 'btnSubmitPsycho');" name="feel" value="I feel confident I will be able to stick to this plan">I feel confident I will be able to stick to this plan. </label>
+                                                                </div>
+                                                                <div class="form-check mb-3">
+                                                                    <label class="form-check-label">
+                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('difficult', 'btnSubmitPsycho');" name="feel" value="I think it will be very difficult for me to stick to this plan">I think it will be very difficult for me to stick to this plan.</label>
+                                                                </div>
+                                                                <div class="form-check mb-3">
+                                                                    <label class="form-check-label">
+                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('unknown', 'btnSubmitPsycho');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label>
+                                                                </div>
+
+                                                                <p>You might find that your insomnia initially gets worse after you reduce your medication. Try your best to stick to the medication plan even if this happens. Over time, your body will adjust to the new dose.</p>
+
+                                                                <div class="modal fade" id="exampleModalCenter">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="modalContentTitle"></h5>
+                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <p id="modalContentBd"></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="general-button">
+                                                    <button type="button" id="btnHideMe" onclick="displayNav('navpills-4', 'navpills-3');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                    <button type="button" id="btnSubmitPsycho" class="btn-primary goRight" disabled>Submit Your Response</button>
+                                                    <!-- <input type='button' class='btn-colorSec goRight' id="btnContSleepPill" onclick="showNote('content4-2');" value='Continue...'/> -->
+                                                </div>
+    
+                                                <div class="sleepDiv">
+                                                    <a href="program-content.html" class="txt1">
+                                                        <strong>Return to Dashboard</strong>
+                                                    </a>
+                                                </div>
+
+                                        </div>
+
+                                        
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="js/levelsAPI.js"></script>
+    <script src="js/sleepDairyInit.js"></script>
+    <script src="js/MoreFunction.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

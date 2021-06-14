@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Health enSuite Patient Referral Code Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/logo.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+<link href="js/sweetalert/css/sweetalert.css" rel="stylesheet">
+</head>
+<body class="colorBackground">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" >
+					<span class="login100-form-title-1">
+						Referral Code Validation
+					</span>
+				</div>
+
+				<div class="flex-sb-m w-full contact-head p-b-30">
+					<div class="contact100-form-checkbox">
+						<div>
+							<strong>I have been referred to Health enSuite Insomnia by my health care provider.</strong>
+							<!-- <a href="index.html" class="txt2">
+								<strong>Contact Us</strong>
+							</a> -->
+						</div>
+						<div>
+							<strong>I am interested in participating in the Health enSuite Insomnia app study.</strong>
+							<!-- <a href="index.html" class="txt2">
+								<strong>Contact Us</strong>
+							</a> -->
+						</div>
+					</div>
+
+					
+				</div>
+
+				<!-- <form class="login100-form validate-form" action="patientInfo.html" method="POST"></form> -->
+				<form class="login100-form validate-form">
+
+					<!-- <div class="wrap-input105 validate-input m-b-30">
+						<span class="label-div"> <strong>I have been referred to Health enSuite Insomnia by my health care provider.</strong> </span>
+					</div>
+
+					
+					<div class="wrap-input105 validate-input m-b-70">
+						<span class="label-div"><strong>I am interested in participating in the Health enSuite Insomnia app study.</strong> </span>
+					</div> -->
+
+					
+					<div class="wrap-input100 validate-input m-b-40" data-validate="Referal Code is required">
+						<span class="label-input100">Referral Code</span>
+						<input class="input100" type="text" id="refCode" name="refCode" placeholder="Enter Your Referral Code">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Last name is required">
+						<span class="label-input100">Name</span>
+						<input class="input100" type="text" id="patName" name="name" placeholder="Enter your last name">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="flex-sb-m w-full p-b-50">
+						<!-- <div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div> -->
+
+						<div>
+							<a href="#" class="txt1" data-toggle="modal" data-target="#contactModalInfo">
+								<strong>I do NOT know my referral code</strong>
+							</a>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" id="btnSignin">
+							Submit
+						</button>
+					</div>
+				</form>
+
+				<div class="bootstrap-modal">
+					<!-- Modal Change Email-->
+					<div class="modal fade" id="contactModalInfo">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="modalTitle">Contact Health enSuite</h5>
+									<button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<div>
+										<strong>Please call Health enSuite on (902) 470 7934 or fill and submit this form</strong>
+									</div>
+									<form class="mt-3 mb-3 login-input" id="recovForm">
+										<div class="form-group">
+											<input type="text" class="form-control" id="recPatFName" placeholder="Patient’s First Name" required>
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" id="recPatLName"  placeholder="Patient’s Last Name" required>
+										</div>
+
+										<div class="form-group">
+											<input type="email" class="form-control" id="recPatEmail"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+										</div>
+
+										<div class="form-group" id='ageError' style="color: red; font-weight: bolder;"></div>
+
+										<div class="form-group">
+											<input type="number" class="form-control" id="recPatAge" placeholder="Age (Years)" max="3" required>
+										</div>
+
+										<div class="form-group">
+											<label class="lblQuestion">Gender:</label>
+											<label class="radio-inline mr-3">
+												<input type="radio" id="t2Male" value="MALE" name="optradio21" checked> Male</label>
+											<label class="radio-inline mr-3">
+												<input type="radio" id="t2Female" value="FEMALE" name="optradio21"> Female</label>
+											<label class="radio-inline mr-3">
+												<input type="radio" id="t2Other" value="OTHER" name="optradio21"> Other</label>
+										</div>
+
+									</form>
+								</div>
+								<div class="modal-footer" style="display: inline-block;">
+									<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="button" id="btnRecRefCode" class="btn btn-primary">Submit</button> -->
+									<div class="row">
+										<div class="col-lg-3"></div>
+										<div class="col-lg-3">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+										</div>
+										<div class="col-lg-3">
+											<button type="button" id="btnRecRefCode" class="btn btn-primary" disabled>Submit</button>
+										</div>
+										<div class="col-lg-3"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	<script src="js/MyFunctions.js"></script>
+	<script src="js/sweetalert/js/sweetalert.min.js"></script>
+	<script src="js/APICalls.js"></script>
+
+	<!-- <script src="js/jquery.backstretch.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        'use strict';
+        /* ========================== */
+        /* ::::::: Backstrech ::::::: */
+        /* ========================== */
+		// You may also attach Backstretch to a block-level element
+        $.backstretch(
+            [
+                "images/hosp1.png",
+                "images/hosp2.jpg",
+                "images/hosp3.jpg",
+                "images/hosp4.jpg"
+            ],
+
+            {
+                duration: 10000,
+                fade: 2000
+			}
+        );
+	</script> -->
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Health enSuite Patient Task List</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <!-- Pignose Calender -->
+    <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="./plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="./plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="./plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+    <script language="javascript">
+
+                    window.onload = function getPatientsTaskList(){
+                            var urlDomain = window.localStorage.getItem("urlDomain");
+                            let url = urlDomain + 'insomnia/v1/dashboard/mytasklist';
+                            let authToken = window.localStorage.getItem("patientToken");
+                            var currentID = null;
+                            //alert(authToken);
+                            $.ajax({
+                                url: url,
+                                type: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json', 
+                                    'Accept': '*/*',
+                                    'Authorization': 'Bearer '+ authToken
+                                },
+                                success: function(result){
+                                    console.log(result);
+                                    var arrayLength = 0;
+                                    var currentDate = '';
+                                    var prevDate = '';
+
+                                    $.each(result.sleepDiaries, function(i, def) {
+                                        if(arrayLength == 0){
+                                            currentDate = def.date_Created;
+                                            currentID = def.bedTime;
+                                        } else if(arrayLength == 1){
+                                            prevDate = def.date_Created;
+                                            prevID = def.bedTime;
+                                        }
+                                        arrayLength += 1;
+                                    });
+
+                                    var randomGroupID = window.localStorage.getItem("randomGroupID");
+                                    if(parseInt(randomGroupID) == 0){
+                                        var nexTask = result.nexTask;
+                                    }else if(parseInt(randomGroupID) == 1){
+                                        var nexTask = 'Insomnia Psychoeducation';
+                                    }
+
+                                    var currentDate2 = currentDate.split("T", 1)
+                                    var prevDate2 = prevDate.split("T", 1)
+                                    var enableProgress = window.localStorage.getItem("enableProgress");
+                                    let levelValue = window.localStorage.getItem("CBTLevel");
+
+                                    if (arrayLength == 2){
+                                        document.getElementById('task1Val').innerHTML  = 'Sleep Diary For: ' + currentDate2;
+                                        document.getElementById('task2Val').innerHTML  = 'Sleep Diary For: ' + prevDate2;
+
+                                        if(enableProgress == "true"){
+                                            document.getElementById('task3Val').innerHTML  = nexTask;
+                                            document.getElementById('task3').style.display = 'block';
+                                            if(parseInt(levelValue) == 6){document.getElementById('chTask3').checked = true;}
+                                        }
+                                        
+                                        if(currentID != null){document.getElementById('chTask1').checked = true;}
+                                        if(prevID != null){document.getElementById('chTask2').checked = true;}
+                                        
+                                    }else if (arrayLength == 1){
+                                        document.getElementById('task1Val').innerHTML  = 'Sleep Diary For: ' + currentDate2;
+                                        if(enableProgress == "true"){
+                                            document.getElementById('task2Val').innerHTML  = nexTask;
+                                            document.getElementById('task3').style.display = 'block';
+                                            if(parseInt(levelValue) == 6){document.getElementById('chTask3').checked = true;}
+                                        } 
+                                        if(currentID != null){document.getElementById('chTask1').checked = true;}
+                                    }else{
+                                        document.getElementById('task1').style.display = 'none';
+                                        document.getElementById('task2').style.display = 'none';
+                                        if(enableProgress == "true"){
+                                            document.getElementById('task3Val').innerHTML  = nexTask;
+                                            document.getElementById('task3').style.display = 'block';
+                                            if(parseInt(levelValue) == 6){document.getElementById('chTask3').checked = true;}
+                                        } 
+                                        if(currentID != null){document.getElementById('chTask1').checked = true;}
+                                    }
+                                    
+
+                                    // window.localStorage.setItem("patientEmail", result.email);
+                                }, 
+                                error: function(msg){
+                                    console.log("Loading Patients Task List Failed");
+                                }
+                            });
+                        }
+    
+          </script>
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="patient-dashboard.html">
+                    <b class="logo-abbr">
+                        <!-- <img src="images/logo.png" alt="">  -->
+                    </b>
+                    <span class="logo-compact">
+                        <!-- <img src="./images/logo-compact.png" alt=""> -->
+                    </span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="" width="174" height="40" style="border-radius: 15px;">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <ul class="clearfix">
+                        
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/form-user.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="patient-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li>
+
+                                        <li><a href="../index.html" onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Patient Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-grid menu-icon"></i><span class="nav-text">My Dashboard</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-dashboard.html">Home</a></li>
+                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">Patient Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm spDiary">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
+                        </a>
+                        <ul aria-expanded="false" id="sleepLink">
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                            <li><a href="./sleep-diary.html" style="display: none;"></a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm spClock" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Sleep Clock</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-clock.html">My Sleep Clock</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm spRep">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-graph menu-icon"></i><span class="nav-text">Sleep Report</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-sleep-report.html">My Sleep Report</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Sleep Medication</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./sleep-medication.html">My Sleep Medication</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./task-list.html">My Task List</a></li>
+                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i><span class="nav-text">User Guide</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./patient-profile.html">My User Guide</a></li>
+                        </ul>
+                    </li> -->
+
+                    <li class="mega-menu mega-menu-sm">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
+                            <li><a href="./feedback.html">Feedback</a></li>
+                        </ul>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="container-fluid mt-3">
+                <div class="row">
+                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">SLEEP DIARY</h4>
+                                <h5 class="mt-3">Completed <span class="float-right">10%</span></h5>
+                                <div class="progress" style="height: 9px">
+                                    <div class="progress-bar bg-danger wow  progress-" style="width: 10%;" role="progressbar"><span class="sr-only">60% Complete</span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div> -->
+                    
+                    <div class="col-lg-12 col-md-12 col-sm-12" >
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title colorPrimary">My Task List</h4><hr>
+                                
+                               <div id="pendTask">
+
+                                    <!-- <h3 class="consentInfoHeadSmall">Your pending task include:</h3> -->
+                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Your pending task include:</label>
+                                    <div class="todo-list">
+                                        <div class="tdl-holder">
+                                            <div class="tdl-content2 tdl-content--no-label">
+                                                <ul id="myTodoList">
+                                                    <li id="task1">
+                                                        <label><input id="chTask1" type="checkbox" disabled><i></i><span id="task1Val"></span><a href='#' class="ti-close"></a>
+                                                        </label>
+                                                        
+                                                    
+                                                    </li>
+                                                    <li id="task2">
+                                                        <label><input id="chTask2" type="checkbox" disabled><i></i><span id="task2Val"></span><a href='#' class="ti-close"></a>
+                                                        </label>
+                                                        
+                                                    </li>
+                                                    <li class="hidden" id="task3">
+                                                        <label><input id="chTask3" type="checkbox" disabled><i></i><span id="task3Val"></span><a href='#' class="ti-close"></a>
+                                                        </label>
+                                                        
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                               </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="bootstrap-modal">
+                    <!-- Modal Change Email-->
+                    <div class="modal fade" id="loginModal">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalTitle">Patient Quick Login</h5>
+                                    <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                    </button> -->
+                                </div>
+                                <div class="modal-body">
+                                    <div class="lookup">
+                                        You have been away! Please sign in again. This is to ensure that your account is not access by someone else.
+                                    </div>
+                                    <form class="mt-5 mb-5 login-input">
+
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" id="quickUsername" placeholder="Username">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" id="quickPass" placeholder="Password">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="btnQuickLogin" class="btn btn-primary">Sign In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="./plugins/moment/moment.js"></script>
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="./plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="./plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script src="./js/plugins-init/form-pickers-init.js"></script>
+    <script src="./js/plugins-init/form-pickers-init.js"></script>
+
+    <script src="js/MoreFunction.js"></script>
+    <script src="js/sleepDairyInit.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+
+</body>
+
+</html>

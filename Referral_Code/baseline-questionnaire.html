@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Health enSuite Patient Baseline Survey Form</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href="images/icons/logo.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="js/sweetalert/css/sweetalert.css" rel="stylesheet">
+<!--===============================================================================================-->
+
+<script language="javascript">
+
+    window.onload = function getPatientCode(){
+                        var lastPart = window.location.href.split("code").pop();
+                        //var lastPart = 'P/74hOrvWpqmrSF3nyejqWIYKpyH6gdggfOAPuhFvfI=';
+                        window.localStorage.setItem("patientBaselineToken", lastPart);
+                        //alert(lastPart);
+                        
+                    }
+
+      </script>
+
+</head>
+<body class="colorBackground">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" >
+					<span class="login100-form-title-1">
+					    Your Baseline Assessment
+					</span>
+				</div>
+
+                <div class="login100-form2">
+
+
+
+                    <!-- <div class="card"> -->
+                            
+                            <div class="basic-form m-b-30">
+                                <form id="myBaselineForm">
+                                    
+
+                                    <div id="header">
+                                        <div class="light-head">
+                                            <h1 class="consentInfoHead" style="font-style: normal;">About Your Sleep</h1>
+                                            <h3 class="consentInfoHeadSmall"> Please choose the number that best describes your sleep patterns in the last 2 weeks.</h3>
+                                            <h5 class="info">Responses to the questions marked with <span class="required">*</span> are mandatory.</h5>
+                                        </div>
+                                    </div>
+                                        
+                                    <div  id="first">
+                                        <div class="scrollit">
+                                            <div class="justifyDiv">
+                                                Please rate the current severity of your sleep difficulties.
+                                            </div>
+                                            <div class="entity">
+                                                <label><span class="required">*</span>Difficulty falling asleep: </label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="fallNone" name="optFall" value="0"> None</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="fallMild" name="optFall" value="1"> Mild</label>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="fallMod" name="optFall" value="2"> Moderate</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="fallSevere" name="optFall" value="3"> Severe</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="fallVSevere" name="optFall" value="4"> Very Severe</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="entity">
+                                                <label><span class="required">*</span>Difficulty staying asleep:  </label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="stayNone" name="optStay" value="0"> None</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="stayMild" name="optStay" value="1"> Mild</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="stayMod" name="optStay" value="2"> Moderate</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="staySevere" name="optStay" value="3"> Severe</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="stayVSevere" name="optStay" value="4"> Very Severe</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="entity">
+                                                <label><span class="required">*</span>Problem waking up too early in the morning: </label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="wakeNone" name="optWake" value="0"> None</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="wakeMild" name="optWake" value="1"> Mild</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="wakeMod" name="optWake" value="2"> Moderate</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="wakeSevere" name="optWake" value="3"> Severe</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn1', '#first', 3)" id="wakeVSevere" name="optWake" value="4"> Very Severe</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="continue">
+                                                <input type='button' id="btn1" class='btn-primary' onclick="goToNext('first','second');" value='Next' disabled/>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="hidden"  id="second">
+                                        <div class="scrollit">
+                                            <!-- <div class="justifyDiv">
+                                                Please rate the current severity of your sleep difficulties.
+                                            </div> -->
+                                            <div class="entity">
+                                                <label><span class="required">*</span>How satisfied are you with your current sleep pattern?</label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="vSat" name="optSat" value="0"> Very Satisfied</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="sat" name="optSat" value="1"> Satisfied</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="neutSat" name="optSat" value="2"> Neutral</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="disSat" name="optSat" value="3"> Dissatisfied</label><br/>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="vDisSat" name="optSat" value="4"> Very Dissatisfied</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="entity">
+                                                <label><span class="required">*</span>How much does your sleeping problem get in the way of your daily life (e.g., daytime fatigue, ability to function at work or complete daily chores, concentration, memory, mood)?</label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="noMuch" name="optMuch" value="0"> Not at all</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="litMuch" name="optMuch" value="1"> A little</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="someMuch" name="optMuch" value="2"> Somewhat</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="much" name="optMuch" value="3"> Much</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="vMuch" name="optMuch" value="4"> Very Much</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="entity">
+                                                <label><span class="required">*</span>How visible to others are the effects of your sleeping problem on the quality of your life?</label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="noEffect" name="optEffect" value="0"> Not at all</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="litEffect" name="optEffect" value="1"> A little</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="someEffect" name="optEffect" value="2"> Somewhat</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="veryEffect" name="optEffect" value="3"> Very</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="extEffect" name="optEffect" value="4"> Extremely</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="entity">
+                                                <label><span class="required">*</span>How worried are you about your current sleep problem?</label>
+                                                <ul>
+                                                    <li>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="noWorry" name="optWorry" value="0"> Not at all</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="litWorry" name="optWorry" value="1"> A little</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="someWorry" name="optWorry" value="2"> Somewhat</label>
+                                                        <label class="radio-inline mr-3-consent vertical-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="veryWorry" name="optWorry" value="3"> Very</label>
+                                                        <label class="radio-inline mr-3-consent horizontal-list">
+                                                            <input type="radio" onclick="Check(this, 'btn2', '#second', 4)" id="extWorry" name="optWorry" value="4"> Extremely</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="continue">
+                                                <input type='button' class='btn-secondary colorOff' onclick="goBack('second','first', 'header','header');" value='Back'/>
+                                                <input type='button' id="btn2" class='btn-primary' onclick='goToNext("second","third")' value='Next' disabled/>
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+
+                                        <div class="hidden"  id="third">
+
+                                            <div id="thirdHeader">
+                                                <div class="light-head">
+                                                    <h1 class="consentInfoHead" style="font-style: normal;">About Your Mood</h1>
+                                                    <h3 class="consentInfoHeadSmall">Please read each statement and check the box which indicates how much the statement applied to you over the past week. There are no right or wrong answers. Do not spend too much time on any statement.</h3>
+                                                    <h5 class="info">Responses to the questions marked with <span class="required">*</span> are mandatory.</h5>
+                                                </div>
+                                            </div>
+
+                                            <div  class="scrollit">
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I found it hard to wind down.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="wind" value="0" id="wind1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="wind" value="1" id="wind2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="wind" value="2" id="wind3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="wind" value="3" id="wind4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I was aware of dryness of my mouth.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="dry" value="0" id="dry1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="dry" value="1" id="dry2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="dry" value="2" id="dry3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="dry" value="3" id="dry4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I couldn’t seem to experience any positive feeling at all.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="feel" value="0" id="feel1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="feel" value="1" id="feel2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="feel" value="2" id="feel3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="feel" value="3" id="feel4"> Applied to me very much or most of the time</label><br>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion).</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="breath" value="0" id="breath1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="breath" value="1" id="breath2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="breath" value="2" id="breath3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="breath" value="3" id="breath4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I found it difficult to work up the initiative to do things.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="work" value="0" id="work1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="work" value="1" id="work2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="work" value="2" id="work3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="work" value="3" id="work4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I tended to over-react to situations.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="over" value="0" id="over1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="over" value="1" id="over2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="over" value="2" id="over3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="over" value="3" id="over4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I experienced trembling (e.g. in the hands).</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="tremb" value="0" id="tremb1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="tremb" value="1" id="tremb2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="tremb" value="2" id="tremb3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="tremb" value="3" id="tremb4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt that I was using a lot of nervous energy.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="nerve" value="0" id="nerve1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="nerve" value="1" id="nerve2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="nerve" value="2" id="nerve3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="nerve" value="3" id="nerve4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I was worried about situations in which I might panic and make a fool of myself.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panic" value="0" id="panic1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panic" value="1" id="panic2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panic" value="2" id="panic3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panic" value="3" id="panic4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt that I had nothing to look forward to.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="forward" value="0" id="forward1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="forward" value="1" id="forward2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="forward" value="2" id="forward3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="forward" value="3" id="forward4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I found myself getting agitated.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="agit" value="0" id="agit1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="agit" value="1" id="agit2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="agit" value="2" id="agit3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="agit" value="3" id="agit4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I found it difficult to relax.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="relax" value="0" id="relax1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="relax" value="1" id="relax2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="relax" value="2" id="relax3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="relax" value="3" id="relax4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt down-hearted and blue.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="down" value="0" id="down1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="down" value="1" id="down2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="down" value="2" id="down3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="down" value="3" id="down4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I was intolerant of anything that kept me from getting on with what I was doing.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="intol" value="0" id="intol1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="intol" value="1" id="intol2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="intol" value="2" id="intol3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="intol" value="3" id="intol4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt I was close to panic.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panics" value="0" id="panic1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panics" value="1" id="panic2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panics" value="2" id="panic3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="panics" value="3" id="panic4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I was unable to become enthusiastic about anything.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="enth" value="0" id="enth1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="enth" value="1" id="enth2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="enth" value="2" id="enth3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="enth" value="3" id="enth4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt I wasn’t worth much as a person.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="worth" value="0" id="worth1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="worth" value="1" id="worth2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="worth" value="2" id="worth3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="worth" value="3" id="worth4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt that I was rather touchy.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="torchy" value="0" id="torchy1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="torchy" value="1" id="torchy2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="torchy" value="2" id="torchy3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="torchy" value="3" id="torchy4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat).</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="heart" value="0" id="heart1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="heart" value="1" id="heart2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="heart" value="2" id="heart3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="heart" value="3" id="heart4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt scared without any good reason.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="scared" value="0" id="scared1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="scared" value="1" id="scared2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="scared" value="2" id="scared3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="scared" value="3" id="scared4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label><span class="required">*</span> I felt that life was meaningless.</label>
+                                                    <ul>
+                                                        <li>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="life" value="0" id="life1"> Did not apply to me at all</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="life" value="1" id="life2"> Applied to me to some degree, or some of the time</label><br>
+                                                            <label class="radio-inline mr-3-consent horizontal-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="life" value="2" id="life3"> Applied to me to a considerable degree or a good part of time</label><br>
+                                                            <label class="radio-inline mr-3-consent vertical-list">
+                                                                <input type="radio" onclick="Check(this, 'btn3', '#third', 21)" name="life" value="3" id="life4"> Applied to me very much or most of the time</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                
+                                                <!-- <table class="tableHd" id="taperTable2Print">
+                                                    <thead id="taperTHead2Print" class="tableBd">
+                                                        <tr>
+                                                            <th class="tableTd">Questions</th>
+                                                            <th class="tableTd">Did not apply to me at all</th>
+                                                            <th class="tableTd">Applied to me to some degree, or some of the time</th>
+                                                            <th class="tableTd">Applied to me to a considerable degree or a good part of time</th>
+                                                            <th class="tableTd">Applied to me very much or most of the time</th>
+                                                        </tr>
+                
+                                                    </thead>
+                                                    <tbody id="taperTBody2Print" class="tableBd">
+                                                         <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I found it hard to wind down</label></td>
+                                                            <td class="tableTd"><input type="radio" name="wind" value="0" id="wind1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="wind" value="1" id="wind2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="wind" value="2" id="wind3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="wind" value="3" id="wind4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+    
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I was aware of dryness of my mouth</label></td>
+                                                            <td class="tableTd"><input type="radio" name="dry" value="0" id="dry1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="dry" value="1" id="dry2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="dry" value="2" id="dry3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="dry" value="3" id="dry4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I couldn’t seem to experience any positive feeling at all</label></td>
+                                                            <td class="tableTd"><input type="radio" name="feel" value="0" id="feel1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="feel" value="1" id="feel2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="feel" value="2" id="feel3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="feel" value="3" id="feel4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I experienced breathing difficulty (e.g. excessively rapid breathing, breathlessness in the absence of physical exertion)</label></td>
+                                                            <td class="tableTd"><input type="radio" name="breath" value="0" id="breath1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="breath" value="1" id="breath2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="breath" value="2" id="breath3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="breath" value="3" id="breath4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I found it difficult to work up the initiative to do things</label></td>
+                                                            <td class="tableTd"><input type="radio" name="work" value="0" id="work1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="work" value="1" id="work2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="work" value="2" id="work3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="work" value="3" id="work4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I tended to over-react to situations</label></td>
+                                                            <td class="tableTd"><input type="radio" name="over" value="0" id="over1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="over" value="1" id="over2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="over" value="2" id="over3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="over" value="3" id="over4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I experienced trembling (e.g. in the hands)</label></td>
+                                                            <td class="tableTd"><input type="radio" name="tremb" value="0" id="tremb1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="tremb" value="1" id="tremb2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="tremb" value="2" id="tremb3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="tremb" value="3" id="tremb4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt that I was using a lot of nervous energy</label></td>
+                                                            <td class="tableTd"><input type="radio" name="nerve" value="0" id="nerve1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="nerve" value="1" id="nerve2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="nerve" value="2" id="nerve3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="nerve" value="3" id="nerve4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I was worried about situations in which I might panic and make a fool of myself</label></td>
+                                                            <td class="tableTd"><input type="radio" name="panic" value="0" id="panic1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="panic" value="1" id="panic2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="panic" value="2" id="panic3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="panic" value="3" id="panic4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt that I had nothing to look forward to</label></td>
+                                                            <td class="tableTd"><input type="radio" name="forward" value="0" id="forward1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="forward" value="1" id="forward2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="forward" value="2" id="forward3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="forward" value="3" id="forward4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I found myself getting agitated</label></td>
+                                                            <td class="tableTd"><input type="radio" name="agit" value="0" id="agit1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="agit" value="1" id="agit2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="agit" value="2" id="agit3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="agit" value="3" id="agit4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I found it difficult to relax</label></td>
+                                                            <td class="tableTd"><input type="radio" name="relax" value="0" id="relax1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="relax" value="1" id="relax2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="relax" value="2" id="relax3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="relax" value="3" id="relax4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt down-hearted and blue</label></td>
+                                                            <td class="tableTd"><input type="radio" name="down" value="0" id="down1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="down" value="1" id="down2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="down" value="2" id="down3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="down" value="3" id="down4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I was intolerant of anything that kept me from getting on with what I was doing</label></td>
+                                                            <td class="tableTd"><input type="radio" name="intol" value="0" id="intol1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="intol" value="1" id="intol2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="intol" value="2" id="intol3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="intol" value="3" id="intol4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt I was close to panic</label></td>
+                                                            <td class="tableTd"><input type="radio" name="panics" value="0" id="panic1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="panics" value="1" id="panic2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="panics" value="2" id="panic3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="panics" value="3" id="panic4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I was unable to become enthusiastic about anything</label></td>
+                                                            <td class="tableTd"><input type="radio" name="enth" value="0" id="enth1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="enth" value="1" id="enth2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="enth" value="2" id="enth3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="enth" value="3" id="enth4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt I wasn’t worth much as a person</label></td>
+                                                            <td class="tableTd"><input type="radio" name="worth" value="0" id="worth1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="worth" value="1" id="worth2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="worth" value="2" id="worth3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="worth" value="3" id="worth4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt that I was rather touchy</label></td>
+                                                            <td class="tableTd"><input type="radio" name="torchy" value="0" id="torchy1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="torchy" value="1" id="torchy2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="torchy" value="2" id="torchy3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="torchy" value="3" id="torchy4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I was aware of the action of my heart in the absence of physical exertion (e.g. sense of heart rate increase, heart missing a beat)</label></td>
+                                                            <td class="tableTd"><input type="radio" name="heart" value="0" id="heart1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="heart" value="1" id="heart2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="heart" value="2" id="heart3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="heart" value="3" id="heart4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt scared without any good reason</label></td>
+                                                            <td class="tableTd"><input type="radio" name="scared" value="0" id="scared1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="scared" value="1" id="scared2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="scared" value="2" id="scared3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="scared" value="3" id="scared4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+
+                                                        <!-- <tr> 
+                                                            <td class="tableTd"><label><span class="required">*</span>I felt that life was meaningless</label></td>
+                                                            <td class="tableTd"><input type="radio" name="life" value="0" id="life1"
+                                                                title="strongly disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="life" value="1" id="life2"
+                                                                        title="somewhat disagree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="life" value="2" id="life3"
+                                                                        title="agree" /></td>
+                                                            <td class="tableTd"><input type="radio" name="life" value="3" id="life4"
+                                                                     title="strongly agree" /></td>
+                                                        </tr> -->
+                                                    <!-- </tbody>
+                                                </table> --> 
+
+                                                <div class="continue">
+                                                    <input type='button' class='btn-secondary colorOff' onclick="goBack('third','second', 'thirdHeader','header');" value='Back'/>
+                                                    <input type='button' id="btn3" class='btn-primary' onclick='goToNext("third","fourth")' value='Next' disabled/>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="hidden"  id="fourth">
+
+                                            <div id="fourthHeader">
+                                                <div class="light-head">
+                                                    <h1 class="consentInfoHead" style="font-style: normal;">About Your Health</h1>
+                                                    <!-- <h5 class="info">Responses to the questions marked with <span class="required">*</span> are mandatory.</h5> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="scrollit">
+                                                <div class="entity">
+                                                    <label>Have you been diagnosed with any chronic health condition(s) other than insomnia?</label>
+                                                    <input type="text" class="form-control txtpad" id="diagnoseTxt" placeholder="Please list them here">
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>Please list all medications you are currently taking</label>
+                                                    <input type="text" class="form-control txtpad" id="medTxt" placeholder="Please list them here">
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>Do you drink alcohol?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-1" value="Yes" name="dk" onclick="displayField(this, 'btn4', '#fourth', 4, 'checkbox-1','checkbox-2','divDrink');">
+                                                        <label class="custom-control-label" for="checkbox-1">Yes</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-2" value="No" name="dk" onclick="displayField(this, 'btn4', '#fourth', 4, 'checkbox-1','checkbox-2','divDrink');">
+                                                        <label class="custom-control-label" for="checkbox-2">No</label>
+                                                    </div>
+                                                    
+                                                    <div class="hidden" id="divDrink">
+                                                        <label>How many drinks did you have in the past week?</label>
+                                                        <input type="text" class="form-control txtpad" id="drinkTxt" placeholder="Please enter how many drinks here">
+                                                    </div>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>Do you smoke cigarettes or use nicotine in other forms?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-cig1" value="Yes" name="cig" onclick="displayField(this, 'btn4', '#fourth', 4, 'checkbox-cig1','checkbox-cig2','divCig');">
+                                                        <label class="custom-control-label" for="checkbox-cig1">Yes</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-cig2" value="No" name="cig" onclick="displayField(this, 'btn4', '#fourth', 4, 'checkbox-cig1','checkbox-cig2','divCig');">
+                                                        <label class="custom-control-label" for="checkbox-cig2">No</label>
+                                                    </div>
+                                                    
+                                                    <div class="hidden" id="divCig">
+                                                        <label>How much and how often?</label>
+                                                        <input type="text" class="form-control txtpad" id="cigTxt" placeholder="E.g. half a pack of cigarettes per day">
+                                                    </div>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>Do you drink caffeinated beverages regularly (e.g., coffee, tea, cola)?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-caf1" value="Yes" name="caf" onclick="displayField(this, 'btn4', '#fourth', 4, 'checkbox-caf1','checkbox-caf2','divCaf');">
+                                                        <label class="custom-control-label" for="checkbox-caf1">Yes</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-caf2" value="No" name="caf" onclick="displayField(this, 'btn4', '#fourth', 4, 'checkbox-caf1','checkbox-caf2','divCaf');">
+                                                        <label class="custom-control-label" for="checkbox-caf2">No</label>
+                                                    </div>
+                                                    
+                                                    <div class="hidden" id="divCaf">
+                                                        <label>How much per day?</label>
+                                                        <input type="text" class="form-control txtpad" id="caffTxt" placeholder="Please enter how much per day here">
+                                                    </div>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>Have you participated in cognitive behavioral interventions for insomnia in the past?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btn4', '#fourth', 4)" class="custom-control-input" id="checkbox-behave" value="true" name="partcip">
+                                                        <label class="custom-control-label" for="checkbox-behave">Yes</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btn4', '#fourth', 4)" class="custom-control-input" id="checkbox-behave2" value="false" name="partcip">
+                                                        <label class="custom-control-label" for="checkbox-behave2">No</label>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                                <div class="continue">
+                                                    <input type='button' class='btn-secondary colorOff' onclick="goBack('fourth','third', 'fourthHeader','thirdHeader');" value='Back'/>
+                                                    <input type='button' id="btn4" class='btn-primary' onclick='goToNext("fourth","fifth")' value='Next' disabled/>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="hidden"  id="fifth">
+
+                                            <div id="fifthHeader">
+                                                <div class="light-head">
+                                                    <h1 class="consentInfoHead" style="font-style: normal;">Demographics</h1>
+                                                    <!-- <h5 class="info">Responses to the questions marked with <span class="required">*</span> are mandatory.</h5> -->
+                                                </div>
+                                            </div>
+
+                                            <div class="scrollit">
+                                                <div class="entity">
+                                                    <label>What is the highest level of schooling / education that you have successfully completed?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch1" value="8th grade or less" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch1">8th grade or less</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch2" value="9th-12th grade, no diploma" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch2">9th-12th grade, no diploma</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch3" value="High school graduate or General Equivalency Development (GED) completed" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch3">High school graduate or General Equivalency Development (GED) completed</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch4" value="Trade certificate or diploma from a vocational school or apprenticeship training" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch4">Trade certificate or diploma from a vocational school or apprenticeship training </label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch5" value="Non-university certificate or diploma from a community college, CEGEP, school of nursing, etc." name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch5">Non-university certificate or diploma from a community college, CEGEP, school of nursing, etc. </label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch6" value="University certificate below bachelor’s level" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch6">University certificate below bachelor’s level (e.g., Associate degree)</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch7" value="Bachelor’s degree" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch7">Bachelor’s degree</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch8" value="Master’s degree" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch8">Master’s degree</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch9" value="Doctorate or professional degree" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch9">Doctorate or professional degree</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-sch10" value="Other" name="sch" onclick="displayField(this, 'btnSubmitBaseline', '#fifth', 4, 'checkbox-sch10','checkbox-caf2','divSch');">
+                                                        <label class="custom-control-label" for="checkbox-sch10">Other</label>
+                                                    </div>
+
+                                                    <div class="hidden" id="divSch">
+                                                        <label>If Other, please specify</label>
+                                                        <input type="text" class="form-control txtpad" id="schOtherTxt" placeholder="Please specify">
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-sch11" value="Prefer not to say" name="sch">
+                                                        <label class="custom-control-label" for="checkbox-sch11">Prefer not to say</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>What is your current employment status? Please check all that apply.</label>
+                                                    
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-21" value="Working Full Time" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-21">Working Full Time</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-22" value="Working Part Time" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-22">Working Part Time</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-3" value="Unemployed" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-3">Unemployed</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-4" value="Retired" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-4">Retired</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-5" value="Disabled, permanently or temporarily" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-5">Disabled, permanently or temporarily</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-6" value="Stay at home parent / Caregiver (unpaid)" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-6">Stay at home parent / Caregiver (unpaid)</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-7" value="Student" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-7">Student</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-8" value="Other" name="employ"onclick="displayField(this, 'btnSubmitBaseline', '#fifth', 4, 'checkbox-8','checkbox-caf2','divEmploy');">
+                                                        <label class="custom-control-label" for="checkbox-8">Other</label>
+                                                    </div>
+
+                                                    <div class="hidden" id="divEmploy">
+                                                        <label>If Other, please specify</label>
+                                                        <input type="text" class="form-control txtpad" id="employOtherTxt" placeholder="Please specify">
+                                                    </div>
+
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 5)" class="custom-control-input" value="Prefer not to say" id="checkbox-9" name="employ">
+                                                        <label class="custom-control-label" for="checkbox-9">Prefer not to say</label>
+                                                    </div>
+                                                </div>
+                                            
+
+                                                <div class="entity">
+                                                    <label>What is your gross household income? Gross income is total income before taxes or reductions.</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc1" value="Under $15,000" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc1">Under $15,000</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc2" value="$15,000 to $24,999" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc2">$15,000 to $24,999</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc3" value="$25,000 to $34,999" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc3">$25,000 to $34,999</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc4" value="$35,000 to $49,999" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc4">$35,000 to $49,999</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc5" value="$50,000 to $74,999" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc5">$50,000 to $74,999</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc6" value="$75,000 to $99,999" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc6">$75,000 to $99,999</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc7" value="$100,000 to $199,999" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc7">$100,000 to $199,999</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc8" value="$200,000 and over" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc8">$200,000 and over</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-inc9" value="Prefer not to say" name="income">
+                                                        <label class="custom-control-label" for="checkbox-inc9">Prefer not to say</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>Were you born in Canada?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-born1" value="Yes" name="born" onclick="displayField(this, 'btnSubmitBaseline', '#fifth', 5, 'checkbox-born2','checkbox-born1','divborn');">
+                                                        <label class="custom-control-label" for="checkbox-born1">Yes</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" class="custom-control-input" id="checkbox-born2" value="No" name="born" onclick="displayField(this, 'btnSubmitBaseline', '#fifth', 5, 'checkbox-born2','checkbox-born1','divborn');">
+                                                        <label class="custom-control-label" for="checkbox-born2">No</label>
+                                                    </div>
+                                                    
+                                                    <div class="hidden" id="divborn">
+                                                        <label>in what country were you born?</label>
+                                                        <input type="text" class="form-control txtpad" id="bornTxt" placeholder="Please specify">
+                                                    </div>
+                                                </div>
+
+                                                <div class="entity">
+                                                    <label>People living in Canada come from many different cultural and racial backgrounds. Which of the following best describes you? Please check all that apply. </label>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race1" value="White" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race1">White</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race2" value="Chinese" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race2">Chinese</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race3" value="South Asian" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race3">South Asian (e.g., East Indian, Pakistani, Sri Lankan)</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race4" value="Black" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race4">Black</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race5" value="Filipino" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race5">Filipino</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race6" value="Latin American" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race6">Latin American</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race7" value="Southeast Asian" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race7">Southeast Asian (e.g., Cambodian, Indonesian, Laotian, Vietnamese)</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race8" value="Arab" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race8">Arab</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race9" value="West Asian" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race9">West Asian (e.g., Afghan, Iranian)</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race10" value="Japanese" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race10">Japanese</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race11" value="Korean" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race11">Korean</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race12" value="North American Indian" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race12">North American Indian</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race13" value="Inuit" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race13">Inuit</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race14" value="Métis" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race14">Métis</label>
+                                                    </div>
+
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race15" value="Prefer not to say" name="race">
+                                                        <label class="custom-control-label" for="checkbox-race15">Prefer not to say</label>
+                                                    </div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox-race16" value="Other" name="race" onclick="displayField(this, 'btnSubmitBaseline', '#fifth', 4, 'checkbox-race16','checkbox-caf2','divRace');">
+                                                        <label class="custom-control-label" for="checkbox-race16">Other</label>
+                                                    </div>
+
+                                                    <div class="hidden" id="divRace">
+                                                        <label>If Other, please specify</label>
+                                                        <input type="text" class="form-control txtpad" id="schOtherTxt" placeholder="Please specify">
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="entity">
+                                                    <label>What is your current marital status?</label>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-mar1" value="Married or common law" name="marital">
+                                                        <label class="custom-control-label" for="checkbox-mar1">Married or common law</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-mar2" value="Single, never marrie" name="marital">
+                                                        <label class="custom-control-label" for="checkbox-mar2">Single, never married</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-mar3" value="Separated or divorced" name="marital">
+                                                        <label class="custom-control-label" for="checkbox-mar3">Separated or divorced</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-mar4" value="Widow or widower" name="marital">
+                                                        <label class="custom-control-label" for="checkbox-mar4">Widow or widower</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio">
+                                                        <input type="radio" onclick="Check(this, 'btnSubmitBaseline', '#fifth', 4)" class="custom-control-input" id="checkbox-mar5" value="Prefer not to say" name="marital">
+                                                        <label class="custom-control-label" for="checkbox-mar5">Prefer not to say</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="continue">
+                                                    <input type='button' class='btn-secondary colorOff' onclick="goBack('fifth','fourth', 'fifthHeader','fourthHeader');" value='Back'/>
+                                                    <input type='button' class='btn-primary' id="btnSubmitBaseline" value='Submit Questionnaire' disabled/>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+
+                                        </div>
+
+                                </form>
+
+                            </div>
+
+
+                    <!-- <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="ckb1">
+                                Remember me
+                            </label>
+                        </div>
+
+                        <div>
+                            <a href="index.html" class="txt1">
+                                <strong>I do not want to contnue</strong>
+                            </a>
+                        </div>
+                    </div> -->
+
+                <!-- </div> -->
+				
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+    <script src="js/MyFunctions.js"></script>
+    <script src="js/baselineAPI.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="js/sweetalert/js/sweetalert.min.js"></script>
+
+    <!-- <script src="js/jquery.backstretch.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        'use strict';
+        /* ========================== */
+        /* ::::::: Backstrech ::::::: */
+        /* ========================== */
+		// You may also attach Backstretch to a block-level element
+        $.backstretch(
+            [
+                "images/hosp1.png",
+                "images/hosp2.jpg",
+                "images/hosp3.jpg",
+                "images/hosp4.jpg"
+            ],
+
+            {
+                duration: 10000,
+                fade: 2000
+			}
+        );
+	</script> -->
+
+</body>
+</html>
