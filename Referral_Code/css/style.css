@@ -261,6 +261,15 @@ html {
     color: #686b6e; 
   }
 
+  .consentInnerHeadSmall{
+    font-weight: bold;
+    font-size: 1rem;
+    position: relative;
+    text-decoration: underline;
+    top: 8px;
+    color: #686b6e; 
+  }  
+
   .consentInfoHeadText{
     font-weight: lighter;
     font-size: 1.3rem;

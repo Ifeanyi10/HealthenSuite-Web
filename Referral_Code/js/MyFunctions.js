@@ -329,7 +329,7 @@ function checkAgreeConsent(first, second, contAns, formId, checkboxId) {
             }
         }
 
-        if(agreeCount == 6){
+        if(agreeCount == 7){
             x.style.display = 'none';
             y.style.display = 'block'; 
         }else{
