@@ -43,7 +43,7 @@ $(document).ready(function () {
         if(authToken == null){
             //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
             //urlDomain = 'http://192.168.6.15:8083/';
-            urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+            urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }

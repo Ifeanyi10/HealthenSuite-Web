@@ -1,4 +1,4 @@
-var urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+var urlDomain = 'https://api.healthensuite.com/';
 
 function getQuestionValues(formID, elementName) {
     var abouts = document.forms[formID].elements[elementName];

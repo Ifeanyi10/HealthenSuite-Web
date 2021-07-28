@@ -226,7 +226,7 @@ $(document).ready(function () {
         console.log("You are in this tab and the token is: "+authToken);
         if(authToken == null){
             //urlDomain = 'http://192.168.6.15:8083/';
-            urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
+            urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }

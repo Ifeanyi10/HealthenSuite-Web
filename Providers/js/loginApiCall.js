@@ -1,4 +1,4 @@
-var urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+var urlDomain = 'https://api.healthensuite.com/';
 //var urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
 //var urlDomain = 'http://192.168.6.15:8083/';
 

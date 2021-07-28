@@ -16,7 +16,7 @@
     <script language="javascript">
 
     window.onload = function valiadteProvider(){
-                        var urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+                        var urlDomain = 'https://api.healthensuite.com/';
                         var lastPart = window.location.href.split("code").pop();
                         //var lastPart = '1/D3Y9/lasEWA7Hzw493Z2eVQ/Uqx8Fh7EVyOwzT6Ns=';
                         //alert(lastPart);
@@ -47,7 +47,7 @@
                                 if (isConfirm) {
                                     window.location.href = "provider-login.html";
                                 } else {
-                                    swal("You chose to login later", "Please visit http://healthensuite.000webhostapp.com/ to login.", "info");
+                                    swal("You chose to login later", "Please visit https://app.healthensuite.com/ to login.", "info");
                                 }
                                 });
                             }, 

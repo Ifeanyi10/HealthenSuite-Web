@@ -1,5 +1,5 @@
 //var urlDomain = window.localStorage.getItem("urlDomain");
-var urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+var urlDomain = 'https://api.healthensuite.com/';
 
 // function validatePassword(){
 //     var bt = document.getElementById('btnSubmit');

@@ -25,6 +25,7 @@
                             let authToken = window.localStorage.getItem("patientToken");
                             var isNewLogin = window.localStorage.getItem("isNewLogin");
                             if(isNewLogin == 'true'){$('#exampleModalDisclaimer').modal('show');}
+                            console.log('isNewLogin: '+isNewLogin);
                             
                             window.localStorage.setItem("loginError", false);
                             //alert(authToken);
@@ -139,6 +140,7 @@
                                         $(".spRep").css('display', 'none'); 
                                         $(".spDiary").css('display', 'none'); 
                                         window.localStorage.setItem("notallowed", true);
+                                        window.localStorage.setItem("isNewLogin", false);
                                     }//end success operations
                                       
                                 }, 

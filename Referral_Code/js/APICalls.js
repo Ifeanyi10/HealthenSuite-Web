@@ -1,5 +1,5 @@
 //var urlDomain = 'http://192.168.6.15:8083/';
-var urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+var urlDomain = 'https://api.healthensuite.com/';
 
 function fillAllFields(){
     var bt = document.getElementById('btnRecRefCode');

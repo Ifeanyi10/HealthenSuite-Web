@@ -163,7 +163,7 @@ function validateEmail(){
                 success: function(result){
                     swal({title: "Health ensuite welcomes you!", text: "Thank you for your time. An email will be sent to you within 2 business days confirming your consent with the study information attached.", type: "success"},
                     function(){ 
-                        window.location.href = "index.html";
+                        window.location.href = "referral.html";
                     }
                     );
                     
