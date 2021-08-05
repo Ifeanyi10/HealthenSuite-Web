@@ -451,8 +451,7 @@ function backDisplay(one, two) {
     var x = document.getElementById(one);
     var y = document.getElementById(two);
 
-        y.style.display = 'block';         
-        x.style.display = 'none';
+    window.location.href = "patient-list.html";
 }
 
 

@@ -51,7 +51,7 @@
                                     window.localStorage.setItem("patientPhone", result.phoneNumber);
                                     window.localStorage.setItem("patientEmail", result.email);
                                     window.localStorage.setItem("trialNo", trialNo);
-                                    window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel);
+                                    window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel - 1);
                                     console.log('Level:'+window.localStorage.getItem("CBTLevel"));
                                     window.localStorage.setItem("randomGroupID", result.groupID);
                                     window.localStorage.setItem("enableSpClock", result.statusEntity.enableSleepClockbutton);

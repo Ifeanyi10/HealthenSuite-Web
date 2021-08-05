@@ -249,10 +249,29 @@ function prpareScreen3(dispalyValue, otherDisplayValeu, medOptions){
 
 }
 
+
+
 function validateStartDate(){
     var bt = document.getElementById('btnStartDate');
     var stDate = $("#datepicker").val();
     window.localStorage.setItem("tapperStartDate", stDate);
+
+    if (!String.prototype.padStart) {
+        String.prototype.padStart = function padStart(targetLength,padString) {
+            targetLength = targetLength>>0; //truncate if number or convert non-number to 0;
+            padString = String((typeof padString !== 'undefined' ? padString : ' '));
+            if (this.length > targetLength) {
+                return String(this);
+            }
+            else {
+                targetLength = targetLength-this.length;
+                if (targetLength > padString.length) {
+                    padString += padString.repeat(targetLength/padString.length); //append to original to ensure we are longer than needed
+                }
+                return padString.slice(0,targetLength) + String(this);
+            }
+        };
+    }
 
     if(stDate != '') {
         var today = new Date();
@@ -280,17 +299,27 @@ function validateStartDate(){
     }
   }
 
+checkboxes = document.forms['medForm'].elements['medCAT']; //select all checkboxes
+checkboxes2 = document.forms['medForm2'].elements['medCAT']; //select all checkboxes
+
 function validateMedCheck(){
     var btnMed = document.getElementById('btnMedSelect');
-    var meds = document.forms['medForm'].elements['medCAT'];
-    for (i = 0; i < meds.length; i++) {    
-        if(meds[i].checked == true){
+    var btnMed2 = document.getElementById('btnChangePass');
+    if (limit < 1){
+        btnMed2.disabled = true;
+        console.log("Limit Inside: "+limit);
+    }else{
+        btnMed2.disabled = false;
+    }
+    for (i = 0; i < checkboxes.length; i++) {    
+        if(checkboxes[i].checked == true){
             btnMed.disabled = false;
             return
         }else{
             btnMed.disabled = true;
         }
     }
+    
 }
 
 function validateLastSubmit(){
@@ -316,7 +345,8 @@ function validateLastSubmit(){
       }else{
       medSet.splice($.inArray(checked, medSet),1);
       }
-      
+      console.log("Medset: "+ medSet)
+      console.log("Limit: "+limit);
     });
 
 var firstValue = "";
@@ -324,14 +354,63 @@ var secondValue = "";
 
 function fillMedCheck(){
     var meds = document.forms['medForm2'].elements['medCAT'];
-    for (i = 0; i < meds.length; i++) {  
-        if(meds[i].value == firstValue){
-            meds[i].checked = true;
+    var initialCount = 0;
+    firstValue = "";
+    secondValue = "";
+    for (i = 0; i < checkboxes2.length; i++) { 
+        checkboxes2[i].checked = false;
+    }
+
+    if(medSet.length < 1){
+        return
+    }else{
+        for (i = 0; i < medSet.length; i++) {    
+            if(initialCount < 2){
+                if(initialCount == 0){                   
+                    firstValue = medSet[i];
+                } 
+                if(initialCount == 1){
+                    secondValue = medSet[i];
+                }    
+                initialCount += 1;                            
+            } 
         }  
-        if(meds[i].value == secondValue){
-            meds[i].checked = true;
+    }
+
+    for (i = 0; i < checkboxes2.length; i++) {  
+        if(checkboxes2[i].value == firstValue){
+            checkboxes2[i].checked = true;
+        }  
+        if(checkboxes2[i].value == secondValue){
+            checkboxes2[i].checked = true;
         } 
     }
+    console.log("First: "+firstValue+" Second: "+secondValue);
+    console.log("Meds: "+medSet);
+}
+
+function updateInitialMedCheck(){
+    var meds = document.forms['medForm'].elements['medCAT'];
+
+    for (i = 0; i < checkboxes.length; i++) { 
+        checkboxes[i].checked = false;
+    }
+
+    for (i = 0; i < checkboxes.length; i++) {  
+        if(checkboxes[i].value == firstValue){
+            checkboxes[i].checked = true;
+        }  
+        if(checkboxes[i].value == secondValue){
+            checkboxes[i].checked = true;
+        } 
+    }
+}
+
+function updateCheckboxDetails(){
+    displaySreeen3();
+    console.log("First: "+firstValue+" Second: "+secondValue);
+    updateInitialMedCheck();
+    console.log("Limit: "+limit);
 }
 
 function checkDuration(){
@@ -365,6 +444,8 @@ function displaySreeen3() {
     var x = document.getElementById('screen2');
     var y = document.getElementById('screen3');
     var z = document.getElementById('med2');
+    firstValue = "";
+    secondValue = "";
     //var meds = document.forms['medForm'].elements['medCAT'];
     var firstSelectedValue = ""; 
     var secondSelectedValue = "";
@@ -386,7 +467,7 @@ function displaySreeen3() {
                 initialCount += 1;                            
             } 
     }
-
+    
     if(firstSelectedValue != ""){
         prpareScreen3(firstSelectedValue, secondSelectedValue, drugOptions1)
         document.querySelector('#idMedications2').innerHTML = '';
@@ -400,7 +481,7 @@ function displaySreeen3() {
     }
 
     checkDuration();
-
+    console.log("display runs2: "+limit);
     if(howMany == limit){
         y.style.display = 'block';  
         x.style.display = 'none';
@@ -423,8 +504,9 @@ function displaySreeen3() {
                 y.style.display = 'block';  
                 x.style.display = 'none';
             } else {
-                swal.close()
+                swal.close();
             }
+            console.log("Limit: "+limit);
         });
 
     } else if(howMany == 2 && limit == 1){
@@ -448,6 +530,7 @@ function displaySreeen3() {
             } else {
                 swal.close()
             }
+            console.log("Limit: "+limit);
         });
     }
 
@@ -523,10 +606,14 @@ $(document).ready(function () {
     //Go back to screen 2
     $('#btnBackScreen3').on('click', function(event){
         event.preventDefault();
-        var y = document.getElementById('screen3');
-        y.style.display = 'none';
-        var z = document.getElementById('screen2');
-        z.style.display = 'block';
+        if(limit < 1){
+            sweetAlert("Attention!","Please click on the Add/Remove Medication button to add medication before you go back.","info");
+        }else{
+            var y = document.getElementById('screen3');
+            y.style.display = 'none';
+            var z = document.getElementById('screen2');
+            z.style.display = 'block';
+        }  
     });
 
     //Go back to screen 1
@@ -597,14 +684,14 @@ function checkMedicationLimit() {
 
     var initialCount = 0;
 
-    for (i = 0; i < meds.length; i++) {    
-        if(meds[i].checked == true){
+    for (i = 0; i < checkboxes.length; i++) {    
+        if(checkboxes[i].checked == true){
             if(initialCount < 2){
                 if(initialCount == 0){
-                    firstSelectedValue =  meds[i].value;
+                    firstSelectedValue =  checkboxes[i].value;
                 } 
                 if(initialCount == 1){
-                    secondSelectedValue =  meds[i].value;
+                    secondSelectedValue =  checkboxes[i].value;
                 }    
                 initialCount += 1;                            
             }
@@ -616,8 +703,7 @@ function checkMedicationLimit() {
 
 limit = 0; //set limit
 
-checkboxes = document.forms['medForm'].elements['medCAT']; //select all checkboxes
-checkboxes2 = document.forms['medForm2'].elements['medCAT']; //select all checkboxes
+
 
 function checker(elem) {
   if (elem.checked) { //if checked, increment counter
@@ -638,11 +724,12 @@ function checker(elem) {
 
       if (!checkboxes[i].checked) {
         checkboxes[i].disabled = false; // enable unchecked checkboxes
+        checkboxes2[i].disabled = false; // enable unchecked checkboxes
       }
 
     }
   }
-
+  console.log("Checker Limit: "+limit);
 }
 
 for (i = 0; i < checkboxes.length; i++) {
@@ -666,13 +753,14 @@ function checker2(elem) {
     if (limit == 2) {
       if (!checkboxes2[i].checked) {
         checkboxes2[i].disabled = true; // and disable unchecked checkboxes
-
+        checkboxes[i].disabled = true;
       }
 
     } else { //if limit is less than two
 
       if (!checkboxes2[i].checked) {
         checkboxes2[i].disabled = false; // enable unchecked checkboxes
+        checkboxes2[i].disabled = false;
       }
 
     }
@@ -684,6 +772,7 @@ for (i = 0; i < checkboxes2.length; i++) {
     checkboxes2[i].onclick = function() { //call function on click and send current element as param
     checker2(this);
   }
+
 }
 
 

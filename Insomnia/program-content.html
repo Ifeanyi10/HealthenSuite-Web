@@ -22,13 +22,17 @@
         window.onload = function getPatientsTaskList(){
                             let levelValue = window.localStorage.getItem("CBTLevel");
                             //let levelValue = 5;
-                            initializeContent(levelValue)
-                            console.log("Level: "+levelValue)
-                            if(levelValue >= 6){
-                                document.getElementById('lvNum').innerHTML = 6;
-                            }else{
-                                document.getElementById('lvNum').innerHTML = parseInt(levelValue) + 1;
+                            //console.log(window.localStorage.getItem("Level Vale: "+levelValue));
+                            if(levelValue >= 0){
+                                initializeContent(levelValue)
+                                console.log("Level: "+levelValue)
+                                if(levelValue >= 6){
+                                    document.getElementById('lvNum').innerHTML = 6;
+                                }else{
+                                    document.getElementById('lvNum').innerHTML = parseInt(levelValue) + 1;
+                                }
                             }
+                            
                             
                         }
         

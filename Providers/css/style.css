@@ -7954,6 +7954,7 @@ sub {
   left: 0;
   top: 0;
   background: #111B27;
+  background-color: #2087c8;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
   transition: all .2s ease; }
   .nav-header .logo-abbr {
