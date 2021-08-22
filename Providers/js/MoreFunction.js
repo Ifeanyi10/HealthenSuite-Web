@@ -21,6 +21,14 @@ function notEligibleAlert(){
                 );
 }
 
+function infoAlert(){
+    swal({title: "Select the OPPOSITE!", text: "Please select the opposite of what you selected to continue.", type: "info"},
+                function(){ 
+                    //window.location.href = "provider-dashboard.html";
+                }
+                );
+}
+
 
 function hideDispaly1() {
     var x = document.getElementById('firstQ');
@@ -49,23 +57,29 @@ function hideDispaly1() {
 
     } else if (document.getElementById('prescNo').checked){
         //x.style.display = 'none';
-        y.style.display = 'none';
-        z.style.display = 'block'; 
-        $('input[name=optradio2]').prop("checked",false);
-        $('input[name=optradio3]').prop("checked",false);
 
-        document.getElementById('thirdQ1').style.display = 'none';
-        $('input[name=good]').prop("checked",false);  
+        infoAlert();
+        //uncomment below
 
-        document.getElementById('trial1Demo').style.display = 'none';
+        // y.style.display = 'none';
+        // z.style.display = 'block'; 
+        // $('input[name=optradio2]').prop("checked",false);
+        // $('input[name=optradio3]').prop("checked",false);
 
-        document.getElementById('fourthQ1').style.display = 'none';
-        $('input[name=optradio6]').prop("checked",false); 
+        // document.getElementById('thirdQ1').style.display = 'none';
+        // $('input[name=good]').prop("checked",false);  
 
-        document.getElementById('fifthQ1').style.display = 'none';
-        $('input[name=optradio7]').prop("checked",false); 
+        // document.getElementById('trial1Demo').style.display = 'none';
 
-        document.getElementById('trial2Demo').style.display = 'none';
+        // document.getElementById('fourthQ1').style.display = 'none';
+        // $('input[name=optradio6]').prop("checked",false); 
+
+        // document.getElementById('fifthQ1').style.display = 'none';
+        // $('input[name=optradio7]').prop("checked",false); 
+
+        // document.getElementById('trial2Demo').style.display = 'none';
+
+
         //notEligibleAlert();
     }
 }
@@ -94,20 +108,22 @@ function hideDispaly2() {
 
     } else if (document.getElementById('forSleepNo').checked){
         //x.style.display = 'none';
-        y.style.display = 'none';
-        z.style.display = 'block'; 
-        $('input[name=optradio4]').prop("checked",false);
-        $('input[name=optradio3]').prop("checked",false); 
+        infoAlert();
+        //uncomment below
+        // y.style.display = 'none';
+        // z.style.display = 'block'; 
+        // $('input[name=optradio4]').prop("checked",false);
+        // $('input[name=optradio3]').prop("checked",false); 
 
-        document.getElementById('trial1Demo').style.display = 'none';
+        // document.getElementById('trial1Demo').style.display = 'none';
 
-        document.getElementById('fourthQ1').style.display = 'none';
-        $('input[name=optradio6]').prop("checked",false); 
+        // document.getElementById('fourthQ1').style.display = 'none';
+        // $('input[name=optradio6]').prop("checked",false); 
 
-        document.getElementById('fifthQ1').style.display = 'none';
-        $('input[name=optradio7]').prop("checked",false); 
+        // document.getElementById('fifthQ1').style.display = 'none';
+        // $('input[name=optradio7]').prop("checked",false); 
 
-        document.getElementById('trial2Demo').style.display = 'none';
+        // document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
