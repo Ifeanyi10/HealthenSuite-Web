@@ -161,9 +161,9 @@ $(document).ready(function () {
             "timeZoneID": timeZone}),
             success: function(result){
                 console.log(result);
-                swal({title: "Health enSuite welcomes you to the study!", text: "Your account has been created updated. Please login and start filling your sleep diary.", type: "success"},
+                swal({title: "Health enSuite welcomes you to the study!", text: "Your account has been created updated. You will be directed to the app home page. Login as a patient and start filling your sleep diary.", type: "success"},
                 function(){ 
-                    window.location.href = "patient-login.html";
+                    window.location.href = "../index.html";
                 }
                 );
             }, 

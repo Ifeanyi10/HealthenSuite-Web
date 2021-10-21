@@ -58,26 +58,27 @@ function hideDispaly1() {
     } else if (document.getElementById('prescNo').checked){
         //x.style.display = 'none';
 
-        infoAlert();
+        //infoAlert();
         //uncomment below
 
-        // y.style.display = 'none';
-        // z.style.display = 'block'; 
-        // $('input[name=optradio2]').prop("checked",false);
-        // $('input[name=optradio3]').prop("checked",false);
+        y.style.display = 'none';
+        z.style.display = 'block'; 
+        //$('input[name=optradio1]').prop("checked",false);
+        $('input[name=optradio2]').prop("checked",false);
+        $('input[name=optradio3]').prop("checked",false);
 
-        // document.getElementById('thirdQ1').style.display = 'none';
-        // $('input[name=good]').prop("checked",false);  
+        document.getElementById('thirdQ1').style.display = 'none';
+        $('input[name=good]').prop("checked",false);  
 
-        // document.getElementById('trial1Demo').style.display = 'none';
+        document.getElementById('trial1Demo').style.display = 'none';
 
-        // document.getElementById('fourthQ1').style.display = 'none';
-        // $('input[name=optradio6]').prop("checked",false); 
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
 
-        // document.getElementById('fifthQ1').style.display = 'none';
-        // $('input[name=optradio7]').prop("checked",false); 
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
 
-        // document.getElementById('trial2Demo').style.display = 'none';
+        document.getElementById('trial2Demo').style.display = 'none';
 
 
         //notEligibleAlert();
@@ -95,6 +96,7 @@ function hideDispaly2() {
         z.style.display = 'none';   
         $('input[name=optradio4]').prop("checked",false);
         $('input[name=optradio3]').prop("checked",false);  
+        //$('input[name=optradio2]').prop("checked",false);
 
         document.getElementById('trial1Demo').style.display = 'none';
 
@@ -108,22 +110,22 @@ function hideDispaly2() {
 
     } else if (document.getElementById('forSleepNo').checked){
         //x.style.display = 'none';
-        infoAlert();
+        //infoAlert();
         //uncomment below
-        // y.style.display = 'none';
-        // z.style.display = 'block'; 
-        // $('input[name=optradio4]').prop("checked",false);
-        // $('input[name=optradio3]').prop("checked",false); 
+        y.style.display = 'none';
+        z.style.display = 'block'; 
+        $('input[name=optradio4]').prop("checked",false);
+        $('input[name=optradio3]').prop("checked",false); 
 
-        // document.getElementById('trial1Demo').style.display = 'none';
+        document.getElementById('trial1Demo').style.display = 'none';
 
-        // document.getElementById('fourthQ1').style.display = 'none';
-        // $('input[name=optradio6]').prop("checked",false); 
+        document.getElementById('fourthQ1').style.display = 'none';
+        $('input[name=optradio6]').prop("checked",false); 
 
-        // document.getElementById('fifthQ1').style.display = 'none';
-        // $('input[name=optradio7]').prop("checked",false); 
+        document.getElementById('fifthQ1').style.display = 'none';
+        $('input[name=optradio7]').prop("checked",false); 
 
-        // document.getElementById('trial2Demo').style.display = 'none';
+        document.getElementById('trial2Demo').style.display = 'none';
     }
 }
 
@@ -138,6 +140,11 @@ function hideDispaly3() {
     if (document.getElementById('notForSleepNo').checked) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
+
+        document.getElementById("patFName").value = "";
+        document.getElementById("patLName").value = "";
+        document.getElementById("patAge").value = "";
+        document.getElementById("patEmail").value = "";
 
         document.getElementById('fourthQ1').style.display = 'none';
         $('input[name=optradio6]').prop("checked",false); 
@@ -223,6 +230,11 @@ function hideDispaly6() {
 
     if (document.getElementById('t2NotForSleepNo').checked) {
         //x.style.display = 'none';
+        document.getElementById("pat2FName").value = "";
+        document.getElementById("pat2LName").value = "";
+        document.getElementById("pat2Age").value = "";
+        document.getElementById("pat2Email").value = "";
+
         y.style.display = 'block'; 
            
     } else if (document.getElementById('t2NotForSleepYes').checked){
@@ -267,8 +279,8 @@ function prpareScreen3(dispalyValue, otherDisplayValeu, medOptions){
 
 
 
-function validateStartDate(){
-    var bt = document.getElementById('btnStartDate');
+function validateStartDate(btnSDate){
+    var bt = document.getElementById(btnSDate);
     var stDate = $("#datepicker").val();
     window.localStorage.setItem("tapperStartDate", stDate);
 
@@ -423,6 +435,12 @@ function updateInitialMedCheck(){
 }
 
 function updateCheckboxDetails(){
+    document.getElementById("dosage").value = "";
+    document.getElementById("dosage2").value = "";
+    var val = "Duration of medication (e.g less than 14 days)";
+    $('#inputDuration option:contains(' + val + ')').prop({selected: true});
+    $('#inputDuration2 option:contains(' + val + ')').prop({selected: true});
+    
     displaySreeen3();
     console.log("First: "+firstValue+" Second: "+secondValue);
     updateInitialMedCheck();
@@ -516,6 +534,7 @@ function displaySreeen3() {
             },
             function(isConfirm){
             if (isConfirm) {
+                window.localStorage.setItem("howMany", 2);
                 swal.close()
                 y.style.display = 'block';  
                 x.style.display = 'none';
@@ -540,6 +559,7 @@ function displaySreeen3() {
             },
             function(isConfirm){
             if (isConfirm) {
+                window.localStorage.setItem("howMany", 1);
                 swal.close()
                 y.style.display = 'block';  
                 x.style.display = 'none';
@@ -639,6 +659,8 @@ $(document).ready(function () {
         y.style.display = 'none';
         var z = document.getElementById('screen1');
         z.style.display = 'block';
+        var x = document.getElementById('trial2Demo');
+        x.style.display = 'block';
     });
 
 
@@ -806,13 +828,13 @@ $('#regimen').tooltip({
 
 
 $('#tipTapLength').tooltip({
-    title: "Increase or decrease the total number of weeks and click 'Recompute'",
+    title: "Increase the total number of weeks and click 'Recompute'",
     placement: "right",
     trigger: 'hover'
 })
 
 $('#tipTapLength2').tooltip({
-    title: "Increase or decrease the total number of weeks and click 'Recompute'",
+    title: "Increase the total number of weeks and click 'Recompute'",
     placement: "right",
     trigger: 'hover'
 })
@@ -825,6 +847,31 @@ $('#tipReset').tooltip({
 
 $('#tipReset2').tooltip({
     title: "Click 'Reset' to return to the original computer generated taper schedule for medication 2",
+    placement: "right",
+    trigger: 'hover'
+})
+
+$('.tipCol1').tooltip({
+    title: "This represents the taper week as determined by the application logic based on the number of reductions in the current dose in weeks.",
+    placement: "right",
+    trigger: 'hover'
+})
+
+$('.tipCol2').tooltip({
+    title: "This is the final taper dose for this particular week as determined by the application logic.",
+    placement: "right",
+    trigger: 'hover'
+})
+
+
+$('.tipCol4').tooltip({
+    title: "You can adjust the taper dose using the drop-down option that displays the available dose combinations for this medication, and allows Multi-Select of dose combinations. Please note that the application will allow taper dose for week 1 to be a dose-value lesser than the current dose. Similarly, the allowed taper dose for week 2 would be less than the taper dose input for week 1, and so on. The final dose will be the summed up value of the different dose combinations selected.",
+    placement: "right",
+    trigger: 'hover'
+})
+
+$('.tipCol5').tooltip({
+    title: "This is the final taper dose for this particular week by the Provider",
     placement: "right",
     trigger: 'hover'
 })

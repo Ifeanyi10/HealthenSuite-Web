@@ -13,15 +13,32 @@ var urlDomain = window.localStorage.getItem("urlDomain");
     return gender;
 }
 
+
+function goBack(firstDisplay, secondDisplay){
+    var x = document.getElementById(firstDisplay);
+    var y = document.getElementById(secondDisplay);
+    
+    x.style.display = 'none';
+    y.style.display = 'block';
+}
+
 function fillAllFields(){
     var bt = document.getElementById('btnTrial1');
-    var fName = $("#patFName").val();
-    var lName = $("#patLName").val();
-    var ag = $("#patAge").val();
+    var fName = $("#patFName").val().trim();
+    var lName = $("#patLName").val().trim();
+    var ag = $("#patAge").val().trim();
     if (fName != '' && lName != '' && ag != '')  {
-        if(ag > 17){
-            bt.disabled = false;
-            $("#ageError").html("");
+        if(ag > 17 && ag.charAt(0) != 0){
+            try {
+                ag = parseInt(ag);
+                bt.disabled = false;
+                $("#ageError").html("");
+              }
+              catch(err) {
+                $("#ageError").html("Please enter a valid age of the patient.");
+                console.log("Error: "+err);
+                bt.disabled = true;
+              }
         }else{
             $("#ageError").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
             bt.disabled = true;
@@ -34,13 +51,21 @@ function fillAllFields(){
 
 function fillAllFields2(){
     var bt = document.getElementById('btnTrial2');
-    var fName = $("#pat2FName").val();
-    var lName = $("#pat2LName").val();
-    var ag = $("#pat2Age").val();
+    var fName = $("#pat2FName").val().trim();
+    var lName = $("#pat2LName").val().trim();
+    var ag = $("#pat2Age").val().trim();
     if (fName != '' && lName != '' && ag != '')  {
-        if(ag > 17){
-            bt.disabled = false;
-            $("#ageError2").html("");
+        if(ag > 17 && ag.charAt(0) != 0){
+            try {
+                ag = parseInt(ag);
+                bt.disabled = false;
+                $("#ageError2").html("");
+              }
+              catch(err) {
+                $("#ageError2").html("Please enter a valid age of the patient.");
+                console.log("Error: "+err);
+                bt.disabled = true;
+              }
         }else{
             $("#ageError2").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
             bt.disabled = true;
@@ -53,16 +78,43 @@ function fillAllFields2(){
 function fillBasicMedicationFields(){
     var bt = document.getElementById('btnMedication');
     var ds2 = document.getElementById('dosage2');
-    var med2 = document.getElementById("idMedications2").value;
+    //var med2 = document.getElementById("idMedications2").value;
     var meds = $("#idMedications1").val();
-    var dose = $("#dosage").val();
+    var meds2 = $("#idMedications2").val();
+    var dose = $("#dosage").val().trim();
     var duration = $("#inputDuration").val();
+
+    var dose2 = $("#dosage2").val().trim();
+    var duration2 = $("#inputDuration2").val();
     
     if (meds != '' && dose != '')  {
-        ds2.disabled = false;
-        if(med2 == '' && duration != ''){bt.disabled = false;
-        }else{$('#idMedications2, #dosage2').keyup(fillBasicMedicationFields2);}
-        
+
+        if(dose > 0 ){
+
+            try{
+                dose = parseInt(dose);
+                $("#errorContainer4").html("");
+                ds2.disabled = false;
+                var howMany = window.localStorage.getItem("howMany");
+                if(howMany == 1 && duration != ''){
+                    bt.disabled = false;
+                }
+                else if(howMany == 2 && meds2 != '' && dose2 != '' && duration2 != ''){
+                    bt.disabled = false;
+                }
+                else{
+                    $('#idMedications2, #dosage2').keyup(fillBasicMedicationFields2);               
+                }
+    
+            }catch(err){
+                $("#errorContainer4").html("Please enter a valid dosage for Medication 1.");
+                bt.disabled = true;
+            }
+
+        }else{
+            $("#errorContainer4").html("Please enter a valid dosage for Medication 1.");
+            bt.disabled = true;
+        }
     } else {
         ds2.disabled = true;
         bt.disabled = true;
@@ -72,12 +124,34 @@ function fillBasicMedicationFields(){
 function fillBasicMedicationFields2(){
     var bt = document.getElementById('btnMedication');
     bt.disabled = true;
+    var meds2 = $("#idMedications2").val();
+    var dose2 = $("#dosage2").val().trim();
+    var duration2 = $("#inputDuration2").val();
+
     var meds = $("#idMedications2").val();
-    var dose = $("#dosage2").val();
+    var dose = $("#dosage2").val().trim();
     var duration = $("#inputDuration2").val();
     
-    if (meds != '' && dose != '' && duration != '')  {
-        bt.disabled = false;
+    if (meds2 != '' && dose2 != '')  {
+
+        if(dose2 > 0){
+
+            try{
+                dose2 = parseInt(dose2);
+                $("#errorContainer5").html("");
+                if(duration2 != '' && meds != '' && dose != '' && duration != ''){
+                    bt.disabled = false;
+                }
+            }catch(err){
+                $("#errorContainer5").html("Please enter a valid dosage for Medication 2.");
+                bt.disabled = true;
+            }
+
+        }else{
+            $("#errorContainer5").html("Please enter a valid dosage for Medication 2.");
+            bt.disabled = true;
+        }
+        
     } else {
         //alert(duration);
         bt.disabled = true;
@@ -85,6 +159,41 @@ function fillBasicMedicationFields2(){
 }
 
 
+
+// function fillBasicMedicationFields(){
+//     var bt = document.getElementById('btnMedication');
+//     var ds2 = document.getElementById('dosage2');
+//     var med2 = document.getElementById("idMedications2").value;
+//     var meds = $("#idMedications1").val();
+//     var dose = $("#dosage").val().trim();
+//     var duration = $("#inputDuration").val();
+    
+//     if (meds != '' && dose != '')  {
+        
+//         ds2.disabled = false;
+//         if(med2 == '' && duration != ''){bt.disabled = false;
+//         }else{$('#idMedications2, #dosage2').keyup(fillBasicMedicationFields2);}
+        
+//     } else {
+//         ds2.disabled = true;
+//         bt.disabled = true;
+//     }
+// }
+
+// function fillBasicMedicationFields2(){
+//     var bt = document.getElementById('btnMedication');
+//     bt.disabled = true;
+//     var meds = $("#idMedications2").val();
+//     var dose = $("#dosage2").val().trim();
+//     var duration = $("#inputDuration2").val();
+    
+//     if (meds != '' && dose != '' && duration != '')  {
+//         bt.disabled = false;
+//     } else {
+//         //alert(duration);
+//         bt.disabled = true;
+//     }
+// }
 
 
 
@@ -332,6 +441,7 @@ $(document).ready(function () {
 
         var x = document.getElementById("screen1");
         var y = document.getElementById("printSample");
+        var z = document.getElementById('trial1Demo');
         //var z = document.getElementById("elligHead");
         var dup = document.getElementById("duplicateScreen");
         //alert(gender);
@@ -339,65 +449,92 @@ $(document).ready(function () {
 
         //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
         let authToken = window.localStorage.getItem("token");
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*',
-                'Authorization': 'Bearer '+ authToken
-              },
-            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender,
-            "trialType" : 1, "verify": true }),
-            success: function(result){
 
-                console.log(result);
+        //Confirm patient entries before submission
 
-                duplicateValue = result.identicalProfiles;
+        swal({
+            title: "Attention!",
+             text: "Kindly verify the Patient demographics you entered. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "Yes, submit my entries",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "No, let me review my entries",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                swal.close()
                 
-                if(!(duplicateValue == null)){
-                    var a = document.createElement('a');
-                    var formattedDate = '';
-                    $.each(result.identicalProfiles, function(i, def) {
-                        formattedDate = def.patientReferralEntity.date_Created
-                        formattedDate = formattedDate.split("T", 1)
-                        $("#duplicateTBody").append($("<tr>").attr({"id":i+ 1})
-                            .append($("<td>").append(def.id))
-                            .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
-                            .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
-                            .append($("<td>").append(def.age))
-                            .append($("<td>").append(def.gender))
-                            .append($("<td>").append(formattedDate))
-                            .append($("<td>").append(def.tapperStartDate)))
-                    });
-
-                    dup.style.display = 'block';         
-                    x.style.display = 'none';
-                    //z.style.display = 'none';
-                }
-                else{
-                    document.getElementById('refCode').innerHTML = result.referalCode;
-                    var patIDVar = result.referalCode;
-                    window.localStorage.setItem("patientID", patIDVar.split("-",1));
-                    window.localStorage.setItem("patientName", firstName+" "+lastName);
-                    // document.getElementById('usName').innerHTML = result.userName;
-                    // document.getElementById('ps').innerHTML= result.password;
-                    swal({title: "Patient Recommended To Health enSuite Insomnia Study Successfully!", text: "Click OK to view/print the referral code.", type: "success"},
-                    function(){ 
-                        //window.location.href = "provider-dashboard.html";
-                        y.style.display = 'block';         
-                        x.style.display = 'none';
-                        //z.style.display = 'none';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Accept': '*/*',
+                        'Authorization': 'Bearer '+ authToken
+                      },
+                    data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender,
+                    "trialType" : 1, "verify": true }),
+                    success: function(result){
+        
+                        console.log(result);
+        
+                        duplicateValue = result.identicalProfiles;
+                        
+                        if(!(duplicateValue == null)){
+                            var a = document.createElement('a');
+                            var formattedDate = '';
+                            $("#dupTable1").find("tbody").empty(); //clear all the content from tbody here.
+                            $.each(result.identicalProfiles, function(i, def) {
+                                formattedDate = def.patientReferralEntity.date_Created
+                                formattedDate = formattedDate.split("T", 1)
+                                $("#duplicateTBody").append($("<tr>").attr({"id":i+ 1})
+                                    .append($("<td>").append(def.id))
+                                    .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
+                                    .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
+                                    .append($("<td>").append(def.age))
+                                    .append($("<td>").append(def.gender))
+                                    .append($("<td>").append(formattedDate))
+                                    .append($("<td>").append(def.tapperStartDate)))
+                            });
+        
+                            dup.style.display = 'block';         
+                            z.style.display = 'none';
+                            //z.style.display = 'none';
+                        }
+                        else{
+                            document.getElementById('refCode').innerHTML = result.referalCode;
+                            var patIDVar = result.referalCode;
+                            window.localStorage.setItem("patientID", patIDVar.split("-",1));
+                            window.localStorage.setItem("patientName", firstName+" "+lastName);
+                            // document.getElementById('usName').innerHTML = result.userName;
+                            // document.getElementById('ps').innerHTML= result.password;
+                            swal({title: "Patient Recommended To Health enSuite Insomnia Study Successfully!", text: "Click OK to view/print the referral code.", type: "success"},
+                            function(){ 
+                                //window.location.href = "provider-dashboard.html";
+                                y.style.display = 'block';         
+                                x.style.display = 'none';
+                                //z.style.display = 'none';
+                            }
+                            );
+                        }
+                        
+                    }, 
+                    error: function(msg){
+                        $("#errorContainer").html("Unable to submit patient's record");
+                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
                     }
-                    );
-                }
-                
-            }, 
-            error: function(msg){
-                $("#errorContainer").html("Unable to submit patient's record");
-                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                });
+
+            } else {
+                swal.close()
             }
         });
+
+        //end of entry confirmation
     });
 
 
@@ -416,46 +553,76 @@ $(document).ready(function () {
         var gender= getTrial1Gender("optradio5");
 
         var y = document.getElementById("printSample");
+        var x = document.getElementById("screen1");
+
         var dup = document.getElementById("duplicateScreen");
         //alert(gender);
         let url = urlDomain + 'insomnia/v1/patient/create';  
 
         //window.localStorage.setItem("token", "7BCcz0Duefx7ioF/20us6aKso5voeaPBgn0L+siY+lM=");
         let authToken = window.localStorage.getItem("token");
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*',
-                'Authorization': 'Bearer '+ authToken
-              },
-            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender,
-            "trialType" : 1, "verify": false }),
-            success: function(result){
 
-                console.log(result);
+        //confirm patient entries
+
+        swal({
+            title: "Attention!",
+             text: "Kindly verify the existing Patient profiles that match your Patient profile. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "Yes, reassign the patient",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "No, let me review the duration(s)",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                swal.close()
                 
-                document.getElementById('refCode').innerHTML = result.referalCode;
-                var patIDVar = result.referalCode;
-                window.localStorage.setItem("patientID", patIDVar.split("-",1));
-                window.localStorage.setItem("patientName", firstName+" "+lastName);
-                // document.getElementById('usName').innerHTML = result.userName;
-                // document.getElementById('ps').innerHTML= result.password;
-                swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},
-                function(){ 
-                    //window.location.href = "provider-dashboard.html";
-                    y.style.display = 'block';         
-                    dup.style.display = 'none';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Accept': '*/*',
+                        'Authorization': 'Bearer '+ authToken
+                      },
+                    data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender,
+                    "trialType" : 1, "verify": false }),
+                    success: function(result){
+        
+                        console.log(result);
+                        
+                        document.getElementById('refCode').innerHTML = result.referalCode;
+                        var patIDVar = result.referalCode;
+                        window.localStorage.setItem("patientID", patIDVar.split("-",1));
+                        window.localStorage.setItem("patientName", firstName+" "+lastName);
+                        // document.getElementById('usName').innerHTML = result.userName;
+                        // document.getElementById('ps').innerHTML= result.password;
+                        swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},
+                        function(){ 
+                            //window.location.href = "provider-dashboard.html";
+                            y.style.display = 'block';         
+                            dup.style.display = 'none';
+                            x.style.display = 'none';
+                            }
+                        );
+                        
+                    }, 
+                    error: function(msg){
+                        $("#errorDuplicateContainer").html("Unable to submit patient's record");
+                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
                     }
-                );
-                
-            }, 
-            error: function(msg){
-                $("#errorDuplicateContainer").html("Unable to submit patient's record");
-                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                });
+
+            } else {
+                swal.close();
+                goBack('duplicateScreen','trial1Demo');
             }
         });
+
+        //end of confirm entries
     });
 
 
@@ -476,57 +643,85 @@ $(document).ready(function () {
         let authToken = window.localStorage.getItem("token");
         var x = document.getElementById('screen1');
         var y = document.getElementById('screen2');
+        var z = document.getElementById('trial2Demo');
         var dup = document.getElementById("duplicateScreen2");
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*',
-                'Authorization': 'Bearer '+ authToken
-              },
-            data: JSON.stringify({"age": age, "firstName": firstName, "gender": gender, "lastName": lastName,
-            "trialType" : 2, "verify": true }),
-            success: function(result){
-                console.log(result);
-                duplicateValue = result.identicalProfiles;
+
+        //Confirm patient entries before submission
+
+        swal({
+            title: "Attention!",
+             text: "Kindly verify the Patient demographics you entered. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "Yes, submit my entries",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "No, let me review my entries",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                swal.close();
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Accept': '*/*',
+                        'Authorization': 'Bearer '+ authToken
+                      },
+                    data: JSON.stringify({"age": age, "firstName": firstName, "gender": gender, "lastName": lastName,
+                    "trialType" : 2, "verify": true }),
+                    success: function(result){
+                        console.log(result);
+                        duplicateValue = result.identicalProfiles;
+                        
+                        if(!(duplicateValue == null)){
+                            var formattedDate = '';
+                            $("#dupTable2").find("tbody").empty(); //clear all the content from tbody here.
+                            $.each(result.identicalProfiles, function(i, def) {
+                                formattedDate = def.patientReferralEntity.date_Created
+                                formattedDate = formattedDate.split("T", 1)
+                                $("#duplicate2TBody").append($("<tr>").attr({"id":i+ 1})
+                                    .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
+                                    .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
+                                    .append($("<td>").append(def.age))
+                                    .append($("<td>").append(def.gender))
+                                    .append($("<td>").append(formattedDate))
+                                    .append($("<td>").append(def.tapperStartDate)))
+                            });
+                            dup.style.display = 'block';         
+                            z.style.display = 'none';
+                        }else{
+                            window.localStorage.setItem("patientName", firstName+" "+lastName);
+                            window.localStorage.setItem("patientFName", firstName);
+                            window.localStorage.setItem("trial2RefCode", result.referalCode);
+                            document.getElementById('refCode1').innerHTML = result.referalCode;
+                            var patIDVar = result.referalCode;
+                            window.localStorage.setItem("patientID", patIDVar.split("-",1));
+                            //document.getElementById('usName1').innerHTML = result.userName;
+                            //document.getElementById('ps1').innerHTML= result.password;
+                            document.getElementById('refCode2').innerHTML = result.referalCode;
+                            // document.getElementById('usName2').innerHTML = result.userName;
+                            // document.getElementById('ps2').innerHTML= result.password;
+                            y.style.display = 'block';         
+                            x.style.display = 'none';
+                        }
+                    }, 
+                    error: function(msg){
+                        $("#errorContainer2").html("Unable to submit patient's record");
+                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                    }
+                });
                 
-                if(!(duplicateValue == null)){
-                    var formattedDate = '';
-                    $.each(result.identicalProfiles, function(i, def) {
-                        formattedDate = def.patientReferralEntity.date_Created
-                        formattedDate = formattedDate.split("T", 1)
-                        $("#duplicate2TBody").append($("<tr>").attr({"id":i+ 1})
-                            .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
-                            .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
-                            .append($("<td>").append(def.age))
-                            .append($("<td>").append(def.gender))
-                            .append($("<td>").append(formattedDate))
-                            .append($("<td>").append(def.tapperStartDate)))
-                    });
-                    dup.style.display = 'block';         
-                    x.style.display = 'none';
-                }else{
-                    window.localStorage.setItem("patientName", firstName+" "+lastName);
-                    window.localStorage.setItem("patientFName", firstName);
-                    window.localStorage.setItem("trial2RefCode", result.referalCode);
-                    document.getElementById('refCode1').innerHTML = result.referalCode;
-                    var patIDVar = result.referalCode;
-                    window.localStorage.setItem("patientID", patIDVar.split("-",1));
-                    //document.getElementById('usName1').innerHTML = result.userName;
-                    //document.getElementById('ps1').innerHTML= result.password;
-                    document.getElementById('refCode2').innerHTML = result.referalCode;
-                    // document.getElementById('usName2').innerHTML = result.userName;
-                    // document.getElementById('ps2').innerHTML= result.password;
-                    y.style.display = 'block';         
-                    x.style.display = 'none';
-                }
-            }, 
-            error: function(msg){
-                $("#errorContainer2").html("Unable to submit patient's record");
-                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                // close swal function after now
+            } else {
+                swal.close()
             }
         });
+        //end of confirm Input
     });
 
 
@@ -548,38 +743,67 @@ $(document).ready(function () {
         var x = document.getElementById('screen1');
         var y = document.getElementById('screen2');
         var dup = document.getElementById("duplicateScreen2");
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*',
-                'Authorization': 'Bearer '+ authToken
-              },
-            data: JSON.stringify({"age": age, "firstName": firstName, "gender": gender, "lastName": lastName,
-            "trialType" : 2, "verify": false }),
-            success: function(result){
-                console.log(result);
-                window.localStorage.setItem("patientName", firstName+" "+lastName);
-                    window.localStorage.setItem("patientFName", firstName);
-                    window.localStorage.setItem("trial2RefCode", result.referalCode);
-                    document.getElementById('refCode1').innerHTML = result.referalCode;
-                    var patIDVar = result.referalCode;
-                    window.localStorage.setItem("patientID", patIDVar.split("-",1));
-                    //document.getElementById('usName1').innerHTML = result.userName;
-                    //document.getElementById('ps1').innerHTML= result.password;
-                    document.getElementById('refCode2').innerHTML = result.referalCode;
-                    // document.getElementById('usName2').innerHTML = result.userName;
-                    // document.getElementById('ps2').innerHTML= result.password;
-                y.style.display = 'block';         
-                dup.style.display = 'none';
+
+        // Confirm patient entries
+
+        swal({
+            title: "Attention!",
+             text: "Kindly verify the existing Patient profiles that match your Patient profile. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "Yes, submit my entries",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "No, let me review my entries",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                swal.close()
                 
-            }, 
-            error: function(msg){
-                $("#errorDuplicateContainer2").html("Unable to submit patient's record");
-                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                        'Accept': '*/*',
+                        'Authorization': 'Bearer '+ authToken
+                      },
+                    data: JSON.stringify({"age": age, "firstName": firstName, "gender": gender, "lastName": lastName,
+                    "trialType" : 2, "verify": false }),
+                    success: function(result){
+                        console.log(result);
+                        window.localStorage.setItem("patientName", firstName+" "+lastName);
+                            window.localStorage.setItem("patientFName", firstName);
+                            window.localStorage.setItem("trial2RefCode", result.referalCode);
+                            document.getElementById('refCode1').innerHTML = result.referalCode;
+                            var patIDVar = result.referalCode;
+                            window.localStorage.setItem("patientID", patIDVar.split("-",1));
+                            //document.getElementById('usName1').innerHTML = result.userName;
+                            //document.getElementById('ps1').innerHTML= result.password;
+                            document.getElementById('refCode2').innerHTML = result.referalCode;
+                            // document.getElementById('usName2').innerHTML = result.userName;
+                            // document.getElementById('ps2').innerHTML= result.password;
+                        y.style.display = 'block';  
+                        x.style.display = 'none';       
+                        dup.style.display = 'none';
+                        
+                    }, 
+                    error: function(msg){
+                        $("#errorDuplicateContainer2").html("Unable to submit patient's record");
+                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                    }
+                });
+
+            } else {
+                swal.close();
+                goBack('duplicateScreen2','trial2Demo');
             }
         });
+
+        //end of confirm Input
+
     });
 
 
@@ -602,7 +826,7 @@ $(document).ready(function () {
             success: function(result){
                 console.log(result);
                 document.getElementById('refCode').innerHTML = patRefCode;
-                swal({title: "Patient moved to Health enSuite Insomnia Study!!", text: "Your patient does not need to deprescribe his/her medication", type: "success"},
+                swal({title: "Patient moved to Health enSuite Insomnia Study!!", text: "", type: "success"},
                 function(){ 
                     y.style.display = 'block';         
                     x.style.display = 'none';
@@ -637,6 +861,9 @@ $(document).ready(function () {
         $("#taperTable1Print").find("tbody").empty(); //clear all the content from tbody here.
         $("#taperTable2Print").find("tbody").empty(); //clear all the content from tbody here.
         $("#taperTable3Print").find("tbody").empty(); //clear all the content from tbody here.
+
+        document.getElementById("tpLength").value = "";
+        document.getElementById("tpLength2").value = "";
 
         var med1 = document.getElementById("idMedications1").value;
         window.localStorage.setItem("med1Store", med1);
@@ -739,7 +966,11 @@ $(document).ready(function () {
                                     window["td"+i+4].style.padding = '8px';
 
                                     const selectList = document.createElement("select");
-                                    selectList.style.width = '150px';
+                                    selectList.style.width = '180px';
+                                    //selectList.classList.add("medSelect");
+                                    //selectList.multiple = true;
+                                    //selectList.name = "medSelect";
+                                    //$('.medSelect').multiSelect();
                                     
                                     doCombi = def.dose_Combination;
                                     doCombi.reverse();
@@ -887,13 +1118,13 @@ $(document).ready(function () {
                 }else if(duration == 10 && duration2 == 10){
                     swal({
                         title: "Attention!",
-                         text: "At least one of the medication duration shows that patient has taken the medication 'Less than 14 days'. If this is true, the patients will be automatically be re-assigned",
+                         text: 'Your patient is taking two medications for less than 14 days. Please select either of these options to proceed: \n\nSelect “No, let me review the duration(s).” if you would like to change the duration(s) and re-submit the form. In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study. \n\nSelect “Yes, reassign to the Health enSuite Insomnia Study.” if the duration you have entered is correct, and your patient is willing to stop their medication(s) right away or before beginning the CBT program for insomnia. In this case, your patient will be assigned to the Health enSuite Insomnia study, which is offered for patients who are not taking sleep medications.',
                         type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#2087c8",
-                        confirmButtonText: "Yes, reassign the patient",
+                        confirmButtonText: "Yes, reassign to the Health enSuite Insomnia Study.",
                         cancelButtonColor: "#01AA73",
-                        cancelButtonText: "No, let me review the duration(s)",
+                        cancelButtonText: "No, let me review the duration(s).",
                         closeOnConfirm: false,
                         closeOnCancel: false
                         },
@@ -910,13 +1141,13 @@ $(document).ready(function () {
 
                     swal({
                         title: "Attention!",
-                         text: "At least one of the medication duration shows that patient has taken the medication 'Less than 14 days'. If this is true, the medication with 'Less than 14 days' will not be printed",
+                         text: 'Your patient is taking at least one medication for less than 14 days. Please select either of these options to proceed: \n\nSelect “No, let me review the duration(s).” if you would like to change the duration(s) and re-submit the form. In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study. \n\nSelect “Yes, continue.” if the duration you have entered is correct, and your patient is willing to stop the medication(s) they are taking for less than 14 days right away.  In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study.',
                         type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#2087c8",
-                        confirmButtonText: "Yes, continue",
+                        confirmButtonText: "Yes, continue.",
                         cancelButtonColor: "#01AA73",
-                        cancelButtonText: "No, let me review the duration(s)",
+                        cancelButtonText: "No, let me review the duration(s).",
                         closeOnConfirm: false,
                         closeOnCancel: false
                         },
@@ -1202,13 +1433,13 @@ $(document).ready(function () {
                 }else{
                     swal({
                         title: "Attention!",
-                         text: "At least one of the medication duration shows that patient has taken the medication 'Less than 14 days'. If this is true, the patients will be automatically be re-assigned",
+                         text: 'Your patient is taking one medication for less than 14 days. Please select either of these options to proceed: \n\nSelect “No, let me review the duration.” if you would like to change the duration and re-submit the form. In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study. \n\nSelect “Yes, reassign to the Health enSuite Insomnia Study.” if the duration you have entered is correct, and your patient is willing to stop their medication right away or before beginning the CBT program for insomnia. In this case, your patient will be assigned to the Health enSuite Insomnia study, which is offered for patients who are not taking sleep medications.',
                         type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#2087c8",
-                        confirmButtonText: "Yes, reassign the patient",
+                        confirmButtonText: "Yes, reassign to the Health enSuite Insomnia Study.",
                         cancelButtonColor: "#01AA73",
-                        cancelButtonText: "No, let me review the duration(s)",
+                        cancelButtonText: "No, let me review the duration.",
                         closeOnConfirm: false,
                         closeOnCancel: false
                         },
@@ -1229,6 +1460,8 @@ $(document).ready(function () {
     //Reset Tapering Generation Med 1
     $('#btnReset').on('click', function(event){
         event.preventDefault();
+
+        document.getElementById("tpLength").value = "";
 
         var medQT = window.localStorage.getItem("medQuantity");
         var tableBodyPrint = ''; var captionNamePrint = '';
@@ -1396,6 +1629,8 @@ $(document).ready(function () {
         $("#taperTable3Print").find("tbody").empty();
         tableBodyPrint = '#taperTable3Print';
         captionNamePrint = 'drugNmP2';
+
+        document.getElementById("tpLength2").value = "";
 
         var med2 = window.localStorage.getItem("med2Store");
         let conceptId2 = window.localStorage.getItem("conceptId2Store");

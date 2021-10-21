@@ -78,7 +78,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Last name is required">
-						<span class="label-input100">Name</span>
+						<span class="label-input100">Last Name</span>
 						<input class="input100" type="text" id="patName" name="name" placeholder="Enter your last name">
 						<span class="focus-input100"></span>
 					</div>
@@ -117,27 +117,31 @@
 								</div>
 								<div class="modal-body">
 									<div>
-										<strong>Please call Health enSuite on (902) 470 7934 or fill and submit this form</strong>
+										<strong>Please call Health enSuite on (902) 470 7934 or fill and submit this form.</strong>
 									</div>
 									<form class="mt-3 mb-3 login-input" id="recovForm">
 										<div class="form-group">
+											<span class="label-input100">First Name</span>
 											<input type="text" class="form-control" id="recPatFName" placeholder="Patient’s First Name" required>
 										</div>
 										<div class="form-group">
+											<span class="label-input100">Last Name</span>
 											<input type="text" class="form-control" id="recPatLName"  placeholder="Patient’s Last Name" required>
 										</div>
 
 										<div class="form-group">
-											<input type="email" class="form-control" id="recPatEmail"  placeholder="Patient’s Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+											<span class="label-input100">Email</span>
+											<input type="email" class="form-control" id="recPatEmail"  placeholder="Email to receive your referral code" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
 										</div>
 
 										<div class="form-group" id='ageError' style="color: red; font-weight: bolder;"></div>
 
 										<div class="form-group">
-											<input type="number" class="form-control" id="recPatAge" placeholder="Age (Years)" max="3" required>
+											<span class="label-input100">Age (On your date of referral)</span>
+											<input type="number" class="form-control" id="recPatAge" placeholder="Age (Your age at the day you were reffered)" max="3" required>
 										</div>
 
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="lblQuestion">Gender:</label>
 											<label class="radio-inline mr-3">
 												<input type="radio" id="t2Male" value="MALE" name="optradio21" checked> Male</label>
@@ -145,7 +149,7 @@
 												<input type="radio" id="t2Female" value="FEMALE" name="optradio21"> Female</label>
 											<label class="radio-inline mr-3">
 												<input type="radio" id="t2Other" value="OTHER" name="optradio21"> Other</label>
-										</div>
+										</div> -->
 
 									</form>
 								</div>

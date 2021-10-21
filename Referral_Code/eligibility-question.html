@@ -9,9 +9,9 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<!-- <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->	
@@ -82,8 +82,31 @@
                                     </div>
 
                                     <div class="form-group hidden" id="thirdQ">
-                                        <label class="lblQuestion">Have you experienced any of the following problems at least 3 nights per week in the last 3 months?</label><br/>
-                                        <label class="radio-inline mr-3">
+                                        <label class="lblQuestion">Have you experienced any of the following problems at least 3 nights per week in the last 3 months? (Check all that applies and scroll down to continue)</label><br/>
+                                        
+                                        <div class="form-check mb-3">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" onclick="getCheckedSymptomValues();" class="form-check-input" name="symp" value="symptom-1">  It takes more than 30 minutes for me to fall asleep after I get into bed at night.</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" onclick="getCheckedSymptomValues();" class="form-check-input" name="symp" value="symptom-2">  I wake up in the middle of the night and stay awake for more than 30 minutes.</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" onclick="getCheckedSymptomValues();" class="form-check-input" name="symp" value="symptom-3">  I get less than 5 hours of sleep per night.</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" onclick="getCheckedSymptomValues();" class="form-check-input" name="symp" value="symptom-4">  My difficulty sleeping is causing me a lot of distress.</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" onclick="getCheckedSymptomValues();" class="form-check-input" name="symp" value="symptom-5">  My difficulty sleeping has impaired my ability to work or affected my relationships with friends and family.</label>
+                                        </div>
+
+                                        
+                                        <!-- <label class="radio-inline mr-3">
                                             <input type="radio" onclick="symptomHideDispaly();" id="symp1" value="It takes more than 30 minutes for you to fall asleep after you get into bed at night." name="optSleep"> It takes more than 30 minutes for me to fall asleep after I get into bed at night.</label>
                                         <label class="radio-inline mr-3">
                                             <input type="radio" onclick="symptomHideDispaly();" id="symp2" value="You wake up in the middle of the night and stay awake for more than 30 minutes." name="optSleep"> I wake up in the middle of the night and stay awake for more than 30 minutes.</label>
@@ -94,7 +117,8 @@
                                         <label class="radio-inline mr-3">
                                             <input type="radio" onclick="symptomHideDispaly();" id="symp5" value="Your difficulty sleeping has impaired your ability to work or affected your relationships with friends and family." name="optSleep"> My difficulty sleeping has impaired my ability to work or affected my relationships with friends and family.</label>
                                         <label class="radio-inline mr-3">
-                                            <input type="radio" onclick="symptomHideDispaly();" id="noSymp" value="bad" name="optSleep"> I have not experienced any of these symptoms for at least 3 nights per week in the last 3 months.</label>
+                                            <input type="radio" onclick="symptomHideDispaly();" id="noSymp" value="bad" name="optSleep"> I have not experienced any of these symptoms for at least 3 nights per week in the last 3 months.</label> -->
+                                            
                                         <!-- </br></br>
                                         <input type='button' class='btn-secondary' onclick="goBackConsent('thirdQ','secondQ');" value='Back'/> -->
                                     </div>

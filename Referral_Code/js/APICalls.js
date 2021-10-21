@@ -14,6 +14,7 @@ function fillAllFields(){
             bt.disabled = true;
         }else{
             $("#ageError").html("");
+            //bt.disabled = false;
 
             if(ag > 17  && ag != ''){
                 bt.disabled = false;
@@ -50,7 +51,8 @@ function isEmail(email) {
 }
 
  $(document).ready(function () {
-
+     
+    
     $('#recPatFName, #recPatLName, #recPatAge, #recPatEmail').keyup(fillAllFields);
 
     //Login Patient Ref Code
@@ -106,7 +108,7 @@ function isEmail(email) {
         var age = document.getElementById("recPatAge").value;
         age = parseInt(age);
         var email = document.getElementById("recPatEmail").value;
-        var gender= getTrial1Gender("optradio21");
+        // var gender= getTrial1Gender("optradio21");
 
         let url = urlDomain + 'insomnia/v1/dashboard/reguestforcode';  
 
@@ -117,12 +119,12 @@ function isEmail(email) {
                 'Content-Type': 'application/json', 
                 'Accept': '*/*'
               },
-            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "gender": gender, "email" : email}),
+            data: JSON.stringify({"firstName": firstName, "lastName": lastName, "age": age, "email" : email}),
             success: function(result){
 
                 console.log(result);
                 if(result){
-                    swal({title: "Request sent!", text: "Health enSuite will contact you soon.", type: "success"},
+                    swal({title: "Request sent!", text: "Health enSuite will send your Referral code to your email address. Please check your Inbox/Spam folder for your Referral Code.", type: "success"},
                     function(){ 
                         $('#contactModalInfo').modal('hide');
                     }

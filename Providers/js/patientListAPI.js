@@ -1,5 +1,6 @@
 
 var urlDomain = window.localStorage.getItem("urlDomain");
+var patientAccountID = "";
 
 $(document).ready(function () {
     $("#nameSearch").keyup(populateTB);
@@ -19,6 +20,44 @@ $(document).ready(function () {
             $('#loginModal').modal('show');
         }
     });
+
+    //Provider Change Patient Taper Start date
+    $('#btnReviseNow').on('click', function(event){
+        event.preventDefault();
+
+        var newTaperStartDate = document.getElementById("datepicker").value;
+        let authToken = window.localStorage.getItem("token");
+
+        let url = urlDomain + 'insomnia/v1/provider/updatetapperstartdate';
+        $.ajax({
+            url: url,
+            type: 'POST',
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
+            },
+            data: JSON.stringify({
+                "id" : patientAccountID,
+                "code" : newTaperStartDate
+                }),
+            success: function(result){
+                console.log(result);
+                swal({title: "Done!", text: "Your Patient’s Taper start date has been revised.", type: "success"},
+                function(){ 
+                    $('#exampleModalRevisePatient').modal('hide');
+                    window.location.href = "patient-list.html";
+                }
+                );
+            }, 
+            error: function(msg){
+                $("#errorContainer").html("Unable to register");
+                sweetAlert("Update not successful!","Please try again shortly.","error");
+            }
+        });
+        console.log("Sending the Taper Date to back-end: "+newTaperStartDate);
+    });
+
 
     //Quick Provider Login
     $('#btnQuickLogin').on('click', function(event){
@@ -112,6 +151,14 @@ const findUserById = (id, users) => {
     return user;
     }
 
+
+function getCurrentTaperStartDate(){
+    document.getElementById('datepicker').value = "";
+    document.getElementById('btnReviseNow').disabled = true;
+    document.getElementById('currentStDate').value= document.getElementById('paTapStDate').innerHTML;
+    console.log("Patient ID: "+patientAccountID);
+}
+
 function getPatDetatail(){
     var x = document.getElementById('patientListTB');
     var y = document.getElementById('patientSpace');
@@ -124,7 +171,7 @@ function getPatDetatail(){
     let userObj = findUserById(parseInt(rowId), users);
 
     
-    
+    patientAccountID = userObj.id;
     document.getElementById('paName').innerHTML = userObj.firstName + ' ' + userObj.lastName;
     document.getElementById('paAge').innerHTML = userObj.age;
     var myGend = "";
@@ -150,10 +197,11 @@ function getPatDetatail(){
     //var tapStD = userObj.tapperStartDate;
     if(tapStD == '' || tapStD == null){
         document.getElementById('paTapStDate').innerHTML = 'Not applicable';
+        document.getElementById('btnStDate').style.display = 'none';
     }else{
         tapStD = userObj.regimen[0].taperStartDate;
         document.getElementById('paTapStDate').innerHTML = tapStD;
-        //document.getElementById('tapStDate').style.display = 'block';
+        
     }
 
     var spDiaLength = userObj.sleepDiaries.length;
@@ -162,7 +210,7 @@ function getPatDetatail(){
         // if(document.getElementById('noSpDiaryDiv').style.display == 'none'){
         //     document.getElementById('noSpDiaryDiv').style.display = 'block';
         // }
-        document.getElementById('spDFilled').innerHTML = 'No Sleep Dairy yet';
+        document.getElementById('spDFilled').innerHTML = 'No Sleep Diary yet';
         console.log(spDiaLength)
     }else{
         let recVal = 0;

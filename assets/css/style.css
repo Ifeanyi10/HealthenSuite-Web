@@ -772,7 +772,8 @@ section {
 .about .video-box {
   background: url("../img/about.jpg") center center no-repeat;
   background-size: cover;
-  min-height: 500px;
+  min-height: 200px;
+  max-height: 300px;
 }
 
 .about .play-btn {

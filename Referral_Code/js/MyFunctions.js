@@ -254,6 +254,63 @@ function validateMedCheck(){
     }
 }
 
+function getCheckedSymptomValues() {
+    var symptoms = document.forms["formEligible"].elements["symp"];
+    var symptomsInfos = ""; 
+
+    var y = document.getElementById('fourthQ');
+    var z = document.getElementById('disqualify3');
+
+    for (i = 0; i < symptoms.length; i++) {    
+        if(symptoms[i].checked == true){   
+            if (i == 0){
+                symptomsInfos +=  symptoms[i].value;   
+            } 
+            else{
+                symptomsInfos +=  ", " + symptoms[i].value;
+            }    
+                           
+        } 
+    }
+
+    if(symptomsInfos == ""){
+        notEligibleAlert('Health enSuite Insomnia is unlikely to help you if you are not experiencing difficulty sleeping.');
+        //x.style.display = 'none';
+        //y.style.display = 'none';
+        //z.style.display = 'block';    
+        $('input[name=optSleep]').prop("checked",false); 
+
+        document.getElementById('fourthQ').style.display = 'none';     
+        $('input[name=optradio4]').prop("checked",false); 
+
+        document.getElementById('fifthQ').style.display = 'none';     
+        $('input[name=optradio5]').prop("checked",false);
+
+        document.getElementById('sixthQ').style.display = 'none';     
+        $('input[name=optradio6]').prop("checked",false);
+
+        document.getElementById('seventhQ').style.display = 'none';     
+        $('input[name=optradio7]').prop("checked",false);
+    }else{
+        //validateMedCheck();
+        //x.style.display = 'none';
+        y.style.display = 'block'; 
+        z.style.display = 'none';
+        $('input[name=optradio4]').prop("checked",false); 
+
+        document.getElementById('fifthQ').style.display = 'none';     
+        $('input[name=optradio5]').prop("checked",false);
+
+        document.getElementById('sixthQ').style.display = 'none';     
+        $('input[name=optradio6]').prop("checked",false);
+
+        document.getElementById('seventhQ').style.display = 'none';     
+        $('input[name=optradio7]').prop("checked",false);
+    }
+
+    window.localStorage.setItem("sleepResponse", symptomsInfos);
+}
+
 
 function symptomHideDispaly() {
     var x = document.getElementById('thirdQ');
@@ -404,7 +461,7 @@ function submitElligible(){
     //event.preventDefault();
     var patientToken = window.localStorage.getItem("patToken");
     console.log(patientToken)
-    //var sleepExperience = window.localStorage.getItem("sleepResponse");
+    var sleepExperience = window.localStorage.getItem("sleepResponse");
     let url = urlDomain + 'insomnia/v1/patient/eligibility';
 
     $.ajax({
@@ -421,7 +478,7 @@ function submitElligible(){
         "nightShiftinNext3Months": false,
         "nightWork": false,
         "pregantoraboutTo": false,
-        "sleepExperience": "1"}),
+        "sleepExperience": sleepExperience}),
         success: function(result){
            console.log(result); 
            window.location.href = "consent.html";              

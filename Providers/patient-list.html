@@ -50,7 +50,7 @@
                                     var data = result.providerPatients;
                                     var providerPatientsObj = JSON.stringify(result.providerPatients);
                                     window.localStorage.setItem("providerPatientsObj", providerPatientsObj);
-                                    var trialName = "";
+                                    var trialName = ""; var patientStatus = "";
                                     //console.log(providerPatientsObj);
                                     
                                     //$.each(result, function() {
@@ -62,6 +62,17 @@
                                             trialName = "Health enSuite Insomnia Study";
                                         }else{
                                             trialName = "Health enSuite Insomnia and deprescribing Study";
+                                        }
+
+                                        if(def.statusEntity != null){
+                                            if(def.statusEntity.consent == true){
+                                                patientStatus = "Sign Up Completed";
+                                            }else{
+                                                patientStatus = "Sign Up Not Completed";
+                                            }
+                                            
+                                        }else{
+                                            patientStatus = "Sign Up Not Completed";
                                         }
 
                                         var myGend = "";
@@ -77,11 +88,13 @@
                                             .append($("<td class ='id_event'>").append(i + 1))
                                             .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
                                             .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
+                                            .append($("<td>").append(patientStatus))
                                             .append($("<td>").append(def.age))
                                             .append($("<td>").append(myGend))
                                             .append($("<td>").append(trialName))
                                             .append($("<td>").append(def.appRecommendationDate))
                                             .append($("<td>").append("<input type='button' class='btn-primary' value='Retrieve RefCode' onclick='retrieveRefCode()'/>")))
+                                            // .append($("<td>").append("<input type='button' class='btn-primary' value='Revise Patient' onclick='getCurrentTaperStartDate()' data-toggle='modal' data-target='#exampleModalRevisePatient'/>")))
                                                 //console.log(def.lastName);
                                     });
                                    
@@ -268,11 +281,13 @@
                                                 <th>S/N</th>
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
+                                                <th>Status</th>
                                                 <th>Age</th>
                                                 <th>Gender</th>
                                                 <th>Referred To</th>
                                                 <th>Date Referred</th>
                                                 <th>Action</th>
+                                                <!-- <th>More Action</th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="patientTBody"></tbody>
@@ -367,7 +382,7 @@
                                         </div>
 
                                         <div class="row" style= "text-align:justify; ">
-                                            <div class="col-lg-3"><label>Date Reffered: </label></div>
+                                            <div class="col-lg-3"><label>Date Referred: </label></div>
                                             <div class="col-lg-3"> <label id="paRecDate" style="font-weight: bold;"></label></div>
                                             <div class="col-lg-3"></div>
                                             <div class="col-lg-3"></div>
@@ -446,9 +461,18 @@
                                        
                                     </div> <br/>
 
-                                    <div class="general-button">
-                                        <button type="button" class="btn-secondary" onclick="backDisplay('patientSpace', 'patientListTB');">Back</button>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn-secondary" onclick="backDisplay('patientSpace', 'patientListTB');">Back</button>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <button type="button" class="btn-primary" id="btnStDate" onclick='getCurrentTaperStartDate()' data-toggle='modal' data-target='#exampleModalRevisePatient'>Revise Taper Start Date</button>
+                                        </div>
+                                        <div class="col-lg-3"></div>
+                                        <div class="col-lg-3"></div>
                                     </div>
+                                    
+                                    
                             </div>
                         </div>
                     </div>
@@ -468,19 +492,19 @@
                                         <div style= "text-align:justify; ">  
                                             <label>Password: </label> <label id="ps" style="font-weight: bold;"></label>
                                         </div>  <br/> -->
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:left; ">  
                                             Here are the steps to follow to be able to access the Health enSuite Insomnia app: 
                                         </div> <br/>
-                                        <div style= "text-align:justify; ">  
-                                            Step 1: Copy this link <strong>http://healthensuiterefcode.000webhostapp.com/</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
+                                        <div style= "text-align:left; ">  
+                                            Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.  
                                         </div> <br/>
-                                        <div style= "text-align:justify; ">  
-                                            Step 2: You will be asked to enter the username and password, then your Referral code: Enter it exactly as it is printed here. 
+                                        <div style= "text-align:left; ">  
+                                            Step 2: You will be asked to enter your Referral code and your last name: Enter the Referral code exactly as it is printed here. 
                                         </div><br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:left; ">  
                                             Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study. 
                                         </div><br/>
-                                        <div style= "text-align:justify; ">  
+                                        <div style= "text-align:left; ">  
                                             Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.  
                                         </div> <br/>
                                         <div> Best regards,</div> 
@@ -493,6 +517,39 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="bootstrap-modal">
+                        <!-- Modal Change Taper Start Date-->
+
+                        <div class="modal fade" id="exampleModalRevisePatient">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalTitle">Revise Patient’s Taper Start Date</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="mt-5 mb-5 login-input">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="currentStDate" placeholder="Current Taper Start Date" disabled>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type='text' class="form-control" id="datepicker" onchange="validateStartDate('btnReviseNow');" data-date-start-date="0d" data-date-end-date="+13d" data-date-format="yyyy-mm-dd" data-date-autoclose="true" placeholder='Assign a new Taper Start Date' >
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" id="btnReviseNow" class="btn btn-primary" disabled>Save and Resume</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="bootstrap-modal">
                         <!-- Modal Change Email-->
@@ -559,7 +616,7 @@
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
-    <!-- <script src="js/MoreFunction.js"></script> -->
+    <script src="js/MoreFunction.js"></script>
     <script src="js/styleSwitcher.js"></script>
 
     <!-- Chartjs -->
