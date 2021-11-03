@@ -161,7 +161,7 @@ function validateEmail(){
                 },
                 data: JSON.stringify({"email": patEmail, "phoneNumber": patientNum}),
                 success: function(result){
-                    swal({title: "Health ensuite welcomes you!", text: "Thank you for your time. An email will be sent to you within 2 business days confirming your consent with the study information attached.", type: "success"},
+                    swal({title: "Health enSuite Welcomes You!", text: "Thank you for your approved consent to participate in the Health enSuite Insomnia Study. An email will be sent to you confirming your participation, a copy of your approved consent, and the next steps within the next 2 business days.", type: "success"},
                     function(){ 
                         window.location.href = "referral.html";
                     }

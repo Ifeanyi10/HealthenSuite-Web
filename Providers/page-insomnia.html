@@ -28,6 +28,7 @@
 
     <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- <link href="./plugins/toastr/css/toastr.min.css" rel="stylesheet"> -->
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -47,6 +48,7 @@
         -moz-appearance: textfield;
         }
       </style>
+
 
 </head>
 
@@ -202,12 +204,95 @@
             <div class="container-fluid mt-3">
                 <div class="row">
 
+                    <!-- Modal -->
+                    <!-- <div class="bootstrap-modal">
+                        <div class="modal fade" id="multiSelectModal">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalMultiSelectTitle">Welcome to Level 1!</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                        <p id="errorMsg">You will see that new information is available to you within the Health enSuite app.</p>
+                                        <p id="selectIst">Health enSuite Insomnia consists of a series of levels or content chapters. Each level has tasks you will need to complete before you can advance to the next level. These tasks include reading about new strategies for improving your sleep, watching videos, answering questions, completing daily sleep diaries, and tracking your medications. Each level is designed to take about one week to complete so that by the end of 6 weeks you will have completed the entire program.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- End of Modal -->
+
                     <div class="col-lg-8" id="screen1">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary" id="elligHead">Eligibility Screening</h4><hr><br>
 
                                 <div class="basic-form">
+
+                                     <!-- <table id="sampTB">
+                                        <thead>
+                                          <tr>
+                                            <th>Week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">i</b></span></th> 
+                                            <th class="currency">Unrounded Dose</th>
+                                            <th class="currency">Rounded Dose</th>
+                                            <th class="currency">Options</th>
+                                            <th class="currency">Provider Approved Value</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>5.8</td>
+                                                <td>6</td>
+                                                <td>
+                                                    <select class="medSelect" name="medSelect" multiple>
+                                                        <option value="10">10</option>
+                                                        <option value="7.5">7.5</option>
+                                                        <option value="5">5</option>
+                                                        <option value="2.5">2.5</option> 
+                                                    </select>
+                                                    <input type='button' class='btn-secondary aprv' onclick="" value='Ok'/>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>5.3</td>
+                                                <td>5.5</td>
+                                                <td>
+                                                    <select class="medSelect" name="medSelect2" multiple>
+                                                        <option value="10">10</option>
+                                                        <option value="7.5">7.5</option>
+                                                        <option value="5">5</option>
+                                                        <option value="2.5">2.5</option>
+                                                    </select>
+                                                    <input type='button' class='btn-secondary aprv' onclick="" value='Ok'/>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>2.4</td>
+                                                <td>2</td>
+                                                <td>
+                                                    <select class="medSelect" name="medSelect3" multiple>
+                                                        <option value="10">10</option>
+                                                        <option value="7.5">7.5</option>
+                                                        <option value="5">5</option>
+                                                        <option value="2.5">2.5</option>
+                                                    </select>
+                                                    <input type='button' class='btn-secondary aprv' onclick="" value='Ok'/>
+                                                </td>
+                                                <td></td>
+                                            </tr> 
+                                        </tbody>
+                                      </table> -->
 
                                     <form id="formInsomnia">
 
@@ -335,7 +420,7 @@
                                                     Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5
                                                 </div> <br/>
                                                 <div> Best regards,</div>
-                                                <div> Health enSuite team</div>
+                                                <div> Health enSuite Team</div>
                                             </div> <br/>
                                             <div class="general-button">
                                                 <button type="button" class="btn mb-1 btn-outline-light" onclick="PrintDiv();" >Print</button>
@@ -443,16 +528,16 @@
                                             Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                         </div> <br/>
                                         <div style= "text-align:left; ">
-                                            Step 2: You will be asked to enter your Referral code and your last name: Enter the Referral code exactly as it is printed here.
+                                            Step 2: You will be asked to enter your Referral code and your last name. Enter the Referral code exactly as it is printed here.
                                         </div><br/>
                                         <div style= "text-align:left; ">
                                             Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                                         </div><br/>
                                         <div style= "text-align:left; ">
-                                            Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.
+                                            Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: 902-470-7934 or call toll-free number: 1-877-341-8309 press 5.
                                         </div> <br/>
                                         <div> Best regards,</div>
-                                        <div> Health enSuite team</div>
+                                        <div> Health enSuite Team.</div>
                                     </div> <br/>
 
                                     <!-- <div class="row">
@@ -603,7 +688,7 @@
                                             </div>
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Flurazepam" onchange="validateMedCheck();">Flurazepam Dalmane, capsule)</label>
+                                                    <input type="checkbox" class="form-check-input" name="medCAT" value="Flurazepam" onchange="validateMedCheck();">Flurazepam (Dalmane, capsule)</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
@@ -735,7 +820,7 @@
                                                                     </div>
                                                                     <div class="form-check mb-3">
                                                                         <label class="form-check-label">
-                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Flurazepam" onchange="validateMedCheck();">Flurazepam Dalmane, capsule)</label>
+                                                                            <input type="checkbox" class="form-check-input" name="medCAT" value="Flurazepam" onchange="validateMedCheck();">Flurazepam (Dalmane, capsule)</label>
                                                                     </div>
                                                                     <div class="form-check mb-3">
                                                                         <label class="form-check-label">
@@ -925,11 +1010,11 @@
                                             <thead id="taperTHead">
 
                                                 <tr>
-                                                    <th>Taper week <span class="placeholder tipCol1"><b title="">i</b></span></th>
-                                                    <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2"><b title="">i</b></span></th>
+                                                    <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">i</b></span></th>
                                                     <th>Rounded Application-determined Taper Dose (mg)</th>
-                                                    <!-- <th>Recommended dose combinations (mg)</th> -->
-                                                    <th>Provider-Recommneded Taper Dose (mg) <span class="placeholder tipCol4"><b title="">i</b></span></th>
+                                                    <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Provider-Recommended Taper Dose (mg)</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="taperTBody">
@@ -1001,11 +1086,11 @@
                                         <table class="table table-bordered" id="taperTable2">
                                             <thead id="taperTHead2">
                                                 <tr>
-                                                    <th>Taper week <span class="placeholder tipCol1"><b title="">i</b></span></th>
-                                                    <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2"><b title="">i</b></span></th>
+                                                    <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">i</b></span></th>
                                                     <th>Rounded Application-determined Taper Dose (mg)</th>
-                                                    <!-- <th>Recommended dose combinations (mg)</th> -->
-                                                    <th>Provider-Recommneded Taper Dose (mg) <span class="placeholder tipCol4"><b title="">i</b></span></th>
+                                                    <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Provider-Recommended Taper Dose (mg)</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="taperTBody2">
@@ -1082,8 +1167,7 @@
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
                                                     <input type="checkbox" id="chkLast" class="form-check-input" value="" onchange="validateLastSubmit();"> Cognitive behavioural therapy is recommended
-                                                    for <label id="pName" style="font-weight: bold;"></label>. I would like to refer <label id="pFirstName" style="font-weight: bold;"></label> to Health enSuite
-                                                    Insomnia Study.</label>
+                                                    for <label id="pName" style="font-weight: bold;"></label>. I would like to refer <label id="pFirstName" style="font-weight: bold;"></label> to the Health enSuite Insomnia and Deprescribing Study.</label>
                                             </div>
                                         </div>
 
@@ -1133,16 +1217,16 @@
                                     Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                 </div> <br/>
                                 <div style= "text-align:left; ">
-                                    Step 2: You will be asked to enter your Referral code and your last name: Enter the Referral code exactly as it is printed here.
+                                    Step 2: You will be asked to enter your Referral code and your last name. Enter the Referral code exactly as it is printed here.
                                 </div><br/>
                                 <div style= "text-align:left; ">
                                     Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                                 </div><br/>
                                 <div style= "text-align:left; ">
-                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5
+                                    Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: 902-470-7934 or call toll-free number: 1-877-341-8309 press 5
                                 </div> <br/>
                                 <div> Best regards,</div>
-                                <div> Health enSuite team</div>
+                                <div> Health enSuite Team.</div>
                             </div> <br/>
 
                             <div class="hidden" id="printdivcontent2" style= "page-break-after: always;">
@@ -1172,7 +1256,7 @@
                                     Please taper as directed in the table on the next page.
                                 </div> <br/>
                                 <div style= "text-align:justify; ">
-                                    Please consult your pharmacist for advice on how to best implement this schedule. Based on available pills strengths some modifications to this schedule may be needed. Changes recommended by your provider or pharmacist should be noted in the column labelled “Recommended Dose Combinations”.
+                                    Please consult your pharmacist for advice on how to best implement this schedule. Based on available pills strengths some modifications to this schedule may be needed. Changes recommended by your provider or pharmacist should be noted in the column labelled “Provider-Recommended Taper Dose”.
                                 </div> <br/>
 
                             </div>
@@ -1200,7 +1284,7 @@
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Rounded Application-determined Taper Dose (mg)</th>
-                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommneded Taper Dose (mg)</th>
+                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommended Taper Dose (mg)</th>
                                         </tr>
                                         </thead>
                                         <tbody id="taperTBody1Print" style= "border: 1px solid #272b30; border-bottom-width: 2px; ">
@@ -1260,16 +1344,16 @@
                                 Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                             </div> <br/>
                             <div style= "text-align:left; ">
-                                Step 2: You will be asked to enter your Referral code and your last name: Enter the Referral code exactly as it is printed here.
+                                Step 2: You will be asked to enter your Referral code and your last name. Enter the Referral code exactly as it is printed here.
                             </div><br/>
                             <div style= "text-align:left; ">
                                 Step 3: When you have completed the above steps correctly, you will be navigated to the next steps in this study.
                             </div><br/>
                             <div style= "text-align:left; ">
-                                Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: (902) 470 7934 or call toll-free number: 1-877-341-8309 press 5.
+                                Step 4: If you misplace this instructions sheet, do not worry! You can either request your health care provider to issue a new one OR contact Health enSuite research team by email: TeamHealthEnSuite@iwk.nshealth.ca OR phone: 902-470-7934 or call toll-free number: 1-877-341-8309 press 5.
                             </div> <br/>
                             <div> Best regards,</div>
-                            <div> Health enSuite team</div>
+                            <div> Health enSuite Team.</div>
                         </div> <br/>
 
                         <div class="hidden" id="printdivcontent22" style= "page-break-after: always;">
@@ -1299,7 +1383,7 @@
                                 Please taper as directed in the table on the next page.
                             </div> <br/>
                             <div style= "text-align:justify; ">
-                                Please consult your pharmacist for advice on how to best implement this schedule. Based on available pills strengths some modifications to this schedule may be needed. Changes recommended by your provider or pharmacist should be noted in the column labelled “Recommended Dose Combinations”.
+                                Please consult your pharmacist for advice on how to best implement this schedule. Based on available pills strengths some modifications to this schedule may be needed. Changes recommended by your provider or pharmacist should be noted in the column labelled “Provider-Recommended Taper Dose”.
                             </div> <br/>
 
                         </div>
@@ -1326,7 +1410,7 @@
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Rounded Application-determined Taper Dose (mg)</th>
-                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommneded Taper Dose (mg)</th>
+                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommended Taper Dose (mg)</th>
                                         </tr>
 
                                     </thead>
@@ -1346,7 +1430,7 @@
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Rounded Application-determined Taper Dose (mg)</th>
-                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommneded Taper Dose (mg)</th>
+                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommended Taper Dose (mg)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="taperTBody3Print" style= "border: 1px solid #272b30; border-bottom-width: 2px; ">
@@ -1484,17 +1568,19 @@
 
     <script src="./js/plugins-init/form-pickers-init.js"></script>
 
+    <!-- <script src="./plugins/toastr/js/toastr.min.js"></script> -->
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
 
     <script type="text/javascript" src="./jQuery-MSelect/test/lib/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="./jQuery-MSelect/src/jquery.multi-select.js"></script>
 
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
         $(function(){
-        $('.medSelect').multiSelect();
-        
+        //$('.medSelect').multiSelect();
+
+
     });
-    </script> -->
+    </script>
 
 </body>
 

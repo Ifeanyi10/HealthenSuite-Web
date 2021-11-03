@@ -51,7 +51,9 @@
                                     window.localStorage.setItem("patientPhone", result.phoneNumber);
                                     window.localStorage.setItem("patientEmail", result.email);
                                     window.localStorage.setItem("trialNo", trialNo);
-                                    window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel - 1);
+                                    window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel);
+                                    //Below was the actual code before 2021-11-01
+                                    //window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel - 1);
                                     console.log('Level:'+window.localStorage.getItem("CBTLevel"));
                                     window.localStorage.setItem("randomGroupID", result.groupID);
                                     window.localStorage.setItem("enableSpClock", result.statusEntity.enableSleepClockbutton);
@@ -153,7 +155,7 @@
                         }
 
                         function decideDashboardHeaderText(stDate){
-                            var headText = "Baseline Sleep Diary";
+                            var headText = "Daily Sleep Diary";
 
                             if (!String.prototype.padStart) {
                                 String.prototype.padStart = function padStart(targetLength,padString) {
@@ -446,7 +448,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Disclaimer!!!</h5>
+                                    <h5 class="modal-title">Disclaimer</h5>
                                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                     </button>
                                 </div>

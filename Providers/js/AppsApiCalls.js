@@ -28,7 +28,7 @@ function fillAllFields(){
     var lName = $("#patLName").val().trim();
     var ag = $("#patAge").val().trim();
     if (fName != '' && lName != '' && ag != '')  {
-        if(ag > 17 && ag.charAt(0) != 0){
+        if(ag > 17 && ag <= 150 && ag.charAt(0) != 0){
             try {
                 ag = parseInt(ag);
                 bt.disabled = false;
@@ -55,7 +55,7 @@ function fillAllFields2(){
     var lName = $("#pat2LName").val().trim();
     var ag = $("#pat2Age").val().trim();
     if (fName != '' && lName != '' && ag != '')  {
-        if(ag > 17 && ag.charAt(0) != 0){
+        if(ag > 17 && ag <= 150 && ag.charAt(0) != 0){
             try {
                 ag = parseInt(ag);
                 bt.disabled = false;
@@ -258,14 +258,16 @@ function UpdateDropDownValues(tableId, tb){
 
 function UpdateSelectedSingle(tableId){
     $('#taperTable tbody tr').each(function(i, def) {
-        var selection = $(this).find('td:last option:selected').val();
+        //var selection = $(this).find('td:last option:selected').val();
+        var selection = document.getElementById("taperTable").rows[i + 1].cells[4].innerHTML;
         document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
     });
 }
 
 function UpdateSelectedDouble(tableId){
     $('#taperTable2 tbody tr').each(function(i, def) {
-        var selection = $(this).find('td:last option:selected').val();
+        //var selection = $(this).find('td:last option:selected').val();
+        var selection = document.getElementById("taperTable2").rows[i + 1].cells[4].innerHTML;
         document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
     });
 }
@@ -309,8 +311,326 @@ function getPatDetatail(){
     // });
 }
 
+// function errorToast(msgHeader, msgBody){
+//     toastr.error(msgBody, msgHeader, {
+//         positionClass: "toast-top-full-width",
+//         timeOut: 5e3,
+//         closeButton: !0,
+//         debug: !1,
+//         newestOnTop: !0,
+//         progressBar: !0,
+//         preventDuplicates: !0,
+//         onclick: null,
+//         showDuration: "300",
+//         hideDuration: "1000",
+//         extendedTimeOut: "1000",
+//         showEasing: "swing",
+//         hideEasing: "linear",
+//         showMethod: "fadeIn",
+//         hideMethod: "fadeOut",
+//         tapToDismiss: !1,
+//     });
+// }
+
+
+// swal({
+//     title: "Sweet !!",
+//     text: "<span style='color:#ff0000'>Hey, you are using HTML !!<span>",
+//     html: !0,
+//   });
+
+
+function errorAlert(msgHeader, msgBody1, msgBody2){
+    swal({
+        title: msgHeader,
+        text: msgBody1+"<br><br>"+msgBody2,
+        html: !0,
+      });
+}
+
+function sampleUpdateAColumn(tableId, tableIdName){
+    $(tableId).each(function(i, def) {
+        var selection = document.getElementById(tableIdName).rows[i + 1].cells[2].innerHTML;
+        document.getElementById(tableIdName).rows[i + 1].cells[4].innerHTML = selection;
+    });
+    //sampleAddAction(tableId, tableIdName);
+}
+
+
+// function sampleAddAction(tableId, tableIdName, tableLabel){
+    
+//     $(tableId).each(function(i, def) {
+//         //var rowNum = parseInt($(this).parent().index()) + 1;
+//         var $drop = $(this).find('select');
+//         $drop.on("change", function(e) {
+//             // var totalSelectedValue = 0;
+//             // var rowNum = e.target.parentNode.parentNode.parentNode.rowIndex;
+//             // console.log("Row Num: "+rowNum);
+//             // $drop.find('option:selected').each(function() {
+//             //     totalSelectedValue += parseFloat(this.value);
+//             //     //alert(this.value);
+//             // });
+//             // console.log("Row Num: "+rowNum+" Sum: "+totalSelectedValue);
+//             getAllValuefromMultiSelect(tableId, tableIdName, e, tableLabel);
+//         });
+//         //console.log("Loop Num: "+i);
+//     });
+    
+// }
+
+// function getAllValuefromMultiSelect(tableId, tableIdName, e, tableLabel){
+
+//     var rowNum = e.target.parentNode.parentNode.parentNode.rowIndex;
+//     //console.log("Row Num: "+rowNum);
+//     $(tableId).each(function(i, def) {
+//         if(i == (rowNum - 1)){
+//             var totalSelectedValue = 0;
+//             var drop = $(this).find('select');
+//             drop.find('option:selected').each(function() {
+//                 totalSelectedValue += parseFloat(this.value);
+//                 //alert(this.value);
+//             });
+//             //get the rounded dose of that row
+//             var roundedDoseVal = document.getElementById(tableIdName).rows[i + 1].cells[1].innerHTML;
+//             //updateAprovedValue(tableIdName, rowNum, totalSelectedValue, roundedDoseVal, tableLabel);
+//             //document.getElementById("sampTB").rows[rowNum].cells[3].innerHTML = totalSelectedValue;
+//             console.log("Row Num: "+rowNum+" Sum: "+totalSelectedValue);
+//         }
+//         //console.log("Loop Num: "+i);
+//     });
+//     // $(this).find('option:selected').each(function() {
+//     //     alert(this.value);
+//     // });
+// }
+
+// function updateAprovedValue(tableIdName, rowNum, totalSelectedValue, roundedDoseVal, tableLabel){
+//     var totalRows = document.getElementById(tableIdName).rows.length - 1;
+//     var errToastHeader = "Dose Combination Selection Error!"; var msgHeader = "Dose Combination Selection Error!";
+//     var errToastBody = ""; let pDosage = 0.0; var msgBody1 = ""; var msgBody2 = "";
+//     //console.log("total Rows: "+totalRows);
+//     var currentDoseValuebelowRow = 0; //this is define to ensure the lowest row value is not empty
+
+//     if(rowNum > 1){
+
+//         var currentDoseValueAboveRow = document.getElementById(tableIdName).rows[rowNum - 1].cells[4].innerHTML;
+//         if(rowNum != totalRows){
+//             currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[4].innerHTML;
+//         }
+        
+//         if(currentDoseValueAboveRow >= totalSelectedValue && currentDoseValuebelowRow <= totalSelectedValue){
+//             document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = totalSelectedValue;
+//         }
+//         else{
+//             if(totalSelectedValue == 0){
+//                 document.getElementById("modalMultiSelectTitle").innerHTML = "No Dose Selected!";
+//                 document.getElementById("errorMsg").innerHTML = "There is no selected dose from the multi-select dropdown.";
+//                 document.getElementById("selectIst").innerHTML = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 $('#multiSelectModal').modal('show');
+                
+//             }
+//             else if(currentDoseValueAboveRow < totalSelectedValue){
+
+//                 document.getElementById("modalMultiSelectTitle").innerHTML = "Dose Combination Selection Error!";
+//                 document.getElementById("errorMsg").innerHTML = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is higher than the week above it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 document.getElementById("selectIst").innerHTML = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 $('#multiSelectModal').modal('show');
+
+//                 // errToastBody = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is higher than the week above it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 // errorToast(errToastHeader, errToastBody);
+//             }
+//             else if(currentDoseValuebelowRow > totalSelectedValue){
+//                 document.getElementById("modalMultiSelectTitle").innerHTML = "Dose Combination Selection Error!";
+//                 document.getElementById("errorMsg").innerHTML = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is lesser than the week below it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 document.getElementById("selectIst").innerHTML = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 $('#multiSelectModal').modal('show');
+
+//                 // errToastBody = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is lesser than the week below it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 // errorToast(errToastHeader, errToastBody);
+//             }
+            
+//             console.log("Your total selected drug combination for this week is higher than the week above it or lesser than the week below it."); 
+//         }
+//     }
+//     else{
+//         currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[4].innerHTML;
+
+//         // switch(tableIdName){
+//         //     case "taperTable": 
+//         //         pDosage = parseFloat(document.getElementById("dosage").value);
+//         //         break;
+            
+//         //     case "taperTable2":
+//         //         pDosage = parseFloat(document.getElementById("dosage2").value);
+//         //         break;
+//         // }
+
+//         pDosage = parseFloat("8");
+
+//         if(currentDoseValuebelowRow <= totalSelectedValue && pDosage >= totalSelectedValue){
+//             document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = totalSelectedValue;
+//         }
+//         else{
+//             if(pDosage < totalSelectedValue){
+//                 msgBody1 = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is higher than "+ pDosage +"mg which is the current dose of the patient. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 msgBody2 = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 errorAlert(msgHeader, msgBody1, msgBody2);
+
+//                 // document.getElementById("modalMultiSelectTitle").innerHTML = "Dose Combination Selection Error!";
+//                 // document.getElementById("errorMsg").innerHTML = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is higher than "+ pDosage +"mg which is the current dose of the patient. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 // document.getElementById("selectIst").innerHTML = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 // $('#multiSelectModal').modal('show');
+                
+//                 // errToastBody = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is higher than "+ pDosage +"mg which is the current dose of the patient. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 // errorToast(errToastHeader, errToastBody);
+//             }
+//             else if(totalSelectedValue == 0){
+//                 msgHeader = "No Dose Selected!";
+//                 msgBody1 = "There is no selected dose from the multi-select dropdown.";
+//                 msgBody2 = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 errorAlert(msgHeader, msgBody1, msgBody2);
+
+//                 // document.getElementById("modalMultiSelectTitle").innerHTML = "No Dose Selected!";
+//                 // document.getElementById("errorMsg").innerHTML = "There is no selected dose from the multi-select dropdown.";
+//                 // document.getElementById("selectIst").innerHTML = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 // $('#multiSelectModal').modal('show');
+
+//                 // errToastBody = "There is no selected dose from the multi-select dropdown.";
+//                 // errorToast(errToastHeader, errToastBody);
+//             }
+//             else{
+//                 msgBody1 = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is lesser than the week below it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 msgBody2 = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 errorAlert(msgHeader, msgBody1, msgBody2);
+
+//                 // document.getElementById("modalMultiSelectTitle").innerHTML = "No Dose Selected!";
+//                 // document.getElementById("errorMsg").innerHTML = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is lesser than the week below it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 // document.getElementById("selectIst").innerHTML = "The recommended dose for this week will change to the dose you recommend the patient to take in a week before. Select another dose from the dropdown if you want to change the dose for this week.";
+//                 // $('#multiSelectModal').modal('show');
+
+//                 // errToastBody = "Your total selected drug combination for this week is " + totalSelectedValue +"mg, this is lesser than the week below it. Hence, the total drug combination you selected will not reflect for the intended week.";
+//                 // errorToast(errToastHeader, errToastBody);
+//                 console.log("Your total selected drug combination for this week is lesser than the week below it.");
+//             }
+             
+//         }
+//     }
+
+//     // if(totalSelectedValue == 0){
+//     //     document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = roundedDoseVal;
+//     // }
+    
+// }
+
+
+
+function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
+    var totalRows = document.getElementById(tableIdName).rows.length - 1;
+    var errToastHeader = "Attention"; var msgHeader = "Attention";
+    var errToastBody = ""; let pDosage = 0.0; var msgBody = "";
+    //console.log("total Rows: "+totalRows);
+    var currentDoseValuebelowRow = 0; //this is define to ensure the lowest row value is not empty
+
+    if(rowNum > 1){
+
+        var currentDoseValueAboveRow = document.getElementById(tableIdName).rows[rowNum - 1].cells[4].innerHTML;
+        if(rowNum != totalRows){
+            currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[4].innerHTML;
+        }
+        
+        if(currentDoseValueAboveRow >= totalSelectedValue && currentDoseValuebelowRow <= totalSelectedValue){
+            document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = totalSelectedValue;
+        }
+        else{
+            if(totalSelectedValue == 0){
+                msgBody = "You have not selected dose combinations from the drop down. In this case, the taper dose for this particular week will be updated to the taper dose equal to the previous week, that is, "+currentDoseValueAboveRow+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
+                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
+                errorAlert(msgHeader, msgBody);
+            }
+            else if(currentDoseValueAboveRow < totalSelectedValue){
+                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is greater than the taper dose for the previous taper week. Therefore, this will automatically be replaced by the taper dose for the previous week, that is, "+currentDoseValueAboveRow+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
+                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
+                errorAlert(msgHeader, msgBody);
+            }
+            else if(currentDoseValuebelowRow > totalSelectedValue){
+                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the previous week. Therefore, this will automatically be replaced by the taper dose for the previous week, that is, "+currentDoseValueAboveRow+"mg. you can select other dose combinations if you would like to revise this week’s taper dose.";
+                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
+                errorAlert(msgHeader, msgBody);
+            }
+            
+            console.log("Your total selected drug combination for this week is higher than the week above it or lesser than the week below it."); 
+        }
+    }
+    else{
+        currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[4].innerHTML;
+
+        switch(tableIdName){
+            case "taperTable": 
+                pDosage = parseFloat(document.getElementById("dosage").value);
+                break;
+            
+            case "taperTable2":
+                pDosage = parseFloat(document.getElementById("dosage2").value);
+                break;
+        }
+
+        //pDosage = parseFloat("8");
+
+        if(currentDoseValuebelowRow <= totalSelectedValue && pDosage >= totalSelectedValue){
+            document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = totalSelectedValue;
+        }
+        else{
+            if(pDosage < totalSelectedValue){
+                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is greater than the current dose of the patient. Therefore, this will automatically be replaced by the current dose of the patient, that is, "+pDosage+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
+                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
+                errorAlert(msgHeader, msgBody);
+            }
+            else if(totalSelectedValue == 0){ 
+                msgBody = "You have not selected dose combinations from the drop down. In this case, the taper dose for this particular week will be updated to the current dose of the patient, that is, "+pDosage+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
+                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
+                errorAlert(msgHeader, msgBody);
+            }
+            else{
+                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the previous week. Therefore, this will automatically be replaced by the current dose of the patient, that is, "+pDosage+"mg. you can select other dose combinations if you would like to revise this week’s taper dose.";
+                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
+                errorAlert(msgHeader, msgBody);
+                console.log("Your total selected drug combination for this week is lesser than the week below it.");
+            }
+             
+        }
+    }
+    
+}
+
+function multiSelectClickEvent(){
+    
+    console.log("Assign button was clicked")
+    var trRef=$(this).parent().parent(); //double parent() to get reference of TR, that holds the button in action
+    var totalSelectedValue = 0;
+    var drop = $(trRef).find('select');
+    drop.find('option:selected').each(function() {
+        totalSelectedValue += parseFloat(this.value);
+    }); 
+    console.log("Total: "+totalSelectedValue)
+    // var roundedDose = $(trRef).find("td:eq(2)").text();
+    // var recommendedDose = $(trRef).find("td:eq(4)").text();
+    // console.log("Rounded Dose: "+roundedDose)
+    // console.log("Recommended Dose: "+recommendedDose)
+    // console.log("Index: "+rowIndex)
+    // console.log("TableID: "+tableId)
+    // $(trRef).find("td:eq(4)").html(totalSelectedValue)
+
+    let rowIndex = $(trRef).index() + 1;
+    var tableIdName = $(trRef).parent().parent().parent().find('table').attr('id');
+    updateRecommendedValue(tableIdName, rowIndex, totalSelectedValue);
+        
+}
+
 
 $(document).ready(function () {
+
+    //sampleUpdateAColumn("#sampTB tbody tr", "sampTB");
+    
+    
 
     var btT1 = document.getElementById('btnTrial1');
     btT1.disabled = true;
@@ -323,6 +643,33 @@ $(document).ready(function () {
     var btMed = document.getElementById('btnMedication');
     btMed.disabled = true;
     $('#idMedications1, #dosage').keyup(fillBasicMedicationFields);
+
+
+    //Calculate Multi-select values
+    // $('.aprv').on('click', function(event){
+    //     event.preventDefault();
+    //     console.log("Assign button was clicked")
+    //     var trRef=$(this).parent().parent(); //double parent() to get reference of TR, that holds the button in action
+    //     var totalSelectedValue = 0;
+    //     var drop = $(trRef).find('select');
+    //     drop.find('option:selected').each(function() {
+    //         totalSelectedValue += parseFloat(this.value);
+    //     }); 
+    //     console.log("Total: "+totalSelectedValue)
+    //     // var roundedDose = $(trRef).find("td:eq(2)").text();
+    //     // var recommendedDose = $(trRef).find("td:eq(4)").text();
+    //     // console.log("Rounded Dose: "+roundedDose)
+    //     // console.log("Recommended Dose: "+recommendedDose)
+    //     // console.log("Index: "+rowIndex)
+    //     // console.log("TableID: "+tableId)
+    //     // $(trRef).find("td:eq(4)").html(totalSelectedValue)
+
+    //     let rowIndex = $(trRef).index() + 1;
+    //     var tableIdName = $(trRef).parent().parent().parent().find('table').attr('id');
+    //     updateRecommendedValue(tableIdName, rowIndex, totalSelectedValue);
+        
+    // });
+
 
     var oneMedicationReturned = false;
     let authTokenPatient = '';
@@ -458,9 +805,9 @@ $(document).ready(function () {
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
-            confirmButtonText: "Yes, submit my entries",
+            confirmButtonText: "Yes, submit my entries.",
             cancelButtonColor: "#01AA73",
-            cancelButtonText: "No, let me review my entries",
+            cancelButtonText: "No, let me review my entries.",
             closeOnConfirm: false,
             closeOnCancel: false
             },
@@ -570,9 +917,9 @@ $(document).ready(function () {
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
-            confirmButtonText: "Yes, reassign the patient",
+            confirmButtonText: "Yes, reassign the patient.",
             cancelButtonColor: "#01AA73",
-            cancelButtonText: "No, let me review the duration(s)",
+            cancelButtonText: "No, let me review the duration(s).",
             closeOnConfirm: false,
             closeOnCancel: false
             },
@@ -654,9 +1001,9 @@ $(document).ready(function () {
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
-            confirmButtonText: "Yes, submit my entries",
+            confirmButtonText: "Yes, submit my entries.",
             cancelButtonColor: "#01AA73",
-            cancelButtonText: "No, let me review my entries",
+            cancelButtonText: "No, let me review my entries.",
             closeOnConfirm: false,
             closeOnCancel: false
             },
@@ -752,9 +1099,9 @@ $(document).ready(function () {
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
-            confirmButtonText: "Yes, submit my entries",
+            confirmButtonText: "Yes, submit my entries.",
             cancelButtonColor: "#01AA73",
-            cancelButtonText: "No, let me review my entries",
+            cancelButtonText: "No, let me review my entries.",
             closeOnConfirm: false,
             closeOnCancel: false
             },
@@ -826,7 +1173,7 @@ $(document).ready(function () {
             success: function(result){
                 console.log(result);
                 document.getElementById('refCode').innerHTML = patRefCode;
-                swal({title: "Patient moved to Health enSuite Insomnia Study!!", text: "", type: "success"},
+                swal({title: "Patient moved to Health enSuite Insomnia Study!", text: "", type: "success"},
                 function(){ 
                     y.style.display = 'block';         
                     x.style.display = 'none';
@@ -947,7 +1294,7 @@ $(document).ready(function () {
 
                                     window["td"+i+1]= document.createElement('td');
                                     window["td"+i+1].style.border = '1px solid #dddddd';
-                                    window["td"+i+1].style.textAlign = 'left';
+                                    window["td"+i+1].style.textAlign = 'center';
                                     window["td"+i+1].style.padding = '8px';
 
                                     window["td"+i+2] = document.createElement('td');
@@ -959,6 +1306,7 @@ $(document).ready(function () {
                                     window["td"+i+3].style.border = '1px solid #dddddd';
                                     window["td"+i+3].style.textAlign = 'center';
                                     window["td"+i+3].style.padding = '8px';
+                                    window["td"+i+3].style.display = 'flex';
 
                                     window["td"+i+4] = document.createElement('td');
                                     window["td"+i+4].style.border = '1px solid #dddddd';
@@ -967,30 +1315,58 @@ $(document).ready(function () {
 
                                     const selectList = document.createElement("select");
                                     selectList.style.width = '180px';
-                                    //selectList.classList.add("medSelect");
-                                    //selectList.multiple = true;
-                                    //selectList.name = "medSelect";
-                                    //$('.medSelect').multiSelect();
+
+                                    // const option = document.createElement("option");
+                                    // option.value = 0;
+                                    // option.text = "--Select--";
+                                    // option.selected = false;
+                                    // selectList.appendChild(option);
+
+                                    const btnAssign = document.createElement("button");
+                                    btnAssign.innerHTML = "Select";
+                                    btnAssign.classList.add("btn-primary");
+                                    btnAssign.classList.add("aprv");
+                                    
                                     
                                     doCombi = def.dose_Combination;
-                                    doCombi.reverse();
+                                    //doCombi.reverse();
                                     $(doCombi).each(function(i, drop){
                                         const option = document.createElement("option");
                                         option.value = drop;
                                         option.text = drop;
+                                        option.selected = false;
                                         selectList.appendChild(option);
                                     })
+
+                                    selectList.classList.add("medSelect");
+                                    selectList.multiple = true;
+                                    selectList.name = tableBody+i+3;
+                                    
+                                    
+                                    window["td"+i+5] = document.createElement('td');
+                                    window["td"+i+5].style.border = '1px solid #dddddd';
+                                    window["td"+i+5].style.textAlign = 'center';
+                                    window["td"+i+5].style.padding = '8px';
                                     
 
                                     $(tableBody).append($("<tr>")
                                     .append($(window["td"+i+1]).append(i + 1))
                                     .append($(window["td"+i+2]).append(def.unrounded))
                                     .append($(window["td"+i+4]).append(def.newDose))
-                                    .append($(window["td"+i+3]).append(selectList)));
+                                    .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                                    .append($(window["td"+i+5]).append("")));
+
+                                    selectList.style.flex = "1";
+                                    btnAssign.style.flex = "1";
+                                    btnAssign.style.marginTop = "0px";
+                                    btnAssign.style.marginLeft = "5px";
+
+                                    btnAssign.addEventListener('click', multiSelectClickEvent);
+
 
                                     window["tdp2"+i+1] = document.createElement('td');
                                     window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+1].style.textAlign = 'left';
+                                    window["tdp2"+i+1].style.textAlign = 'center';
                                     window["tdp2"+i+1].style.padding = '8px';
 
                                     window["tdp2"+i+2] = document.createElement('td');
@@ -1011,7 +1387,7 @@ $(document).ready(function () {
                                     const selectListPrint = document.createElement("select");
                                     selectListPrint.style.width = '150px';
                                     doCombi = def.dose_Combination;
-                                    doCombi.reverse();
+                                    //doCombi.reverse();
                                     $(doCombi).each(function(i, dropPrint){
                                         const optionPrint = document.createElement("option");
                                         optionPrint.value = dropPrint;
@@ -1024,6 +1400,7 @@ $(document).ready(function () {
                                     .append($(window["tdp2"+i+2]).append(def.unrounded))
                                     .append($(window["tdp2"+i+4]).append(def.newDose))
                                     .append($(window["tdp2"+i+3]).append(selectListPrint)));
+                                       
 
                                 });
                                 tableBody = '#taperTBody2';
@@ -1035,13 +1412,18 @@ $(document).ready(function () {
                             var weekNo2 = $('#taperTBody2 tr').length;
                             window.localStorage.setItem("weekNo1", weekNo1);
                             window.localStorage.setItem("weekNo2", weekNo2);
-                            addAction('#taperTable tbody tr', 'taperTable');
-                            addAction('#taperTable2 tbody tr', 'taperTable2');
+
+                            sampleUpdateAColumn("#taperTable tbody tr", "taperTable");
+                            sampleUpdateAColumn("#taperTable2 tbody tr", "taperTable2");
+                            //addAction('#taperTable tbody tr', 'taperTable');
+                            //addAction('#taperTable2 tbody tr', 'taperTable2');
 
                             y.style.display = 'block';         
                             x.style.display = 'none';
                             secondTB.style.display = 'block';
                             window.localStorage.setItem("medQuantity", 2);
+
+                            $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
                         }, 
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the two medications");
@@ -1206,7 +1588,7 @@ $(document).ready(function () {
 
                                             window["td"+i+1]= document.createElement('td');
                                             window["td"+i+1].style.border = '1px solid #dddddd';
-                                            window["td"+i+1].style.textAlign = 'left';
+                                            window["td"+i+1].style.textAlign = 'center';
                                             window["td"+i+1].style.padding = '8px';
 
                                             window["td"+i+2] = document.createElement('td');
@@ -1218,6 +1600,7 @@ $(document).ready(function () {
                                             window["td"+i+3].style.border = '1px solid #dddddd';
                                             window["td"+i+3].style.textAlign = 'center';
                                             window["td"+i+3].style.padding = '8px';
+                                            window["td"+i+3].style.display = 'flex';
 
                                             window["td"+i+4] = document.createElement('td');
                                             window["td"+i+4].style.border = '1px solid #dddddd';
@@ -1226,25 +1609,55 @@ $(document).ready(function () {
 
                                             const selectList = document.createElement("select");
                                             selectList.style.width = '150px';
+
+                                            // const option = document.createElement("option");
+                                            // option.value = 0;
+                                            // option.text = "--Select--";
+                                            // selectList.appendChild(option);
+
                                             doCombi = def.dose_Combination;
-                                            doCombi.reverse();
+                                            //doCombi.reverse();
                                             $(doCombi).each(function(i, drop){
                                                 const option = document.createElement("option");
                                                 option.value = drop;
                                                 option.text = drop;
                                                 selectList.appendChild(option);
                                             })
+
+                                            selectList.classList.add("medSelect");
+                                            selectList.multiple = true;
+                                            selectList.name = tableBody+i+3;
+
+                                            window["td"+i+5] = document.createElement('td');
+                                            window["td"+i+5].style.border = '1px solid #dddddd';
+                                            window["td"+i+5].style.textAlign = 'center';
+                                            window["td"+i+5].style.padding = '8px';
+
+                                            const btnAssign = document.createElement("button");
+                                            btnAssign.innerHTML = "Select";
+                                            btnAssign.classList.add("btn-primary");
+                                            btnAssign.classList.add("aprv");
+
                                             //selectList.onchange = function(){UpdateDropDownValues(tbIdentity)};
 
                                             $(tableBody).append($("<tr>")
                                             .append($(window["td"+i+1]).append(i + 1))
                                             .append($(window["td"+i+2]).append(def.unrounded))
                                             .append($(window["td"+i+4]).append(def.newDose))
-                                            .append($(window["td"+i+3]).append(selectList)));
+                                            .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                                            .append($(window["td"+i+5]).append("")));
+
+                                            selectList.style.flex = "1";
+                                            btnAssign.style.flex = "1";
+                                            btnAssign.style.marginTop = "0px";
+                                            btnAssign.style.marginLeft = "5px";
+
+                                            btnAssign.addEventListener('click', multiSelectClickEvent);
+
 
                                             window["tdp2"+i+1] = document.createElement('td');
                                             window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                            window["tdp2"+i+1].style.textAlign = 'left';
+                                            window["tdp2"+i+1].style.textAlign = 'center';
                                             window["tdp2"+i+1].style.padding = '8px';
 
                                             window["tdp2"+i+2] = document.createElement('td');
@@ -1265,7 +1678,7 @@ $(document).ready(function () {
                                             const selectListPrint = document.createElement("select");
                                             selectListPrint.style.width = '150px';
                                             doCombi = def.dose_Combination;
-                                            doCombi.reverse();
+                                            //doCombi.reverse();
                                             $(doCombi).each(function(i, dropPrint){
                                                 const optionPrint = document.createElement("option");
                                                 optionPrint.value = dropPrint;
@@ -1283,13 +1696,16 @@ $(document).ready(function () {
                 
                                     });
 
-                                    addAction('#taperTable tbody tr', 'taperTable');
+                                    sampleUpdateAColumn("#taperTable tbody tr", "taperTable");
+                                    //addAction('#taperTable tbody tr', 'taperTable');
                                     var weekNo1 = $('#taperTBody tr').length;
                                     window.localStorage.setItem("weekNo1", weekNo1);
                                     y.style.display = 'block';         
                                     x.style.display = 'none';
                                     secondTB.style.display = 'none';
                                     window.localStorage.setItem("medQuantity", 1);
+
+                                    $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
                                 }, 
                                 error: function(msg){
                                     $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
@@ -1340,7 +1756,7 @@ $(document).ready(function () {
 
                                     window["td"+i+1]= document.createElement('td');
                                     window["td"+i+1].style.border = '1px solid #dddddd';
-                                    window["td"+i+1].style.textAlign = 'left';
+                                    window["td"+i+1].style.textAlign = 'center';
                                     window["td"+i+1].style.padding = '8px';
 
                                     window["td"+i+2] = document.createElement('td');
@@ -1352,6 +1768,7 @@ $(document).ready(function () {
                                     window["td"+i+3].style.border = '1px solid #dddddd';
                                     window["td"+i+3].style.textAlign = 'center';
                                     window["td"+i+3].style.padding = '8px';
+                                    window["td"+i+3].style.display = 'flex';
 
                                     window["td"+i+4] = document.createElement('td');
                                     window["td"+i+4].style.border = '1px solid #dddddd';
@@ -1360,25 +1777,54 @@ $(document).ready(function () {
 
                                     const selectList = document.createElement("select");
                                     selectList.style.width = '150px';
+
+                                    // const option = document.createElement("option");
+                                    // option.value = 0;
+                                    // option.text = "--Select--";
+                                    // selectList.appendChild(option);
+
                                     doCombi = def.dose_Combination;
-                                    doCombi.reverse();
+                                    //doCombi.reverse();
                                     $(def.dose_Combination).each(function(i, drop){
                                         const option = document.createElement("option");
                                         option.value = drop;
                                         option.text = drop;
                                         selectList.appendChild(option);
                                     })
+
+                                    selectList.classList.add("medSelect");
+                                    selectList.multiple = true;
+                                    selectList.name = tableBody+i+3;
+
+                                    const btnAssign = document.createElement("button");
+                                    btnAssign.innerHTML = "Select";
+                                    btnAssign.classList.add("btn-primary");
+                                    btnAssign.classList.add("aprv");
+
+                                    window["td"+i+5] = document.createElement('td');
+                                    window["td"+i+5].style.border = '1px solid #dddddd';
+                                    window["td"+i+5].style.textAlign = 'center';
+                                    window["td"+i+5].style.padding = '8px';
+
                                     //selectList.onchange = function(){UpdateDropDownValues(tbIdentity)};
 
                                     $(tableBody).append($("<tr>")
                                     .append($(window["td"+i+1]).append(i + 1))
                                     .append($(window["td"+i+2]).append(def.unrounded))
                                     .append($(window["td"+i+4]).append(def.newDose))
-                                    .append($(window["td"+i+3]).append(selectList)));
+                                    .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                                    .append($(window["td"+i+5]).append("")));
+
+                                    selectList.style.flex = "1";
+                                    btnAssign.style.flex = "1";
+                                    btnAssign.style.marginTop = "0px";
+                                    btnAssign.style.marginLeft = "5px";
+
+                                    btnAssign.addEventListener('click', multiSelectClickEvent);
 
                                     window["tdp2"+i+1] = document.createElement('td');
                                     window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                                    window["tdp2"+i+1].style.textAlign = 'left';
+                                    window["tdp2"+i+1].style.textAlign = 'center';
                                     window["tdp2"+i+1].style.padding = '8px';
 
                                     window["tdp2"+i+2] = document.createElement('td');
@@ -1399,7 +1845,7 @@ $(document).ready(function () {
                                     const selectListPrint = document.createElement("select");
                                     selectListPrint.style.width = '150px';
                                     doCombi = def.dose_Combination;
-                                    doCombi.reverse();
+                                    //doCombi.reverse();
                                     $(doCombi).each(function(i, dropPrint){
                                         const optionPrint = document.createElement("option");
                                         optionPrint.value = dropPrint;
@@ -1417,13 +1863,16 @@ $(document).ready(function () {
         
                             });
 
-                            addAction('#taperTable tbody tr', 'taperTable');
+                            sampleUpdateAColumn("#taperTable tbody tr", "taperTable");
+                            //addAction('#taperTable tbody tr', 'taperTable');
                             var weekNo1 = $('#taperTBody tr').length;
                             window.localStorage.setItem("weekNo1", weekNo1);
                             y.style.display = 'block';         
                             x.style.display = 'none';
                             secondTB.style.display = 'none';
                             window.localStorage.setItem("medQuantity", 1);
+
+                            $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
                         }, 
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
@@ -1525,7 +1974,7 @@ $(document).ready(function () {
 
                         window["td"+i+1]= document.createElement('td');
                         window["td"+i+1].style.border = '1px solid #dddddd';
-                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.textAlign = 'center';
                         window["td"+i+1].style.padding = '8px';
 
                         window["td"+i+2] = document.createElement('td');
@@ -1537,6 +1986,7 @@ $(document).ready(function () {
                         window["td"+i+3].style.border = '1px solid #dddddd';
                         window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
+                        window["td"+i+3].style.display = 'flex';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
@@ -1545,25 +1995,54 @@ $(document).ready(function () {
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
+
+                        // const option = document.createElement("option");
+                        // option.value = 0;
+                        // option.text = "--Select--";
+                        // selectList.appendChild(option);
+
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
                             option.text = drop;
                             selectList.appendChild(option);
                         })
+
+                        selectList.classList.add("medSelect");
+                        selectList.multiple = true;
+                        selectList.name = tableBody+i+3;
+
+                        const btnAssign = document.createElement("button");
+                        btnAssign.innerHTML = "Select";
+                        btnAssign.classList.add("btn-primary");
+                        btnAssign.classList.add("aprv");
+
+                        window["td"+i+5] = document.createElement('td');
+                        window["td"+i+5].style.border = '1px solid #dddddd';
+                        window["td"+i+5].style.textAlign = 'center';
+                        window["td"+i+5].style.padding = '8px';
+
                         //selectList.onchange = function(){UpdateDropDownValues(tbIdentity)};
 
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
                         .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
-                        .append($(window["td"+i+3]).append(selectList)));
+                        .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                        .append($(window["td"+i+5]).append("")));
+
+                        selectList.style.flex = "1";
+                        btnAssign.style.flex = "1";
+                        btnAssign.style.marginTop = "0px";
+                        btnAssign.style.marginLeft = "5px";
+
+                        btnAssign.addEventListener('click', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.textAlign = 'center';
                         window["tdp2"+i+1].style.padding = '8px';
 
                         window["tdp2"+i+2] = document.createElement('td');
@@ -1584,7 +2063,7 @@ $(document).ready(function () {
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
@@ -1601,13 +2080,16 @@ $(document).ready(function () {
 
                 });
 
-                addAction('#taperTable tbody tr', 'taperTable');
+                sampleUpdateAColumn("#taperTable tbody tr", "taperTable");
+                //addAction('#taperTable tbody tr', 'taperTable');
                 var weekNo1 = $('#taperTBody tr').length;
                 window.localStorage.setItem("weekNo1", weekNo1);
                 y.style.display = 'block';         
                 x.style.display = 'none';
                 //secondTB.style.display = 'none';
                 //window.localStorage.setItem("medQuantity", 1);
+
+                $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
@@ -1676,7 +2158,7 @@ $(document).ready(function () {
 
                         window["td"+i+1]= document.createElement('td');
                         window["td"+i+1].style.border = '1px solid #dddddd';
-                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.textAlign = 'center';
                         window["td"+i+1].style.padding = '8px';
 
                         window["td"+i+2] = document.createElement('td');
@@ -1688,6 +2170,7 @@ $(document).ready(function () {
                         window["td"+i+3].style.border = '1px solid #dddddd';
                         window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
+                        window["td"+i+3].style.display = 'flex';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
@@ -1696,6 +2179,12 @@ $(document).ready(function () {
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
+
+                        // const option = document.createElement("option");
+                        // option.value = 0;
+                        // option.text = "--Select--";
+                        // selectList.appendChild(option);
+
                         $(def.dose_Combination).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
@@ -1703,15 +2192,37 @@ $(document).ready(function () {
                             selectList.appendChild(option);
                         })
 
+                        selectList.classList.add("medSelect");
+                        selectList.multiple = true;
+                        selectList.name = tableBody+i+3;
+
+                        const btnAssign = document.createElement("button");
+                        btnAssign.innerHTML = "Select";
+                        btnAssign.classList.add("btn-primary");
+                        btnAssign.classList.add("aprv");
+
+                        window["td"+i+5] = document.createElement('td');
+                        window["td"+i+5].style.border = '1px solid #dddddd';
+                        window["td"+i+5].style.textAlign = 'center';
+                        window["td"+i+5].style.padding = '8px';
+
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
                         .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
-                        .append($(window["td"+i+3]).append(selectList)));
+                        .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                        .append($(window["td"+i+5]).append("")));
+
+                        selectList.style.flex = "1";
+                        btnAssign.style.flex = "1";
+                        btnAssign.style.marginTop = "0px";
+                        btnAssign.style.marginLeft = "5px";
+
+                        btnAssign.addEventListener('click', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.textAlign = 'center';
                         window["tdp2"+i+1].style.padding = '8px';
 
                         window["tdp2"+i+2] = document.createElement('td');
@@ -1732,7 +2243,7 @@ $(document).ready(function () {
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
@@ -1749,13 +2260,16 @@ $(document).ready(function () {
 
                 });
 
-                addAction('#taperTable2 tbody tr', 'taperTable2');
+                sampleUpdateAColumn("#taperTable2 tbody tr", "taperTable2");
+                //addAction('#taperTable2 tbody tr', 'taperTable2');
                 var weekNo2 = $('#taperTBody2 tr').length;
                 window.localStorage.setItem("weekNo2", weekNo2);
                 y.style.display = 'block';         
                 x.style.display = 'none';
                 secondTB.style.display = 'block';
                 //window.localStorage.setItem("medQuantity", 1);
+
+                $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
@@ -1844,7 +2358,7 @@ $(document).ready(function () {
 
                         window["td"+i+1]= document.createElement('td');
                         window["td"+i+1].style.border = '1px solid #dddddd';
-                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.textAlign = 'center';
                         window["td"+i+1].style.padding = '8px';
 
                         window["td"+i+2] = document.createElement('td');
@@ -1856,6 +2370,7 @@ $(document).ready(function () {
                         window["td"+i+3].style.border = '1px solid #dddddd';
                         window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
+                        window["td"+i+3].style.display = 'flex';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
@@ -1864,8 +2379,14 @@ $(document).ready(function () {
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
+
+                        // const option = document.createElement("option");
+                        // option.value = 0;
+                        // option.text = "--Select--";
+                        // selectList.appendChild(option);
+
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
@@ -1873,15 +2394,37 @@ $(document).ready(function () {
                             selectList.appendChild(option);
                         })
 
+                        selectList.classList.add("medSelect");
+                        selectList.multiple = true;
+                        selectList.name = tableBody+i+3;
+
+                        const btnAssign = document.createElement("button");
+                        btnAssign.innerHTML = "Select";
+                        btnAssign.classList.add("btn-primary");
+                        btnAssign.classList.add("aprv");
+
+                        window["td"+i+5] = document.createElement('td');
+                        window["td"+i+5].style.border = '1px solid #dddddd';
+                        window["td"+i+5].style.textAlign = 'center';
+                        window["td"+i+5].style.padding = '8px';
+
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
                         .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
-                        .append($(window["td"+i+3]).append(selectList)));
+                        .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                        .append($(window["td"+i+5]).append("")));
+
+                        selectList.style.flex = "1";
+                        btnAssign.style.flex = "1";
+                        btnAssign.style.marginTop = "0px";
+                        btnAssign.style.marginLeft = "5px";
+
+                        btnAssign.addEventListener('click', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.textAlign = 'center';
                         window["tdp2"+i+1].style.padding = '8px';
 
                         window["tdp2"+i+2] = document.createElement('td');
@@ -1902,7 +2445,7 @@ $(document).ready(function () {
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
@@ -1919,13 +2462,16 @@ $(document).ready(function () {
 
                 });
 
-                addAction('#taperTable tbody tr', 'taperTable');
+                sampleUpdateAColumn("#taperTable tbody tr", "taperTable");
+                //addAction('#taperTable tbody tr', 'taperTable');
                 var weekNo1 = $('#taperTBody tr').length;
                 window.localStorage.setItem("weekNo1", weekNo1);
                 y.style.display = 'block';         
                 x.style.display = 'none';
                 //secondTB.style.display = 'none';
                 //window.localStorage.setItem("medQuantity", 1);
+
+                $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
@@ -1999,7 +2545,7 @@ $(document).ready(function () {
 
                         window["td"+i+1]= document.createElement('td');
                         window["td"+i+1].style.border = '1px solid #dddddd';
-                        window["td"+i+1].style.textAlign = 'left';
+                        window["td"+i+1].style.textAlign = 'center';
                         window["td"+i+1].style.padding = '8px';
 
                         window["td"+i+2] = document.createElement('td');
@@ -2011,6 +2557,7 @@ $(document).ready(function () {
                         window["td"+i+3].style.border = '1px solid #dddddd';
                         window["td"+i+3].style.textAlign = 'center';
                         window["td"+i+3].style.padding = '8px';
+                        window["td"+i+3].style.display = 'flex';
 
                         window["td"+i+4] = document.createElement('td');
                         window["td"+i+4].style.border = '1px solid #dddddd';
@@ -2019,8 +2566,14 @@ $(document).ready(function () {
 
                         const selectList = document.createElement("select");
                         selectList.style.width = '150px';
+
+                        // const option = document.createElement("option");
+                        // option.value = 0;
+                        // option.text = "--Select--";
+                        // selectList.appendChild(option);
+
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, drop){
                             const option = document.createElement("option");
                             option.value = drop;
@@ -2028,15 +2581,37 @@ $(document).ready(function () {
                             selectList.appendChild(option);
                         })
 
+                        selectList.classList.add("medSelect");
+                        selectList.multiple = true;
+                        selectList.name = tableBody+i+3;
+
+                        const btnAssign = document.createElement("button");
+                        btnAssign.innerHTML = "Select";
+                        btnAssign.classList.add("btn-primary");
+                        btnAssign.classList.add("aprv");
+
+                        window["td"+i+5] = document.createElement('td');
+                        window["td"+i+5].style.border = '1px solid #dddddd';
+                        window["td"+i+5].style.textAlign = 'center';
+                        window["td"+i+5].style.padding = '8px';
+
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
                         .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
-                        .append($(window["td"+i+3]).append(selectList)));
+                        .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                        .append($(window["td"+i+5]).append("")));
+
+                        selectList.style.flex = "1";
+                        btnAssign.style.flex = "1";
+                        btnAssign.style.marginTop = "0px";
+                        btnAssign.style.marginLeft = "5px";
+
+                        btnAssign.addEventListener('click', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
-                        window["tdp2"+i+1].style.textAlign = 'left';
+                        window["tdp2"+i+1].style.textAlign = 'center';
                         window["tdp2"+i+1].style.padding = '8px';
 
                         window["tdp2"+i+2] = document.createElement('td');
@@ -2057,7 +2632,7 @@ $(document).ready(function () {
                         const selectListPrint = document.createElement("select");
                         selectListPrint.style.width = '150px';
                         doCombi = def.dose_Combination;
-                        doCombi.reverse();
+                        //doCombi.reverse();
                         $(doCombi).each(function(i, dropPrint){
                             const optionPrint = document.createElement("option");
                             optionPrint.value = dropPrint;
@@ -2074,13 +2649,16 @@ $(document).ready(function () {
 
                 });
 
-                addAction('#taperTable2 tbody tr', 'taperTable2');
+                sampleUpdateAColumn("#taperTable2 tbody tr", "taperTable2");
+                //addAction('#taperTable2 tbody tr', 'taperTable2');
                 var weekNo2 = $('#taperTBody2 tr').length;
                 window.localStorage.setItem("weekNo2", weekNo2);
                 y.style.display = 'block';         
                 x.style.display = 'none';
                 secondTB.style.display = 'block';
                 //window.localStorage.setItem("medQuantity", 1);
+
+                $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");

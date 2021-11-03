@@ -521,8 +521,8 @@ function displaySreeen3() {
         x.style.display = 'none';
     } else if(howMany == 1 && limit == 2){
         swal({
-            title: "The Number of Medications Does Not Correspond!",
-             text: "You indicated that your patient is currently taking 1 benzodiazepines and/or Z-drugs earlier but you selected 2 BZRA medication(s) here",
+            title: "",
+             text: "You indicated that your patient is currently taking 1 benzodiazepines and/or Z-drugs earlier but you selected 2 BZRA medication(s) here.",
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
@@ -546,8 +546,8 @@ function displaySreeen3() {
 
     } else if(howMany == 2 && limit == 1){
         swal({
-            title: "The Number of Medications Does Not Correspond!",
-             text: "You indicated that your patient is currently taking 2 benzodiazepines and/or Z-drugs earlier but you selected 1 BZRA medication(s) here",
+            title: "",
+             text: "You indicated that your patient is currently taking 2 benzodiazepines and/or Z-drugs earlier but you selected 1 BZRA medication(s) here.",
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
@@ -865,7 +865,7 @@ $('.tipCol2').tooltip({
 
 
 $('.tipCol4').tooltip({
-    title: "You can adjust the taper dose using the drop-down option that displays the available dose combinations for this medication, and allows Multi-Select of dose combinations. Please note that the application will allow taper dose for week 1 to be a dose-value lesser than the current dose. Similarly, the allowed taper dose for week 2 would be less than the taper dose input for week 1, and so on. The final dose will be the summed up value of the different dose combinations selected.",
+    title: "Drop-down option will assist you with modification of the taper dose recommended by the application for a particular week. This allows Multi-Select of available dose combinations and the recommended dose will be the summed-up value. Please also note that the taper dose value for each week must be lower than or equal to previous week.",
     placement: "right",
     trigger: 'hover'
 })

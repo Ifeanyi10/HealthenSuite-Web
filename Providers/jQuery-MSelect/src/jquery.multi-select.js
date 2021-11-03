@@ -130,22 +130,33 @@
       var options = [];
       var selected = [];
 
+      //adding custom variable below
+      var totalSelectedValue = 0;
+
       this.$element.find('option').each(function() {
         var text = /** @type string */ ($(this).text());
         options.push(text);
         if ($(this).is(':selected')) {
-          selected.push( $.trim(text) );
+
+          //adding custom variable below
+          totalSelectedValue += parseFloat($.trim(text));
+          //selected.push( $.trim(text) );
         }
       });
 
       this.$button.empty();
 
-      if (selected.length == 0) {
+      //adding custom variable below
+      //if (selected.length == 0) {
+      if (totalSelectedValue == 0) {
         this.$button.text( this.settings['noneText'] );
       } else if ( (selected.length === options.length) && this.settings['allText']) {
         this.$button.text( this.settings['allText'] );
       } else {
-        this.$button.text( selected.join(', ') );
+
+        //adding custom variable below
+        this.$button.text( totalSelectedValue );
+        //this.$button.text( selected.join(', ') );
       }
     },
 

@@ -48,11 +48,13 @@
                                     window.location.href = "provider-login.html";
                                 } else {
                                     swal("You chose to login later", "Please visit https://app.healthensuite.com/ to login.", "info");
+                                    window.location.href = "../index.html";
                                 }
                                 });
                             }, 
                             error: function(msg){
                                 sweetAlert("Unable to activate your account!","Please ensure you copied the link properly or click on the link from the email sent to you.","error");
+                                //window.location.href = "../index.html";
                             }
                         });
                     }

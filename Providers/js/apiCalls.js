@@ -250,7 +250,7 @@ $(document).ready(function () {
                         "province": province, "username": username}),
                     success: function(result){
                         console.log(result);
-                        swal({title: "Health enSuite welcomes you!", text: "Your account has been created successfully. An activation link has been sent to your email address. Please click on the link to validate your account.", type: "success"},
+                        swal({title: "Health enSuite welcomes you!", text: "Your Health enSuite Provider Account has been successfully created. An activation link has been sent to your email address (check Inbox/Spam). Please click on that link to activate your account.", type: "success"},
                         function(){ 
                             window.location.href = "../index.html";
                         }

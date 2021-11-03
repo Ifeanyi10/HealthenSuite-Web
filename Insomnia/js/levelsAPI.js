@@ -1,5 +1,72 @@
 var urlDomain = window.localStorage.getItem("urlDomain");
 
+function addVideoLinkAddress(addressID, videoTitle){
+
+    swal({
+        title: "Attention!",
+         text: "The link you clicked will take you to another page where you can watch the video about "+videoTitle+".\n\nSelect 'Yes, open the video page' if you want to go ahead and watch the video (please note these videos will use your mobile or Wi-Fi data for streaming).\n\nSelect 'No, don\'t open the video page' if you wish not to watch the video.",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#2087c8",
+        confirmButtonText: "Yes, open the video page.",
+        cancelButtonColor: "#01AA73",
+        cancelButtonText: "No, don\'t open the video page.",
+        closeOnConfirm: false,
+        closeOnCancel: false
+        },
+        function(isConfirm){
+        if (isConfirm) {
+            swal.close()
+            let authToken = window.localStorage.getItem("patientToken");
+            let url = "../video-player.html";
+            window.localStorage.setItem("fileLoc", assignVideoLink(addressID));
+            window.localStorage.setItem("patientLoginToken", authToken);
+            window.open(url, '_blank').focus();
+        } else {
+            swal.close()
+        }
+    });
+
+}
+
+function assignVideoLink(addressID){
+    var videoLink = "";
+    switch(addressID){
+        case "A":
+            videoLink = "Providers/videos/PMR_neck_legs_feet.mp4";
+            break;
+
+        case "B":
+            videoLink = "Providers/videos/PMR_Chest_Shoulders_Back_Abdomen.mp4";
+            break;
+
+        case "C":
+            videoLink = "Providers/videos/PMR_hands_arms_face_head.mp4";
+            break;
+
+        case "D":
+            videoLink = "Providers/videos/BellyBreathing.mp4";
+            break;
+
+        case "E":
+            videoLink = "Providers/videos/relaxation suggestion.mp4";
+            break;
+
+        case "F":
+            videoLink = "Providers/videos/Negative thoughts.mp4";
+            break;
+
+        case "G":
+            videoLink = "Providers/videos/Positivethoughts.mp4";
+            break;
+
+        default:
+            videoLink = "";
+    }
+
+    return videoLink;
+}
+
 function getCheckedValues(formID, elementName) {
     var abouts = document.forms[formID].elements[elementName];
     var aboutInfos = ""; 
