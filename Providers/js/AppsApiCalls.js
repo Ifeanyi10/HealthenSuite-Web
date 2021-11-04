@@ -340,10 +340,10 @@ function getPatDetatail(){
 //   });
 
 
-function errorAlert(msgHeader, msgBody1, msgBody2){
+function errorAlert(msgHeader, msgBody){
     swal({
         title: msgHeader,
-        text: msgBody1+"<br><br>"+msgBody2,
+        text: msgBody,
         html: !0,
       });
 }
