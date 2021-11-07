@@ -30,9 +30,15 @@ function fillAllFields(){
     if (fName != '' && lName != '' && ag != '')  {
         if(ag > 17 && ag <= 150 && ag.charAt(0) != 0){
             try {
-                ag = parseInt(ag);
-                bt.disabled = false;
-                $("#ageError").html("");
+                if(ag % 1 == 0){
+                    ag = parseInt(ag);
+                    bt.disabled = false;
+                    $("#ageError").html("");
+                }else{
+                    $("#ageError").html("Please enter a valid age of the patient.");
+                    bt.disabled = true;
+                }
+                
               }
               catch(err) {
                 $("#ageError").html("Please enter a valid age of the patient.");
@@ -57,9 +63,14 @@ function fillAllFields2(){
     if (fName != '' && lName != '' && ag != '')  {
         if(ag > 17 && ag <= 150 && ag.charAt(0) != 0){
             try {
-                ag = parseInt(ag);
-                bt.disabled = false;
-                $("#ageError2").html("");
+                if(ag % 1 == 0){
+                    ag = parseInt(ag);
+                    bt.disabled = false;
+                    $("#ageError2").html("");
+                }else{
+                    $("#ageError2").html("Please enter a valid age of the patient.");
+                    bt.disabled = true;
+                }
               }
               catch(err) {
                 $("#ageError2").html("Please enter a valid age of the patient.");
@@ -552,7 +563,7 @@ function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
                 errorAlert(msgHeader, msgBody);
             }
             else if(currentDoseValuebelowRow > totalSelectedValue){
-                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the previous week. Therefore, this will automatically be replaced by the taper dose for the previous week, that is, "+currentDoseValueAboveRow+"mg. you can select other dose combinations if you would like to revise this week’s taper dose.";
+                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the next week. Therefore, this will automatically be replaced by the taper dose for the previous week, that is, "+currentDoseValueAboveRow+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
                 document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
                 errorAlert(msgHeader, msgBody);
             }
@@ -590,7 +601,7 @@ function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
                 errorAlert(msgHeader, msgBody);
             }
             else{
-                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the previous week. Therefore, this will automatically be replaced by the current dose of the patient, that is, "+pDosage+"mg. you can select other dose combinations if you would like to revise this week’s taper dose.";
+                msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the next week. Therefore, this will automatically be replaced by the current dose of the patient, that is, "+pDosage+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
                 document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
                 errorAlert(msgHeader, msgBody);
                 console.log("Your total selected drug combination for this week is lesser than the week below it.");

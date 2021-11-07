@@ -104,6 +104,11 @@
                                             window.localStorage.setItem("sleepDariesCurrent", sleepDariesCurrent);
                                             window.localStorage.setItem("otherMedCurrentObj", otherMedCurrentObj);
                                             document.getElementById('todayLink').style.display = 'none';
+
+                                            var mySleep = JSON.parse(sleepDariesCurrent);
+                                            var bdTime = mySleep.bedTime;
+                                            if(bdTime != null){document.getElementById("yesterdayTagID").innerHTML = "Update yesterday’s sleep diary"}
+
                                         }else{
                                             var dateOne = new Date(currentDate2); //Year, Month, Date    
                                             var dateTwo = new Date(prevDate2); //Year, Month, Date 
@@ -120,6 +125,14 @@
                                                 window.localStorage.setItem("prevDateUnformatted", prevDate);  
                                                 window.localStorage.setItem("medicationPreviousObj", medicationPreviousObj);
                                                 window.localStorage.setItem("otherMedPreviousObj", otherMedPreviousObj);
+
+                                                var mySleep = JSON.parse(sleepDariesCurrent);
+                                                var bdTime = mySleep.bedTime;
+                                                if(bdTime != null){document.getElementById("yesterdayTagID").innerHTML = "Update yesterday’s sleep diary"}
+
+                                                var mySleep2 = JSON.parse(sleepDiaryPrevious);
+                                                var bdTime2 = mySleep2.bedTime;
+                                                if(bdTime2 != null){document.getElementById("todayTagID").innerHTML = "Update today’s sleep diary"}
                                             }else {    
                                                 window.localStorage.setItem("currentDate", prevDate2); 
                                                 window.localStorage.setItem("prevDate", currentDate2);  
@@ -133,6 +146,14 @@
                                                 window.localStorage.setItem("prevDateUnformatted", currentDate); 
                                                 window.localStorage.setItem("medicationPreviousObj", medicationCurrentObj);
                                                 window.localStorage.setItem("otherMedPreviousObj", otherMedCurrentObj);
+
+                                                var mySleep = JSON.parse(sleepDariesCurrent);
+                                                var bdTime = mySleep.bedTime;
+                                                if(bdTime != null){document.getElementById("yesterdayTagID").innerHTML = "Update yesterday’s sleep diary"}
+
+                                                var mySleep2 = JSON.parse(sleepDiaryPrevious);
+                                                var bdTime2 = mySleep2.bedTime;
+                                                if(bdTime2 != null){document.getElementById("todayTagID").innerHTML = "Update today’s sleep diary"}
                                             }  
                                         }
 
@@ -512,12 +533,12 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12 sleepDiv" id="prevLink">
                                         <a href="sleep-diary.html" class="txt1">
-                                            <strong>Complete yesterday’s sleep diary</strong>
+                                            <strong id="yesterdayTagID">Complete yesterday’s sleep diary.</strong>
                                         </a>
                                     </div>
                                     <div class="col-md-6 col-sm-12 sleepDiv" id="todayLink">
                                         <a href="sleep-diary.html" class="txt1">
-                                            <strong>Complete today’s sleep diary</strong>
+                                            <strong id="todayTagID">Complete today’s sleep diary.</strong>
                                         </a>
                                     </div>
                                     
