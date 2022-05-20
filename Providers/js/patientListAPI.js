@@ -14,8 +14,8 @@ $(document).ready(function () {
         authTokenPatient = window.localStorage.getItem("patientToken");
         if(authToken == null){
             //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
-            //urlDomain = 'http://192.168.6.15:8083/';
-            urlDomain = 'https://api.healthensuite.com/';
+            urlDomain = 'https://apiv3.healthensuite.com/';
+            // urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }
@@ -43,7 +43,7 @@ $(document).ready(function () {
                 }),
             success: function(result){
                 console.log(result);
-                swal({title: "Done!", text: "Your Patient’s Taper start date has been revised.", type: "success"},
+                swal({title: "", text: "Your Patient’s Taper start date has been revised.", type: "success"},
                 function(){ 
                     $('#exampleModalRevisePatient').modal('hide');
                     window.location.href = "patient-list.html";
@@ -52,7 +52,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Update not successful!","Please try again shortly.","error");
+                var content = "<span style='font-weight: bold'>Update not successful.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Update not successful!","Please try again shortly.","error");
             }
         });
         console.log("Sending the Taper Date to back-end: "+newTaperStartDate);
@@ -83,11 +85,15 @@ $(document).ready(function () {
                 }, 
                 error: function(msg){
                     //$("#errorContainer").html("Incorrect Username or Password");
-                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                    var content = "<span style='font-weight: bold'>Access denied.</span> <span>Please confirm your login credentials and your internet connectivity to proceed.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
                 }
             });
         }else{
-            sweetAlert("Attention!","Please fill the fields properly and login","info");
+            // sweetAlert("Attention","Please fill the fields properly and login");
+            var content = "<span>Please confirm your login information to proceed.</span>";
+            swal({title: "", text: content, html: true});
         }
         
     });//end of quick login
@@ -194,14 +200,31 @@ function getPatDetatail(){
     document.getElementById('paRecDate').innerHTML= userObj.appRecommendationDate;
 
     var tapStD = userObj.regimen;
+    // var tapStD = "";
     //var tapStD = userObj.tapperStartDate;
     if(tapStD == '' || tapStD == null){
         document.getElementById('paTapStDate').innerHTML = 'Not applicable';
         document.getElementById('btnStDate').style.display = 'none';
+        document.getElementById('med1Div').style.display = 'none';
+        document.getElementById('med2Div').style.display = 'none';
     }else{
         tapStD = userObj.regimen[0].taperStartDate;
         document.getElementById('paTapStDate').innerHTML = tapStD;
         
+        var med1 = userObj.regimen[0].sleepMedication;
+        document.getElementById('medN1').innerHTML = med1;
+        var dose1 = userObj.regimen[0].currentDose;
+        document.getElementById('dose1').innerHTML = dose1;
+
+        var med2 = userObj.regimen[1].sleepMedication;
+        // var med2 ="";
+        if(med2 == '' || med2 == null){
+            document.getElementById('med2Div').style.display = 'none';
+        }else{
+            document.getElementById('medN2').innerHTML = med2;
+            var dose1 = userObj.regimen[1].currentDose;
+            document.getElementById('dose2').innerHTML = dose1;
+        }
     }
 
     var spDiaLength = userObj.sleepDiaries.length;
@@ -347,7 +370,9 @@ function retrieveRefCode(){
             z.style.display = 'none';
         }, 
         error: function(msg){
-            sweetAlert("Unable to retrieve Referral Code!","Please try again shortly","error");
+            var content = "<span style='font-weight: bold'>Unable to retrieve Referral Code.</span> <span>Please try again shortly.</span>";
+            swal({title: "", text: content, html: true});
+            //sweetAlert("Unable to retrieve Referral Code!","Please try again shortly","error");
         }
     });
 
@@ -390,12 +415,24 @@ function populateTB(){
             }else if(def.gender == "OTHER"){
                 myGend = "Other";
             }
+
+            if(def.statusEntity != null){
+                if(def.statusEntity.consent == true){
+                    patientStatus = "Sign Up Completed";
+                }else{
+                    patientStatus = "Sign Up Not Completed";
+                }
+                
+            }else{
+                patientStatus = "Sign Up Not Completed";
+            }
     
             p++
             $("#patientTBody").append($("<tr>").attr({"id": def.id})
                 .append($("<td class ='id_event'>").append(p))
                 .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
                 .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
+                .append($("<td>").append(patientStatus))
                 .append($("<td>").append(def.age))
                 .append($("<td>").append(myGend))
                 .append($("<td>").append(trialName))
@@ -407,7 +444,7 @@ function populateTB(){
         //console.log("Apend"+marchVal)
     });
 
-    if(marchVal == 0){
+    if(name == ""){
 
         $.each(users, function(i, def) {
             /// do stuff
@@ -425,11 +462,23 @@ function populateTB(){
                 }else if(def.gender == "OTHER"){
                     myGend = "Other";
                 }
+
+                if(def.statusEntity != null){
+                    if(def.statusEntity.consent == true){
+                        patientStatus = "Sign Up Completed";
+                    }else{
+                        patientStatus = "Sign Up Not Completed";
+                    }
+                    
+                }else{
+                    patientStatus = "Sign Up Not Completed";
+                }
         
                 $("#patientTBody").append($("<tr>").attr({"id": def.id})
                     .append($("<td class ='id_event'>").append(i + 1))
                     .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.firstName + "'/>"))
                     .append($("<td>").append("<input type='button' class='patNametxt' onclick='getPatDetatail()' value='" + def.lastName + "'/>"))
+                    .append($("<td>").append(patientStatus))
                     .append($("<td>").append(def.age))
                     .append($("<td>").append(myGend))
                     .append($("<td>").append(trialName))
@@ -440,6 +489,8 @@ function populateTB(){
         });
         //console.log("Apendes"+marchVal)
 
+    }else if(marchVal == 0){
+        $("#patTB").find("tbody").empty();
     }
 
 

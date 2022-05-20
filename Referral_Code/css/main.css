@@ -9,30 +9,30 @@
 
 @font-face {
   font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+  src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
 
 @font-face {
   font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+  src: url('../fonts/poppins/Poppins-Medium.ttf');
 }
 
 @font-face {
   font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+  src: url('../fonts/poppins/Poppins-Bold.ttf');
 }
 
 @font-face {
   font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+  src: url('../fonts/poppins/Poppins-SemiBold.ttf');
 }
 
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
+	margin: 0px;
+	padding: 0px;
 	box-sizing: border-box;
 }
 
@@ -81,6 +81,12 @@ a.txt2:hover {
 /*---------------------------------------------*/
 h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
+}
+
+
+img {
+  max-width:100%;
+  height:auto;
 }
 
 p {
@@ -188,7 +194,7 @@ iframe {
 }
 
 .container-login100 {
-  width: 100%;  
+  width: 100%;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -204,7 +210,16 @@ iframe {
 
 
 .wrap-login100 {
-  width: 670px;
+  width: 75%;
+  background-color:rgba(255, 255, 255, 0.9);
+  margin-right: 0px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.wrap-login101 {
+  width: 50%;
   background-color:rgba(255, 255, 255, 0.9);
   margin-right: 0px;
   border-radius: 10px;
@@ -241,6 +256,9 @@ iframe {
   text-transform: uppercase;
   line-height: 1.2;
   text-align: center;
+  width: 100%;
+  display: inline-block;
+  position: relative;
 }
 
 .login100-form-title::before {
@@ -293,11 +311,30 @@ iframe {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding-top: 43px;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 40px;
+}
+
+.login100-form21 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: block;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  padding-top: 43px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 40px;
+}
+
+.new-line{
+  display: block;
 }
 
 .contact-head{
@@ -540,13 +577,20 @@ input.input100 {
     font-size: .900rem;
   }.consentInfoHead{
     font-size: .900rem;
-  }.consentInfoBodySmall{ 
+  }.consentInfoBodySmall{
     font-size: .900rem;
-  }.consentInfoBody{ 
+  }.consentInfoBody{
     font-size: .900rem;
   }
+  .pageStyle{
+    color: rgb(189, 181, 181);
+    /* margin-top: 20px; */
+    font-size: .800rem;
+    text-align: right;
+    font-style: italic;
+  }
   .login100-form-title-1 {
-    font-size: 1rem;
+    font-size: .800rem;
   }.input100 {
     font-size: .950rem;
     line-height: 1rem;
@@ -568,9 +612,9 @@ input.input100 {
     font-size: 1rem;
   }.consentInfoHead{
     font-size: 1rem;
-  }.consentInfoBodySmall{ 
+  }.consentInfoBodySmall{
     font-size: 1rem;
-  }.consentInfoBody{ 
+  }.consentInfoBody{
     font-size: 1rem;
   }.input100 {
     font-size: 1rem;
@@ -579,13 +623,13 @@ input.input100 {
     font-size: 1rem;
   }
   .login100-form-title-1 {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
   }
 }
 
 @media (min-width: 992px) {
   .login100-form {
-    padding: 43px 15px 57px 117px;
+    padding: 43px 115px 57px 117px;
   }
   body, html {
     font-size: 1.1rem;
@@ -596,9 +640,9 @@ input.input100 {
     font-size: 1.1rem;
   }.consentInfoHead{
     font-size: 1.1rem;
-  }.consentInfoBodySmall{ 
+  }.consentInfoBodySmall{
     font-size: 1.1rem;
-  }.consentInfoBody{ 
+  }.consentInfoBody{
     font-size: 1.1rem;
   }.input100 {
     font-size: 1.1rem;
@@ -624,9 +668,9 @@ input.input100 {
     font-size: 1.125rem;
   }.consentInfoHead{
     font-size: 1.125rem;
-  }.consentInfoBodySmall{ 
+  }.consentInfoBodySmall{
     font-size: 1.125rem;
-  }.consentInfoBody{ 
+  }.consentInfoBody{
     font-size: 1.125rem;
   }.input100 {
     font-size: 1.125rem;

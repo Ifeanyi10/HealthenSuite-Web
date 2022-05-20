@@ -18,6 +18,38 @@
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
 
+    <script type="text/javascript">
+        window.onload =  function() {
+            var urlDomain = window.localStorage.getItem("urlDomain");
+            let url = urlDomain + 'insomnia/v1/intervention/getpsychoeducation';
+            let authToken = window.localStorage.getItem("patientToken");
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'Accept': '*/*',
+                    'Authorization': 'Bearer '+ authToken
+                },
+                success: function(result){
+                    console.log(result);
+                    window.localStorage.setItem("psychoID", result.id);
+                    let trialNo = window.localStorage.getItem("trialNo");
+                    // let trialNo = 1;
+                    if(trialNo == 1){
+                        document.getElementById('trial2Sec2').style.display = 'none';
+                    }
+                }, 
+                error: function(msg){
+                    displayQuickAlert();
+                }
+            });
+
+        }
+    </script>
+
+
 </head>
 
 <body>
@@ -71,9 +103,10 @@
             <div class="header-content clearfix">
 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
 
                 <div class="header-right">
@@ -172,8 +205,8 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./psycho-education.html">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./psycho-education.html">Progress</a></li>
                         </ul>
                     </li>
 
@@ -191,8 +224,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
 
@@ -263,32 +296,32 @@
 
                                                     <form id="formSituation">
                                                         <div class="form-group">
-                                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Which of the following best describes your situation (check all that apply):</label>
+                                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Which of the following best describes your situation (check all that apply): <span id="descErMsg" style="color: red;"></span></label>
 
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="It often takes me more than 30 minutes to fall asleep.">It often takes me more than 30 minutes to fall asleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit', 'descErMsg')" value="It often takes me more than 30 minutes to fall asleep.">It often takes me more than 30 minutes to fall asleep.</label>
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="I wake up frequently throughout the night and have trouble getting back to sleep.">I wake up frequently throughout the night and have trouble getting back to sleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit', 'descErMsg')" value="I wake up frequently throughout the night and have trouble getting back to sleep.">I wake up frequently throughout the night and have trouble getting back to sleep.</label>
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="I regularly wake up too early in the morning and cannot get back to sleep.">I regularly wake up too early in the morning and cannot get back to sleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit', 'descErMsg')" value="I regularly wake up too early in the morning and cannot get back to sleep.">I regularly wake up too early in the morning and cannot get back to sleep.</label>
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="My sleep quality is poor. I would like to improve the quality of my sleep.">My sleep quality is poor. I would like to improve the quality of my sleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit', 'descErMsg')" value="My sleep quality is poor. I would like to improve the quality of my sleep.">My sleep quality is poor. I would like to improve the quality of my sleep.</label>
                                                             </div>
                                                         </div>
                                                     </form>
-                                                    <p>Over the next few weeks you will learn strategies to help resolve this problem.</p>
+                                                    <!-- <p>Over the next few weeks you will learn strategies to help resolve this problem.</p> -->
                                                 </div>
                                             </div>
                                             <div class="general-button">
                                                 <!-- <button type="submit" onclick="hideDisplay('colTwo', 'colOne');" class="btn-secondary" style="margin-right: 30px;">Back</button> -->
-                                                <button type="button" id="btnNext1" onclick="displayNav('navpills-1', 'navpills-2');" class="btn-primary goRight" disabled>Next</button>
+                                                <button type="button" id="btnNext1" onclick="goToNextPage('navpills-1', 'navpills-2', 'descErMsg', true);" class="btn-primary goRight">Next</button>
                                             </div>
                                         </div>
 
@@ -306,36 +339,35 @@
                                                 </div>
                                             </div>
                                             <div class="general-button">
-                                                <button type="submit" onclick="displayNav('navpills-2', 'navpills-1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="submit" onclick="displayNavLevel('navpills-2', 'navpills-1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
                                                 <button type="button" onclick="displayNav('navpills-2', 'navpills-3');" class="btn-primary goRight">Next</button>
                                             </div>
                                         </div>
 
                                         <div id="navpills-3" class="tab-pane">
-                                            <div class="row align-items-center">
+                                            <!-- <div class="row align-items-center">
                                                 <div class="col-md-12">
-                                                    <!-- <h3 class="consentInfoHeadSmall">How does this program work?</h3> -->
-                                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">How does this program work?</label>
-                                                    <p>Health enSuite Insomnia is based on a cognitive behavioural approach to treating insomnia.  The goal is to change old ways of thinking and behaving and learn new, more effective ways of thinking and behaving. Every week, you will learn new skills to help you sleep better at night and feel better during the day. Here is an outline of what to expect in the weeks to come.</p>
-                                                    <div class="consentInfoBody">
-                                                        Week 1 (this week): Introduction to Health EnSuite: Insomnia
-                                                    </div>
-                                                    <div class="consentInfoBody">
-                                                        Week 2: Introduction sleep restriction therapy and using the sleep restriction clock
-                                                    </div>
-                                                    <div class="consentInfoBody">
-                                                        Week 3: Changing behaviours and improving sleep hygiene
-                                                    </div>
-                                                    <div class="consentInfoBody">
-                                                        Week 4: Relaxation techniques
-                                                    </div>
-                                                    <div class="consentInfoBody">
-                                                        Week 5: Changing negative thoughts related to sleep
-                                                    </div>
-                                                    <div class="consentInfoBody">
-                                                        Week 6: Setback prevention and planning for the future
-                                                    </div>
-                                                    <p>It may take a few weeks before you start to notice a difference in your sleep quality. Don’t get discouraged. Changing habits can be difficult and take time. The key to success is to stick with the program and practice the skills you are learning every day.</p>
+                                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Why is it a good idea to reduce my medications gradually?</label>
+                                                    <p>Sudden changes in medications increase your risk of <strong style="font-style: italic;">withdrawal symptoms.</strong></p>
+                                                    <div class="linkDiv hidden" id="symps">Withdrawal symptoms might include: insomnia, anxiety, irritability, headaches, sweating, shaking or tremors, pounding heart, nausea, dizziness, unsteadiness, difficulty concentrating, sensitivity to noise and light, ringing in the ears, confusion/delirium, depression, seizures</div>
+
+                                                    <p>The risk of withdrawal symptoms is reduced when medication changes are slow and gradual. The plan your health care provider has recommended takes this slow, gradual approach. Your sleeping pill dose is reduced slowly over a period of many weeks or months. A small change happens each time you start a new dose.</p>
+                                                </div>
+                                            </div> -->
+
+                                            <div class="row align-items-center">                                           
+                                                <div class="col-sm-6 col-md-4 col-xl-2">
+                                                    <img src="images/big/sleepPills2-img.jpg" alt="" class="img-fluid thumbnail m-r-15">
+                                                </div>
+                                                <div class="col-sm-6 col-md-8 col-xl-10">
+                                                    <label class="lblQuestion colorSubHeader">What can I do to sleep better?</label>
+                                                    <p>Try to limit the amount of time you lie awake in bed.</p>
+                                                    <p>Only use your bedroom for sleep and sex.</p>
+                                                    <p>Don’t try going to sleep until you feel sleepy.</p>
+                                                    <p>If you have been awake in bed for 20-30 minutes, get up and do something else. Go to bed again when you start to feel sleepy.</p>
+                                                    <p>Try to limit how much alcohol, nicotine, or caffeine you consume. These substances can make it more difficult to sleep well.</p>
+                                                    <p>Make your bedroom a comfortable place to sleep. It should not be too hot or too cold. Keep it dark and quiet when try to sleep. Try removing distractions like your phone, computer, or TV.</p>
+                                                    <p>Try taking some time to relax before bed. Taking a warm bath, practicing deep breathing, doing yoga or light stretching are all great ways to relax.</p>
                                                 </div>
                                             </div>
                                             <div class="general-button">
@@ -355,51 +387,54 @@
                                                         <!-- <h3 class="consentInfoHeadSmall">Sleeping pills</h3> -->
                                                         <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Sleeping pills</label>
                                                         <p>Sleeping pills may seem like an easy way to manage your sleep. Unfortunately sleeping pills only work as a short term remedy for sleep problems. After a few weeks, sleeping pills can become less effective in promoting good sleep. But many people continue using sleeping pills for weeks or even years. This can happen even when there are adverse side effects like daytime drowsiness and difficulty concentrating.</p>
-                                                        <p>Your health care provider has recommended a plan that will gradually reduce the amount  of the sleeping pills you are taking. The goal is for you to eventually be able to stop taking sleeping pills and get a good night’s sleep.</p>
-                                                        <p>How is it going so far?</p>
-                                                        <form id="formFeeling">
-                                                            <div class="form-group">
-                                                                <label class="lblQuestion">Which of the following best describes your feelings about this plan?</label>
+                                                        
+                                                        <div id="trial2Sec2">
+                                                            <p>Your health care provider has recommended a plan that will gradually reduce the amount  of the sleeping pills you are taking. The goal is for you to eventually be able to stop taking sleeping pills and get a good night’s sleep.</p>
+                                                            <p>How is it going so far?</p>
+                                                            <form id="formFeeling">
+                                                                <div class="form-group">
+                                                                    <label class="lblQuestion">Which of the following best describes your feelings about this plan? <span id="feelErMsg" style="color: red;"></span></label>
 
-                                                                <div class="form-check mb-3">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('confident', 'btnSubmitPsycho');" name="feel" value="I feel confident I will be able to stick to this plan">I feel confident I will be able to stick to this plan. </label>
-                                                                </div>
-                                                                <div class="form-check mb-3">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('difficult', 'btnSubmitPsycho');" name="feel" value="I think it will be very difficult for me to stick to this plan">I think it will be very difficult for me to stick to this plan.</label>
-                                                                </div>
-                                                                <div class="form-check mb-3">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('unknown', 'btnSubmitPsycho');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label>
-                                                                </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('confident', 'feelErMsg');" name="feel" value="I feel confident I will be able to stick to this plan">I feel confident I will be able to stick to this plan. </label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('difficult', 'feelErMsg');" name="feel" value="I think it will be very difficult for me to stick to this plan">I think it will be very difficult for me to stick to this plan.</label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('unknown', 'feelErMsg');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label>
+                                                                    </div>
 
-                                                                <p>You might find that your insomnia initially gets worse after you reduce your medication. Try your best to stick to the medication plan even if this happens. Over time, your body will adjust to the new dose.</p>
+                                                                    <p>You might find that your insomnia initially gets worse after you reduce your medication. Try your best to stick to the medication plan even if this happens. Over time, your body will adjust to the new dose.</p>
 
-                                                                <div class="modal fade" id="exampleModalCenter">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="modalContentTitle"></h5>
-                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p id="modalContentBd"></p>
+                                                                    <!-- <div class="modal fade" id="exampleModalCenter">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="modalContentTitle"></h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p id="modalContentBd"></p>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
+                                                                    </div> -->
 
-                                                            </div>
-                                                        </form>
+                                                                </div>
+                                                            </form>
+                                                        </div>
 
                                                     </div>
                                                 </div>
 
                                                 <div class="general-button">
                                                     <button type="button" id="btnHideMe" onclick="displayNav('navpills-4', 'navpills-3');" class="btn-secondary" style="margin-right: 30px;">Back</button>
-                                                    <button type="button" id="btnSubmitPsycho" class="btn-primary goRight" disabled>Submit Your Response</button>
+                                                    <button type="button" id="btnSubmitPsycho" class="btn-primary goRight">Submit Your Response</button>
                                                     <!-- <input type='button' class='btn-colorSec goRight' id="btnContSleepPill" onclick="showNote('content4-2');" value='Continue...'/> -->
                                                 </div>
     
@@ -439,7 +474,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

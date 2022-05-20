@@ -1,5 +1,7 @@
 var urlDomain = window.localStorage.getItem("urlDomain");
 
+var eligibitySubmitted = false;
+
 function loadNameValues() {
     //var inputFirstName = $.session.get('firstName');
     //var inputLastName = $.session.get('lastName');
@@ -10,17 +12,26 @@ function loadNameValues() {
 }
 
 function notEligibleAlert(alertValue){
-    swal({title: alertValue, text: "", type: "error"},
-                function(){ 
-                    //window.location.href = "index.html";
-                }
-                );
+    var content = "<span>"+alertValue+"</span>";
+    swal({title: "", text: content , html: true},
+        function(){ 
+            //window.location.href = "provider-dashboard.html";
+        }
+    );
+    // swal({title: alertValue, text: "", type: "error"},
+    //             function(){ 
+    //                 //window.location.href = "index.html";
+    //             }
+    //             );
 }
 
 function hideDispaly1(firstQ, secondQ, disqualify1, yesAns, noAns) {
     var x = document.getElementById(firstQ);
     var y = document.getElementById(secondQ);
     var z = document.getElementById(disqualify1);
+
+    var sub = document.getElementById("submit");
+    deselectCheckBox();
 
     if (document.getElementById(yesAns).checked) {
         //x.style.display = 'none';
@@ -44,7 +55,7 @@ function hideDispaly1(firstQ, secondQ, disqualify1, yesAns, noAns) {
 
         z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
-
+        sub.style.display = 'none';
         if(disqualify1 == 'disqualify1'){
             notEligibleAlert('You must be 18 years old or older to participate in this study.');
         }
@@ -77,6 +88,9 @@ function hideDispaly2(firstQ, secondQ, disqualify1, yesAns, noAns) {
     var y = document.getElementById(secondQ);
     var z = document.getElementById(disqualify1);
 
+    var sub = document.getElementById("submit");
+    deselectCheckBox();
+
     if (document.getElementById(yesAns).checked) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
@@ -96,6 +110,7 @@ function hideDispaly2(firstQ, secondQ, disqualify1, yesAns, noAns) {
 
         z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
+        sub.style.display = 'none';
      
         if(disqualify1 == 'disqualify2'){
             notEligibleAlert('To access the Health enSuite Insomnia program you need regular access to a device with an internet connection.');
@@ -127,6 +142,8 @@ function hideDispaly4(firstQ, secondQ, disqualify1, yesAns, noAns) {
     var y = document.getElementById(secondQ);
     var z = document.getElementById(disqualify1);
 
+    var sub = document.getElementById("submit");
+
     if (document.getElementById(yesAns).checked) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
@@ -141,9 +158,10 @@ function hideDispaly4(firstQ, secondQ, disqualify1, yesAns, noAns) {
 
         z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
+        sub.style.display = 'none';
      
         if(disqualify1 == 'disqualify4'){
-            notEligibleAlert('Health enSuite Insomnia is not designed for sleep problems related changing work schedules or shift work.');
+            notEligibleAlert('Health enSuite Insomnia is not designed for sleep problems related to changing work schedules or shift work.');
         }
     
         $('input[name=optradio4]').prop("checked",false); 
@@ -166,6 +184,8 @@ function hideDispaly5(firstQ, secondQ, disqualify1, yesAns, noAns) {
     var y = document.getElementById(secondQ);
     var z = document.getElementById(disqualify1);
 
+    var sub = document.getElementById("submit");
+
     if (document.getElementById(yesAns).checked) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
@@ -177,9 +197,10 @@ function hideDispaly5(firstQ, secondQ, disqualify1, yesAns, noAns) {
 
         z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
+        sub.style.display = 'none';
      
         if(disqualify1 == 'disqualify4'){
-            notEligibleAlert('Health enSuite Insomnia is not designed for sleep problems related changing work schedules or shift work.');
+            notEligibleAlert('Health enSuite Insomnia is not designed for sleep problems related to changing work schedules or shift work.');
         }
        
         $('input[name=optradio5]').prop("checked",false);
@@ -198,6 +219,8 @@ function hideDispaly6(firstQ, secondQ, disqualify1, yesAns, noAns) {
     var y = document.getElementById(secondQ);
     var z = document.getElementById(disqualify1);
 
+    var sub = document.getElementById("submit");
+
     if (document.getElementById(yesAns).checked) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
@@ -206,6 +229,7 @@ function hideDispaly6(firstQ, secondQ, disqualify1, yesAns, noAns) {
 
         z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
+        sub.style.display = 'none';
      
         if(disqualify1 == 'disqualify6'){
             notEligibleAlert('Health enSuite Insomnia is not designed to address sleep disturbances related to pregnancy or caring for an infant.');
@@ -224,13 +248,16 @@ function hideDispaly7(firstQ, secondQ, disqualify1, yesAns, noAns) {
     var y = document.getElementById(secondQ);
     var z = document.getElementById(disqualify1);
 
+    var sub = document.getElementById("submit");
+
     if (document.getElementById(yesAns).checked) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
 
         z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
-     
+        sub.style.display = 'none';
+
         if(disqualify1 == 'disqualify6'){
             notEligibleAlert('Health enSuite Insomnia is not designed to address sleep disturbances related to pregnancy or caring for an infant.');
         }
@@ -240,6 +267,13 @@ function hideDispaly7(firstQ, secondQ, disqualify1, yesAns, noAns) {
     }
 }
 
+
+function deselectCheckBox(){
+    var meds = document.forms['formEligible'].elements['symp'];
+    for (i = 0; i < meds.length; i++) {   
+        meds[i].checked = false; 
+    }
+}
 
 
 function validateMedCheck(){
@@ -257,6 +291,7 @@ function validateMedCheck(){
 function getCheckedSymptomValues() {
     var symptoms = document.forms["formEligible"].elements["symp"];
     var symptomsInfos = ""; 
+    var sub = document.getElementById("submit");
 
     var y = document.getElementById('fourthQ');
     var z = document.getElementById('disqualify3');
@@ -275,6 +310,7 @@ function getCheckedSymptomValues() {
 
     if(symptomsInfos == ""){
         notEligibleAlert('Health enSuite Insomnia is unlikely to help you if you are not experiencing difficulty sleeping.');
+        sub.style.display = 'none';
         //x.style.display = 'none';
         //y.style.display = 'none';
         //z.style.display = 'block';    
@@ -355,13 +391,14 @@ function symptomHideDispaly() {
 }
 
 
-function hideDispalyConsent(first, second, contAns) {
+function hideDispalyConsent(first, second, contAns, pNum) {
     var x = document.getElementById(first);
     var y = document.getElementById(second);
 
     if (document.getElementById(contAns).checked) {
                     
     } 
+    document.getElementById('pNum').innerHTML = pNum;
     x.style.display = 'none';
     y.style.display = 'block';
 }
@@ -372,7 +409,7 @@ function hideDispalyConsentAnswer(answerId) {
 }
 
 
-function checkAgreeConsent(first, second, contAns, formId, checkboxId) {
+function checkAgreeConsent(first, second, contAns, formId, checkboxId, pNum) {
     var x = document.getElementById(first);
     var y = document.getElementById(second);
     var iAgrees = document.forms[formId].elements[checkboxId];
@@ -386,12 +423,15 @@ function checkAgreeConsent(first, second, contAns, formId, checkboxId) {
             }
         }
 
-        if(agreeCount == 7){
+        if(agreeCount == 10){
+            document.getElementById('pNum').innerHTML = pNum;
             x.style.display = 'none';
             y.style.display = 'block'; 
         }else{
             //alert("Please click all box to proceed");
-            sweetAlert("Cannot Proceed!","Please review all the information, check them off to proceed.","error");
+            //sweetAlert("Cannot Proceed!","Please review all the information, check them off to proceed.","error");
+            var content = "<span style='font-weight: bold'>You have to check all boxes to be able to proceed to the next step of the Consent process.</span>";
+            swal({title: "", text: content, html: true});
         }
                    
     //} 
@@ -427,32 +467,93 @@ function decideToConsent() {
     
 
     if (document.getElementById('begin').checked) {
-        submitElligible();       
+        confirmYourSubmission();       
     }else if (document.getElementById('wait').checked){
 
         swal({
-            title: "You opted to continue later!",
-            text: "You will need to enter your referral code again when you are ready to continue.",
-            type: "info",
+            title: "",
+            text: "You opted to continue later. You will need to enter your referral code again when you are ready to continue.",
+            // type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
-            confirmButtonText: "No, let me continue now",
+            confirmButtonText: "No, let me continue now.",
             cancelButtonColor: "#01AA73",
-            cancelButtonText: "Yes, I will continue later",
+            cancelButtonText: "Yes, I will continue later.",
             closeOnConfirm: false,
             closeOnCancel: false
             },
             function(isConfirm){
             if (isConfirm) {
-                submitElligible();
+                confirmYourSubmission();
                 
             } else {
                 //swal("Cancelled", "You chose to continue later :)", "error");
-                window.location.href = "referral.html";
+                var optOutMessage = "You chose to continue later :). See you soon!";
+                patientOptOutAlert(optOutMessage);
             }
             });
                
     }
+}
+
+function confirmYourSubmission(){
+    var mySubmissionFlag = window.localStorage.getItem("eligibitySubmitted");
+
+    if(mySubmissionFlag != "true"){    
+        swal({
+            title: "",
+            text: "Kindly verify your responses. Once confirmed, You cannot resubmit your responses.",
+            // type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#2087c8",
+            confirmButtonText: "I want to submit my responses.",
+            cancelButtonColor: "#01AA73",
+            cancelButtonText: "I want to review my responses.",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm){
+            if (isConfirm) {
+                submitElligible();    
+            } else {
+                $('input[name=optradio8]').prop("checked",false);
+                swal.close();
+            }
+        });
+    }else{
+        var optOutMessage = "You have already submitted your responses. Please login with your referral code to submit your consent.";
+        patientOptOutAlert(optOutMessage);
+    }
+}
+
+function discontinue(){
+
+    var patientToken = window.localStorage.getItem("patToken");
+    let url = urlDomain + 'insomnia/v1/patient/consent';
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+            'Accept': '*/*',
+            'Authorization': 'Bearer '+ patientToken            
+          },
+        data: JSON.stringify({
+        "rejected": true
+        }),
+        success: function(result){
+            var optOutMessage = "You have successfully opt out of the program.";
+            patientOptOutAlert(optOutMessage);              
+        }, 
+        error: function(msg){
+            //$("#errorContainer").html("Incorrect Username or Password");
+            //sweetAlert("Unable to submit your eligibilty response.","You may have submitted your consent before now.");
+            var content = "<span style='font-weight: bold'>Discontinue request not completed.</span> <span>Please try again shortly.</span>";
+            swal({title: "", text: content, html: true});
+        }
+    });
+
 }
 
 
@@ -463,6 +564,7 @@ function submitElligible(){
     console.log(patientToken)
     var sleepExperience = window.localStorage.getItem("sleepResponse");
     let url = urlDomain + 'insomnia/v1/patient/eligibility';
+
 
     $.ajax({
         url: url,
@@ -481,33 +583,86 @@ function submitElligible(){
         "sleepExperience": sleepExperience}),
         success: function(result){
            console.log(result); 
-           window.location.href = "consent.html";              
+           eligibitySubmitted = true;
+           window.localStorage.setItem("eligibitySubmitted", eligibitySubmitted);
+           
+           if(result.id == 1){
+                window.location.href = "consent.html";
+            }else{
+                window.location.href = "consent-dep.html";
+            }              
         }, 
         error: function(msg){
             //$("#errorContainer").html("Incorrect Username or Password");
-            sweetAlert("Unable to submit your eligibilty response!","You may have submitted your consent before now.","error");
+            //sweetAlert("Unable to submit your eligibilty response.","You may have submitted your consent before now.");
+            var content = "<span style='font-weight: bold'>Unable to submit your eligibilty response.</span> <span>You may have submitted your consent before now.</span>";
+            swal({title: "", text: content, html: true});
+        }
+    });
+}
+
+function confiirmPatientOptOut(){
+    
+    swal({
+        title: "",
+        text: "You will be removed from the program if you discontinue at this point.",
+        //text: "You clicked 'No thanks, I am not interested' button. Do you wish to discontinue from this study? You will be removed from the program if you discontinue at this point.",
+        // type: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#2087c8",
+        confirmButtonText: "Yes, I am not interested.",
+        cancelButtonColor: "#01AA73",
+        cancelButtonText: "No, I will like to continue.",
+        closeOnConfirm: false,
+        closeOnCancel: false
+        },
+        function(isConfirm){
+        if (isConfirm) {
+            discontinue();
+            // var optOutMessage = "Thank you. Your response has been recorded.";
+            // patientOptOutAlert(optOutMessage);
+            
+        } else {
+            swal.close();
+            //swal("Cancelled", "You chose to continue later :)", "error");
+            //window.location.href = "referral.html";
         }
     });
 }
 
 
+function patientOptOutAlert(alertValue){
+    var content = "<span>"+alertValue+"</span>";
+    swal({title: "", text: content , html: true},
+        function(){ 
+            window.location.href = "referral.html";
+        }
+    );
+}
+
 
 function goToNext(firstDisplay, secondDisplay){
     var x = document.getElementById(firstDisplay);
     var y = document.getElementById(secondDisplay);
-    var z = document.getElementById('header');
-    var tHD = document.getElementById('thirdHeader');
     
     if(secondDisplay == 'third'){
-        z.style.display = 'none';
+        document.getElementById('header').style.display = 'none';
+        document.getElementById('thirdHeader').style.display = 'block';
     }
 
     if(secondDisplay == 'fourth'){
-    var tHD = document.getElementById('thirdHeader');
-        tHD.style.display = 'none';
+        document.getElementById('thirdHeader').style.display = 'none';
+        document.getElementById('fourthHeader').style.display = 'block';
+    }
+    if(secondDisplay == 'fifth'){
+        document.getElementById('fourthHeader').style.display = 'none';
+        document.getElementById('fifthHeader').style.display = 'block';
     }
     x.style.display = 'none';
     y.style.display = 'block';
+    
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 
@@ -521,14 +676,21 @@ function goBack(firstDisplay, secondDisplay, firstHeader, SecondHeader){
     tHD.style.display = 'none';
     y.style.display = 'block';
     fHD.style.display = 'block';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
-function goBackConsent(firstDisplay, secondDisplay){
+function goBackConsent(firstDisplay, secondDisplay, pNum){
     var x = document.getElementById(firstDisplay);
     var y = document.getElementById(secondDisplay);
     
+    document.getElementById('pNum').innerHTML = pNum;
     x.style.display = 'none';
     y.style.display = 'block';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 

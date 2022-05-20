@@ -1,27 +1,27 @@
-var urlDomain = 'https://api.healthensuite.com/';
-//var urlDomain = 'http://192.168.6.15:8083/';
+// var urlDomain = 'https://api.healthensuite.com/';
+var urlDomain = 'https://apiv3.healthensuite.com/';
 
-function validatePassword(){
-    var bt = document.getElementById('btnSubmit');
-    var password = $("#pass").val();
-    var confirm_password = $("#confirmPass").val();
-    if(password != confirm_password) {
-        $("#divCheckPasswordMatch").html("Passwords do not match!");
-    } else {
-        $("#divCheckPasswordMatch").html(" ");
-        bt.disabled = false;
-    }
-  }
+// function validatePassword(){
+//     var bt = document.getElementById('btnSubmit');
+//     var password = $("#pass").val();
+//     var confirm_password = $("#confirmPass").val();
+//     if(password != confirm_password) {
+//         $("#divCheckPasswordMatch").html("Passwords do not match!");
+//     } else {
+//         $("#divCheckPasswordMatch").html(" ");
+//         bt.disabled = false;
+//     }
+//   }
 
-  function validateUsername(){
-    var email = $("#email").val();
-    var usName = $("#usName").val();
-    if(email != usName) {
-        $("#divCheckUsernameMatch").html("Email and Username provided do not match!");
-    } else {
-        $("#divCheckUsernameMatch").html(" ");
-    }
-  }
+//   function validateUsername(){
+//     var email = $("#email").val();
+//     var usName = $("#usName").val();
+//     if(email != usName) {
+//         $("#divCheckUsernameMatch").html("Email and Username provided do not match!");
+//     } else {
+//         $("#divCheckUsernameMatch").html(" ");
+//     }
+//   }
 
   function fillAllFields(){
         var bt = document.getElementById('btnSubmit');
@@ -32,21 +32,64 @@ function validatePassword(){
         var em = $("#email").val();
         var usN = $("#usName").val();
         var ps = $("#pass").val();
+
         if (fName != '' && lName != '' && timeZ != '' && em != '' && usN != '' && ps != '')  {
-            conPass.disabled = false;
-            $("#confirmPass").keyup(validatePassword);
+            //conPass.disabled = false;
+            $('#confirmPass').on('blur', function(e) {
+                validatePasswordMatch();
+            });
+            validatePasswordMatch();
         } else {
-            conPass.disabled = true;
+            //conPass.disabled = true;
             bt.disabled = true;
+            $("#divCheckAllField").html("Please, fill all the mandatory fields.");
         }
     }
 
-  $(document).ready(function () {
-    var bt = document.getElementById('btnSubmit');
-    bt.disabled = true;
-    $('#firstN, #lastN, #inputTimeZone, #email, #phone, #usName, #pass').keyup(fillAllFields);
+
+    function validatePasswordMatch(){
+        var bt = document.getElementById('btnSubmit');
+        var password = $("#pass").val();
+        var confirm_password = $("#confirmPass").val();
+        //ValidateMobileNumber(currentphone)
+        if(password != confirm_password) {
+            $("#divCheckPasswordMatch").html("Password does not match.");
+            bt.disabled = true;
+        } else {
+            $("#divCheckPasswordMatch").html(" ");
+            var communeChannel = getCommunicationChannel();
+
+            if(communeChannel != ""){
+                $("#divCheckAllField").html(" ");
+                bt.disabled = false;
+            }else{
+                $("#divCheckAllField").html("Select preferred communication method .");
+                bt.disabled = true;
+            }
+
+        }
+    }
+
+
+//   $(document).ready(function () {
+//     var bt = document.getElementById('btnSubmit');
+//     bt.disabled = true;
+//     $('#firstN, #lastN, #inputTimeZone, #email, #phone, #usName, #pass').keyup(fillAllFields);
     
- });
+//  });
+
+
+function getCommunicationChannel() {
+    var abouts = document.forms['regForm'].elements['abt'];
+    var aboutInfos = "";
+
+    for (i = 0; i < abouts.length; i++) {
+        if(abouts[i].checked == true){
+            aboutInfos +=  abouts[i].value + ",";
+        }
+    }
+    return aboutInfos;
+}
 
  
 
@@ -77,9 +120,15 @@ $(document).ready(function () {
     document.getElementById("phone").readOnly = true;
     document.getElementById("usName").readOnly = true;
 
+    $("#divCheckAllField").html("Please, fill all the mandatory fields.");
+
+    var bt = document.getElementById('btnSubmit');
+    bt.disabled = true;
+    $('#firstN, #lastN, #inputTimeZone, #email, #phone, #usName, #pass, #confirmPass').keyup(fillAllFields);
+
     
 
-    $("#usName").keyup(validateUsername);
+    //$("#usName").keyup(validateUsername);
         //validate provider email
     // $('#email').on('blur', function(e) {
     //     var bt = document.getElementById('btnSubmit');
@@ -134,7 +183,9 @@ $(document).ready(function () {
     
         var email = document.getElementById("email").value;
         var mailAddress = document.getElementById("mailAdd").value;
-        var timeZone = document.getElementById("inputTimeZone").value;
+        var e = document.getElementById("inputTimeZone");
+        var timeZone=e.options[e.selectedIndex].value;// get selected option value
+        var province=e.options[e.selectedIndex].text;
         var password = document.getElementById("pass").value;
         var emailAccepted = getCommunicationMode(0);
         var smsAccepted = getCommunicationMode(1);
@@ -158,10 +209,11 @@ $(document).ready(function () {
             "mailingAddress": mailAddress,
             "password" : password,
             "emailAddress": email,
-            "timeZoneID": timeZone}),
+            "timeZoneID": timeZone,
+            "province": province}),
             success: function(result){
                 console.log(result);
-                swal({title: "Health enSuite welcomes you to the study!", text: "Your account has been created updated. You will be directed to the app home page. Login as a patient and start filling your sleep diary.", type: "success"},
+                swal({title: "Health enSuite Welcomes You!", text: 'Your Account has been created. Click on OK to proceed and then select "Login as Patient".', type: "success"},
                 function(){ 
                     window.location.href = "../index.html";
                 }
@@ -169,7 +221,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Account creation failed!","Please try again shortly,","error");
+                var content = "<span style='font-weight: bold'>Account creation failed.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Account creation failed!","Please try again shortly,","error");
             }
         });
     });

@@ -1,24 +1,53 @@
-var urlDomain = window.localStorage.getItem("urlDomain");
+// var urlDomain = 'https://api.healthensuite.com/';
+var urlDomain = 'https://apiv3.healthensuite.com/';
+
+emailIsElligible = false;
 
 function validateEmail(){
-    var bt = document.getElementById('btnConcentSubmit');
+    //var bt = document.getElementById('btnConcentSubmit');
     var password = $("#patEmail").val();
     var confirm_password = $("#patEmailVer").val();
     var patientNum = $("#patLNum").val();
-    if(password != confirm_password) {
-        $("#divCheckEmailMatch").html("Please re-enter your Email address to proceed");
-        bt.disabled = true;
-    } else {
-        $("#divCheckEmailMatch").html(" ");
-        if(patientNum != ''){
-            bt.disabled = false;
-        }else{
-            bt.disabled = true;
-            $("#divCheckEmailMatch").html("Ensure you entered your mobile number");
-        }
-        
-    }
+    // twoEmaildata = validateTwoEmails(password, confirm_password);
+    // mobileNumberData = validateMobile(patientNum);
+    // if( twoEmaildata && mobileNumberData){
+    //     bt.disabled = false;
+    // }else{
+    //     bt.disabled = true;
+    // } 
+    if(password != ""){$("#emailError").html("");}
   }
+
+  function validateTwoEmails(){
+    var password = $("#patEmail").val();
+    var confirm_password = $("#patEmailVer").val();
+    var valid = false;
+    if(password == confirm_password && isEmail(confirm_password)) {
+        valid = true;
+        $("#divCheckEmailMatch").html(" ");
+    } else {
+        valid = false;
+        $("#divCheckEmailMatch").html("Please re-type the same email you provided above.");
+    }
+    return valid;
+  }
+
+  function validateMobile(){
+    var patientNum = $("#patLNum").val();
+    var mobileIsgood = false;
+    if(patientNum != ''){
+        if(isMobile(patientNum)){
+            mobileIsgood = true;
+            $("#mobileNumberError").html(" ");
+        }else{
+            mobileIsgood = false;
+            $("#mobileNumberError").html("Ensure you a valid mobile number.");
+        }
+    }else{$("#mobileNumberError").html("Please enter your mobile number.");}
+    
+    return mobileIsgood;
+  }
+
 
   var radioState = false;
     function saveNotShare(element){
@@ -52,6 +81,50 @@ function validateEmail(){
     }
   }
 
+
+  function validateEmailfrombackend(currentEmail){
+    let url = urlDomain + 'insomnia/v1/patient/checkEmail';
+    $.ajax({
+        url: url,
+        type: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+            'Accept': '*/*'
+        },
+        data: JSON.stringify({"code": currentEmail}),
+        success: function(result){
+            console.log(result);
+            // Finally update the state for the current field
+            if (!result) {
+                emailIsElligible = true;
+                $("#emailError").html("");
+                $(this).css("border","1px solid #BCBCBC");
+                console.log("This returned 1: "+result)
+            } else{
+                emailIsElligible = false;
+                $("#emailError").html("Email address exist");
+                //sweetAlert("Email address exist!","","error");
+                var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                swal({title: "", text: content, html: true});
+                //bt.disabled = true;
+                $(this).css("border","1px solid red");
+                console.log("This returned 2: "+result)
+            } 
+            
+        }, 
+        error: function(msg){
+            emailIsElligible = false;
+            $("#emailError").html("Email address exist");
+            //sweetAlert("Email address exist!","","error");
+            var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+            swal({title: "", text: content, html: true});
+            //bt.disabled = true;
+            $(this).css("border","1px solid red");
+            console.log("This returned 3: "+msg)
+        }
+    });
+  }
+
  
  $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -59,56 +132,32 @@ function validateEmail(){
     //var bt = document.getElementById('btnConcentSubmit');
     //bt.disabled = true;
 
-    $("#patEmailVer, #patLNum").keyup(validateEmail);
-    emailIsElligible = false;
+    $("#patEmailVer").keyup(validateTwoEmails);
+    $("#patLNum").keyup(validateMobile);
+    $("#patEmail").keyup(validateEmail);
+    //$("#patEmail, #patEmailVer, #patLNum").keyup(validateEmail);
 
     //validate provider email
     $('#patEmail').on('blur', function(e) {
-        var bt = document.getElementById('btnConcentSubmit');
+        //var bt = document.getElementById('btnConcentSubmit');
         // Current email input
         var currentEmail = e.target.value,
             $emailNode = $(this),
             isValid = true;
 
         // Validate email
-        if (!isEmail(currentEmail)){
-            $("#divCheckEmailMatch").html("Invalid email address. Enter a valid email address");
+        if(currentEmail != ""){
+            if (!isEmail(currentEmail)){
+                $("#emailError").html("Invalid email address. Enter a valid email address.");
+                return;
+            }
+        }else{
+            $("#emailError").html("Please enter an email address.");
             return;
         }
-
-        let url = urlDomain + 'insomnia/v1/patient/checkEmail';
-        $.ajax({
-            url: url,
-            type: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-                'Accept': '*/*'
-            },
-            data: JSON.stringify({"code": currentEmail}),
-            success: function(result){
-                console.log(result);
-                // Finally update the state for the current field
-                if (!result) {
-                    emailIsElligible = true;
-                    $("#divCheckEmailMatch").html("");
-                    $(this).css("border","1px solid #BCBCBC");
-                } else{
-                    emailIsElligible = false;
-                    $("#divCheckEmailMatch").html("Email address exist");
-                    sweetAlert("Email address exist!","","error");
-                    bt.disabled = true;
-                    $(this).css("border","1px solid red");
-                } 
-                
-            }, 
-            error: function(msg){
-                emailIsElligible = false;
-                $("#divCheckEmailMatch").html("Email address exist");
-                sweetAlert("Email address exist!","","error");
-                bt.disabled = true;
-                $(this).css("border","1px solid red");
-            }
-        });
+        
+        validateEmailfrombackend(currentEmail);
+        
         
         // Validate email
         // if (!isEmail(currentEmail)){
@@ -123,19 +172,19 @@ function validateEmail(){
 
 
     $('#patLNum').on('blur', function(e) {
-        var bt = document.getElementById('btnConcentSubmit');
+        //var bt = document.getElementById('btnConcentSubmit');
         var currentphone = e.target.value,
             $phNode = $(this),
             isValid = true;
         
         // Validate phone Number
         if (!isMobile(currentphone)){
-            bt.disabled = true;
-            $("#divCheckEmailMatch").html("Invalid phone number. Enter a valid phone number.");
+            //bt.disabled = true;
+            $("#mobileNumberError").html("Ensure you a valid mobile number.");
             $(this).css("border","1px solid red");
         }else{
-            bt.disabled = false;
-            $("#divCheckEmailMatch").html(" ");
+            //bt.disabled = false;
+            $("#mobileNumberError").html(" ");
             $(this).css("border",".5px solid #BCBCBC");
         }
 
@@ -150,7 +199,11 @@ function validateEmail(){
         var patientToken = window.localStorage.getItem("patToken");
         let url = urlDomain + 'insomnia/v1/patient/consent';
 
-        if(emailIsElligible == true){
+        validateEmailfrombackend(patEmail);
+        var emailsMatched = validateTwoEmails();
+        var numberIsGood = validateMobile();
+
+        if(emailIsElligible && emailsMatched && numberIsGood){
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -161,7 +214,9 @@ function validateEmail(){
                 },
                 data: JSON.stringify({"email": patEmail, "phoneNumber": patientNum}),
                 success: function(result){
-                    swal({title: "Health enSuite Welcomes You!", text: "Thank you for your approved consent to participate in the Health enSuite Insomnia Study. An email will be sent to you confirming your participation, a copy of your approved consent, and the next steps within the next 2 business days.", type: "success"},
+                    var eligibitySubmitted = false;
+                    window.localStorage.setItem("eligibitySubmitted", eligibitySubmitted);
+                    swal({title: "Health enSuite Welcomes You", text: "Thank you for agreeing to participate in this study. Please check your email address within the next 2 business days. The email contains your participation confirmation, a copy of your completed consent form and information about the next steps.", type: "success"},
                     function(){ 
                         window.location.href = "referral.html";
                     }
@@ -170,11 +225,19 @@ function validateEmail(){
                 }, 
                 error: function(msg){
                     //$("#errorContainer").html("Incorrect Username or Password");
-                    sweetAlert("Unable to submit consent!","Please try again shortly","error");
+                    //sweetAlert("Unable to submit consent!","Please try again shortly","error");
+                    var content = "<span style='font-weight: bold'>Unable to submit consent.</span> <span>Please try again shortly.</span>";
+                    swal({title: "", text: content, html: true});
                 }
             });
         }else{
-            sweetAlert("Email address exist!","Please use another email address","error");
+            //sweetAlert("Email address exist!","Please use another email address","error");
+            
+            if(patEmail == ""){
+                var content = "<span style='font-weight: bold'>Attention.</span> <span>Please enter an email address.</span>";
+                swal({title: "", text: content, html: true});
+                $("#emailError").html("Please enter an email address.");
+            }
         }
 
         // html2canvas(document.querySelector("#consBody"), {

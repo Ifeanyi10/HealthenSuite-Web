@@ -42,7 +42,8 @@
                                 dataType: 'json',
                                 headers: {
                                     'Content-Type': 'application/json',
-                                    'Accept': '*/*'
+                                    'Accept': '*/*',
+                                    'Authorization': 'Bearer '+ authToken
                                 },
 
                                 success: function(result){
@@ -100,8 +101,8 @@
 
                                 },
                                 error: function(msg){
-
-                                    sweetAlert("Unable To Display Randomization Table","Please try again shortly","error");
+                                    var content = "<span style='font-weight: bold'>Unable To Display Randomization Table.</span> <span>Please try again shortly.</span>";
+                                    swal({title: "", text: content, html: true});
                                 }
                             });
                             }

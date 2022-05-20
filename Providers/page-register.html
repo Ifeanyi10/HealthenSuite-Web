@@ -82,14 +82,17 @@
                                 <form class="mt-5 mb-5 login-input" id="regForm">
                                     <div id='errorContainer'></div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="firstN" placeholder="First Name" required>
+                                        <label for="firstN" class="form-text-label">First Name<span class="required">*</span></label>
+                                        <input type="text" class="form-control bottom-border" id="firstN" placeholder="Enter your first name (required)" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="lastN" placeholder="Last Name" required>
+                                        <label for="lastN" class="form-text-label">Last Name<span class="required">*</span></label>
+                                        <input type="text" class="form-control bottom-border" id="lastN" placeholder="Enter your last name (required)" required>
                                     </div>
                                     <div class="form-group">
-                                        <select id="inputProvince" class="form-control" required>
-                                            <option value="">Practicing Province</option>
+                                        <label for="inputProvince" class="form-text-label">Practicing Province<span class="required">*</span></label>
+                                        <select id="inputProvince" class="form-control bottom-border" onclick="fillAllFields();" required>
+                                            <option value="">Select your practicing province (required)</option>
                                             <option value="Alberta">Alberta</option>
                                             <option value="British Columbia">British Columbia</option>
                                             <option value="Manitoba">Manitoba</option>
@@ -105,31 +108,36 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="email"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
-                                    </div>
-                                    <div id='errorEmailContainer'></div>
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number" pattern="\\+{1}[0-9]{10,15}$" min="10" max="15" title="E.g 902-100-1234" data-toggle="tooltip" data-placement="right"/> 
-                                    </div>
-                                    <div id='errorMobileContainer'></div>
-
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="mailAdd" placeholder="Mailing Address" >
+                                        <label for="email" class="form-text-label">Email<span class="required">*</span></label>
+                                        <input type="email" class="form-control bottom-border" id="email"  placeholder="Enter your email (required)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                        <div id='errorEmailContainer'></div>
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="usName" placeholder="Username (should be your email address)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                        <label for="phone" class="form-text-label">Mobile Number</label>
+                                        <input type="text" class="form-control bottom-border" id="phone" name="phone" placeholder="Enter your mobile number" pattern="\\+{1}[0-9]{10,15}$" min="10" max="15" title="E.g 902-100-1234" data-toggle="tooltip" data-placement="right"/> 
+                                        <div id='errorMobileContainer'></div>
+                                    </div>
+                                    
+
+                                    <div class="form-group">
+                                        <label for="mailAdd" class="form-text-label">Mailing Address (street name, city. and postal code)</label>
+                                        <input type="text" class="form-control bottom-border" id="mailAdd" placeholder="Enter your mailing address" >
                                     </div>
 
-                                    <div class="form-group" id="divCheckUsernameMatch"></div>
+                                    <div class="form-group">
+                                        <label for="usName" class="form-text-label">Username<span class="required">*</span></label>
+                                        <input type="email" class="form-control bottom-border" id="usName" placeholder="Enter your username (usually same email address) (required)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                    </div>
+
+                                    <!-- <div class="form-group" id="divCheckUsernameMatch"></div> -->
 
                                     <div class="form-group">
                                         <!-- <input type="password" class="form-control" id="pass" placeholder="Password" required> -->
                                         <!-- <div id="passInstruction">A strong password contains at least 1 uppercase, 1 lowercase, 1 special character, and not less than 8 character long</div> -->
                                         <div ng-controller="PasswordController">
-                                            
-                                                <input type="password" ng-model="password" ng-change="analyze(password)" id="pass" placeholder="Password" class="form-control" required />
+                                            <label for="pass" class="form-text-label">Password<span class="required">*</span></label>
+                                            <input type="password" ng-model="password" ng-change="analyze(password)" id="pass" placeholder="Enter password (required)" class="form-control bottom-border" required />
                                             <div class="block_container">
                                                 <div ng-style="passwordStrength" id="arrrowBlock"></div>
                                                 <div id="textBlock"><h5 id="pStrength"></h5></div>
@@ -138,34 +146,36 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="confirmPass" placeholder="Re-Enter Password" required>
+                                        <label for="confirmPass" class="form-text-label">Re-type Password<span class="required">*</span></label>
+                                        <input type="password" class="form-control bottom-border" id="confirmPass" placeholder="Re-type password (required)" required>
+                                        <div class="form-group" id="divCheckPasswordMatch"></div>
                                     </div>
-                                    <div class="form-group" id="divCheckPasswordMatch"></div>
+                                    
 
                                     <div class="form-group">
 
                                         
-                                            <label class="lblQuestion">How did you hear about us?</label>
+                                            <label class="lblQuestion">How did you hear about us?<span class="required">*</span></label>
 
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="abt" value="Networks">Recommended through clinical networks</label>
+                                                    <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="Networks">Recommended through clinical networks</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="abt" value="Adverts">Advertisements</label>
+                                                    <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="Adverts">Advertisements</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="abt" value="Conference">At a conference</label>
+                                                    <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="Conference">At a conference</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="abt" value="Internet">Internet</label>
+                                                    <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="Internet">Internet</label>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="abt" id="otherBox" value="Other">Other</label>
+                                                    <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" id="otherBox" value="Other">Other</label>
                                             </div>
                                         
                                     </div>
@@ -175,6 +185,8 @@
                                             <input type="text" class="form-control" id="otherField" placeholder="Please Specify If Other" >
                                         </div>
                                     </div>
+
+                                    <div class="form-group" id="divCheckAllField"></div>
 
                                     <button class="btn mb-1 btn-info" id="btnSubmit">Sign Up</button>
                                 </form>

@@ -26,6 +26,10 @@
     <script language="javascript">
 
         window.onload = function getPatientsPastSleepClock(){
+            
+            fillSelectTimeOption('pickRiseHour', 1, 12, '05')
+            fillSelectTimeOption('pickRiseMinute', 0, 59, '10')
+
             var urlDomain = window.localStorage.getItem("urlDomain");
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
@@ -64,16 +68,53 @@
                         document.getElementById('contSleepWindowAv').innerHTML  = formatTime(rearrangeTime(result.averagenumberofsleephours));
                         document.getElementById('contSpEff').innerHTML  = result.averagesleepefficiency;
                         // document.getElementById('nextHour').innerHTML  = result.averagenumberofsleephours;
+
+                        //Original Code but it does not reflect after submitting Level to Page 4
                         window.localStorage.setItem("yAvBedTime", result.averagebedtiime);
                         window.localStorage.setItem("yAvRiseTime", result.averagerisetime);
 
+                        //New code where the time is formatted
+                        // window.localStorage.setItem("yAvBedTime", formatTimeToClock(result.averagebedtiime));
+                        // window.localStorage.setItem("yAvRiseTime", formatTimeToClock(result.averagerisetime));
+                        reformatAndSetTime(formatTimeToTwelve(result.averagerisetime), 'pickRiseHour', 'pickRiseMinute', 'riseAmPm')
+                        //document.getElementById('clockRiseTime').value = formatTimeToClock(result.averagerisetime);
                         //$('#exampleModalLevel2').modal('show');
                     },
                     error: function(msg){
-                        console.log("Loading Patients Last Sleep Clock failed");
+                        if(msg.status == "511"){
+                            displayQuickAlert();
+                        }else{
+                            sweetAlert("Attention!","You must fill at least 5 sleep diaries within last 7 days to access this content","info");
+                            console.log("Loading Patients Last Sleep Clock failed");
+                        }
                     }
                 });
+                
+                setUpPage();
                 $('#exampleModalLevel2').modal('show');
+            }
+
+            function setUpPage(){
+                var myStatusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
+                var levelIsNotSavable = myStatusEntity.readInterventionGroupleveltwoArticle;
+                window.localStorage.setItem("levelIsNotSavable", levelIsNotSavable);
+                var levelPageNo = myStatusEntity.nextPage;
+                window.localStorage.setItem("levelPageNo", levelPageNo);
+                console.log("Page Number is: "+levelPageNo+" And LevelIsNotSavable is: "+levelIsNotSavable);
+
+                if(levelPageNo == 2){
+                    hideDisplay('one', 'two');
+                } else if(levelPageNo == 3){
+                    hideDisplay('one', 'two');
+                    calculateBedTime('two', 'three');
+                }else if(levelPageNo == 4){
+                    hideDisplay('one', 'two');
+                    calculateBedTime('two', 'three');
+                    hideDisplay('three', 'four');
+                }
+                if(levelIsNotSavable == true){
+                    document.getElementById('btnSubmitLV2').disabled = true;
+                }
             }
 
             function rearrangeTime(n){
@@ -81,6 +122,7 @@
                 let mins = parseInt(numb.split(".").pop());
                 console.log(mins)
                 let hrs = 60 * parseInt(numb.split(".", 1));
+                console.log("The given time is: "+ hrs + mins)
                 return hrs + mins;
             }
 
@@ -91,6 +133,45 @@
                 var minutes = (hours - rhours) * 60;
                 var rminutes = Math.round(minutes);
                 return  rhours + " hour(s) and " + rminutes + " minute(s)";
+            }
+
+            function formatTimeToClock(n){
+                var newTime = moment(n, "hh:mm:ss").format("hh:mm");
+                console.log("The Formatted Time is: "+ newTime)
+                return newTime;
+            }
+
+            function fillSelectTimeOption(elementId, startVal, endVal, valueToSelect){
+                var selectOpt = document.getElementById(elementId);
+                var contents;
+                for (let i = startVal; i <= endVal; i++) {
+                    if(i <= 9){
+                        contents += "<option value='0"+ i +"'>0" + i + "</option>";
+                    }else{
+                        contents += "<option value='"+ i +"'>" + i + "</option>";
+                    }
+                }          
+                selectOpt.innerHTML += contents;
+                selectOpt.value = valueToSelect;
+            }
+
+            function formatTimeToTwelve(myTime){
+                var newTime = moment(myTime, "hh:mm:ss").format("hh:mm a");
+                console.log("My New formatted Time is: "+newTime)
+                return newTime;
+            }
+
+            function reformatAndSetTime(theTime, hrId, mnId, amPmId){
+                var afterHour = theTime.split(":").pop();
+                var mins = afterHour.slice(0, 2);
+                var hrsRaw = theTime.split(":", 1);
+                //var twoDigits = parseInt(theTime.slice(0, 2));
+                var amPm = theTime.split(" ").pop()
+
+                document.getElementById(hrId).value = hrsRaw;
+                document.getElementById(mnId).value = mins;
+                document.getElementById(amPmId).value = amPm.toUpperCase();  
+                
             }
 
         // function initMoadal() {
@@ -153,9 +234,10 @@
             <div class="header-content clearfix">
 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
 
                 <div class="header-right">
@@ -254,8 +336,8 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html">My Progress</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html">Progress</a></li>
                         </ul>
                     </li>
 
@@ -273,8 +355,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
 
@@ -333,9 +415,9 @@
                                             <div class="consentInfoBody">
                                                 •	Complete at least 5 sleep diaries within a week.
                                             </div>
-                                            <div class="consentInfoBody">
+                                            <!-- <div class="consentInfoBody">
                                                 •	Complete the self-assessment of current insomnia symptoms.
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -402,7 +484,7 @@
                                         The next step is to choose a sleep window for the next week.
                                     </div>
     
-                                    <input type='button' class='btn-primary' id="btnContNextStep" onclick="hideDisplay('one', 'two');" value='Next Step'/>
+                                    <input type='button' class="btn-primary goRight" id="btnContNextStep" onclick="saveOnlyPage('one', 'two', 1, false);" value='Next Step'/>
                                 </div>
 
                             <!-- </div> -->
@@ -424,15 +506,21 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label class="m-t-20 sleepMargin">Your Rise Time:</label>
+                                            <label class="m-t-20 sleepMargin">Your Rise Time: (HH:MM AM/PM)</label>
                                             <div class="input-group clockpicker">
-                                                <input type="text" class="form-control" id="clockRiseTime" value="05:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                                <!-- <input type="text" class="form-control" id="clockRiseTime" value="05:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span> -->
+                                                <select class="form-control" id="pickRiseHour"></select>
+                                                <select class="form-control" id="pickRiseMinute"></select>
+                                                <select class="form-control" id="riseAmPm">
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM">PM</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="justifyDiv">
                                         <input type='button' class='btn-secondary' onclick="hideDisplay('two', 'one');" value='Back' style="margin-right: 30px;"/>
-                                        <input type='button' class='btn-primary' id="btnContRiseTime" onclick="calculateBedTime('two', 'three');" value='Submit Your Rise Time'/>
+                                        <input type='button' class='btn-primary' id="btnContRiseTime" onclick="calculateBedTime('two', 'three', 2);" value='Submit Your Rise Time'/>
                                     </div>
 
                                 <!-- </div> -->
@@ -473,7 +561,7 @@
                                     </div> -->
 
                                     <div class="justifyDiv textDeco">
-                                        This app can be used to set alarms on your phone to remind you when it is time to get ready for bed and get up in the morning.
+                                        Set alarms on your phone based on the expected bed time and wakeup time in this app to remind you to get ready for bed and get up in the morning, respectively.
                                     </div>
 
                                     <!-- <div class="justifyDiv">
@@ -481,7 +569,7 @@
                                     </div> -->
                                     <div class="justifyDiv">
                                         <input type='button' class='btn-secondary' onclick="hideDisplay('three', 'two');" value='Back' style="margin-right: 30px;"/>
-                                        <input type='button' class='btn-primary goRight' onclick="hideDisplay('three', 'four');" value='Next'/>
+                                        <input type='button' id="level2Pg3" class='btn-primary goRight' onclick="saveOnlyPage('three', 'four', 3, false);" value='Next'/>
                                     </div>
 
                                 <!-- </div> -->
@@ -545,9 +633,9 @@
                                     <div class="consentInfoBody">
                                         •	Follow your sleep clock. Set alarms to remind you when it is time to get ready for bed and get up each morning.
                                     </div>
-                                    <div class="consentInfoBody">
+                                    <!-- <div class="consentInfoBody">
                                         •	Complete the self-assessment of your current insomnia symptoms.
-                                    </div>
+                                    </div> -->
 
                                     <div class="justifyDiv">
                                         <input type='button' class='btn-secondary'  onclick="hideDisplay('four', 'three');" value='Back'/>
@@ -618,7 +706,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

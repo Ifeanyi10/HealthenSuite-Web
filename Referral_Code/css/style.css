@@ -306,8 +306,13 @@ html {
   }
 
   .info-content{
-    border-style: outset;
+    border-style: solid;
     padding: 10px;
+  }
+
+  .empt{
+    border-style: none !important;
+    padding: 0px;
   }
 
   .space{
@@ -321,11 +326,15 @@ html {
 
   .continue{
     text-align: right;
-    margin-left: 10px;
+    /* margin-left: 10px; */
+  }
+
+  .no-margin-left{
+    margin-left: 0px;
   }
 
   .justifyDiv{
-    text-align: justify;
+    text-align: left;
     margin-bottom: 10px;
   }
 
@@ -2912,34 +2921,34 @@ input[type="button"].btn-block {
   border-radius: 0.25rem; }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #7571f9; }
+  background-color: #2087c8; }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"); }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
-  background-color: #7571f9; }
+  background-color: #2087c8; }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E"); }
 
 .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: rgba(117, 113, 249, 0.5); }
+  background-color: #2087c8; }
 
 .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
-  background-color: rgba(117, 113, 249, 0.5); }
+  background-color: #2087c8; }
 
 .custom-radio .custom-control-label::before {
   border-radius: 50%; }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #7571f9; }
+  background-color: #2087c8; }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E"); }
 
 .custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: rgba(117, 113, 249, 0.5); }
+  background-color: #2087c8 }
 
 .custom-select {
   display: inline-block;
@@ -5716,7 +5725,7 @@ button.bg-dark:focus {
   margin-right: 1rem !important; }
 
 .mr-3-consent {
-  font-size: medium;
+  /* font-size: medium; */
   margin-right: 1rem !important; }
 
 .mb-3,

@@ -1,6 +1,6 @@
-var urlDomain = 'https://api.healthensuite.com/';
+// var urlDomain = 'https://api.healthensuite.com/';
 //var urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
-//var urlDomain = 'http://192.168.6.15:8083/';
+var urlDomain = 'https://apiv3.healthensuite.com/';
 
 
 function isEmail(email) {
@@ -22,7 +22,8 @@ function isEmail(email) {
         data: JSON.stringify({"code": username}),
         success: function(result){
             console.log(result);
-            swal({title: "Email Address Received!", text: "A reset password link will be sent to this email address if it has a valid account.", type: "success"},
+            var content = "<span style='font-weight: bold'>Email Address Received.</span> <span>A reset password link will be sent to this email address if it has a valid account.</span>";
+            swal({title: "", text: content , html: true},
             function(){ 
                 window.location.href = "provider-login.html";
             }
@@ -31,13 +32,14 @@ function isEmail(email) {
         error: function(msg){
             console.log(msg);
             if(msg){
-                swal({title: "Email Address Received!", text: "A reset password link will be sent to this email address if it has a valid account.", type: "success"},
+                var content = "<span style='font-weight: bold'>Email Address Received.</span> <span>A reset password link will be sent to this email address if it has a valid account.</span>";
+                swal({title: "", text: content , html: true},
                     function(){ 
                         window.location.href = "provider-login.html";
                     }
                 );
             }else{
-                sweetAlert("Username does not exist!","","error");
+                sweetAlert("Email does not exist.","");
             }
             
         }
@@ -46,10 +48,12 @@ function isEmail(email) {
 
 $(document).ready(function () {
 
-    let errorNote = window.localStorage.getItem("loginError");
-    if(errorNote == "true"){
-        sweetAlert("Failed To Load Account Details!!","Please check your network and login again","error");
-    }
+    // let errorNote = window.localStorage.getItem("loginError");
+    // if(errorNote == "true"){
+    //     var content = "<span style='font-weight: bold'>Access denied.</span> <span>Please confirm your internet connectivity and then login.</span>";
+    //     swal({title: "", text: content, html: true});
+    //     //sweetAlert("Failed To Load Account Details!!","Please check your network and login again","error");
+    // }
 
     //Login Provider
     $('#btnSignin').on('click', function(event){
@@ -101,15 +105,23 @@ $(document).ready(function () {
                     window.localStorage.setItem("urlDomain", urlDomain);
                     //window.localStorage.setItem("isNewProviderLogin", true);
                     //alert(window.localStorage.getItem("token"));
-                    window.location.href = "provider-dashboard.html";
+                    if(result.provider == true){
+                        window.location.href = "provider-dashboard.html";
+                    }else{
+                        var content = "<span style='font-weight: bold'>Access Denied.</span> <span>Your log-in details do not match our Provider records. Please verify the email address you have entered. To log-in at a later date, please visit our Home page, and click on Login as Provider.</span>";
+                        swal({title: "", text: content, html: true});
+                    }
+                    
                 }, 
                 error: function(msg){
                     //$("#errorContainer").html("Incorrect Username or Password");
-                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                    var content = "<span style='font-weight: bold'>Username and/or password does not match our records.</span> <span>Please check to proceed or click on Reset password.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
                 }
             });
         }else{
-            sweetAlert("Attention!","Please fill the fields properly and login","info");
+            sweetAlert("Attention","Please fill the fields properly and login");
         }
         
     });
@@ -122,7 +134,9 @@ $(document).ready(function () {
         // Validate email
         if (!isEmail(username)){
             //$("#errorEmailContainer").html("Invalid email address. Enter a valid email address");
-            sweetAlert("Invalid email address!","Enter a valid email address.","error");
+            var content = "<span style='font-weight: bold'>Invalid email address.</span> <span>Enter a valid email address.</span>";
+            swal({title: "", text: content, html: true});
+            //sweetAlert("Invalid email address!","Enter a valid email address.","error");
             return;
         }
          
@@ -139,7 +153,9 @@ $(document).ready(function () {
                 console.log(result);
                 // Finally update the state for the current field
                 if (!result) {
-                    sweetAlert("Username does not exist!","Please enter your current username and try again.","error");
+                    var content = "<span style='font-weight: bold'>Email does not exist in our record.</span> <span>Please enter a registered email and try again.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Username does not exist!","Please enter your current username and try again.","error");
                 } else{                   
                     receiveEmail(username);
                 } 
@@ -149,7 +165,9 @@ $(document).ready(function () {
                 if(msg.status == 409 && msg.responseJSON == true){
                     receiveEmail(username);
                 }else{
-                    sweetAlert("Unable to confirm username!","Please try again shortly.","error");
+                    var content = "<span style='font-weight: bold'>Unable to confirm email.</span> <span>Please try again shortly.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Unable to confirm username!","Please try again shortly.","error");
                 }
                 
             }

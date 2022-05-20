@@ -106,6 +106,27 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 
+
+ .required{
+    color:red;
+    padding:0 5px;
+  }
+
+  .form-text-label{
+    font-weight: bold;
+    margin-bottom: 0px !important;
+  }
+
+  .bottom-border{
+    border: none !important;
+    border-bottom: 1px solid #ced4da !important;
+  }
+
+  .no-overflow{
+    overflow-x: hidden !important;
+  }
+
+
   .email.is-error {
     border: 1px solid red;
  }
@@ -268,7 +289,8 @@ html {
   #divCheckUsernameMatch, #errorFinalContainer,
   #divCheckUpdatePWordMatch, #errorMobileContainer,
   #divEmailErrorMsg, #divNameErrorMsg,
-  #errorContainer4, #errorContainer5{
+  #errorContainer4, #errorContainer5,
+  #divCheckAllField{
     color: #8c0615;
     font-weight: bold;
     text-align: center;
@@ -279,9 +301,9 @@ html {
     text-align: justify;
   }
 
-  #errorEmailContainer{
+  /* #errorEmailContainer{
     font-size: small;
-  }
+  } */
 
 @-ms-viewport {
   width: device-width; }

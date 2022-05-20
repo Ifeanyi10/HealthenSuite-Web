@@ -44,68 +44,238 @@
                                     var currentDate = '';
                                     var prevDate = '';
 
-                                    $.each(result.sleepDiaries, function(i, def) {
-                                        if(arrayLength == 0){
-                                            currentDate = def.date_Created;
-                                            currentID = def.bedTime;
-                                        } else if(arrayLength == 1){
-                                            prevDate = def.date_Created;
-                                            prevID = def.bedTime;
-                                        }
-                                        arrayLength += 1;
-                                    });
+                                    document.getElementById('tableDiv').style.display = 'block';
 
                                     var randomGroupID = window.localStorage.getItem("randomGroupID");
+                                    
                                     if(parseInt(randomGroupID) == 0){
                                         var nexTask = result.nexTask;
                                     }else if(parseInt(randomGroupID) == 1){
                                         var nexTask = 'Insomnia Psychoeducation';
                                     }
 
+                                    $.each(result.sleepDiaries, function(i, def) {
+                                        if(arrayLength == 0){
+                                            currentDate = def.date_Created;
+                                            currentID = def.bedTime;
+                                            window.localStorage.setItem("currentID", def.id);
+                                        } else if(arrayLength == 1){
+                                            prevDate = def.date_Created;
+                                            prevID = def.bedTime;
+                                            window.localStorage.setItem("prevID", def.id);
+                                        }
+                                        arrayLength += 1;
+                                    });
+
+
                                     var currentDate2 = currentDate.split("T", 1)
+                                    
                                     var prevDate2 = prevDate.split("T", 1)
+                                    
                                     var enableProgress = window.localStorage.getItem("enableProgress");
+                                    var sleepDiariesCompleted = window.localStorage.getItem("sleepDiariesCompleted");
+                                    // var sleepDiariesCompleted = "true";
                                     let levelValue = window.localStorage.getItem("CBTLevel");
-
+                                    
                                     if (arrayLength == 2){
-                                        document.getElementById('task1Val').innerHTML  = 'Sleep Diary For: ' + currentDate2;
-                                        document.getElementById('task2Val').innerHTML  = 'Sleep Diary For: ' + prevDate2;
 
-                                        if(enableProgress == "true"){
-                                            document.getElementById('task3Val').innerHTML  = nexTask;
-                                            document.getElementById('task3').style.display = 'block';
-                                            if(parseInt(levelValue) == 6){document.getElementById('chTask3').checked = true;}
+                                        var dateOne = new Date(currentDate2); //Year, Month, Date    
+                                        var dateTwo = new Date(prevDate2); //Year, Month, Date 
+                                        if (dateOne > dateTwo){
+                                            window.localStorage.setItem("currentDateUnformatted", currentDate);
+                                            window.localStorage.setItem("prevDateUnformatted", prevDate);
+
+                                            document.getElementById('task1Val').innerHTML  = 'Sleep Diary For: ' + currentDate2;
+                                            document.getElementById('task2Val').innerHTML  = 'Sleep Diary For: ' + prevDate2;
+
+                                            if(currentID != null){
+                                                //document.getElementById('chTask1').checked = true;
+                                                assignValues('stBar1', 'stText1', 'ripText1');
+                                            }
+                                            if(prevID != null){
+                                                //document.getElementById('chTask2').checked = true;
+                                                assignValues('stBar2', 'stText2', 'ripText2'); 
+                                            }
+                                            document.getElementById("taskDate1").innerHTML = setTomorrowDate(currentDate2);
+                                            document.getElementById("taskDate2").innerHTML = setTomorrowDate(prevDate2);
+                                        }else{
+                                            window.localStorage.setItem("currentDateUnformatted", prevDate);
+                                            window.localStorage.setItem("prevDateUnformatted", currentDate);
+
+                                            document.getElementById('task1Val').innerHTML  = 'Sleep Diary For: ' + prevDate2;
+                                            document.getElementById('task2Val').innerHTML  = 'Sleep Diary For: ' + currentDate2;
+
+                                            if(prevID != null){
+                                                //document.getElementById('chTask1').checked = true;
+                                                assignValues('stBar1', 'stText1', 'ripText1');
+                                            }
+                                            if(currentID != null){
+                                                //document.getElementById('chTask2').checked = true;
+                                                assignValues('stBar2', 'stText2', 'ripText2'); 
+                                            }
+                                            document.getElementById("taskDate1").innerHTML = setTomorrowDate(prevDate2);
+                                            document.getElementById("taskDate2").innerHTML = setTomorrowDate(currentDate2);
+                                        }
+
+                                        if(sleepDiariesCompleted == "true"){
+                                            if(enableProgress == "true" && nexTask != "" && nexTask != null){
+                                                document.getElementById('task4').style.display = 'none';
+                                                document.getElementById('task3Val').innerHTML  = nexTask;
+
+                                                console.log("All assigned: "+levelValue)
+                                                //if(parseInt(levelValue) >= 6){
+                                                checkReadIntervention(nexTask);
+                                                if(nexTask == "Completed All Therapy"){
+                                                    //document.getElementById('chTask3').checked = true;
+                                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                                }
+                                            }else{
+                                                document.getElementById('task3').style.display = 'none';
+                                                document.getElementById('task4').style.display = 'none';
+                                            }
+                                        }else{
+                                            document.getElementById('task3').style.display = 'none';
+                                            document.getElementById('task4').style.display = 'none';
                                         }
                                         
-                                        if(currentID != null){document.getElementById('chTask1').checked = true;}
-                                        if(prevID != null){document.getElementById('chTask2').checked = true;}
-                                        
                                     }else if (arrayLength == 1){
+                                        window.localStorage.setItem("currentDateUnformatted", currentDate);
+
                                         document.getElementById('task1Val').innerHTML  = 'Sleep Diary For: ' + currentDate2;
-                                        if(enableProgress == "true"){
-                                            document.getElementById('task2Val').innerHTML  = nexTask;
-                                            document.getElementById('task3').style.display = 'block';
-                                            if(parseInt(levelValue) == 6){document.getElementById('chTask3').checked = true;}
-                                        } 
-                                        if(currentID != null){document.getElementById('chTask1').checked = true;}
+                                        document.getElementById('task2').style.display = 'none';
+ 
+                                        if(sleepDiariesCompleted == "true"){
+                                            if(enableProgress == "true" && nexTask != "" && nexTask != null){
+                                                document.getElementById('task4').style.display = 'none';
+                                                document.getElementById('task3Val').innerHTML  = nexTask;
+                                                document.getElementById('task3').style.display = 'block';
+                                                checkReadIntervention(nexTask);
+                                                if(nexTask == "Completed All Therapy"){
+                                                    //document.getElementById('chTask3').checked = true;
+                                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                                }
+                                            }else{
+                                                document.getElementById('task3').style.display = 'none';
+                                                document.getElementById('task4').style.display = 'none';
+                                            }
+                                        }else{
+                                            document.getElementById('task3').style.display = 'none';
+                                            document.getElementById('task4').style.display = 'none';
+                                        }
+
+                                        if(currentID != null){
+                                            //document.getElementById('chTask1').checked = true;
+                                            assignValues('stBar1', 'stText1', 'ripText1');
+                                        }
+                                        document.getElementById("taskDate1").innerHTML = setTomorrowDate(currentDate2);
+
                                     }else{
                                         document.getElementById('task1').style.display = 'none';
                                         document.getElementById('task2').style.display = 'none';
-                                        if(enableProgress == "true"){
-                                            document.getElementById('task3Val').innerHTML  = nexTask;
-                                            document.getElementById('task3').style.display = 'block';
-                                            if(parseInt(levelValue) == 6){document.getElementById('chTask3').checked = true;}
-                                        } 
-                                        if(currentID != null){document.getElementById('chTask1').checked = true;}
+
+                                        if(sleepDiariesCompleted == "true"){
+                                            if(enableProgress == "true" && nexTask != "" && nexTask != null){
+                                                document.getElementById('task4').style.display = 'none';
+                                                document.getElementById('task3Val').innerHTML  = nexTask;
+                                                document.getElementById('task3').style.display = 'block';
+                                                checkReadIntervention(nexTask);
+                                                if(nexTask == "Completed All Therapy"){
+                                                    //document.getElementById('chTask3').checked = true;
+                                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                                }
+                                            }else{
+                                                document.getElementById('task3').style.display = 'none';
+                                                document.getElementById('task4').style.display = 'none';
+                                            }
+                                        }else{
+                                            document.getElementById('task3').style.display = 'none';
+                                            document.getElementById('task4').style.display = 'none';
+                                        }
+
+                                        if(currentID != null){
+                                            //document.getElementById('chTask1').checked = true;
+                                            assignValues('stBar1', 'stText1', 'ripText1');
+                                            document.getElementById("taskDate1").innerHTML = setTomorrowDate(currentDate2);
+                                        }
                                     }
-                                    
 
                                     // window.localStorage.setItem("patientEmail", result.email);
                                 }, 
                                 error: function(msg){
-                                    console.log("Loading Patients Task List Failed");
+                                    console.log("Loading Patients Task List Failed: "+msg.status);
+                                    if(msg.status == "511"){
+                                        displayQuickAlert();
+                                    }
                                 }
                             });
+                        }
+
+                        function assignValues(stBar, stText, ripText){
+                            var bar1Line = document.getElementById(stBar);
+                            bar1Line.classList.remove('bg-warning');
+                            bar1Line.classList.add('bg-success');
+                            bar1Line.style.width = "100%";
+                            document.getElementById(stText).innerHTML = "Completed";
+                            var rip1Text = document.getElementById(ripText);
+                            rip1Text.classList.remove('text-warning');
+                            rip1Text.classList.add('text-success');
+                            
+                        }
+
+                        function setTomorrowDate(dt){
+                            let myDate = dt.toString().replace(/^\s+|\s+$/gm,'');
+                            var today = moment(myDate).format("YYYY-MM-DD");
+                            var tomorrow = moment(today).add(1, 'days').format("YYYY-MM-DD");
+                            console.log("Tomorrow's date is: "+tomorrow)
+                            return tomorrow;
+                        }
+
+                        function assignSelectedDate(elemId, unformatedDate, submitID){
+                            var dataVal = document.getElementById(elemId).innerHTML;
+                            var popedDate = dataVal.split(":").pop();
+                            let myDate = popedDate.toString().replace(/^\s+|\s+$/gm,'');
+                            window.localStorage.setItem("linkText", myDate);
+                            window.localStorage.setItem("submitDate", unformatedDate);
+                            window.localStorage.setItem("submitID", submitID.toString().replace(/^\s+|\s+$/gm,''));
+                            
+                            window.location.href = "sleep-diary.html";
+                            //console.log("The Selected Date is: "+myDate)
+                        }
+
+                        function checkReadIntervention(nextTask){
+                            var statusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
+
+                            if(nextTask == "Introduction to Health enSuite Insomnia"){
+                                if(statusEntity.readInterventionGroupleveloneArticle){
+                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                }
+                            }
+                            else if(nextTask == "Introduction to Sleep Restriction"){
+                                if(statusEntity.readInterventionGroupleveltwoArticle){
+                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                }
+                            }
+                            else if(nextTask == "Sleep Hygiene"){
+                                if(statusEntity.readInterventionGrouplevelthreeArticle){
+                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                }
+                            }
+                            else if(nextTask == "Relaxation techniques"){
+                                if(statusEntity.readInterventionGrouplevelfourArticle){
+                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                }
+                            }
+                            else if(nextTask == "Changing Thoughts"){
+                                if(statusEntity.readInterventionGrouplevelfiveArticle){
+                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                }
+                            }
+                            else if(nextTask == "Maintaining Your Progress"){
+                                if(statusEntity.readInterventionGrouplevelsixArticle){
+                                    assignValues('stBar3', 'stText3', 'ripText3');
+                                }
+                            }
+
                         }
     
           </script>
@@ -163,9 +333,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -264,9 +435,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
-                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Progress</a></li>
                         </ul>
                     </li>
 
@@ -284,8 +455,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -303,21 +474,8 @@
         <div class="content-body">
 
             <div class="container-fluid mt-3">
-                <div class="row">
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">SLEEP DIARY</h4>
-                                <h5 class="mt-3">Completed <span class="float-right">10%</span></h5>
-                                <div class="progress" style="height: 9px">
-                                    <div class="progress-bar bg-danger wow  progress-" style="width: 10%;" role="progressbar"><span class="sr-only">60% Complete</span>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-
-                    </div> -->
+                
+                <!-- <div class="row">
                     
                     <div class="col-lg-12 col-md-12 col-sm-12" >
                         <div class="card">
@@ -326,7 +484,7 @@
                                 
                                <div id="pendTask">
 
-                                    <!-- <h3 class="consentInfoHeadSmall">Your pending task include:</h3> -->
+                                    
                                     <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Your pending task include:</label>
                                     <div class="todo-list">
                                         <div class="tdl-holder">
@@ -361,7 +519,104 @@
                     </div>
 
 
+                </div> -->
+
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title colorPrimary">My Task List</h4><hr>
+                                <div class="active-member">
+                                    <div class="table-responsive" id="tableDiv">
+                                        <table class="table table-xs mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tasks</th>
+                                                    <th>Status</th>
+                                                    <th>Description</th>
+                                                    <th>Due Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr id="task1">
+                                                    <td>
+                                                        <a href="#" onclick="assignSelectedDate('task1Val', window.localStorage.getItem('currentDateUnformatted'), window.localStorage.getItem('currentID')); return false;" id="task1Val" class="txt1"></a>
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <div>
+                                                            <div class="progress" style="height: 6px">
+                                                                <div class="progress-bar bg-warning" style="width: 50%" id="stBar1"></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="fa fa-circle-o text-warning  mr-2" id="ripText1"></i> <span id="stText1">Pending</span></td>
+                                                    <td>
+                                                        <span>Due on</span>
+                                                        <span class="m-0 pl-3" style="font-weight: 800;" id="taskDate1"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr id="task2">
+                                                    <td>
+                                                        <a href="#" onclick="assignSelectedDate('task2Val', window.localStorage.getItem('prevDateUnformatted'), window.localStorage.getItem('prevID')); return false;" id="task2Val" class="txt1"></a>
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <div>
+                                                            <div class="progress" style="height: 6px">
+                                                                <div class="progress-bar bg-warning" style="width: 50%" id="stBar2"></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="fa fa-circle-o text-warning  mr-2" id="ripText2"></i> <span id="stText2">Pending</span></td>
+                                                    <td>
+                                                        <span>Due on</span>
+                                                        <span class="m-0 pl-3" style="font-weight: 800;" id="taskDate2"></span>
+                                                    </td>
+                                                </tr>
+                                                <tr id="task3">
+                                                    <td id="task3Val"></td>
+                                                    
+                                                    <td>
+                                                        <div>
+                                                            <div class="progress" style="height: 6px">
+                                                                <div class="progress-bar bg-warning" style="width: 50%" id="stBar3"></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="fa fa-circle-o text-warning  mr-2" id="ripText3"></i> <span id="stText3">In Progress</span></td>
+                                                    <td>
+                                                        <!-- <span>Last Login</span>
+                                                        <span class="m-0 pl-3">10 sec ago</span> -->
+                                                    </td>
+                                                </tr>
+                                                <tr id="task4">
+                                                    <td id="task4Val">Check Your Email And Fill The Baseline Questionnaire</td>
+                                                    
+                                                    <td>
+                                                        <div>
+                                                            <div class="progress" style="height: 6px">
+                                                                <div class="progress-bar bg-warning" style="width: 50%" id="stBar4"></div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><i class="fa fa-circle-o text-warning  mr-2" id="ripText4"></i> <span id="stText4">Pending</span></td>
+                                                    <td>
+                                                        <!-- <span>Last Login</span>
+                                                        <span class="m-0 pl-3">10 sec ago</span> -->
+                                                    </td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
                 </div>
+
 
                 <div class="bootstrap-modal">
                     <!-- Modal Change Email-->
@@ -410,7 +665,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

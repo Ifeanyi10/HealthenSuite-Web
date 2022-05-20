@@ -32,7 +32,7 @@
 	
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100">
+			<div class="wrap-login101">
 				<div class="login100-form-title" >
 					<span class="login100-form-title-1">
 						Referral Code Validation
@@ -72,13 +72,13 @@
 
 					
 					<div class="wrap-input100 validate-input m-b-40" data-validate="Referal Code is required">
-						<span class="label-input100">Referral Code</span>
+						<span class="label-input100">Referral Code</span><span style="color: red;">*</span>
 						<input class="input100" type="text" id="refCode" name="refCode" placeholder="Enter Your Referral Code">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Last name is required">
-						<span class="label-input100">Last Name</span>
+						<span class="label-input100">Last Name</span><span style="color: red;">*</span>
 						<input class="input100" type="text" id="patName" name="name" placeholder="Enter your last name">
 						<span class="focus-input100"></span>
 					</div>
@@ -121,24 +121,26 @@
 									</div>
 									<form class="mt-3 mb-3 login-input" id="recovForm">
 										<div class="form-group">
-											<span class="label-input100">First Name</span>
-											<input type="text" class="form-control" id="recPatFName" placeholder="Patient’s First Name" required>
+											<span class="label-input100">First Name</span><span style="color: red;">*</span>
+											<input type="text" class="form-control" id="recPatFName" placeholder="Patient’s First Name (required)" required>
+											<div class="form-group" id='firstError' style="color: #8c0615; font-weight: bolder;"></div>
 										</div>
 										<div class="form-group">
-											<span class="label-input100">Last Name</span>
-											<input type="text" class="form-control" id="recPatLName"  placeholder="Patient’s Last Name" required>
+											<span class="label-input100">Last Name</span><span style="color: red;">*</span>
+											<input type="text" class="form-control" id="recPatLName"  placeholder="Patient’s Last Name (required)" required>
+											<div class="form-group" id='lastError' style="color: #8c0615; font-weight: bolder;"></div>
+										</div>
+
+										<div class="form-group">
+											<span class="label-input100">Email</span><span style="color: red;">*</span>
+											<input type="email" class="form-control" id="recPatEmail"  placeholder="Email to receive your referral code (required)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+											<div class="form-group" id='emailError' style="color: #8c0615; font-weight: bolder;"></div>
 										</div>
 
 										<div class="form-group">
-											<span class="label-input100">Email</span>
-											<input type="email" class="form-control" id="recPatEmail"  placeholder="Email to receive your referral code" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
-										</div>
-
-										<div class="form-group" id='ageError' style="color: red; font-weight: bolder;"></div>
-
-										<div class="form-group">
-											<span class="label-input100">Age (On your date of referral)</span>
-											<input type="number" class="form-control" id="recPatAge" placeholder="Age (Your age at the day you were reffered)" max="3" required>
+											<span class="label-input100">Age (On your date of referral)</span><span style="color: red;">*</span>
+											<input type="number" class="form-control" id="recPatAge" placeholder="Age at the day you were referred (required)" min="18" max="150" required>
+											<div class="form-group" id='ageError' style="color: #8c0615; font-weight: bolder;"></div>
 										</div>
 
 										<!-- <div class="form-group">
@@ -162,7 +164,7 @@
 											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 										</div>
 										<div class="col-lg-3">
-											<button type="button" id="btnRecRefCode" class="btn btn-primary" disabled>Submit</button>
+											<button type="button" id="btnRecRefCode" class="btn btn-primary">Submit</button>
 										</div>
 										<div class="col-lg-3"></div>
 									</div>

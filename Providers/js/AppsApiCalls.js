@@ -1,4 +1,6 @@
 var urlDomain = window.localStorage.getItem("urlDomain");
+
+var emailIsElligible = true;
  
  //insomnia trial 1 gender
  function getTrial1Gender(elementName) {
@@ -22,6 +24,63 @@ function goBack(firstDisplay, secondDisplay){
     y.style.display = 'block';
 }
 
+function isEmail(email) {
+// eslint-disable-next-line no-useless-escape
+    return RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(email);
+};
+
+function validateAge(){
+    var ag = $("#patAge").val().trim();
+    var ageIsgood = false;
+    if(ag > 17 && ag <= 150 && ag.charAt(0) != 0){
+        try {
+            if(ag % 1 == 0){
+                ag = parseInt(ag);
+                $("#ageError").html("");  
+                ageIsgood = true;                       
+            }else{
+                $("#ageError").html("Please enter a valid age of the patient.");
+                ageIsgood = false;
+            }
+          }
+          catch(err) {
+            $("#ageError").html("Please enter a valid age of the patient.");
+            ageIsgood = false;
+            console.log("Error: "+err);
+          }
+    }else{
+        $("#ageError").html("Age cannot be less than 18 years or greater than 150 years. Please confirm your patient age to proceed.");
+        ageIsgood = false;
+    }
+    return ageIsgood;
+}
+
+function validateAge2(){
+    var ag = $("#pat2Age").val().trim();
+    var ageIsgood = false;
+    if(ag > 17 && ag <= 150 && ag.charAt(0) != 0){
+        try {
+            if(ag % 1 == 0){
+                ag = parseInt(ag);
+                $("#ageError2").html("");  
+                ageIsgood = true;                       
+            }else{
+                $("#ageError2").html("Please enter a valid age of the patient.");
+                ageIsgood = false;
+            }
+          }
+          catch(err) {
+            $("#ageError2").html("Please enter a valid age of the patient.");
+            ageIsgood = false;
+            console.log("Error: "+err);
+          }
+    }else{
+        $("#ageError2").html("Age cannot be less than 18 years or greater than 150 years. Please confirm your age to proceed.");
+        ageIsgood = false;
+    }
+    return ageIsgood;
+}
+
 function fillAllFields(){
     var bt = document.getElementById('btnTrial1');
     var fName = $("#patFName").val().trim();
@@ -32,8 +91,16 @@ function fillAllFields(){
             try {
                 if(ag % 1 == 0){
                     ag = parseInt(ag);
-                    bt.disabled = false;
                     $("#ageError").html("");
+                    if(emailIsElligible){
+                        bt.disabled = false;
+                        $("#emailError").html("");
+                    }
+                    else{
+                        bt.disabled = true;
+                        $("#emailError").html("Invalid email address. Enter a valid email address or leave the field empty.");
+                    }
+                    
                 }else{
                     $("#ageError").html("Please enter a valid age of the patient.");
                     bt.disabled = true;
@@ -46,12 +113,30 @@ function fillAllFields(){
                 bt.disabled = true;
               }
         }else{
-            $("#ageError").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
+            $("#ageError").html("Only patients aged 18 to 150 years are eligible to participate. Please confirm the age of your patient to proceed.");
             bt.disabled = true;
         }
         
     } else {
         bt.disabled = true;
+    }
+}
+
+function checkEmailValidity(){
+    var currentEmail = $("#patEmail").val().trim();
+    // Validate email
+    if(currentEmail == ""){
+        $("#emailError").html("");
+        emailIsElligible = true;
+        fillAllFields();   
+    }else if (!isEmail(currentEmail)){
+        $("#emailError").html("Invalid email address. Enter a valid email address or leave the field empty.");
+        emailIsElligible = false;
+        fillAllFields();
+    }else{
+        $("#emailError").html("");
+        emailIsElligible = true;
+        fillAllFields();
     }
 }
 
@@ -65,8 +150,15 @@ function fillAllFields2(){
             try {
                 if(ag % 1 == 0){
                     ag = parseInt(ag);
-                    bt.disabled = false;
                     $("#ageError2").html("");
+                    if(emailIsElligible){
+                        bt.disabled = false;
+                        $("#emailError2").html("");
+                    }
+                    else{
+                        bt.disabled = true;
+                        $("#emailError2").html("Invalid email address. Enter a valid email address or leave the field empty.");
+                    }
                 }else{
                     $("#ageError2").html("Please enter a valid age of the patient.");
                     bt.disabled = true;
@@ -78,11 +170,29 @@ function fillAllFields2(){
                 bt.disabled = true;
               }
         }else{
-            $("#ageError2").html("This app is for patients 18 years and older. Please confirm the age of the patient.");
+            $("#ageError2").html("Only patients aged 18 to 150 years are eligible to participate. Please confirm the age of your patient to proceed.");
             bt.disabled = true;
         }
     } else {
         bt.disabled = true;
+    }
+}
+
+function checkEmailValidity2(){
+    var currentEmail = $("#pat2Email").val().trim();
+    // Validate email
+    if(currentEmail == ""){
+        $("#emailError2").html("");
+        emailIsElligible = true;
+        fillAllFields2(); 
+    }else if (!isEmail(currentEmail)){
+        $("#emailError2").html("Invalid email address. Enter a valid email address or leave the field empty.");
+        emailIsElligible = false;
+        fillAllFields2();
+    }else{
+        $("#emailError2").html("");
+        emailIsElligible = true;
+        fillAllFields2();
     }
 }
 
@@ -270,16 +380,20 @@ function UpdateDropDownValues(tableId, tb){
 function UpdateSelectedSingle(tableId){
     $('#taperTable tbody tr').each(function(i, def) {
         //var selection = $(this).find('td:last option:selected').val();
-        var selection = document.getElementById("taperTable").rows[i + 1].cells[4].innerHTML;
-        document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
+        //var selection = document.getElementById("taperTable").rows[i + 1].cells[4].innerHTML;
+        var selection = document.getElementById("taperTable").rows[i + 1].cells[3].innerHTML;
+        //document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
+        document.getElementById(tableId).rows[i + 1].cells[2].innerHTML = selection;
     });
 }
 
 function UpdateSelectedDouble(tableId){
     $('#taperTable2 tbody tr').each(function(i, def) {
         //var selection = $(this).find('td:last option:selected').val();
-        var selection = document.getElementById("taperTable2").rows[i + 1].cells[4].innerHTML;
-        document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
+        //var selection = document.getElementById("taperTable2").rows[i + 1].cells[4].innerHTML;
+        var selection = document.getElementById("taperTable2").rows[i + 1].cells[3].innerHTML;
+        //document.getElementById(tableId).rows[i + 1].cells[3].innerHTML = selection;
+        document.getElementById(tableId).rows[i + 1].cells[2].innerHTML = selection;
     });
 }
 
@@ -361,8 +475,10 @@ function errorAlert(msgHeader, msgBody){
 
 function sampleUpdateAColumn(tableId, tableIdName){
     $(tableId).each(function(i, def) {
-        var selection = document.getElementById(tableIdName).rows[i + 1].cells[2].innerHTML;
-        document.getElementById(tableIdName).rows[i + 1].cells[4].innerHTML = selection;
+        //var selection = document.getElementById(tableIdName).rows[i + 1].cells[2].innerHTML;
+        var selection = document.getElementById(tableIdName).rows[i + 1].cells[1].innerHTML;
+        //document.getElementById(tableIdName).rows[i + 1].cells[4].innerHTML = selection;
+        document.getElementById(tableIdName).rows[i + 1].cells[3].innerHTML = selection;
     });
     //sampleAddAction(tableId, tableIdName);
 }
@@ -534,7 +650,7 @@ function sampleUpdateAColumn(tableId, tableIdName){
 
 
 
-function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
+function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue, drop){
     var totalRows = document.getElementById(tableIdName).rows.length - 1;
     var errToastHeader = "Attention"; var msgHeader = "Attention";
     var errToastBody = ""; let pDosage = 0.0; var msgBody = "";
@@ -543,28 +659,30 @@ function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
 
     if(rowNum > 1){
 
-        var currentDoseValueAboveRow = document.getElementById(tableIdName).rows[rowNum - 1].cells[4].innerHTML;
+        var currentDoseValueAboveRow = document.getElementById(tableIdName).rows[rowNum - 1].cells[3].innerHTML;
         if(rowNum != totalRows){
-            currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[4].innerHTML;
+            currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[3].innerHTML;
         }
         
         if(currentDoseValueAboveRow >= totalSelectedValue && currentDoseValuebelowRow <= totalSelectedValue){
-            document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = totalSelectedValue;
+            document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = totalSelectedValue;
         }
         else{
             if(totalSelectedValue == 0){
                 msgBody = "You have not selected dose combinations from the drop down. In this case, the taper dose for this particular week will be updated to the taper dose equal to the previous week, that is, "+currentDoseValueAboveRow+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
-                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
+                document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = currentDoseValueAboveRow;
                 errorAlert(msgHeader, msgBody);
             }
             else if(currentDoseValueAboveRow < totalSelectedValue){
+                //deselectMutiDropdown(drop);
                 msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is greater than the taper dose for the previous taper week. Therefore, this will automatically be replaced by the taper dose for the previous week, that is, "+currentDoseValueAboveRow+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
-                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
+                document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = currentDoseValueAboveRow;
                 errorAlert(msgHeader, msgBody);
             }
             else if(currentDoseValuebelowRow > totalSelectedValue){
+                //deselectMutiDropdown(drop);
                 msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the next week. Therefore, this will automatically be replaced by the taper dose for the previous week, that is, "+currentDoseValueAboveRow+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
-                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = currentDoseValueAboveRow;
+                document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = currentDoseValueAboveRow;
                 errorAlert(msgHeader, msgBody);
             }
             
@@ -572,7 +690,9 @@ function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
         }
     }
     else{
-        currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[4].innerHTML;
+        currentDoseValuebelowRow = document.getElementById(tableIdName).rows[rowNum + 1].cells[3].innerHTML;
+
+        // console.log("currentDoseValuebelowRow Value: "+currentDoseValuebelowRow);
 
         switch(tableIdName){
             case "taperTable": 
@@ -582,27 +702,33 @@ function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
             case "taperTable2":
                 pDosage = parseFloat(document.getElementById("dosage2").value);
                 break;
+
+            case "taperTableTest":
+                pDosage = parseFloat("45");
+                break;
         }
 
         //pDosage = parseFloat("8");
 
         if(currentDoseValuebelowRow <= totalSelectedValue && pDosage >= totalSelectedValue){
-            document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = totalSelectedValue;
+            document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = totalSelectedValue;
         }
         else{
             if(pDosage < totalSelectedValue){
+                //deselectMutiDropdown(drop);
                 msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is greater than the current dose of the patient. Therefore, this will automatically be replaced by the current dose of the patient, that is, "+pDosage+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
-                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
+                document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = pDosage;
                 errorAlert(msgHeader, msgBody);
             }
             else if(totalSelectedValue == 0){ 
                 msgBody = "You have not selected dose combinations from the drop down. In this case, the taper dose for this particular week will be updated to the current dose of the patient, that is, "+pDosage+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
-                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
+                document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = pDosage;
                 errorAlert(msgHeader, msgBody);
             }
             else{
+                //deselectMutiDropdown(drop);
                 msgBody = "You have selected " + totalSelectedValue +"mg as the taper dose for this week that is lower than the taper dose for the next week. Therefore, this will automatically be replaced by the current dose of the patient, that is, "+pDosage+"mg. You can select other dose combinations if you would like to revise this week’s taper dose.";
-                document.getElementById(tableIdName).rows[rowNum].cells[4].innerHTML = pDosage;
+                document.getElementById(tableIdName).rows[rowNum].cells[3].innerHTML = pDosage;
                 errorAlert(msgHeader, msgBody);
                 console.log("Your total selected drug combination for this week is lesser than the week below it.");
             }
@@ -611,6 +737,7 @@ function updateRecommendedValue(tableIdName, rowNum, totalSelectedValue){
     }
     
 }
+
 
 function multiSelectClickEvent(){
     
@@ -621,6 +748,8 @@ function multiSelectClickEvent(){
     drop.find('option:selected').each(function() {
         totalSelectedValue += parseFloat(this.value);
     }); 
+
+    
     console.log("Total: "+totalSelectedValue)
     // var roundedDose = $(trRef).find("td:eq(2)").text();
     // var recommendedDose = $(trRef).find("td:eq(4)").text();
@@ -632,19 +761,154 @@ function multiSelectClickEvent(){
 
     let rowIndex = $(trRef).index() + 1;
     var tableIdName = $(trRef).parent().parent().parent().find('table').attr('id');
-    updateRecommendedValue(tableIdName, rowIndex, totalSelectedValue);
+    updateRecommendedValue(tableIdName, rowIndex, totalSelectedValue, drop);
         
+}
+
+
+function deselectMutiDropdown(selectList){
+    $(selectList).find('option:checked').each(function() {
+        $(this).prop('checked', false);
+        $(this).prop("selected",false);
+    }); 
+}
+
+
+
+function fillTableTest(){
+    $("#taperTableTest").find("tbody").empty(); //clear all the content from tbody here.
+
+    var med2 = "Zopiclone";
+    let conceptId2 = 15;
+    let floatDosage2 = 45;
+    let intDuration2 = 180;
+    
+    let url = urlDomain + 'insomnia/v1/tapper/create';
+    //let url = 'http://health.us-east-2.elasticbeanstalk.com//insomnia/v1/provider/check01';
+    let authToken = window.localStorage.getItem("token");
+    var tableBody = '#taperTBodyTest';
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+            'Content-Type': 'application/json', 
+            'Accept': '*/*',
+            'Authorization': 'Bearer '+ authToken
+        },
+        data: JSON.stringify({"regimenDTOList":
+        [{
+            "sleepMedication" : med2,
+            "currentDose" : floatDosage2,
+            "medicationDuration" : intDuration2,
+            "conceptID" : conceptId2
+        }]
+    }),
+        success: function(result){
+            console.log(result);
+            $(result.tapaschedules).each(function(i, taper){
+
+                $(taper.weeklyDose).each(function(i, def){
+
+                    window["td"+i+1]= document.createElement('td');
+                    window["td"+i+1].style.border = '1px solid #dddddd';
+                    window["td"+i+1].style.textAlign = 'center';
+                    window["td"+i+1].style.padding = '8px';
+
+                    window["td"+i+2] = document.createElement('td');
+                    window["td"+i+2].style.border = '1px solid #dddddd';
+                    window["td"+i+2].style.textAlign = 'center';
+                    window["td"+i+2].style.padding = '8px';
+
+                    window["td"+i+3] = document.createElement('td');
+                    window["td"+i+3].style.border = '1px solid #dddddd';
+                    window["td"+i+3].style.textAlign = 'left';
+                    window["td"+i+3].style.padding = '8px';
+
+
+                    window["td"+i+4] = document.createElement('td');
+                    window["td"+i+4].style.border = '1px solid #dddddd';
+                    window["td"+i+4].style.textAlign = 'center';
+                    window["td"+i+4].style.padding = '8px';
+
+                    var selectList = document.createElement("select");
+                    selectList.style.width = '150px';
+
+                    $(def.dose_Combination).each(function(i, drop){
+                        var option = document.createElement("option");
+                        option.value = drop;
+                        option.text = drop;
+                        selectList.appendChild(option);
+                    })
+
+                    selectList.classList.add("medSelect");
+                    selectList.multiple = true;
+                    selectList.name = tableBody+i+3;
+
+                    const btnAssign = document.createElement("button");
+                    btnAssign.innerHTML = "Assign Dose";
+                    btnAssign.classList.add("btn-primary");
+                    btnAssign.classList.add("aprv");
+
+
+                    window["td"+i+5] = document.createElement('td');
+                    window["td"+i+5].style.border = '1px solid #dddddd';
+                    window["td"+i+5].style.textAlign = 'center';
+                    window["td"+i+5].style.padding = '8px';
+
+                    $(tableBody).append($("<tr>")
+                    .append($(window["td"+i+1]).append(i + 1))
+                    // .append($(window["td"+i+2]).append(def.unrounded))
+                    .append($(window["td"+i+4]).append(def.newDose))
+                    .append($(window["td"+i+3]).append(selectList).append(btnAssign))
+                    .append($(window["td"+i+5]).append("")));
+
+
+                    deselectMutiDropdown(selectList);
+                    window["td"+i+3].style.display = "flex";
+                    selectList.style.margin = "auto";
+
+                    selectList.style.flex = "1";
+                    btnAssign.style.flex = "1";
+                    btnAssign.style.marginTop = "0px";
+                    btnAssign.style.marginLeft = "5px";
+
+                    btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                    $(selectList).on('change', multiSelectClickEvent);
+
+                });
+
+            });
+
+            sampleUpdateAColumn("#taperTableTest tbody tr", "taperTableTest");
+
+            $('.medSelect').multiSelect(); //Calling the multi-select class plugin here
+        }, 
+        error: function(msg){
+            //$("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
+            var content = "<span style='font-weight: bold'>Unable to reset Taper Schedule generated for the medication.</span> <span>Please try again shortly.</span>";
+            swal({title: "", text: content, html: true});
+            //sweetAlert("Unable to reset Taper Schedule generated for the medication.","Please try again shortly.","error");
+        }
+    }); 
+
 }
 
 
 $(document).ready(function () {
 
     //sampleUpdateAColumn("#sampTB tbody tr", "sampTB");
-    
+    //fillTableTest();
     
 
     var btT1 = document.getElementById('btnTrial1');
     btT1.disabled = true;
+    
+    // validateAge();
+    // validateAge2();
+
     $('#patFName, #patLName, #patAge').keyup(fillAllFields);
 
     var btT2 = document.getElementById('btnTrial2');
@@ -655,6 +919,9 @@ $(document).ready(function () {
     btMed.disabled = true;
     $('#idMedications1, #dosage').keyup(fillBasicMedicationFields);
 
+    $('#patEmail').keyup(checkEmailValidity);
+
+    $('#pat2Email').keyup(checkEmailValidity2);
 
     //Calculate Multi-select values
     // $('.aprv').on('click', function(event){
@@ -692,8 +959,8 @@ $(document).ready(function () {
         authTokenPatient = window.localStorage.getItem("patientToken");
         console.log("You are in this tab and the token is: "+authToken);
         if(authToken == null){
-            //urlDomain = 'http://192.168.6.15:8083/';
-            urlDomain = 'https://api.healthensuite.com/';
+            urlDomain = 'https://apiv3.healthensuite.com/';
+            // urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }
@@ -723,11 +990,15 @@ $(document).ready(function () {
                 }, 
                 error: function(msg){
                     //$("#errorContainer").html("Incorrect Username or Password");
-                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                    var content = "<span style='font-weight: bold'>Access denied.</span> <span>Please confirm your login credentials and your internet connectivity to proceed.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
                 }
             });
         }else{
-            sweetAlert("Attention!","Please fill the fields properly and login","info");
+            // sweetAlert("Attention","Please fill the fields properly and login");
+            var content = "<span>Please confirm your login information to proceed.</span>";
+            swal({title: "", text: content, html: true});
         }
         
     });//end of quick login
@@ -767,7 +1038,7 @@ $(document).ready(function () {
                 document.getElementById('pStrataV').innerHTML = result.stratValue;
                 document.getElementById('pGroupID').innerHTML = result.studyGroupID;
                 document.getElementById('pGroupN').innerHTML= result.groupName;
-                swal({title: "Patient Randomized Successfully!!", text: "Click Ok to view details", type: "success"},
+                swal({title: "Patient Randomized Successfully.", text: "Click Ok to view details.", type: "success"},
                 function(){ 
                     //window.location.href = "provider-dashboard.html";
                     y.style.display = 'block';         
@@ -778,7 +1049,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorDuplicateContainer").html("Unable to submit patient's record");
-                sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Unable to submit patient's record.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Unable to submit patient's record.","Please try again shortly.","error");
             }
         });
     });
@@ -799,7 +1072,8 @@ $(document).ready(function () {
 
         var x = document.getElementById("screen1");
         var y = document.getElementById("printSample");
-        var z = document.getElementById('trial1Demo');
+        //var z = document.getElementById('trial1Demo');
+        var z = document.getElementById('screen1');
         //var z = document.getElementById("elligHead");
         var dup = document.getElementById("duplicateScreen");
         //alert(gender);
@@ -811,9 +1085,8 @@ $(document).ready(function () {
         //Confirm patient entries before submission
 
         swal({
-            title: "Attention!",
-             text: "Kindly verify the Patient demographics you entered. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
-            type: "info",
+            title: "Attention",
+            text: "Kindly verify the Patient demographics you entered. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
             confirmButtonText: "Yes, submit my entries.",
@@ -870,7 +1143,8 @@ $(document).ready(function () {
                             window.localStorage.setItem("patientName", firstName+" "+lastName);
                             // document.getElementById('usName').innerHTML = result.userName;
                             // document.getElementById('ps').innerHTML= result.password;
-                            swal({title: "Patient Recommended To Health enSuite Insomnia Study Successfully!", text: "Click OK to view/print the referral code.", type: "success"},
+                            var content = "<span style='font-weight: bold'>Patient has been recommended to Health enSuite Insomnia study successfully.</span> <span>Click OK to view/print the referral code.</span>";
+                            swal({title: "", text: content, html: true, type: "success"},
                             function(){ 
                                 //window.location.href = "provider-dashboard.html";
                                 y.style.display = 'block';         
@@ -883,7 +1157,9 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorContainer").html("Unable to submit patient's record");
-                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                        var content = "<span style='font-weight: bold'>Unable to submit patient's record.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Unable to submit patient's record","Please try again shortly","error");
                     }
                 });
 
@@ -923,9 +1199,9 @@ $(document).ready(function () {
         //confirm patient entries
 
         swal({
-            title: "Attention!",
+            title: "Attention",
              text: "Kindly verify the existing Patient profiles that match your Patient profile. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
-            type: "info",
+            // type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
             confirmButtonText: "Yes, reassign the patient.",
@@ -958,7 +1234,8 @@ $(document).ready(function () {
                         window.localStorage.setItem("patientName", firstName+" "+lastName);
                         // document.getElementById('usName').innerHTML = result.userName;
                         // document.getElementById('ps').innerHTML= result.password;
-                        swal({title: "Patient Recommended Successfully!!", text: "Referral code generated. App Type: Health enSuite Insomnia Study", type: "success"},
+                        var content = "<span style='font-weight: bold'>Patient has been recommended to Health enSuite Insomnia study successfully.</span> <span>Click OK to view/print the referral code.</span>";
+                        swal({title: "", text: content, html: true, type: "success"},
                         function(){ 
                             //window.location.href = "provider-dashboard.html";
                             y.style.display = 'block';         
@@ -970,13 +1247,16 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorDuplicateContainer").html("Unable to submit patient's record");
-                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                        var content = "<span style='font-weight: bold'>Unable to submit patient's record.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Unable to submit patient's record","Please try again shortly","error");
                     }
                 });
 
             } else {
                 swal.close();
-                goBack('duplicateScreen','trial1Demo');
+                goBack('duplicateScreen','screen1');
+                //goBack('duplicateScreen','trial1Demo');
             }
         });
 
@@ -1001,15 +1281,16 @@ $(document).ready(function () {
         let authToken = window.localStorage.getItem("token");
         var x = document.getElementById('screen1');
         var y = document.getElementById('screen2');
-        var z = document.getElementById('trial2Demo');
+        //var z = document.getElementById('trial2Demo');
+        var z = document.getElementById('screen1');
         var dup = document.getElementById("duplicateScreen2");
 
         //Confirm patient entries before submission
 
         swal({
-            title: "Attention!",
+            title: "Attention",
              text: "Kindly verify the Patient demographics you entered. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
-            type: "info",
+            // type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
             confirmButtonText: "Yes, submit my entries.",
@@ -1070,7 +1351,9 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorContainer2").html("Unable to submit patient's record");
-                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                        var content = "<span style='font-weight: bold'>Unable to submit patient's record.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Unable to submit patient's record","Please try again shortly","error");
                     }
                 });
                 
@@ -1105,9 +1388,9 @@ $(document).ready(function () {
         // Confirm patient entries
 
         swal({
-            title: "Attention!",
+            title: "Attention",
              text: "Kindly verify the existing Patient profiles that match your Patient profile. Once confirmed, Patient demographics cannot be revised unless you create a new Patient profile.",
-            type: "info",
+            // type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
             confirmButtonText: "Yes, submit my entries.",
@@ -1150,13 +1433,16 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorDuplicateContainer2").html("Unable to submit patient's record");
-                        sweetAlert("Unable to submit patient's record","Please try again shortly","error");
+                        var content = "<span style='font-weight: bold'>Unable to submit patient's record.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Unable to submit patient's record","Please try again shortly","error");
                     }
                 });
 
             } else {
                 swal.close();
-                goBack('duplicateScreen2','trial2Demo');
+                goBack('duplicateScreen2','screen1');
+                //goBack('duplicateScreen2','trial2Demo');
             }
         });
 
@@ -1184,7 +1470,7 @@ $(document).ready(function () {
             success: function(result){
                 console.log(result);
                 document.getElementById('refCode').innerHTML = patRefCode;
-                swal({title: "Patient moved to Health enSuite Insomnia Study!", text: "", type: "success"},
+                swal({title: "Patient moved to Health enSuite Insomnia Study.", text: "", type: "success"},
                 function(){ 
                     y.style.display = 'block';         
                     x.style.display = 'none';
@@ -1195,7 +1481,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Attempt made to move patient to Trial 1 failed.");
-                sweetAlert("Attempt made to move patient to Trial 1 failed.","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Attempt made to move patient to Trial 1 failed.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Attempt made to move patient to Trial 1 failed.","Please try again shortly","error");
             }
         });
     }
@@ -1315,7 +1603,7 @@ $(document).ready(function () {
 
                                     window["td"+i+3] = document.createElement('td');
                                     window["td"+i+3].style.border = '1px solid #dddddd';
-                                    window["td"+i+3].style.textAlign = 'center';
+                                    window["td"+i+3].style.textAlign = 'left';
                                     window["td"+i+3].style.padding = '8px';
                                     window["td"+i+3].style.display = 'flex';
 
@@ -1334,7 +1622,7 @@ $(document).ready(function () {
                                     // selectList.appendChild(option);
 
                                     const btnAssign = document.createElement("button");
-                                    btnAssign.innerHTML = "Select";
+                                    btnAssign.innerHTML = "Assign Dose";
                                     btnAssign.classList.add("btn-primary");
                                     btnAssign.classList.add("aprv");
                                     
@@ -1362,7 +1650,7 @@ $(document).ready(function () {
 
                                     $(tableBody).append($("<tr>")
                                     .append($(window["td"+i+1]).append(i + 1))
-                                    .append($(window["td"+i+2]).append(def.unrounded))
+                                    // .append($(window["td"+i+2]).append(def.unrounded))
                                     .append($(window["td"+i+4]).append(def.newDose))
                                     .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                                     .append($(window["td"+i+5]).append("")));
@@ -1372,7 +1660,10 @@ $(document).ready(function () {
                                     btnAssign.style.marginTop = "0px";
                                     btnAssign.style.marginLeft = "5px";
 
+                                    deselectMutiDropdown(selectList);
                                     btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                                    $(selectList).on('change', multiSelectClickEvent);
 
 
                                     window["tdp2"+i+1] = document.createElement('td');
@@ -1408,7 +1699,7 @@ $(document).ready(function () {
 
                                     $(tableBodyPrint).append($("<tr>")
                                     .append($(window["tdp2"+i+1]).append(i + 1))
-                                    .append($(window["tdp2"+i+2]).append(def.unrounded))
+                                    // .append($(window["tdp2"+i+2]).append(def.unrounded))
                                     .append($(window["tdp2"+i+4]).append(def.newDose))
                                     .append($(window["tdp2"+i+3]).append(selectListPrint)));
                                        
@@ -1438,7 +1729,9 @@ $(document).ready(function () {
                         }, 
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the two medications");
-                            sweetAlert("Unable to generate Taper Schedule for the two medications","Please try again shortly","error");
+                            var content = "<span style='font-weight: bold'>Unable to generate Taper Schedule for the two medications.</span> <span>Please try again shortly.</span>";
+                            swal({title: "", text: content, html: true});
+                            //sweetAlert("Unable to generate Taper Schedule for the two medications","Please try again shortly","error");
                            console.log(JSON.stringify({"regimenDTOList":
                            [{
                            "sleepMedication" : med1,
@@ -1510,9 +1803,9 @@ $(document).ready(function () {
                     });
                 }else if(duration == 10 && duration2 == 10){
                     swal({
-                        title: "Attention!",
+                        title: "Attention",
                          text: 'Your patient is taking two medications for less than 14 days. Please select either of these options to proceed: \n\nSelect “No, let me review the duration(s).” if you would like to change the duration(s) and re-submit the form. In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study. \n\nSelect “Yes, reassign to the Health enSuite Insomnia Study.” if the duration you have entered is correct, and your patient is willing to stop their medication(s) right away or before beginning the CBT program for insomnia. In this case, your patient will be assigned to the Health enSuite Insomnia study, which is offered for patients who are not taking sleep medications.',
-                        type: "info",
+                        // type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#2087c8",
                         confirmButtonText: "Yes, reassign to the Health enSuite Insomnia Study.",
@@ -1533,9 +1826,9 @@ $(document).ready(function () {
                 }else if(duration == 10 || duration2 == 10){
 
                     swal({
-                        title: "Attention!",
+                        title: "Attention",
                          text: 'Your patient is taking at least one medication for less than 14 days. Please select either of these options to proceed: \n\nSelect “No, let me review the duration(s).” if you would like to change the duration(s) and re-submit the form. In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study. \n\nSelect “Yes, continue.” if the duration you have entered is correct, and your patient is willing to stop the medication(s) they are taking for less than 14 days right away.  In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study.',
-                        type: "info",
+                        // type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#2087c8",
                         confirmButtonText: "Yes, continue.",
@@ -1609,7 +1902,7 @@ $(document).ready(function () {
 
                                             window["td"+i+3] = document.createElement('td');
                                             window["td"+i+3].style.border = '1px solid #dddddd';
-                                            window["td"+i+3].style.textAlign = 'center';
+                                            window["td"+i+3].style.textAlign = 'left';
                                             window["td"+i+3].style.padding = '8px';
                                             window["td"+i+3].style.display = 'flex';
 
@@ -1645,7 +1938,7 @@ $(document).ready(function () {
                                             window["td"+i+5].style.padding = '8px';
 
                                             const btnAssign = document.createElement("button");
-                                            btnAssign.innerHTML = "Select";
+                                            btnAssign.innerHTML = "Assign Dose";
                                             btnAssign.classList.add("btn-primary");
                                             btnAssign.classList.add("aprv");
 
@@ -1653,7 +1946,7 @@ $(document).ready(function () {
 
                                             $(tableBody).append($("<tr>")
                                             .append($(window["td"+i+1]).append(i + 1))
-                                            .append($(window["td"+i+2]).append(def.unrounded))
+                                            // .append($(window["td"+i+2]).append(def.unrounded))
                                             .append($(window["td"+i+4]).append(def.newDose))
                                             .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                                             .append($(window["td"+i+5]).append("")));
@@ -1663,7 +1956,10 @@ $(document).ready(function () {
                                             btnAssign.style.marginTop = "0px";
                                             btnAssign.style.marginLeft = "5px";
 
+                                            deselectMutiDropdown(selectList);
                                             btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                                            $(selectList).on('change', multiSelectClickEvent);
 
 
                                             window["tdp2"+i+1] = document.createElement('td');
@@ -1699,7 +1995,7 @@ $(document).ready(function () {
                                             
 
                                             $(tableBodyPrint).append($("<tr>")
-                                            .append($(window["tdp2"+i+1]).append(i + 1))
+                                            // .append($(window["tdp2"+i+1]).append(i + 1))
                                             .append($(window["tdp2"+i+2]).append(def.unrounded))
                                             .append($(window["tdp2"+i+4]).append(def.newDose))
                                             .append($(window["tdp2"+i+3]).append(selectListPrint)));
@@ -1720,7 +2016,9 @@ $(document).ready(function () {
                                 }, 
                                 error: function(msg){
                                     $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
-                                    sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
+                                    var content = "<span style='font-weight: bold'>Unable to generate Taper Schedule for the medication.</span> <span>Please try again shortly.</span>";
+                                    swal({title: "", text: content, html: true});
+                                    //sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
                                 }
                             });
                             
@@ -1777,7 +2075,7 @@ $(document).ready(function () {
 
                                     window["td"+i+3] = document.createElement('td');
                                     window["td"+i+3].style.border = '1px solid #dddddd';
-                                    window["td"+i+3].style.textAlign = 'center';
+                                    window["td"+i+3].style.textAlign = 'left';
                                     window["td"+i+3].style.padding = '8px';
                                     window["td"+i+3].style.display = 'flex';
 
@@ -1808,7 +2106,7 @@ $(document).ready(function () {
                                     selectList.name = tableBody+i+3;
 
                                     const btnAssign = document.createElement("button");
-                                    btnAssign.innerHTML = "Select";
+                                    btnAssign.innerHTML = "Assign Dose";
                                     btnAssign.classList.add("btn-primary");
                                     btnAssign.classList.add("aprv");
 
@@ -1821,7 +2119,7 @@ $(document).ready(function () {
 
                                     $(tableBody).append($("<tr>")
                                     .append($(window["td"+i+1]).append(i + 1))
-                                    .append($(window["td"+i+2]).append(def.unrounded))
+                                    // .append($(window["td"+i+2]).append(def.unrounded))
                                     .append($(window["td"+i+4]).append(def.newDose))
                                     .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                                     .append($(window["td"+i+5]).append("")));
@@ -1831,7 +2129,10 @@ $(document).ready(function () {
                                     btnAssign.style.marginTop = "0px";
                                     btnAssign.style.marginLeft = "5px";
 
+                                    deselectMutiDropdown(selectList);
                                     btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                                    $(selectList).on('change', multiSelectClickEvent);
 
                                     window["tdp2"+i+1] = document.createElement('td');
                                     window["tdp2"+i+1].style.border = '1px solid #dddddd';
@@ -1867,7 +2168,7 @@ $(document).ready(function () {
 
                                     $(tableBodyPrint).append($("<tr>")
                                     .append($(window["tdp2"+i+1]).append(i + 1))
-                                    .append($(window["tdp2"+i+2]).append(def.unrounded))
+                                    // .append($(window["tdp2"+i+2]).append(def.unrounded))
                                     .append($(window["tdp2"+i+4]).append(def.newDose))
                                     .append($(window["tdp2"+i+3]).append(selectListPrint)));
                                 });
@@ -1887,14 +2188,16 @@ $(document).ready(function () {
                         }, 
                         error: function(msg){
                             $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
-                            sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
+                            var content = "<span style='font-weight: bold'>Unable to generate Taper Schedule for the medication.</span> <span>Please try again shortly.</span>";
+                            swal({title: "", text: content, html: true});
+                            //sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
                         }
                     });
                 }else{
                     swal({
-                        title: "Attention!",
+                        title: "Attention",
                          text: 'Your patient is taking one medication for less than 14 days. Please select either of these options to proceed: \n\nSelect “No, let me review the duration.” if you would like to change the duration and re-submit the form. In this case, your patient will be assigned to the Health enSuite Insomnia and deprescribing study. \n\nSelect “Yes, reassign to the Health enSuite Insomnia Study.” if the duration you have entered is correct, and your patient is willing to stop their medication right away or before beginning the CBT program for insomnia. In this case, your patient will be assigned to the Health enSuite Insomnia study, which is offered for patients who are not taking sleep medications.',
-                        type: "info",
+                        // type: "info",
                         showCancelButton: true,
                         confirmButtonColor: "#2087c8",
                         confirmButtonText: "Yes, reassign to the Health enSuite Insomnia Study.",
@@ -1995,7 +2298,7 @@ $(document).ready(function () {
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'center';
+                        window["td"+i+3].style.textAlign = 'left';
                         window["td"+i+3].style.padding = '8px';
                         window["td"+i+3].style.display = 'flex';
 
@@ -2026,7 +2329,7 @@ $(document).ready(function () {
                         selectList.name = tableBody+i+3;
 
                         const btnAssign = document.createElement("button");
-                        btnAssign.innerHTML = "Select";
+                        btnAssign.innerHTML = "Assign Dose";
                         btnAssign.classList.add("btn-primary");
                         btnAssign.classList.add("aprv");
 
@@ -2039,7 +2342,7 @@ $(document).ready(function () {
 
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
-                        .append($(window["td"+i+2]).append(def.unrounded))
+                        // .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
                         .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                         .append($(window["td"+i+5]).append("")));
@@ -2049,7 +2352,10 @@ $(document).ready(function () {
                         btnAssign.style.marginTop = "0px";
                         btnAssign.style.marginLeft = "5px";
 
+                        deselectMutiDropdown(selectList);
                         btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                        $(selectList).on('change', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
@@ -2084,7 +2390,7 @@ $(document).ready(function () {
 
                         $(tableBodyPrint).append($("<tr>")
                         .append($(window["tdp2"+i+1]).append(i + 1))
-                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        // .append($(window["tdp2"+i+2]).append(def.unrounded))
                         .append($(window["tdp2"+i+4]).append(def.newDose))
                         .append($(window["tdp2"+i+3]).append(selectListPrint)));
                     });
@@ -2104,7 +2410,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
-                sweetAlert("Unable to reset Taper Schedule generated for the medication","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Unable to reset Taper Schedule generated for the medication.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Unable to reset Taper Schedule generated for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -2179,7 +2487,7 @@ $(document).ready(function () {
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'center';
+                        window["td"+i+3].style.textAlign = 'left';
                         window["td"+i+3].style.padding = '8px';
                         window["td"+i+3].style.display = 'flex';
 
@@ -2208,7 +2516,7 @@ $(document).ready(function () {
                         selectList.name = tableBody+i+3;
 
                         const btnAssign = document.createElement("button");
-                        btnAssign.innerHTML = "Select";
+                        btnAssign.innerHTML = "Assign Dose";
                         btnAssign.classList.add("btn-primary");
                         btnAssign.classList.add("aprv");
 
@@ -2219,7 +2527,7 @@ $(document).ready(function () {
 
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
-                        .append($(window["td"+i+2]).append(def.unrounded))
+                        // .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
                         .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                         .append($(window["td"+i+5]).append("")));
@@ -2229,7 +2537,10 @@ $(document).ready(function () {
                         btnAssign.style.marginTop = "0px";
                         btnAssign.style.marginLeft = "5px";
 
+                        deselectMutiDropdown(selectList);
                         btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                        $(selectList).on('change', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
@@ -2264,7 +2575,7 @@ $(document).ready(function () {
 
                         $(tableBodyPrint).append($("<tr>")
                         .append($(window["tdp2"+i+1]).append(i + 1))
-                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        // .append($(window["tdp2"+i+2]).append(def.unrounded))
                         .append($(window["tdp2"+i+4]).append(def.newDose))
                         .append($(window["tdp2"+i+3]).append(selectListPrint)));
                     });
@@ -2284,7 +2595,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
-                sweetAlert("Unable to reset Taper Schedule generated for the medication","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Unable to reset Taper Schedule generated for the medication.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Unable to reset Taper Schedule generated for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -2379,7 +2692,7 @@ $(document).ready(function () {
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'center';
+                        window["td"+i+3].style.textAlign = 'left';
                         window["td"+i+3].style.padding = '8px';
                         window["td"+i+3].style.display = 'flex';
 
@@ -2410,7 +2723,7 @@ $(document).ready(function () {
                         selectList.name = tableBody+i+3;
 
                         const btnAssign = document.createElement("button");
-                        btnAssign.innerHTML = "Select";
+                        btnAssign.innerHTML = "Assign Dose";
                         btnAssign.classList.add("btn-primary");
                         btnAssign.classList.add("aprv");
 
@@ -2421,7 +2734,7 @@ $(document).ready(function () {
 
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
-                        .append($(window["td"+i+2]).append(def.unrounded))
+                        // .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
                         .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                         .append($(window["td"+i+5]).append("")));
@@ -2431,7 +2744,10 @@ $(document).ready(function () {
                         btnAssign.style.marginTop = "0px";
                         btnAssign.style.marginLeft = "5px";
 
+                        deselectMutiDropdown(selectList);
                         btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                        $(selectList).on('change', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
@@ -2466,7 +2782,7 @@ $(document).ready(function () {
 
                         $(tableBodyPrint).append($("<tr>")
                         .append($(window["tdp2"+i+1]).append(i + 1))
-                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        // .append($(window["tdp2"+i+2]).append(def.unrounded))
                         .append($(window["tdp2"+i+4]).append(def.newDose))
                         .append($(window["tdp2"+i+3]).append(selectListPrint)));
                     });
@@ -2486,7 +2802,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
-                sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Unable to generate Taper Schedule for the medication.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -2566,7 +2884,7 @@ $(document).ready(function () {
 
                         window["td"+i+3] = document.createElement('td');
                         window["td"+i+3].style.border = '1px solid #dddddd';
-                        window["td"+i+3].style.textAlign = 'center';
+                        window["td"+i+3].style.textAlign = 'left';
                         window["td"+i+3].style.padding = '8px';
                         window["td"+i+3].style.display = 'flex';
 
@@ -2597,7 +2915,7 @@ $(document).ready(function () {
                         selectList.name = tableBody+i+3;
 
                         const btnAssign = document.createElement("button");
-                        btnAssign.innerHTML = "Select";
+                        btnAssign.innerHTML = "Assign Dose";
                         btnAssign.classList.add("btn-primary");
                         btnAssign.classList.add("aprv");
 
@@ -2608,7 +2926,7 @@ $(document).ready(function () {
 
                         $(tableBody).append($("<tr>")
                         .append($(window["td"+i+1]).append(i + 1))
-                        .append($(window["td"+i+2]).append(def.unrounded))
+                        // .append($(window["td"+i+2]).append(def.unrounded))
                         .append($(window["td"+i+4]).append(def.newDose))
                         .append($(window["td"+i+3]).append(selectList).append(btnAssign))
                         .append($(window["td"+i+5]).append("")));
@@ -2618,7 +2936,10 @@ $(document).ready(function () {
                         btnAssign.style.marginTop = "0px";
                         btnAssign.style.marginLeft = "5px";
 
+                        deselectMutiDropdown(selectList);
                         btnAssign.addEventListener('click', multiSelectClickEvent);
+
+                        $(selectList).on('change', multiSelectClickEvent);
 
                         window["tdp2"+i+1] = document.createElement('td');
                         window["tdp2"+i+1].style.border = '1px solid #dddddd';
@@ -2653,7 +2974,7 @@ $(document).ready(function () {
 
                         $(tableBodyPrint).append($("<tr>")
                         .append($(window["tdp2"+i+1]).append(i + 1))
-                        .append($(window["tdp2"+i+2]).append(def.unrounded))
+                        // .append($(window["tdp2"+i+2]).append(def.unrounded))
                         .append($(window["tdp2"+i+4]).append(def.newDose))
                         .append($(window["tdp2"+i+3]).append(selectListPrint)));
                     });
@@ -2673,7 +2994,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer3").html("Unable to generate Taper Schedule for the medication");
-                sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Unable to generate Taper Schedule for the medication.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Unable to generate Taper Schedule for the medication","Please try again shortly","error");
             }
         }); 
             //}
@@ -2736,7 +3059,9 @@ $(document).ready(function () {
                         }, 
                         error: function(msg){
                             $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
-                            sweetAlert("Unable to submit final medication","Please try again shortly","error");
+                            var content = "<span style='font-weight: bold'>Unable to submit final medication.</span> <span>Please try again shortly.</span>";
+                            swal({title: "", text: content, html: true});
+                            //sweetAlert("Unable to submit final medication","Please try again shortly","error");
                         }
                     });
                 }//End of when 1 out of the 2 medications was returned
@@ -2812,7 +3137,9 @@ $(document).ready(function () {
                         }, 
                         error: function(msg){
                             $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
-                            sweetAlert("Unable to submit final medication","Please try again shortly","error");
+                            var content = "<span style='font-weight: bold'>Unable to submit final medication.</span> <span>Please try again shortly.</span>";
+                            swal({title: "", text: content, html: true});
+                            //sweetAlert("Unable to submit final medication","Please try again shortly","error");
                         }
                     });
                 }
@@ -2849,7 +3176,9 @@ $(document).ready(function () {
                     }, 
                     error: function(msg){
                         $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
-                        sweetAlert("Unable to submit final medication","Please try again shortly","error");
+                        var content = "<span style='font-weight: bold'>Unable to submit final medication.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Unable to submit final medication","Please try again shortly","error");
                     }
                 }); 
             }

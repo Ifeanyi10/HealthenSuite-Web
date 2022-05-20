@@ -16,23 +16,24 @@
 
         window.onload = function getPatientProfile(){
 
-                                    window.localStorage.setItem("loginError", false);
-                                    let paName = window.localStorage.getItem("patientFirstName");
-                                    if(paName == " "){
-                                        window.localStorage.setItem("loginError", true);
-                                        window.location.href = "patient-login.html";
-                                    }else{
-                                        document.getElementById('patProfName').innerHTML =  window.localStorage.getItem("patientFirstName") + " " + window.localStorage.getItem("patientLastName");
-                                        document.getElementById('patProfEmail').innerHTML =  window.localStorage.getItem("patientEmail");
-                                        document.getElementById('patProfPh').innerHTML =  window.localStorage.getItem("patientPhone");
-                                        //document.getElementById('patProfProvice').innerHTML =  window.localStorage.getItem("providerProvince");
-                                    }
+                            window.localStorage.setItem("loginError", false);
+                            let paName = window.localStorage.getItem("patientFirstName");
+                            if(paName == "" || paName == null){
+                                // window.localStorage.setItem("loginError", true);
+                                // window.location.href = "patient-login.html";
+                                displayQuickAlert();
+                            }else{
+                                document.getElementById('patProfName').innerHTML =  window.localStorage.getItem("patientFirstName") + " " + window.localStorage.getItem("patientLastName");
+                                document.getElementById('patProfEmail').innerHTML =  window.localStorage.getItem("patientEmail");
+                                document.getElementById('patProfPh').innerHTML =  window.localStorage.getItem("patientPhone");
+                                //document.getElementById('patProfProvice').innerHTML =  window.localStorage.getItem("providerProvince");
+                            }
 
-                                    
-       
-                        }
-    
-          </script>
+                            
+
+                }
+
+    </script>
 
 </head>
 
@@ -87,9 +88,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
 
                 <!-- <div class="clearfix">Patient Dashboard</div> -->
@@ -187,9 +189,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
-                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Progress</a></li>
                         </ul>
                     </li>
                     
@@ -207,8 +209,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -270,9 +272,19 @@
                                 <div class="bootstrap-modal">
                                     <!-- Button trigger modal -->
                                     <!-- <input type='button' class='buttonPlainTxt' data-toggle="modal" data-target="#exampleModalCenter" value='Change Password'/> -->
-                                    <button type="button" class='btnEdit' data-toggle="modal" data-target="#exampleModalCenter">
-                                        <i class="icon-note menu-icon"></i><span class="nav-text">Change Password</span>
-                                      </button>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <button type="button" class='btnEdit' data-toggle="modal" data-target="#exampleModalCenter">
+                                                <i class="icon-note menu-icon"></i><span class="nav-text">Change Password</span>
+                                              </button>
+                                        </div>
+                                        <div class="col-lg-8" style="text-align: left;">
+                                            <!-- <button type="button" class='btnEdit' onclick="downloadTaperFile('Health-enSuite-Team-Test.pdf');">
+                                                <i class="ti-download"></i><span class="nav-text"> Download Taper Schedule</span>
+                                              </button> -->
+                                        </div>
+                                    </div>
+                                    
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModalCenter">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -389,7 +401,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

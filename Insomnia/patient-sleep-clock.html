@@ -26,6 +26,12 @@
 
                     window.onload = function getPatientsPastSleepClock(){
 
+                        fillSelectTimeOption('pickBedeHour', 1, 12, '08')
+                        fillSelectTimeOption('pickBedMinute', 0, 59, '10')
+
+                        fillSelectTimeOption('pickRiseHour', 1, 12, '05')
+                        fillSelectTimeOption('pickRiseMinute', 0, 59, '15')
+
                         if (!String.prototype.padStart) {
                             String.prototype.padStart = function padStart(targetLength,padString) {
                                 targetLength = targetLength>>0; //truncate if number or convert non-number to 0;
@@ -86,15 +92,24 @@
                                     window.localStorage.setItem("yBedTime", result.averagebedtiime);
                                     window.localStorage.setItem("yRiseTime", result.averagerisetime);
 
-                                    tbID1.rows[1].cells[1].innerHTML = result.averagebedtiime;
-                                    tbID1.rows[2].cells[1].innerHTML = result.averagerisetime;
+                                    bTi = '1970-02-01 '+result.averagebedtiime;
+                                    rRi = '1970-02-01 '+result.averagerisetime
+                                    // console.log('This is a date: 1970-02-01 '+result.averagebedtiime)
+
+                                    tbID1.rows[1].cells[1].innerHTML = moment(bTi).format("hh:mm A"); 
+                                    tbID1.rows[2].cells[1].innerHTML = moment(rRi).format("hh:mm A");
 
                                     tbID2.rows[1].cells[1].innerHTML = formatTime(result.averagetimeinbed);
                                     tbID2.rows[2].cells[1].innerHTML = formatTime(result.averagetotalsleeptime);
                                     tbID2.rows[3].cells[1].innerHTML = result.averagesleepefficiency;
                                 }, 
                                 error: function(msg){
-                                    console.log("Loading Patients Last Sleep Clock failed");
+                                    if(msg.status == "511"){
+                                        displayQuickAlert();
+                                    }else{
+                                        console.log("Loading Patients Last Sleep Clock failed");
+                                    }
+                                    
                                 }
                             });
                         }
@@ -114,6 +129,20 @@
                             var minutes = (hours - rhours) * 60;
                             var rminutes = Math.round(minutes);
                             return  rhours + " hour(s) and " + rminutes + " minute(s).";
+                        }
+
+                        function fillSelectTimeOption(elementId, startVal, endVal, valueToSelect){
+                            var selectOpt = document.getElementById(elementId);
+                            var contents;
+                            for (let i = startVal; i <= endVal; i++) {
+                                if(i <= 9){
+                                    contents += "<option value='0"+ i +"'>0" + i + "</option>";
+                                }else{
+                                    contents += "<option value='"+ i +"'>" + i + "</option>";
+                                }
+                            }          
+                            selectOpt.innerHTML += contents;
+                            selectOpt.value = valueToSelect;
                         }
     
           </script>
@@ -171,9 +200,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -272,9 +302,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
-                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Progress</a></li>
                         </ul>
                     </li>
 
@@ -292,8 +322,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -456,13 +486,25 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="m-t-20 sleepMargin">Your Bed Time:</label>
+                                        <label class="m-t-20 sleepMargin">Your Bed Time: (HH:MM AM/PM)</label>
                                         <div class="input-group clockpicker">
-                                            <input type="text" class="form-control" id="clockBedTime" value="21:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                            <!-- <input type="text" class="form-control" id="clockBedTime" value="21:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span> -->
+                                            <select class="form-control" id="pickBedeHour"></select>
+                                            <select class="form-control" id="pickBedMinute"></select>
+                                            <select class="form-control" id="bedAmPm">
+                                                <option value="AM">AM</option>
+                                                <option value="PM" selected>PM</option>
+                                            </select>
                                         </div>
-                                        <label class="m-t-40 sleepMargin">Your Rise Time:</label>
+                                        <label class="m-t-40 sleepMargin">Your Rise Time: (HH:MM AM/PM)</label>
                                         <div class="input-group clockpicker">
-                                            <input type="text" class="form-control" id="clockRiseTime" value="04:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                            <!-- <input type="text" class="form-control" id="clockRiseTime" value="04:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span> -->
+                                            <select class="form-control" id="pickRiseHour"></select>
+                                            <select class="form-control" id="pickRiseMinute"></select>
+                                            <select class="form-control" id="riseAmPm">
+                                                <option value="AM">AM</option>
+                                                <option value="PM">PM</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -492,7 +534,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

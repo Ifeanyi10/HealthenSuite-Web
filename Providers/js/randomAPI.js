@@ -581,7 +581,7 @@ $(document).ready(function () {
         var y = document.getElementById('randDisplay');
 
         let url = urlDomain + 'insomnia/v1/patient/randblock';
-        //let authToken = window.localStorage.getItem("token");
+        let authToken = window.localStorage.getItem("token");
 
         $.ajax({
             url: url,
@@ -589,7 +589,8 @@ $(document).ready(function () {
             dataType: 'json',
             headers: {
                 'Content-Type': 'application/json', 
-                'Accept': '*/*'
+                'Accept': '*/*',
+                'Authorization': 'Bearer '+ authToken
             },
             
             success: function(result){
@@ -651,8 +652,10 @@ $(document).ready(function () {
                 //window.localStorage.setItem("medQuantity", 1);
             }, 
             error: function(msg){
-                $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
-                sweetAlert("Unable To Display Randomization Table","Please try again shortly","error");
+                // $("#errorContainer3").html("Unable to reset Taper Schedule generated for the medication");
+                // sweetAlert("Unable To Display Randomization Table","Please try again shortly","error");
+                var content = "<span style='font-weight: bold'>Unable To Display Randomization Table.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
             }
         }); 
             //}

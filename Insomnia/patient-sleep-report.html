@@ -22,33 +22,175 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
+
+    <script src="https://npmcdn.com/moment@2.14.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
     <!-- <script language="javascript">
 
                     window.onload = function getPatientsProfile(){
-                            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/accessid';
-                            let authToken = window.localStorage.getItem("patientToken");
-                            alert(authToken);
-                            $.ajax({
-                                url: url,
-                                type: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json', 
-                                    'Accept': '*/*',
-                                    'Authorization': 'Bearer '+ authToken
-                                },
-                                success: function(result){
-                                    console.log(result);
-                                    
-                                    window.localStorage.setItem("patientsID", result.id);
+                            //var xValues = [50,60,70,80,90,100,110,120,130,140,150];
+                            let xValues = prepareSelectedDateArray("2022-01-31", "2022-02-06");
+                            //var yValues = [7,8,8,9,9,9,10,11,14,14,15];
+                            var yValues = [1.23,5.45,8.20,14.56,18.48,21.10];
+                            let maxValue = parseInt(yValues.at(-1)) + 1;
+                            //var yValues = ["07:23","07:33","07:45","07:48","07:52","07:55","07:59"];
 
-                                    window.localStorage.setItem("patientLastName", result.lastName);
-                                    window.localStorage.setItem("patientFirstName", result.firstName);
-                                    window.localStorage.setItem("patientPhone", result.phoneNumber);
-                                    window.localStorage.setItem("patientEmail", result.email);
-                                    console.log(window.localStorage.getItem("patientsID"));
-                                }, 
-                                error: function(msg){
-                                    console.log("Loading Patients details failed");
+                            var yValues2 = [1.2,5.4,8.7,14.8,25.4,26.1,32.6,36.5,38.3,42.7,52.8];
+
+                            // new Chart("container", {
+                            //     type: "line",
+                            //     data: {
+                            //         labels: xValues,
+                            //         datasets: [{
+                            //         fill: false,
+                            //         lineTension: 0,
+                            //         backgroundColor: "#2087c8",
+                            //         borderColor: "rgba(0,0,255,0.1)",
+                            //         data: yValues
+                            //         }]
+                            //     },
+                            //     options: {
+                            //         legend: {display: false},
+                            //         scales: {
+                            //         yAxes: [{
+                            //             ticks: {min: 0,}
+                            //         }],
+                            //         // yAxes: [{
+                            //         //     type: 'time',
+                            //         //     time: {
+                            //         //     displayFormats: {hour: 'HH:mm'}
+                            //         //     },
+                            //         //     //ticks: {min: 6, max:16}
+                            //         // }]
+                            //         },
+                            //         title: {
+                            //         display: true,
+                            //         text: "World Wine Production 2018"
+                            //         }
+                            //     }
+                            // });
+
+                            chartSample(xValues);
+
+                            new Chart("container2", {
+                                type: "line",
+                                data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                    //fill: false,
+                                    lineTension: 0,
+                                    //backgroundColor: "#2087c8",
+                                    backgroundColor: "#2087c8",
+                                    pointBackgroundColor: "#01AA73",
+                                    borderColor: "rgba(0,0,255,0.1)",
+                                    data: yValues
+                                    }]
+                                },
+                                options: {
+                                    legend: {display: false},
+                                    scales: {
+                                    yAxes: [{ticks: {min: 1, max: maxValue}}],
+                                    },
+                                    title: {
+                                    display: true,
+                                    text: "World Wine Production 2018"
+                                    }
+                                }
+                            });
+
+                            
+                        }
+
+                        function prepareSelectedDateArray(dt1, dt2){
+                            dateArray = [];
+                            let myDate1 = dt1.toString().replace(/^\s+|\s+$/gm,'');
+                            var startDate = moment(myDate1).format("YYYY-MM-DD");
+
+                            let myDate2 = dt2.toString().replace(/^\s+|\s+$/gm,'');
+                            var endDate = moment(myDate2).format("YYYY-MM-DD");
+
+                            while(startDate <= endDate){
+                                dateArray.push(startDate);
+                                startDate = moment(startDate).add(1, 'days').format("YYYY-MM-DD");
+                                //dateArray.push(startDate);
+                            }
+                            
+                            console.log("Tomorrow's date is: "+dateArray)
+                            return dateArray;
+                        }
+
+                        function chartSample(years){
+
+                            //let years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"];
+                            //let years = prepareSelectedDateArray("2022-01-31", "2022-02-06");
+                            let times = ["11:46:07", "11:41:14", "11:55:26", "12:14:58", "11:54:55", "11:54:04", "12:28:29", "12:35:18"];
+                            
+                            let data = years.map((year, index) => ({
+                                x: moment(`${year}`), 
+                                y: moment(`1970-02-01 ${times[index]}`).valueOf()
+                            }));
+                            
+                            let bckColors = ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#565452", "#321456", "#129864", "#326812", "#215984"];
+                            
+                            let myChart = new Chart('container', {
+                                type: 'line',
+                                data: {
+                                    datasets: [
+                                        {
+                                            //label: "Time",
+                                            //fill: false,
+                                            backgroundColor: "#2087c8",
+                                            pointBackgroundColor: "#01AA73",
+                                            borderColor: "rgba(0,0,255,0.1)",
+                                            data: data,
+                                            pointBorderWidth: 2,
+                                            pointRadius: 5,
+                                            pointHoverRadius: 7
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    scales: {
+                                        xAxes: [
+                                        {
+                                            type: 'time',
+                                            position: 'bottom',
+                                            time: {
+                                            displayFormats: {
+                                                day: 'YYYY-MM-DD'
+                                            },
+                                            unit: 'day'
+                                            }
+                                        }
+                                        ],
+                                        yAxes: [
+                                        {
+                                            type: 'linear',
+                                            position: 'left',
+                                            ticks: {
+                                            min: moment('1970-02-01 00:00:00').valueOf(),
+                                            max: moment('1970-02-01 23:59:59').valueOf(),
+                                            stepSize: 3.6e+6,
+                                            beginAtZero: false,
+                                            callback: value => {
+                                                let date = moment(value);
+                                                if(date.diff(moment('1970-02-01 23:59:59'), 'minutes') === 0) {
+                                                return null;
+                                                }
+                                                
+                                                return date.format('h A');
+                                                //return date.format('hh:mm a');
+                                            }
+                                            }
+                                        }
+                                        ]
+                                    },
+                                    title: {
+                                    display: true,
+                                    text: "World Wine Production 2018"
+                                    },
+                                    legend: {display: false},
                                 }
                             });
                         }
@@ -108,9 +250,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -209,9 +352,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
-                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Progress</a></li>
                         </ul>
                     </li>
 
@@ -229,8 +372,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -273,7 +416,7 @@
 
                                 <!-- <h3 class="consentInfoHeadSmall">Pick Date Range below to generate sleep report based on your Sleep Diaries</h3> -->
                                 <div class="justifyDiv textDeco">
-                                    Pick Date Range below to generate sleep report based on your Sleep Diaries
+                                    Select a date range to generate your sleep progress report based on your previous sleep diaries.
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
@@ -374,10 +517,6 @@
                                     
                                 </table>
 
-                                <div class="sleepDiv">
-                                    <input type='button' class='btn-primary' id="btnExportReport" onclick="PrintReportDiv();"  style="margin-right: 50px;" value='Export Report'/>
-                                    <button type="submit" id="btnShareReport" class="btn-colorSec">Share Report</button>
-                                </div>
 
                                 <div class="hidden" id="printDivContentReport" style= "page-break-after: always;">
                                     <div >
@@ -441,13 +580,90 @@
                                             </tbody>
                                         </table>
                                     </div><br/>
+
+                                </div>
+                                
+
+                                <hr><br>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!--   -->
+                                                <canvas id="container" style="height: 400px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- <h4 class="card-title">All Awakenings</h4> -->
+                                                <canvas id="container2" style="height: 400px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+            
                                 </div>
 
-                               </div>
+
+                                <hr><br>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- <h4 class="card-title">Total Time In Bed (TTIB)</h4> -->
+                                                <canvas id="container3" style="height: 400px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- <h4 class="card-title">Total Sleep Time (TST)</h4> -->
+                                                <canvas id="container4" style="height: 400px;"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                </div>
+
+                                <div class="sleepDiv">
+                                    <input type='button' class='btn-primary' id="btnExportReport" onclick="PrintReportDiv();"  style="margin-right: 50px;" value='Export Report'/>
+                                    <button type="submit" id="btnShareReport" onclick="confirmShareReport();" class="btn-colorSec">Share Report</button>
+                                </div>
+
+                            </div>
+
+
+                            <!-- <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">All Bed Time Report</h4>
+                                            <canvas id="container" style="height: 200px;"></canvas> 
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">All Awakenings Report</h4>
+                                            <canvas id="container2" style="height: 200px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div> -->
+                            <!-- <div id="container" style="height: 400px;"></div> -->
 
                             </div>
                         </div>
                     </div>
+
+                    
 
                     <div class="bootstrap-modal">
                         <!-- Modal Change Email-->
@@ -485,6 +701,8 @@
 
                 </div>
 
+                
+
                     
             </div>
             <!-- #/ container -->
@@ -499,7 +717,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

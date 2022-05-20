@@ -24,17 +24,19 @@
                             //let levelValue = 5;
                             //console.log(window.localStorage.getItem("Level Value: "+levelValue));
                             console.log("Level Value: "+levelValue)
-                            if(levelValue >= 0){
+                            if(levelValue >= 1){
                                 initializeContent(levelValue)
                                 console.log("Level: "+levelValue)
                                 if(levelValue >= 6){
                                     document.getElementById('lvNum').innerHTML = 6;
                                 }else{
-                                    document.getElementById('lvNum').innerHTML = parseInt(levelValue) + 1;
+                                    document.getElementById('lvNum').innerHTML = parseInt(levelValue);
                                 }
                             }
                             else if (levelValue < 0){
-                                sweetAlert("Attention!","You must fill at least 5 sleep diaries within last 7 days to access this content","info");
+                                // sweetAlert("Attention!","You must fill at least 5 sleep diaries within last 7 days to access this content","info");
+                                var content = "<span style='font-weight: bold'>Attention:</span> <span>You must fill at least 5 sleep diaries within last 7 days to access this content.</span>";
+                                swal({title: "", text: content, html: true});
                                 // document.getElementById('lvNum').innerHTML = 0;
                                 // document.getElementById('compPercent').innerHTML  = 1 + '%'; 
                                 // document.getElementById('compBar').style.width = 1 + '%';
@@ -59,12 +61,14 @@
                         thisLink.style.display = 'block';
                         ++myCount;
 
-                        if(myCount > completed){
+                        if(myCount == completed){
                             return;
                         }
 
                     }else{
-                        sweetAlert("Attention!","You must fill at least 5 sleep diaries within last 7 days to access this content","info");
+                        // sweetAlert("Attention!","You must fill at least 5 sleep diaries within last 7 days to access this content","info");
+                        var content = "<span style='font-weight: bold'>Attention:</span> <span>You must fill at least 5 sleep diaries within last 7 days to access this content.</span>";
+                        swal({title: "", text: content, html: true});
                     }
                     
                     
@@ -86,11 +90,13 @@
                     comp = 70;
                 }else if(completed == 5){
                     comp = 85;
-                }else if(completed == 6){
+                }else if(completed >= 6){ 
+                    document.getElementById('progBar').innerHTML  = 'Completed';
                     comp = 100;
                 }
                 document.getElementById('compPercent').innerHTML  = comp + '%';
                 document.getElementById('compBar').style.width = comp + '%';
+                    
             }
 
 </script>
@@ -148,9 +154,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -249,8 +256,8 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
                         </ul>
                     </li>
 
@@ -268,8 +275,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -292,7 +299,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">My Progress</h4><hr>
-                                <h5 class="mt-3">Completed <span class="float-right" id="compPercent"></span></h5>
+                                <h5 class="mt-3"><span id="progBar">In Progress</span> <span class="float-right" id="compPercent"></span></h5>
                                 <div class="progress" style="height: 12px">
                                     <!-- <div class="progress-bar bg-danger wow  progress-" style="width: 10%;" role="progressbar"><span class="sr-only">60% Complete</span></div> -->
                                     <div class="progress-bar bg-success active progress-bar-striped" id="compBar"  role="progressbar"><span class="sr-only">60% Complete</span></div>
@@ -410,7 +417,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

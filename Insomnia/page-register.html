@@ -49,11 +49,12 @@
     <script language="javascript">
 
         window.onload = function getPatientsProfile(){
-                            var urlDomain = 'https://api.healthensuite.com/';
+                            var urlDomain = 'https://apiv3.healthensuite.com/';
                             //var urlDomain = 'http://192.168.6.15:8083/';
                             let url = urlDomain + 'insomnia/v1/patient/id';
                             var lastPart = window.location.href.split("code").pop();
                             //var lastPart = 'o591ey1Txbw5YbAwyEvm3j1/vV9bUyDSUN4QhyMS51I=';
+                            console.log("Code Value from the link: "+lastPart);
                             window.localStorage.setItem("patRegToken", lastPart);
                             $.ajax({
                                 url: url,
@@ -82,7 +83,9 @@
                                 }, 
                                 error: function(msg){
                                     console.log("Loading Patients details failed");
-                                    sweetAlert("Unable to confirm your token","Please ensure you copied the link properly or click on the link from the email sent to you.","error");
+                                    //sweetAlert("Unable to confirm your token","Please ensure you copied the link properly or click on the link from the email sent to you.","error");
+                                    var content = "<span style='font-weight: bold'>Access Denied.</span> <span>Please ensure you copied the link properly or click on the link from the email sent to you.</span>";
+                                    swal({title: "", text: content, html: true});
                                 }
                             });
                         }
@@ -128,14 +131,17 @@
         
                                 <form class="mt-5 mb-5 login-input" id="regForm">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="firstN" placeholder="First Name" required>
+                                        <label for="firstN" class="form-text-label">First Name<span class="required">*</span></label>
+                                        <input type="text" class="form-control bottom-border" id="firstN" placeholder="First Name" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="lastN" placeholder="Last Name" required>
+                                        <label for="lastN" class="form-text-label">Last Name<span class="required">*</span></label>
+                                        <input type="text" class="form-control bottom-border" id="lastN" placeholder="Last Name" required>
                                     </div>
                                     <div class="form-group">
-                                        <select id="inputTimeZone" class="form-control" required>
-                                            <option value="">Time Zone</option>
+                                        <label for="inputTimeZone" class="form-text-label">Time Zone<span class="required">*</span></label>
+                                        <select id="inputTimeZone" class="form-control bottom-border" onclick="fillAllFields();" required>
+                                            <option value="">Select your Time Zone (required)</option>
                                             <option value="America/Vancouver">Alberta</option>
                                             <option value="America/Dawson">British Columbia</option>
                                             <option value="US/Arizona">Manitoba</option>
@@ -143,7 +149,7 @@
                                             <option value="America/Panama">Newfoundland and Labrador</option>
                                             <option value="Atlantic/Azores">Newfoundland and Labrador (Southeastern Coast)</option>
                                             <option value="America/Vancouver">Northwest Territories</option>
-                                            <option value="America/Panama">Nova Scotia</option>
+                                            <option value="America/Halifax">Nova Scotia</option>
                                             <option value="America/Vancouver">Nunavut</option>
                                             <option value="US/Central">Nunavut (Southampton Island)</option>
                                             <option value="US/Central">Ontario</option>
@@ -154,29 +160,37 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control"  id="email"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                        <label for="email" class="form-text-label">Email<span class="required">*</span></label>
+                                        <input type="email" class="form-control bottom-border"  id="email"  placeholder="Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Mobile Number" pattern="([0|\+[0-9]{1,5})?([7-9][0-9]{9})$" min="10" max="25"/>
+                                        <label for="phone" class="form-text-label">Mobile Number</label>
+                                        <input type="text" class="form-control bottom-border" id="phone" name="phone" placeholder="Enter your mobile number" pattern="([0|\+[0-9]{1,5})?([7-9][0-9]{9})$" min="10" max="15" title="E.g 902-100-1234" data-toggle="tooltip" data-placement="right"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="mailAdd" placeholder="Mailing Address" >
+                                        <label for="mailAdd" class="form-text-label">Mailing Address (street name, city. and postal code)</label>
+                                        <input type="text" class="form-control bottom-border" id="mailAdd" placeholder="Mailing Address" >
                                     </div>
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <input type="text" class="form-control" id="usName" placeholder="Username (should be your email address)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                    </div> -->
+
+                                    <div class="form-group">
+                                        <label for="usName" class="form-text-label">Username<span class="required">*</span></label>
+                                        <input type="email" class="form-control bottom-border" id="usName" placeholder="Enter your username (usually same email address)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
                                     </div>
 
-                                    <div class="form-group" id="divCheckUsernameMatch"></div>
+                                    <!-- <div class="form-group" id="divCheckUsernameMatch"></div> -->
 
                                     <div class="form-group">
                                         <!-- <input type="password" class="form-control" id="pass" placeholder="Password" required> -->
                                         <!-- <div id="passInstruction">A strong password contains at least 1 uppercase, 1 lowercase, 1 special character, and not less than 8 character long</div> -->
                                         <div ng-controller="PasswordController">
-                                            
-                                                <input type="password" ng-model="password" ng-change="analyze(password)" id="pass" placeholder="Password" class="form-control" required />
+                                            <label for="pass" class="form-text-label">Password<span class="required">*</span></label>
+                                            <input type="password" ng-model="password" ng-change="analyze(password)" id="pass" placeholder="Password (required)" class="form-control bottom-border" required />
                                             <div class="block_container">
                                                 <div ng-style="passwordStrength" id="arrrowBlock"></div>
                                                 <div id="textBlock"><h5 id="pStrength"></h5></div>
@@ -186,34 +200,37 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="confirmPass" placeholder="Re-Enter Password" required>
+                                        <label for="confirmPass" class="form-text-label">Re-type Password<span class="required">*</span></label>
+                                        <input type="password" class="form-control bottom-border" id="confirmPass" placeholder="Re-type password (required)" required>
+                                        <div class="form-group" id="divCheckPasswordMatch"></div>
                                     </div>
-                                    <div class="form-group" id="divCheckPasswordMatch"></div>
+
 
                                     <div class="form-group">
 
-                                        <label class="lblQuestion">Preferred communication method (check all that apply): </label>
+                                        <label class="lblQuestion">Preferred communication method (check all that apply)<span class="required">*</span></label>
 
                                         <div class="form-check mb-3">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="abt" value="Email">Email</label>
+                                                <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="Email">Email</label>
                                         </div>
                                         <div class="form-check mb-3">
                                             <label class="form-check-label" id="sms" data-trigger="hover">
-                                                <input type="checkbox" class="form-check-input" name="abt" value="SMS">SMS/Text Message</label>
+                                                <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="SMS">SMS/Text Message</label>
                                                 
                                         </div>
                                         <div class="form-check mb-3">
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="abt" value="In App">Notifications within the app</label>
+                                                <input type="checkbox" class="form-check-input" name="abt" onclick="fillAllFields();" value="In App">Notifications within the app</label>
                                         </div>
                                         <!-- <div class="form-check mb-3">
                                             <label class="form-check-label">
                                                 <input type="checkbox" class="form-check-input" name="abt" value="No Notification">I do not want to receive any notifications.</label>
                                         </div> -->
-                                       
-
                                     </div>
+
+                                    <div class="form-group" id="divCheckAllField"></div>
+
 
                                     <button class="btn mb-1 btn-info" id="btnSubmit">Submit</button>
                                 </form>

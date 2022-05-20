@@ -102,6 +102,41 @@ $(document).ready(function () {
         $("#symps").css('display', 'block');     
    });  
 
+
+   var fadeTime = 2000;
+    if ($( ".nav-icon" ).hasClass('is-active')) {
+        console.log("Hamburger menu is active")
+        $('.aniLbl').fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime)
+            .fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime).fadeIn(fadeTime)
+            .fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime).addClass('active');
+        //$("#aniLbl").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+    }else{
+        console.log("Hamburger menu is not active")
+        $('.aniLbl').stop(true, false);
+        $('.aniLbl').removeClass('active');
+        //$('.aniLbl').removeClass('active').fadeOut(fadeTime);
+        $('.aniLbl').slideUp()
+    }
+
+    $(".nav-icon").on('click paste keydown keyup', function (e){
+        if ($( ".nav-icon" ).hasClass('is-active')) {
+            console.log("Hamburger menu is not active")
+            $('.aniLbl').fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime)
+                .fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime).fadeIn(fadeTime)
+                .fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime).addClass('active');
+            // $('.aniLbl').stop(true, false);
+            // $('.aniLbl').removeClass('active').fadeOut(fadeTime);
+        }else{
+            console.log("Hamburger menu is active") 
+            $('.aniLbl').stop(true, false);
+            $('.aniLbl').removeClass('active').fadeOut(fadeTime);
+            // $('.aniLbl').fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime)
+            //     .fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime).fadeIn(fadeTime)
+            //     .fadeOut(fadeTime).fadeIn(fadeTime).fadeOut(fadeTime).fadeIn(fadeTime).addClass('active');
+            //$("#aniLbl").fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+        }
+    });
+
 });
 
 
@@ -111,6 +146,9 @@ function hideDisplay(firstDisplay, secondDisplay){
     
     x.style.display = 'none';
     y.style.display = 'block';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 
@@ -162,30 +200,31 @@ function showNote(itemName){
 }
 
 function fillModalContentValue(checkID, btnId){
-    var modalTitle = document.getElementById('modalContentTitle');
-    var modalBody = document.getElementById('modalContentBd');
+    // var modalTitle = document.getElementById('modalContentTitle');
+    // var modalBody = document.getElementById('modalContentBd');
     var btnMed = document.getElementById(btnId);
 
     if(checkID == 'confident'){
-        modalTitle.innerHTML = 'Great!';
-        modalBody.innerHTML = 'You can track your progress in the Medication Log.';
+        // modalTitle.innerHTML = 'Great!';
+        // modalBody.innerHTML = 'You can track your progress in the Medication Log.';
         btnMed.disabled = false;
     }
 
     else if(checkID == 'difficult'){
-        modalTitle.innerHTML = 'Change can be difficult!';
-        modalBody.innerHTML = 'This app provides tools that should help make it easier for you. If you need to modify the plan please consult your health care provider.';
+        // modalTitle.innerHTML = 'Change can be difficult!';
+        // modalBody.innerHTML = 'This app provides tools that should help make it easier for you. If you need to modify the plan please consult your health care provider.';
         btnMed.disabled = false;
     }
 
     else if(checkID == 'unknown'){
-        modalTitle.innerHTML = 'Attention!';
-        modalBody.innerHTML = 'Use the medications tab on the dashboard to view your tapering schedule.';
+        // modalTitle.innerHTML = 'Attention!';
+        // modalBody.innerHTML = 'Use the medications tab on the dashboard to view your tapering schedule.';
         btnMed.disabled = false;
     }else{
         btnMed.disabled = true;
     }
 }
+
 
 function showQuestion(divName1, divName2, divName3, supportDiv){
     var x = document.getElementById(divName1);
@@ -222,6 +261,20 @@ function displayNav(firstnave, secondNav){
     f.classList.remove('active');
     s.classList.add('active');
     s.classList.add('show');
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+
+function displayQuickAlert(){
+    var alertValue = "You may have been away! Please sign in again. This is to ensure that your account is not access by someone else.";
+    var content = "<span>"+alertValue+"</span>";
+    swal({title: "", text: content , html: true},
+        function(){ 
+            window.location.href = "patient-login.html";
+        }
+    );
 }
 
 

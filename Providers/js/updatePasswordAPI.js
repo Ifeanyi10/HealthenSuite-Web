@@ -49,18 +49,18 @@ $(document).ready(function () {
     emailIsElligible = false;
     let authTokenPatient = '';
 
-    $(window).focus(function () {
-        //do something
-        let authToken = window.localStorage.getItem("token");
-        authTokenPatient = window.localStorage.getItem("patientToken");
-        console.log("You are in this tab and the token is: "+authToken);
-        if(authToken == null){
-            //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
-            urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
-            window.localStorage.setItem("urlDomain", urlDomain);
-            $('#loginModal').modal('show');
-        }
-    });
+    // $(window).focus(function () {
+    //     //do something
+    //     let authToken = window.localStorage.getItem("token");
+    //     authTokenPatient = window.localStorage.getItem("patientToken");
+    //     console.log("You are in this tab and the token is: "+authToken);
+    //     if(authToken == null){
+    //         //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
+    //         //urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+    //         //window.localStorage.setItem("urlDomain", urlDomain);
+    //         $('#loginModal').modal('show');
+    //     }
+    // });
 
     //Quick Provider Login
     $('#btnQuickLogin').on('click', function(event){
@@ -86,11 +86,15 @@ $(document).ready(function () {
                 }, 
                 error: function(msg){
                     //$("#errorContainer").html("Incorrect Username or Password");
-                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                    var content = "<span style='font-weight: bold'>Access denied.</span> <span>Please confirm your login credentials and your internet connectivity to proceed.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
                 }
             });
         }else{
-            sweetAlert("Attention!","Please fill the fields properly and login","info");
+            // sweetAlert("Attention","Please fill the fields properly and login");
+            var content = "<span>Please confirm your login information to proceed.</span>";
+            swal({title: "", text: content, html: true});
         }
         
     });
@@ -120,7 +124,7 @@ $(document).ready(function () {
                 }),
             success: function(result){
                 console.log(result);
-                swal({title: "Done!", text: "Your password has been change. You will be required to login again.", type: "success"},
+                swal({title: "", text: "Your password has been change. You will be required to login again.", type: "success"},
                 function(){ 
                     window.location.href = "provider-login.html";
                 }
@@ -128,7 +132,9 @@ $(document).ready(function () {
             }, 
             error: function(msg){
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Change of password not successful!","Please ensure you typed your current password correctly.","error");
+                var content = "<span style='font-weight: bold'>Change of password not successful.</span> <span>Please ensure you typed your current password correctly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Change of password not successful!","Please ensure you typed your current password correctly.","error");
             }
         });
     });
@@ -170,7 +176,9 @@ $(document).ready(function () {
                 } else{
                     emailIsElligible = false;
                     $("#divEmailErrorMsg").html("Email address already exist!");
-                    sweetAlert("Email address exist!","","error");
+                    var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Email address exist!","","error");
                     $emailNode.addClass('is-error');
                     bt.disabled = true;
                     confEmail.disabled = true;
@@ -180,7 +188,9 @@ $(document).ready(function () {
             error: function(msg){
                 emailIsElligible = false;
                 $("#divEmailErrorMsg").html("Email address already exist!");
-                sweetAlert("Email address exist!","","error");
+                var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Email address exist!","","error");
                 $emailNode.addClass('is-error');
                 bt.disabled = true;
             }
@@ -221,7 +231,7 @@ $(document).ready(function () {
                     }),
                 success: function(result){
                     console.log(result);
-                    swal({title: "Done!", text: "Your Email Address has been updated!", type: "success"},
+                    swal({title: "", text: "Your Email Address has been updated.", type: "success"},
                     function(){ 
                         window.location.href = "provider-dashboard.html";
                     }
@@ -229,11 +239,15 @@ $(document).ready(function () {
                 }, 
                 error: function(msg){
                     $("#errorContainer").html("Unable to register");
-                    sweetAlert("Failed to update Email Address!","Please try again shortly.","error");
+                    var content = "<span style='font-weight: bold'>Failed to update Email Address.</span> <span>Please try again shortly.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Failed to update Email Address!","Please try again shortly.","error");
                 }
             });
         }else{
-            sweetAlert("Email address exist!","Please use another email address","error");
+            var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+            swal({title: "", text: content, html: true});
+            //sweetAlert("Email address exist!","Please use another email address","error");
         }
     });
 
@@ -268,7 +282,7 @@ $(document).ready(function () {
                 }),
             success: function(result){
                 console.log(result);
-                swal({title: "Done!", text: "Your Full Name has been updated!", type: "success"},
+                swal({title: "", text: "Your Full Name has been updated", type: "success"},
                 function(){ 
                     window.location.href = "provider-dashboard.html";
                 }
@@ -278,7 +292,9 @@ $(document).ready(function () {
                 console.log(msg);
                 console.log(msg.status);
                 $("#errorContainer").html("Unable to register");
-                sweetAlert("Failed to update Full Name!","Please try again shortly.","error");
+                var content = "<span style='font-weight: bold'>Failed to update Full Name.</span> <span>Please try again shortly.</span>";
+                swal({title: "", text: content, html: true});
+                //sweetAlert("Failed to update Full Name!","Please try again shortly.","error");
             }
         });
     });

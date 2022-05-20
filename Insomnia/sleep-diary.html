@@ -27,12 +27,37 @@
     <script language="javascript">
 
         function formatTime(myTime){
-            var newTime = moment(myTime, "hh:mm:ss").format("hh:mm");
+            var newTime = moment(myTime, "hh:mm:ss").format("hh:mm a");
+            console.log("My New formatted Time is: "+newTime)
             return newTime;
         }
 
         window.onload = function getPatientSleepMed(){
+
+            let paName = window.localStorage.getItem("patientFirstName");
+            if(paName == "" || paName == null){
+                displayQuickAlert();
+            }
+
+            fillSelectTimeOption('pickHour1', 0, 12, '00')
+            fillSelectTimeOption('pickMinute1', 0, 59, '00')
+
+            fillSelectTimeOption('pickHour2', 0, 12, '00')
+            fillSelectTimeOption('pickMinute2', 0, 59, '00')
+
+            fillSelectTimeOption('pickHour3', 0, 12, '00')
+            fillSelectTimeOption('pickMinute3', 0, 59, '00')
+
+            fillSelectTimeOption('pickHour4', 0, 12, '00')
+            fillSelectTimeOption('pickMinute4', 0, 59, '00')
+
+            fillSelectOption('hourOpt', 0, 23, 'hour')
+            fillSelectOption('minuteOpt', 0, 59, 'Minute')
+            fillSelectOption('spHourOpt', 0, 23, 'hour')
+            fillSelectOption('spMinuteOpt', 0, 59, 'Minute')
            
+            window.localStorage.setItem("otherMedCount", '1');
+
             window.localStorage.setItem("medDate1", ''); 
             window.localStorage.setItem("medID1", ''); 
             window.localStorage.setItem("medDate2", ''); 
@@ -40,6 +65,8 @@
             var currentD = window.localStorage.getItem("currentDateUnformatted");
             var previousD = window.localStorage.getItem("prevDateUnformatted");
             var submitD = window.localStorage.getItem("submitDate");
+            console.log("The Selected Date is: "+submitD)
+            console.log("The previous Date is: "+currentD)
 
             if(submitD == currentD){
                 var mySleep = JSON.parse(window.localStorage.getItem("sleepDariesCurrent"));
@@ -49,22 +76,31 @@
 
             var bdTime = mySleep.bedTime;
             if(bdTime != null){
-                document.getElementById('bedTime').value = formatTime(mySleep.bedTime);
-                document.getElementById('trySleepTime').value = formatTime(mySleep.tryTosleepTime);
+                //Remember to reasign this values!!
+                //document.getElementById('bedTime').value = formatTime(mySleep.bedTime);
+                reformatAndSetTime(formatTime(mySleep.bedTime), 'pickHour1', 'pickMinute1', 'amPm1')
+                //document.getElementById('trySleepTime').value = formatTime(mySleep.tryTosleepTime);
+                reformatAndSetTime(formatTime(mySleep.tryTosleepTime), 'pickHour2', 'pickMinute2', 'amPm2')
                 var sduration = mySleep.durationBeforesleepoff;
                 let hrSp = parseInt(sduration / 60);
-                document.getElementById("spHourOpt").selectedIndex = hrSp + 1;
+                //document.getElementById("spHourOpt").selectedIndex = hrSp + 1;
+                document.getElementById("spHourOpt").selectedIndex = hrSp;
                 let minSp = parseInt(sduration % 60);
-                document.getElementById("spMinuteOpt").selectedIndex = minSp + 1;
+                //document.getElementById("spMinuteOpt").selectedIndex = minSp + 1;
+                document.getElementById("spMinuteOpt").selectedIndex = minSp;
                 var wakeCount = mySleep.wakeUptimeCount;
                 document.getElementById('wakeUpCount').innerHTML = wakeCount;
                 var wDuration = mySleep.totalWakeUpduration;
                 let hrWk = parseInt(wDuration / 60);
-                document.getElementById("hourOpt").selectedIndex = hrWk + 1;
+                //document.getElementById("hourOpt").selectedIndex = hrWk + 1;
+                document.getElementById("hourOpt").selectedIndex = hrWk;
                 let minWk = parseInt(wDuration % 60);
-                document.getElementById("minuteOpt").selectedIndex = minWk + 1;
-                document.getElementById('finalAwakeTime').value = formatTime(mySleep.finalWakeupTime);
-                document.getElementById('outOfBedTime').value = formatTime(mySleep.timeLeftbed);
+                //document.getElementById("minuteOpt").selectedIndex = minWk + 1;
+                document.getElementById("minuteOpt").selectedIndex = minWk;
+                //document.getElementById('finalAwakeTime').value = formatTime(mySleep.finalWakeupTime);
+                reformatAndSetTime(formatTime(mySleep.finalWakeupTime), 'pickHour3', 'pickMinute3', 'amPm3')
+                //document.getElementById('outOfBedTime').value = formatTime(mySleep.timeLeftbed);
+                reformatAndSetTime(formatTime(mySleep.timeLeftbed), 'pickHour4', 'pickMinute4', 'amPm4')
                 var otherT = mySleep.otherThings;
                 if(otherT != null){
                     document.getElementById('otherNote').value = otherT;
@@ -121,10 +157,20 @@
 
                     if(oMedObj != null){
                         $.each(JSON.parse(oMedObj), function(i, def){
-                        document.getElementById('otherMedName').innerHTML = def.medicationName;
-                        document.getElementById('otherAmTaken').innerHTML = def.amount; 
-                        window.localStorage.setItem("otherMedID", def.id);                       
-                    });
+                            if(i == 0){
+                                document.getElementById('otherMedName').innerHTML = def.medicationName;
+                                document.getElementById('otherAmTaken').innerHTML = def.amount; 
+                                window.localStorage.setItem("otherMedID", def.id);
+                            } else if(i == 1){
+                                document.getElementById('otherMedName2').innerHTML = def.medicationName;
+                                document.getElementById('otherAmTaken2').innerHTML = def.amount; 
+                                window.localStorage.setItem("otherMedID2", def.id);
+                            } else if(i == 2){
+                                document.getElementById('otherMedName3').innerHTML = def.medicationName;
+                                document.getElementById('otherAmTaken3').innerHTML = def.amount; 
+                                window.localStorage.setItem("otherMedID3", def.id);
+                            }                     
+                        });
                     }
                     
 
@@ -135,17 +181,115 @@
                     } else if(submitD == previousD){
                         var oMedObj = window.localStorage.getItem("otherMedPreviousObj");
                     }
-                    if(oMedObj == null){
+                    if(oMedObj != null){
                         $.each(JSON.parse(oMedObj), function(i, def) {
-                        document.getElementById('anyMedName').innerHTML = def.medicationName;
-                        document.getElementById('anyAmTaken').innerHTML = def.amount; 
-                        window.localStorage.setItem("anyMedID", def.id);                       
-                    });
+                            if(i == 0){
+                                document.getElementById('anyMedName').innerHTML = def.medicationName;
+                                document.getElementById('anyAmTaken').innerHTML = def.amount; 
+                                window.localStorage.setItem("anyMedID", def.id);
+                            } else if(i == 1){
+                                document.getElementById('anyMedName2').innerHTML = def.medicationName;
+                                document.getElementById('anyAmTaken2').innerHTML = def.amount; 
+                                window.localStorage.setItem("anyMedID2", def.id);
+                            } else if(i == 2){
+                                document.getElementById('anyMedName3').innerHTML = def.medicationName;
+                                document.getElementById('anyAmTaken3').innerHTML = def.amount; 
+                                window.localStorage.setItem("anyMedID3", def.id);
+                            }                       
+                        });
                     }                    
                 }
             }
+                document.getElementById('diaryHeader').innerHTML = window.localStorage.getItem("linkText");
                 
+                checkSelectedDate(submitD);
 
+            }
+
+            function checkSelectedDate(myDate){
+                var pickedDate = myDate.split("T", 1);
+
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                today = yyyy + '-' + mm + '-' + dd;
+
+                if(pickedDate == today){ 
+                    document.getElementById('subHeader1').innerHTML = "It’s time to answer some questions about your sleep last night.";
+                    // document.getElementById('subHeader2').innerHTML = "How did you sleep last night?";
+                    document.getElementById('subHeader3').innerHTML = "Tracking your experience is important. Take a few minutes to complete today’s sleep diary.";
+                }
+            }
+
+
+            function fillSelectOption(elementId, startVal, endVal, requester){
+                var selectOpt = document.getElementById(elementId);
+                var contents;
+                for (let i = startVal; i <= endVal; i++) {
+                    if(i == 0){
+                        if(requester == "hour"){
+                            contents += "<option value='"+ i +"'>Select Hour</option>";
+                            contents += "<option value='"+ i +"'>" + i + "</option>";
+                        }else{
+                            contents += "<option value='"+ i +"'>Select Minute</option>";
+                            contents += "<option value='"+ i +"'>" + i + "</option>";
+                        }
+                    }else{
+                        contents += "<option value='"+ i +"'>" + i + "</option>";
+                    }
+                    
+                }
+                selectOpt.innerHTML += contents;
+            }
+
+            function fillSelectTimeOption(elementId, startVal, endVal, valueToSelect){
+                var selectOpt = document.getElementById(elementId);
+                var contents;
+                for (let i = startVal; i <= endVal; i++) {
+                    if(i <= 9){
+                        contents += "<option value='0"+ i +"'>0" + i + "</option>";
+                    }else{
+                        contents += "<option value='"+ i +"'>" + i + "</option>";
+                    }
+                }          
+                selectOpt.innerHTML += contents;
+                selectOpt.value = valueToSelect;
+            }
+
+            function reformatAndSetTime(theTime, hrId, mnId, amPmId){
+                var afterHour = theTime.split(":").pop();
+                var mins = afterHour.slice(0, 2);
+                var hrsRaw = theTime.split(":", 1);
+                //var twoDigits = parseInt(theTime.slice(0, 2));
+                var amPm = theTime.split(" ").pop()
+
+                document.getElementById(hrId).value = hrsRaw;
+                document.getElementById(mnId).value = mins;
+                document.getElementById(amPmId).value = amPm.toUpperCase();  
+
+                // if(twoDigits < 12){
+                //     console.log("Leading number: "+ twoDigits)
+                //     if(twoDigits == 0){
+                //         document.getElementById(hrId).value = "12";
+                //     }else if(twoDigits <= 9){
+                //         document.getElementById(hrId).value = "0"+twoDigits;
+                //     }else{
+                //         document.getElementById(hrId).value = twoDigits;
+                //     }
+                //     document.getElementById(amPmId).value = "AM";                   
+                // }else{
+                //     twoDigits = twoDigits - 12;
+                //     if(twoDigits == 0){
+                //         document.getElementById(hrId).value = "12";
+                //     }else if(twoDigits <= 9){
+                //         document.getElementById(hrId).value = "0"+twoDigits;
+                //     }else{
+                //         document.getElementById(hrId).value = twoDigits;
+                //     }
+                //     document.getElementById(amPmId).value = "PM";
+                // }
+                
             }
 
 </script>
@@ -203,9 +347,10 @@
             <div class="header-content clearfix">
 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -303,9 +448,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
-                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Progress</a></li>
                         </ul>
                     </li>
 
@@ -323,8 +468,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -354,70 +499,106 @@
                                 <h4 class="card-title colorPrimary" id="diaryHeader"></h4><hr>
 
                                 <div class="headerMargin" id="sDairy">
-                                    <div class="justifyDiv textDeco">
-                                        It’s time to answer some questions about your sleep last night.
+                                    <div class="justifyDiv textDeco" id="subHeader1">
+                                        It’s time to answer some questions about your sleep the night before last.
                                     </div>
-                                    <div class="justifyDiv textDeco">
-                                        How did you sleep last night?
+                                    <!-- <div class="justifyDiv textDeco" id="subHeader2">
+                                        How did you sleep the night before last?
+                                    </div> -->
+                                    <div class="justifyDiv textDeco" id="subHeader3">
+                                        Tracking your experience is important. Take a few minutes to complete yesterday’s sleep diary. 
                                     </div>
+
                                     <div class="justifyDiv textDeco">
-                                        Tracking your experience is important. Take a few minutes to complete today’s sleep diary. 
+                                        Questions marked with "<span style="color: red;">*</span>" are mandatory. 
                                     </div>
                                 </div>
                                 
                                 <div id="sleepD">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label class="m-t-20 sleepMargin"><span class="colorPrimary boldText">1.</span> What time did you get into bed last? </label>
+                                            <label class="m-t-20 sleepMargin"><span class="colorPrimary boldText">1.</span> What time did you get into bed last night? (HH:MM AM/PM)<span style="color: red;">*</span></label>
                                             <div class="input-group clockpicker">
-                                                <input type="text" class="form-control" id="bedTime" value="21:35"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                                <!-- <input type="text" class="form-control" id="bedTime" onchange="formatTimeDisplay('bedTime')" value="21:35  (PM)"> <span class="input-group-append"></span> -->
+                                                <select class="form-control hrClass" id="pickHour1"></select>
+                                                <select class="form-control" id="pickMinute1"></select>
+                                                <select class="form-control" id="amPm1">
+                                                    <option value="AM" selected>AM</option>
+                                                    <option value="PM">PM</option>
+                                                </select>
                                             </div>
+                                            <div class="form-group" id="pickHour1Err" style="color: #8c0615; font-weight: bolder;"></div>
+                                            <!-- <input type="time" class="form-control" id="myTime" name="myTime" value="21:35"> -->
+                                            <!-- <div class="col-lg-4"></div> -->
                                             
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="m-t-20 sleepMargin"><span class="colorPrimary boldText">2.</span> What time did you try to go to sleep?</label>
+                                            <label class="m-t-20 sleepMargin"><span class="colorPrimary boldText">2.</span> What time did you try to go to sleep? (HH:MM AM/PM)<span style="color: red;">*</span></label>
                                             <div class="input-group clockpicker">
-                                                <input type="text" class="form-control" id="trySleepTime" value="21:35"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                                <!-- <input type="text" class="form-control" id="trySleepTime" onchange="formatTimeDisplay('trySleepTime')" value="21:35  (PM)"> <span class="input-group-append"></span> -->
+                                                <select class="form-control hrClass" id="pickHour2"></select>
+                                                <select class="form-control" id="pickMinute2"></select>
+                                                <select class="form-control" id="amPm2">
+                                                    <option value="AM" selected>AM</option>
+                                                    <option value="PM">PM</option>
+                                                </select>
                                             </div>
+                                            <div class="form-group" id="pickHour2Err" style="color: #8c0615; font-weight: bolder;"></div>
                                             
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">3.</span> How long did it take you to fall asleep? (Please select hour then minute)</label>
+                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">3.</span> How long did it take you to fall asleep?</label>
                                             <div class="input-group clockpicker">
-                                                <select class="form-control" id="spHourOpt" onchange="validateSelect('spHourOpt');"><option value="">Select Hour</option></select>
-                                                <select class="form-control" id="spMinuteOpt" onchange="validateSelect('spMinuteOpt');"><option value="">Select Minute</option></select>
+                                                <!-- <select class="form-control" id="spHourOpt" onchange="validateSelect('hourOpt');"><option value="0">Select Hour</option></select> -->
+                                                <select class="form-control" id="spHourOpt" onchange="validateSelect('spHourOpt');"></select>
+                                                <select class="form-control" id="spMinuteOpt" onchange="validateSelect('spMinuteOpt');"></select>
                                                 <!-- <input type="text" class="form-control" id="sleepTime" value="21:40"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span> -->
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">4.</span> How many times did you wake up, not counting your final awakening? (Number Only)</label>
+                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">4.</span> How many times did you wake up, not counting your final awakening? (Number Only) <span style="color: red;">*</span></label>
                                             <div class="form-control edittDiv NumberDiv" id="wakeUpCount" contenteditable="true" inputmode=numeric></div>
+                                            <div class="form-group" id="wakeUpError" style="color: #8c0615; font-weight: bolder;"></div>
                                              <!-- <input type="number" class="form-control" id="wakeUpCount" placeholder="E.g 2">  -->
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">5.</span> In total, how long did these awakenings last? (Please select hour then minute)</label>
+                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">5.</span> In total, how long did these awakenings last?</label>
                                             <div class="input-group ">
-                                                <select class="form-control" id="hourOpt" onchange="validateSelect('hourOpt');"><option value="">Select Hour</option></select>
-                                                <select class="form-control" id="minuteOpt" onchange="validateSelect('minuteOpt');"><option value="">Select Minute</option></select>
+                                                <select class="form-control" id="hourOpt" onchange="validateSelect('hourOpt');"></select>
+                                                <select class="form-control" id="minuteOpt" onchange="validateSelect('minuteOpt');"></select>
                                                 <!-- <input type="text" class="form-control" id="awakeLast" value="01:30"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span> -->
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">6.</span> What time was your final awakening?</label>
+                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">6.</span> What time was your final awakening? (HH:MM AM)<span style="color: red;">*</span></label>
                                             <div class="input-group clockpicker">
-                                                <input type="text" class="form-control" id="finalAwakeTime" value="05:00"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                                <!-- <input type="text" class="form-control" id="finalAwakeTime" onchange="formatTimeDisplay('finalAwakeTime')" value="05:00  (AM)"> <span class="input-group-append"></span> -->
+                                                <select class="form-control hrClass" id="pickHour3"></select>
+                                                <select class="form-control" id="pickMinute3"></select>
+                                                <select class="form-control" id="amPm3">
+                                                    <option value="AM">AM</option>
+                                                    <!-- <option value="PM">PM</option> -->
+                                                </select>
                                             </div>
+                                            <div class="form-group" id="pickHour3Err" style="color: #8c0615; font-weight: bolder;"></div>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">7.</span> What time did you get out of bed?</label>
+                                            <label class="m-t-40 sleepMargin"><span class="colorPrimary boldText">7.</span> What time did you get out of bed? (HH:MM AM)<span style="color: red;">*</span></label>
                                             <div class="input-group clockpicker">
-                                                <input type="text" class="form-control" id="outOfBedTime" value="05:10"> <span class="input-group-append"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
+                                                <!-- <input type="text" class="form-control" id="outOfBedTime" onchange="formatTimeDisplay('outOfBedTime')" value="05:10  (AM)"> <span class="input-group-append"></span> -->
+                                                <select class="form-control hrClass" id="pickHour4"></select>
+                                                <select class="form-control" id="pickMinute4"></select>
+                                                <select class="form-control" id="amPm4">
+                                                    <option value="AM">AM</option>
+                                                    <!-- <option value="PM">PM</option> -->
+                                                </select>
                                             </div>
+                                            <div class="form-group" id="pickHour4Err" style="color: #8c0615; font-weight: bolder;"></div>
                                         </div>
 
                                         <!-- <div class="col-md-6">
@@ -428,7 +609,7 @@
                                         </div> -->
 
                                         <div class="col-md-6 sleepMargin" id="qtyBox">
-                                            <label class="m-t-40 "><span class="colorPrimary boldText">8.</span> Please rate the overall quality of your sleep:</label>
+                                            <label class="m-t-40 "><span class="colorPrimary boldText">8.</span> Please rate the overall quality of your sleep: <span style="color: red;">*</span> <span id="qtyErMsg" style="color: red;"></span></label>
                                             <form id="qtID">
                                                 <!-- <div class="custom-control custom-radio">
                                                     <input type="radio" class="custom-control-input" id="checkbox-1" onclick="checkWakeUpCount();" name="rate" value="Very Poor">
@@ -467,7 +648,7 @@
                                         </div>
 
                                         <div class="col-md-6 sleepMargin">
-                                            <label class="m-t-40 "><span class="colorPrimary boldText">9.</span> Anything else you would like to note:</label>
+                                            <label class="m-t-40 "><span class="colorPrimary boldText">9.</span> Anything else you would like to note: (Optional)</label>
                                             <div class="input-group">
                                             <textarea rows="4" cols="85" name="comment" id="otherNote" form="usrform" placeholder="Enter note here..."> </textarea>
                                             </div>
@@ -493,8 +674,9 @@
 
                                     <div class="hidden" id="trial2Med" style="margin-top: 10px;">
                                         <div class="col-md-6">
-                                            <label>How much <strong id="medName1"></strong> did you take today? (Number Only)</label>
+                                            <label>How much <strong id="medName1"></strong> did you take today? (Number Only) <span style="color: red;">*</span></label>
                                             <div class="form-control edittDiv NumberDiv" id="medName1Val" contenteditable="true" inputmode=numeric></div>
+                                            <div class="form-group" id="medNameVal1Error" style="color: #8c0615; font-weight: bolder;"></div>
                                             <!-- <select class="form-control" id="doseOpt" onchange="this.nextElementSibling.value=this.value">
                                                     <option value=""></option>
                                                 </select>
@@ -508,37 +690,57 @@
                                                     <option value="Safari">
                                                 </datalist> -->
 
-                                            <div class="hidden" id="extraMed">
-                                                <label class="sleepMargin">How much <strong id="medName2"></strong> did you take today? (Number Only)</label>
+                                            <div class="hidden"  id="extraMed">
+                                                <label class="sleepMargin">How much <strong id="medName2"></strong> did you take today? (Number Only) <span style="color: red;">*</span></label>
                                                 <div class="form-control edittDiv NumberDiv" id="medName2Val" contenteditable="true" inputmode=numeric></div>
+                                                <div class="form-group" id="medName2ValError" style="color: #8c0615; font-weight: bolder;"></div>
                                                  <!-- <input class="form-control" list="doseOpt2" name="doseVal2" id="doseVal2">
                                                     <datalist id="doseOpt2"> </datalist> -->
                                             </div>
 
                                             <div class="form-group" id="medQ2">
-                                                <label class="lblQuestion sleepMargin">Did you take any other medications before going to sleep?</label><br/>
+                                                <label class="lblQuestion sleepMargin">Did you take any other medications before going to sleep? <span style="color: red;">*</span> <span id="anyErMsg1" style="color: red;"></span></label><br/>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" onclick="removeSupport('otherMedInfo');" id="otherTakeNo" name="optradio1" value="No"> No</label>
+                                                    <input type="radio" onclick="removeSupports('otherMedInfo');" id="otherTakeNo" name="optradio1" value="No"> No</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" onclick="showSupport('otherMedInfo');" id="otherTakeYes" name="optradio1"> Yes</label>
+                                                    <input type="radio" onclick="showSupports('otherMedInfo');" id="otherTakeYes" name="optradio1"> Yes</label>
                                             </div>
 
-                                            <div class="hidden" id="otherMedInfo">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="sleepMargin">Medication name:</label>
-                                                        <div class="form-control edittDiv" id="otherMedName" contenteditable="true"></div>
-                                                        <!-- <input type="text" class="form-control" id="otherMedName" placeholder="Enter medication name"> -->
-                                                    </div>
+                                            
+                                        </div>
+                                        <div class="col-md-12 hidden" id="otherMedInfo">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="sleepMargin">Medication Name 1:</label>
+                                                    <div class="form-control edittDiv" id="otherMedName" contenteditable="true"></div>
+                                                    <!-- <input type="text" class="form-control" id="otherMedName" placeholder="Enter medication name"> -->
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="sleepMargin">Amount taken: (Number Only)</label>
-                                                        <div class="form-control edittDiv NumberDiv" id="otherAmTaken" contenteditable="true" inputmode=numeric></div>
-                                                        <!-- <input type="text" class="form-control" id="otherAmTaken" placeholder="Enter amount taken"> -->
-                                                    </div>
+                                                <div class="col-md-4 hidden" id="otherMed2">
+                                                    <label class="sleepMargin">Medication Name 2:</label>
+                                                    <div class="form-control edittDiv" id="otherMedName2" contenteditable="true"></div>
+                                                </div>
+                                                <div class="col-md-4 hidden" id="otherMed3">
+                                                    <label class="sleepMargin">Medication Name 3:</label>
+                                                    <div class="form-control edittDiv" id="otherMedName3" contenteditable="true"></div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="sleepMargin">Amount Taken 1:</label>
+                                                    <div class="form-control edittDiv" id="otherAmTaken" contenteditable="true"></div>
+                                                    <!-- <div class="form-control edittDiv NumberDiv" id="otherAmTaken" contenteditable="true" inputmode=numeric></div> -->
+                                                    <!-- <input type="text" class="form-control" id="otherAmTaken" placeholder="Enter amount taken"> -->
+                                                </div>
+                                                <div class="col-md-4 hidden" id="otherAm2">
+                                                    <label class="sleepMargin">Amount Taken 2:</label>
+                                                    <div class="form-control edittDiv" id="otherAmTaken2" contenteditable="true"></div>
+                                                </div>
+                                                <div class="col-md-4 hidden" id="otherAm3">
+                                                    <label class="sleepMargin">Amount Taken 3:</label>
+                                                    <div class="form-control edittDiv" id="otherAmTaken3" contenteditable="true"></div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" id="btnOtherAddMed" onclick="AddMed('otherMed2', 'otherAm2', 'otherMed3', 'otherAm3', 'btnOtherAddMed');" class="btn-colorSec" style="margin-right: 30px;">Add Medication</button>
                                         </div>
                                         <!-- <div class="sleepDiv">
                                             <input type='button' class='buttonPlainTxt' id="btnMedSubmitTrial2" value='Submit Today Medication'/>
@@ -554,29 +756,47 @@
                                         <div class="col-md-6">
                                             
                                             <div class="form-group" id="medQ1">
-                                                <label class="lblQuestion sleepMargin">Did you take any medications before going to sleep?</label><br/>
+                                                <label class="lblQuestion sleepMargin">Did you take any medications before going to sleep? <span style="color: red;">*</span> <span id="anyErMsg2" style="color: red;"></span></label><br/>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" onclick="removeSupport('anyMedInfo');" id="anyTakeNo" name="optradio2" value="No"> No</label>
+                                                    <input type="radio" onclick="removeSupports('anyMedInfo');" id="anyTakeNo" name="optradio2" value="No"> No</label>
                                                 <label class="radio-inline mr-3">
-                                                    <input type="radio" onclick="showSupport('anyMedInfo');" id="anyTakeYes" name="optradio2"> Yes</label>
+                                                    <input type="radio" onclick="showSupports('anyMedInfo');" id="anyTakeYes" name="optradio2"> Yes</label>
                                             </div>
 
-                                            <div class="hidden" id="anyMedInfo">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="sleepMargin">Medication name:</label>
-                                                        <div class="form-control edittDiv" id="anyMedName" contenteditable="true"></div>
-                                                        <!-- <input type="text" class="form-control" id="anyMedName" placeholder="Enter medication name"> -->
-                                                    </div>
+                                        </div>
+                                        <div class="col-md-12 hidden" id="anyMedInfo">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="sleepMargin">Medication Name 1:</label>
+                                                    <div class="form-control edittDiv" id="anyMedName" contenteditable="true"></div>
+                                                    <!-- <input type="text" class="form-control" id="anyMedName" placeholder="Enter medication name"> -->
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <label class="sleepMargin">Amount taken: (Number Only)</label>
-                                                        <div class="form-control edittDiv NumberDiv" id="anyAmTaken" contenteditable="true" inputmode=numeric></div>
-                                                        <!-- <input type="text" class="form-control" id="anyAmTaken" placeholder="Enter amount taken"> -->
-                                                    </div>
+                                                <div class="col-md-4 hidden" id="anyMed2">
+                                                    <label class="sleepMargin">Medication Name 2:</label>
+                                                    <div class="form-control edittDiv" id="anyMedName2" contenteditable="true"></div>
+                                                </div>
+                                                <div class="col-md-4 hidden" id="anyMed3">
+                                                    <label class="sleepMargin">Medication Name 3:</label>
+                                                    <div class="form-control edittDiv" id="anyMedName3" contenteditable="true"></div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="sleepMargin">Amount Taken 1:</label>
+                                                    <div class="form-control edittDiv" id="anyAmTaken" contenteditable="true"></div>
+                                                    <!-- <div class="form-control edittDiv NumberDiv" id="anyAmTaken" contenteditable="true" inputmode=numeric></div> -->
+                                                    <!-- <input type="text" class="form-control" id="anyAmTaken" placeholder="Enter amount taken"> -->
+                                                </div>
+                                                <div class="col-md-4 hidden" id="anyAm2">
+                                                    <label class="sleepMargin">Amount Taken 2:</label>
+                                                    <div class="form-control edittDiv" id="anyAmTaken2" contenteditable="true"></div>
+                                                </div>
+                                                <div class="col-md-4 hidden" id="anyAm3">
+                                                    <label class="sleepMargin">Amount Taken 3:</label>
+                                                    <div class="form-control edittDiv" id="anyAmTaken3" contenteditable="true"></div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" id="btnAnyAddMed" onclick="AddMed('anyMed2', 'anyAm2', 'anyMed3', 'anyAm3', 'btnAnyAddMed');" class="btn-colorSec" style="margin-right: 30px;">Add Medication</button>
                                         </div>
                                         <!-- <div class="sleepDiv">
                                             <input type='button' class='buttonPlainTxt' id="btnMedSubmitTrial1" value='Submit Today Medication'/>
@@ -650,7 +870,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

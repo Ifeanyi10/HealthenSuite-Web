@@ -1,5 +1,8 @@
 //var urlDomain = window.localStorage.getItem("urlDomain");
-var urlDomain = 'https://api.healthensuite.com/';
+//var urlDomain = 'https://api.healthensuite.com/';
+var urlDomain = 'https://apiv3.healthensuite.com/';
+var emailIsElligible = false;
+var mobileNumberIsElligible = false;
 
 // function validatePassword(){
 //     var bt = document.getElementById('btnSubmit');
@@ -13,15 +16,15 @@ var urlDomain = 'https://api.healthensuite.com/';
 //     }
 //   }
 
-  function validateUsername(){
-    var email = $("#email").val();
-    var usName = $("#usName").val();
-    if(email != usName) {
-        $("#divCheckUsernameMatch").html("Email and Username provided do not match!");
-    } else {
-        $("#divCheckUsernameMatch").html(" ");
-    }
-  }
+//   function validateUsername(){
+//     var email = $("#email").val();
+//     var usName = $("#usName").val();
+//     if(email != usName) {
+//         $("#divCheckUsernameMatch").html("Email and Username provided do not match!");
+//     } else {
+//         $("#divCheckUsernameMatch").html(" ");
+//     }
+//   }
 
   function fillAllFields(){
     var bt = document.getElementById('btnSubmit');
@@ -33,91 +36,139 @@ var urlDomain = 'https://api.healthensuite.com/';
     var usN = $("#usName").val();
     var ps = $("#pass").val();
     if (fName != '' && lName != '' && prov != '' && em != '' && usN != '' && ps != '')  {
-        conPass.disabled = false;
-        $('#confirmPass').on('blur', function(e) { 
-
-            var bt = document.getElementById('btnSubmit');
-            var password = $("#pass").val();
-            var confirm_password = $("#confirmPass").val();
-            if(password != confirm_password) {
-                $("#divCheckPasswordMatch").html("Your re-typed Password does not match, please re-enter.");
-            } else {
-                $("#divCheckPasswordMatch").html(" ");
-                bt.disabled = false;
-            }
+        //conPass.disabled = false;
+        $('#confirmPass').on('blur', function(e) {
+            validatePasswordMatch();
         });
+        validatePasswordMatch();
     } else {
-        conPass.disabled = true;
+        //conPass.disabled = true;
         bt.disabled = true;
+        $("#divCheckAllField").html("Please, fill all the mandatory fields.");
     }
 }
 
-  $(document).ready(function () {
+function validatePasswordMatch(){
     var bt = document.getElementById('btnSubmit');
-    bt.disabled = true;
-    $('#firstN, #lastN, #inputProvince, #email, #phone, #usName, #pass').keyup(fillAllFields);
-    
- });
+    var password = $("#pass").val();
+    var confirm_password = $("#confirmPass").val();
+    var currentphone = $("#phone").val();
+    ValidateMobileNumber(currentphone)
+    if(password != confirm_password) {
+        $("#divCheckPasswordMatch").html("Password does not match.");
+        bt.disabled = true;
+    } else {
+        $("#divCheckPasswordMatch").html(" ");
+        console.log("Email from ValPassword is: "+emailIsElligible)
+        if(emailIsElligible){
+            if(mobileNumberIsElligible){
+                var aboutUs= getHowYouHearAboutUs();
+                if(aboutUs != ""){
+                    $("#divCheckAllField").html(" ");
+                    bt.disabled = false;
+                }else{
+                    $("#divCheckAllField").html("Select how you heard about us.");
+                    bt.disabled = true;
+                }
+                
+            }else{
+                $("#divCheckAllField").html("Enter a valid mobile number or leave the field empty.");
+                bt.disabled = true;
+            }
+            
+        }else{
+            $("#divCheckAllField").html("Email address already exist.");
+            bt.disabled = true;
+        }
+    }
+}
 
- 
+//   $(document).ready(function () {
+//     var bt = document.getElementById('btnSubmit');
+//     bt.disabled = true;
+//     $('#firstN, #lastN, #inputProvince, #email, #phone, #usName, #pass').keyup(fillAllFields);
+
+//  });
+
+
 
 function getHowYouHearAboutUs() {
     var abouts = document.forms['regForm'].elements['abt'];
-    var aboutInfos = ""; 
+    var aboutInfos = "";
 
-    for (i = 0; i < abouts.length; i++) {    
-        if(abouts[i].checked == true){        
-            aboutInfos +=  abouts[i].value + ",";               
-        } 
+    for (i = 0; i < abouts.length; i++) {
+        if(abouts[i].checked == true){
+            aboutInfos +=  abouts[i].value + ",";
+        }
     }
     return aboutInfos;
 }
 
 
+function ValidateMobileNumber(currentphone){
+    if(currentphone.length != 0){
+        console.log('Phone: '+currentphone)
+        // Validate phone Number
+        if (!isMobile(currentphone)){
+            $("#errorMobileContainer").html("Invalid mobile number.");
+            $(this).css("border","1px solid red");
+            mobileNumberIsElligible = false;
+        }else{
+            $("#errorMobileContainer").html(" ");
+            $(this).css("border",".5px solid #BCBCBC");
+            mobileNumberIsElligible = true;
+        }
+    }else{
+        $("#errorMobileContainer").html(" ");
+        $(this).css("border",".5px solid #BCBCBC");
+        mobileNumberIsElligible = true;
+    }
+}
+
 
 //  document.addEventListener("DOMContentLoaded", function(event) {
 //     document.getElementById("btnSignin").disabled = true;
-    
+
 //   });
 
 
-// let fetchBtn = document.getElementById("btnSignin"); 
-  
-  
-//     fetchBtn.addEventListener("click", buttonclickhandler); 
-  
-//     function buttonclickhandler(event) { 
+// let fetchBtn = document.getElementById("btnSignin");
+
+
+//     fetchBtn.addEventListener("click", buttonclickhandler);
+
+//     function buttonclickhandler(event) {
 //         event.preventDefault();
-//         // Instantiate an new XHR Object 
-//         const xhr = new XMLHttpRequest(); 
-  
-//         // Open an obejct (GET/POST, PATH, 
-//         // ASYN-TRUE/FALSE) 
-//         xhr.open("GET",  "http://dummy.restapiexample.com/api/v1/employees", true); 
-  
-//         // When response is ready 
-//         xhr.onload = function () { 
-//             if (this.status === 200) { 
-  
-//                 // Changing string data into JSON Object 
-//                 obj = JSON.parse(this.responseText); 
-  
-//                 // Getting the ul element 
-//                 let list = document.getElementById("list"); 
+//         // Instantiate an new XHR Object
+//         const xhr = new XMLHttpRequest();
+
+//         // Open an obejct (GET/POST, PATH,
+//         // ASYN-TRUE/FALSE)
+//         xhr.open("GET",  "http://dummy.restapiexample.com/api/v1/employees", true);
+
+//         // When response is ready
+//         xhr.onload = function () {
+//             if (this.status === 200) {
+
+//                 // Changing string data into JSON Object
+//                 obj = JSON.parse(this.responseText);
+
+//                 // Getting the ul element
+//                 let list = document.getElementById("list");
 //                 str = ""
-//                 for (key in obj.data) { 
-//                     str += `<li>${obj.data[key].employee_name}</li>`; 
-//                 } 
-//                 list.innerHTML = str; 
-//             } 
-//             else { 
-//                 console.log("File not found"); 
-//             } 
-//         } 
-  
-//         // At last send the request 
-//         xhr.send(); 
-//     } 
+//                 for (key in obj.data) {
+//                     str += `<li>${obj.data[key].employee_name}</li>`;
+//                 }
+//                 list.innerHTML = str;
+//             }
+//             else {
+//                 console.log("File not found");
+//             }
+//         }
+
+//         // At last send the request
+//         xhr.send();
+//     }
 
 function isEmail(email) {
     // eslint-disable-next-line no-useless-escape
@@ -139,7 +190,12 @@ function isEmail(email) {
 
 $(document).ready(function () {
 
-    emailIsElligible = false;
+    var bt = document.getElementById('btnSubmit');
+    bt.disabled = true;
+    $('#firstN, #lastN, #inputProvince, #email, #phone, #usName, #pass, #confirmPass').keyup(fillAllFields);
+
+    $("#divCheckAllField").html("Please, fill all the mandatory fields.");
+
 
     $('[data-toggle="tooltip"]').tooltip()
 
@@ -148,26 +204,11 @@ $(document).ready(function () {
             $phNode = $(this),
             isValid = true;
 
-        if(currentphone.length != 0){
-            console.log('Phone: '+currentphone)
-            // Validate phone Number
-            if (!isMobile(currentphone)){
-                $("#errorMobileContainer").html("Invalid phone number. Enter a valid phone number.");
-                $(this).css("border","1px solid red");
-            }else{
-                $("#errorMobileContainer").html(" ");
-                $(this).css("border",".5px solid #BCBCBC");
-            }
-        }else{
-            $("#errorMobileContainer").html(" ");
-            $(this).css("border",".5px solid #BCBCBC");
-        }
-        
-        
+            ValidateMobileNumber(currentphone)
 
     });
 
-    $("#usName").keyup(validateUsername);
+    //$("#usName").keyup(validateUsername);
         //validate provider email
     $('#email').on('blur', function(e) {
         var bt = document.getElementById('btnSubmit');
@@ -175,19 +216,22 @@ $(document).ready(function () {
         var currentEmail = e.target.value,
             $emailNode = $(this),
             isValid = true;
-        
+
         // Validate email
         if (!isEmail(currentEmail)){
             $("#errorEmailContainer").html("Invalid email address. Enter a valid email address");
+            fillAllFields();
             return;
         }
-         
+
+        $("#usName").val(currentEmail);
+
         let url = urlDomain + 'insomnia/v1/provider/checkEmail';
         $.ajax({
             url: url,
             type: 'POST',
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
                 'Accept': '*/*'
             },
             data: JSON.stringify({"code": currentEmail}),
@@ -198,31 +242,40 @@ $(document).ready(function () {
                     emailIsElligible = true;
                     $("#errorEmailContainer").html("");
                     $emailNode.addClass('is-valid');
+                    fillAllFields();
+                    console.log("Email from success message is: "+emailIsElligible)
                 } else{
                     emailIsElligible = false;
                     $("#errorEmailContainer").html("Email address exist");
-                    sweetAlert("Email address exist!","Please use another email address","error");
+                    var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                    swal({title: "", text: content, html: true});
+                    //sweetAlert("Email address exist!","Please use another email address","error");
                     $emailNode.addClass('is-error');
                     bt.disabled = true;
-                } 
-                
-            }, 
+                    fillAllFields();
+                    console.log("Email from failed message is: "+emailIsElligible)
+                }
+
+            },
             error: function(msg){
                 emailIsElligible = false;
                 $("#errorEmailContainer").html("Email address exist");
-                sweetAlert("Email address exist!","Please use another email address","error");
+                var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                swal({title: "", text: content, html: true});
                 $emailNode.addClass('is-error');
                 bt.disabled = true;
+                fillAllFields();
+                console.log("Email from failed message is: "+emailIsElligible)
             }
         });
-        
+
     });
 
 
     //Register Provider
     $('#btnSubmit').on('click', function(event){
         event.preventDefault();
-        
+
         var firstName = document.getElementById("firstN").value;
         var lastName = document.getElementById("lastN").value;
         var provName = firstName + " " + lastName;
@@ -237,35 +290,39 @@ $(document).ready(function () {
         let url = urlDomain + 'insomnia/v1/provider/create';
 
         if(emailIsElligible == true){
-            if(email == username){
+            //if(email == username){
                 $.ajax({
                     url: url,
                     type: 'POST',
                     headers: {
-                        'Content-Type': 'application/json', 
+                        'Content-Type': 'application/json',
                         'Accept': '*/*'
                     },
                     data: JSON.stringify({"email": email, "howyouheardaboutUse": aboutUs,
-                        "mailingAddress": mailAddress, "name": provName, "password": password, "phonenumber": phone, 
+                        "mailingAddress": mailAddress, "name": provName, "password": password, "phonenumber": phone,
                         "province": province, "username": username}),
                     success: function(result){
                         console.log(result);
-                        swal({title: "Health enSuite welcomes you!", text: "Your Health enSuite Provider Account has been successfully created. An activation link has been sent to your email address (check Inbox/Spam). Please click on that link to activate your account.", type: "success"},
-                        function(){ 
+                        swal({title: "Health enSuite welcomes you", text: "Your Health enSuite Provider Account has been successfully created. An activation link has been sent to your email address (check Inbox/Spam). Please click on that link to activate your account.", type: "success"},
+                        function(){
                             window.location.href = "../index.html";
                         }
                         );
-                    }, 
+                    },
                     error: function(msg){
                         $("#errorContainer").html("Unable to register");
-                        sweetAlert("Account creation failed!","Please try again shortly","error");
+                        var content = "<span style='font-weight: bold'>Account creation failed.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Account creation failed!","Please try again shortly","error");
                     }
                 });
-            }else{
-                sweetAlert("Username and Email address does not match!","Your username should be the same with your email address","error");
-            }
+            // }else{
+                
+            //     sweetAlert("Username and Email address does not match!","Your username should be the same with your email address","error");
+            // }
         }else{
-            sweetAlert("Email address exist!","Please use another email address","error");
+            var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+            swal({title: "", text: content, html: true});
         }
 
     });

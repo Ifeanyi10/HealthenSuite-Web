@@ -26,6 +26,7 @@
                             var isNewLogin = window.localStorage.getItem("isNewLogin");
                             if(isNewLogin == 'true'){$('#exampleModalDisclaimer').modal('show');}
                             console.log('isNewLogin: '+isNewLogin);
+                            console.log('Patient Token: '+authToken);
                             
                             window.localStorage.setItem("loginError", false);
                             //alert(authToken);
@@ -45,6 +46,7 @@
                                     var currentID = ''; var otherMedPreviousObj = '';
                                     var prevDate = ''; var sleepDariesCurrent = ''; 
                                     var prevID = '';  var sleepDiaryPrevious = '';
+                                    var payLoadResult = JSON.stringify(result);
                                     window.localStorage.setItem("patientsID", result.id);
                                     window.localStorage.setItem("patientLastName", result.lastName);
                                     window.localStorage.setItem("patientFirstName", result.firstName);
@@ -52,6 +54,7 @@
                                     window.localStorage.setItem("patientEmail", result.email);
                                     window.localStorage.setItem("trialNo", trialNo);
                                     window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel);
+                                    window.localStorage.setItem("patientProviderName", result.providername);
                                     //Below was the actual code before 2021-11-01
                                     //window.localStorage.setItem("CBTLevel", result.statusEntity.interventionLevel - 1);
                                     console.log('Level:'+window.localStorage.getItem("CBTLevel"));
@@ -60,8 +63,13 @@
                                     window.localStorage.setItem("displayLevelOne", result.statusEntity.levelonesubmiteligible);
                                     //console.log('Enable Sleep Clock:'+window.localStorage.getItem("enableSpClock"));
                                     window.localStorage.setItem("enableProgress", result.statusEntity.baselineAssessmenPassed);
+                                    window.localStorage.setItem("sleepDiariesCompleted", result.statusEntity.sleepDiariesCompleted);
                                     //console.log('Enable Content Program:'+window.localStorage.getItem("enableProgress"));
+                                    window.localStorage.setItem("interventionLevelsEntity", JSON.stringify(result.interventionLevelsEntity));
+                                    window.localStorage.setItem("statusEntity", JSON.stringify(result.statusEntity));
                                     console.log(window.localStorage.getItem("patientsID"));
+
+                                    storeLevelEntityObjects(payLoadResult);
 
                                     var dateCreated = result.date_Created;
                                     var patDateCreated = dateCreated.split("T", 1);
@@ -91,11 +99,14 @@
                                         arrayLength += 1;
                                         });
 
+
                                         var currentDate2 = currentDate.split("T", 1);
 
                                         var prevDate2 = prevDate.split("T", 1)
                                         //window.localStorage.setItem("prevDate", prevDate);
                                         window.localStorage.setItem("arrayLength", arrayLength);
+                                        
+
                                         if(arrayLength == 1){
                                             window.localStorage.setItem("currentDate", currentDate2); 
                                             window.localStorage.setItem("currentDateUnformatted", currentDate);
@@ -128,11 +139,11 @@
 
                                                 var mySleep = JSON.parse(sleepDariesCurrent);
                                                 var bdTime = mySleep.bedTime;
-                                                if(bdTime != null){document.getElementById("yesterdayTagID").innerHTML = "Update yesterday’s sleep diary"}
+                                                if(bdTime != null){document.getElementById("todayTagID").innerHTML = "Update today’s sleep diary"}
 
                                                 var mySleep2 = JSON.parse(sleepDiaryPrevious);
                                                 var bdTime2 = mySleep2.bedTime;
-                                                if(bdTime2 != null){document.getElementById("todayTagID").innerHTML = "Update today’s sleep diary"}
+                                                if(bdTime2 != null){document.getElementById("yesterdayTagID").innerHTML = "Update yesterday’s sleep diary"}
                                             }else {    
                                                 window.localStorage.setItem("currentDate", prevDate2); 
                                                 window.localStorage.setItem("prevDate", currentDate2);  
@@ -157,6 +168,37 @@
                                             }  
                                         }
 
+                                        //getAllLinks(arrayLength);  //This function was not abled to be called from here 2022-01-25
+
+                                        //Beginning of an inner function
+                                        var dayNumber1 = 0; var dayNumber2 = 0; 
+                                        var galLinks = document.getElementById('sleepLink');
+                                        var anchors = galLinks.getElementsByTagName('a');
+                                        for (i = 0; i < anchors.length; i++) {  
+                                            var thisLink = anchors[i];
+                                            
+                                            if(arrayLength == 1){
+                                                thisLink.style.display = 'block';
+                                                thisLink.innerHTML = window.localStorage.getItem("currentDate");
+                                                console.log("Inner Day Value: "+arrayLength);
+                                                //return;
+                                            }
+                                            
+                                            dayNumber1 += 1;
+                                            if(dayNumber1 == (arrayLength - 1)){
+                                                thisLink.style.display = 'block';
+                                                thisLink.innerHTML = window.localStorage.getItem("currentDate");
+                                            }
+                                            
+                                            if(dayNumber1 == arrayLength){
+                                                thisLink.style.display = 'block';
+                                                thisLink.innerHTML = window.localStorage.getItem("prevDate");
+                                                console.log("Inner Day Value: "+arrayLength);
+                                                //return;
+                                            }
+                                        }
+                                        //End of an inner function
+
                                     }else{
                                         document.getElementById('todayLink').style.display = 'none';
                                         document.getElementById('prevLink').style.display = 'none'; 
@@ -168,9 +210,12 @@
                                       
                                 }, 
                                 error: function(msg){
-                                    console.log("Loading Patients details failed");
-                                    window.localStorage.setItem("loginError", true);
-                                    window.location.href = "../index.html";
+                                    // console.log("Loading Patients details failed");
+                                    // window.localStorage.setItem("loginError", true);
+                                    // window.location.href = "../index.html";
+                                    if(msg.status == "511"){
+                                        displayQuickAlert();
+                                    }
                                 }
                             });
                         }
@@ -267,6 +312,57 @@
                                 $(".spDiary").css('display', 'none'); 
                             }
                         }
+
+                        function storeLevelEntityObjects(myResult){
+                            var result = JSON.parse(myResult);
+                            if(result.interventionLevelsEntity != null){
+                                if(result.interventionLevelsEntity.levelOneEntity != null){
+                                    window.localStorage.setItem("levelOneEntity", JSON.stringify(result.interventionLevelsEntity.levelOneEntity));
+                                }
+                                if(result.interventionLevelsEntity.levelTwoEntity != null){
+                                    window.localStorage.setItem("levelTwoEntity", JSON.stringify(result.interventionLevelsEntity.levelTwoEntity));
+                                }
+                                if(result.interventionLevelsEntity.levelThreeEntity != null){
+                                    window.localStorage.setItem("levelThreeEntity", JSON.stringify(result.interventionLevelsEntity.levelThreeEntity));
+                                }
+                                if(result.interventionLevelsEntity.levelFiveEntity != null){
+                                    window.localStorage.setItem("levelFiveEntity", JSON.stringify(result.interventionLevelsEntity.levelFiveEntity));
+                                }
+                                if(result.interventionLevelsEntity.levelSixEntity != null){
+                                    window.localStorage.setItem("levelSixEntity", JSON.stringify(result.interventionLevelsEntity.levelSixEntity));
+                                }
+                            }
+                            console.log("Level Entity Objects Saved Successfully!");
+                        }
+
+                        function getAllLinks(dayValue){
+                            console.log("Day Value: "+dayValue);
+                            var dayNumber1 = 0; var dayNumber2 = 0; 
+                            var galLinks = document.getElementById('sleepLink');
+                            var anchors = galLinks.getElementsByTagName('a');
+                            for (i = 0; i < anchors.length; i++) {  
+                                var thisLink = anchors[i];
+                                
+                                if(dayValue == 1){
+                                    thisLink.style.display = 'block';
+                                    thisLink.innerHTML = window.localStorage.getItem("currentDate");
+                                    return;
+                                }
+                                
+                                dayNumber1 += 1;
+                                if(dayNumber1 == (dayValue - 1)){
+                                    thisLink.style.display = 'block';
+                                    thisLink.innerHTML = window.localStorage.getItem("currentDate");
+                                }
+                                
+                                if(dayNumber1 == dayValue){
+                                    thisLink.style.display = 'block';
+                                    thisLink.innerHTML = window.localStorage.getItem("prevDate");
+                                    return;
+                                }
+                            }
+                        }
+                        
     
           </script>
 
@@ -323,9 +419,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
 
                 <div class="header-right">
@@ -424,9 +521,9 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html" class="progs">My Progress</a></li>
-                            <li><a href="./psycho-education.html" class="psyc">Psychoeducation</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html" class="progs">Progress</a></li>
+                            <li><a href="./psycho-education.html" class="psyc">Progress</a></li>
                         </ul>
                     </li>
 
@@ -444,8 +541,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -474,7 +571,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>This device in no way replaces decisions made by or the treatment plan given to you by your primary healthcare provider. The Health enSuite Insomnia App will only be used to assist your healthcare provider support a deprescribing decision or refer you to cognitive behavioural therapy.</p>
+                                    <p>This device in no way replaces decisions made by or the treatment plan given to you by your healthcare provider. The Health enSuite Insomnia App will only be used to assist your healthcare provider support a deprescribing decision or refer you to cognitive behavioural therapy.</p>
                                 </div>
                             </div>
                         </div>
@@ -485,7 +582,7 @@
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary" id="dashHeader"></h4><hr>
                                 <div class="justifyDiv">
-                                    The next step is to begin tracking your sleep patterns. Please take a few minutes to fill out a sleep diary each morning for the next 2 weeks. This lets us know your starting point. If you forget to record your answers one morning, you can go back and fill them in up to a day later. 
+                                    The next step is to begin tracking your sleep patterns. Please take a few minutes to fill out a sleep diary each morning for the next 2 weeks. This lets us know your starting point. If you forget to fill your sleep diary one morning, then you can still go back and fill it up to a day later. 
                                 </div><br>
 
                                 <div>
@@ -598,7 +695,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************
@@ -641,36 +738,37 @@
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
 
     <script language = "javascript">
-        function getAllLinks(dayValue){
-                        var dayNumber1 = 0; var dayNumber2 = 0; 
-                        var galLinks = document.getElementById('sleepLink');
-                        var anchors = galLinks.getElementsByTagName('a');
-                        for (i = 0; i < anchors.length; i++) {  
-                            var thisLink = anchors[i];
+        // function getAllLinks(dayValue){
+        //                 var dayNumber1 = 0; var dayNumber2 = 0; 
+        //                 var galLinks = document.getElementById('sleepLink');
+        //                 var anchors = galLinks.getElementsByTagName('a');
+        //                 for (i = 0; i < anchors.length; i++) {  
+        //                     var thisLink = anchors[i];
                             
-                            if(dayValue == 1){
-                                thisLink.style.display = 'block';
-                                thisLink.innerHTML = window.localStorage.getItem("currentDate");
-                                return;
-                            }
+        //                     if(dayValue == 1){
+        //                         thisLink.style.display = 'block';
+        //                         thisLink.innerHTML = window.localStorage.getItem("currentDate");
+        //                         return;
+        //                     }
                             
-                            dayNumber1 += 1;
-                            if(dayNumber1 == (dayValue - 1)){
-                                thisLink.style.display = 'block';
-                                thisLink.innerHTML = window.localStorage.getItem("currentDate");
-                            }
+        //                     dayNumber1 += 1;
+        //                     if(dayNumber1 == (dayValue - 1)){
+        //                         thisLink.style.display = 'block';
+        //                         thisLink.innerHTML = window.localStorage.getItem("currentDate");
+        //                     }
                             
-                            if(dayNumber1 == dayValue){
-                                thisLink.style.display = 'block';
-                                thisLink.innerHTML = window.localStorage.getItem("prevDate");
-                                return;
-                            }
-                        }
-                    }
+        //                     if(dayNumber1 == dayValue){
+        //                         thisLink.style.display = 'block';
+        //                         thisLink.innerHTML = window.localStorage.getItem("prevDate");
+        //                         return;
+        //                     }
+        //                 }
+        //             }nav-icon hamburger
 
                     $(document).ready(function () {
-                        var theArrayLength = window.localStorage.getItem("arrayLength");
-                        getAllLinks(theArrayLength); 
+                        
+                        // var theArrayLength = window.localStorage.getItem("arrayLength");
+                        // getAllLinks(theArrayLength); 
                     });
     </script>
 

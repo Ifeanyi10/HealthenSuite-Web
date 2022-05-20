@@ -16,7 +16,8 @@
     <script language="javascript">
 
     window.onload = function valiadteProvider(){
-                        var urlDomain = 'https://api.healthensuite.com/';
+                        // var urlDomain = 'https://api.healthensuite.com/';
+                        var urlDomain = 'https://apiv3.healthensuite.com/';
                         var lastPart = window.location.href.split("code").pop();
                         //var lastPart = '1/D3Y9/lasEWA7Hzw493Z2eVQ/Uqx8Fh7EVyOwzT6Ns=';
                         //alert(lastPart);
@@ -32,7 +33,7 @@
                             success: function(result){
                                 console.log(result);
                                 swal({
-                                title: "Account Activation Successful!",
+                                title: "Account Activation Successful",
                                 // text: "You can login to your account now",
                                 type: "success",
                                 showCancelButton: true,
@@ -47,13 +48,21 @@
                                 if (isConfirm) {
                                     window.location.href = "provider-login.html";
                                 } else {
-                                    swal("You chose to login later", "Please visit https://app.healthensuite.com/ to login.", "info");
-                                    window.location.href = "../index.html";
+                                    var content = "<span style='font-weight: bold'>You chose to login later.</span> <span>Please visit https://app.healthensuite.com/ to login.</span>";
+                                    swal({title: "", text: content , html: true},
+                                        function(){ 
+                                            window.location.href = "../index.html";
+                                        }
+                                    );
+                                    // swal("You chose to login later", "Please visit https://app.healthensuite.com/ to login.", "info");
+                                    // window.location.href = "../index.html";
                                 }
                                 });
                             }, 
                             error: function(msg){
-                                sweetAlert("Unable to activate your account!","Please ensure you copied the link properly or click on the link from the email sent to you.","error");
+                                var content = "<span style='font-weight: bold'>Unable to activate your account.</span> <span>Please ensure you copied the link properly or click on the link from the email sent to you.</span>";
+                                swal({title: "", text: content, html: true});
+                                //sweetAlert("Unable to activate your account!","Please ensure you copied the link properly or click on the link from the email sent to you.","error");
                                 //window.location.href = "../index.html";
                             }
                         });

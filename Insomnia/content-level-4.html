@@ -20,6 +20,27 @@
     <script language="javascript">
 
         window.onload =  function() {
+
+            var myStatusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
+            var levelIsNotSavable = myStatusEntity.readInterventionGrouplevelfourArticle;
+            window.localStorage.setItem("levelIsNotSavable", levelIsNotSavable);
+            var levelPageNo = myStatusEntity.nextPage;
+            window.localStorage.setItem("levelPageNo", levelPageNo);
+
+            console.log("Page Number is: "+levelPageNo+" And LevelIsNotSavable is: "+levelIsNotSavable);
+
+            if(levelIsNotSavable == true){
+                document.getElementById('btnSubmitLV4').disabled = true;
+            }
+
+            if(levelPageNo == 2){
+                hideDisplay('sect1', 'sect2');
+            } else if(levelPageNo == 3){
+                hideDisplay('sect1', 'sect3');
+            }else if(levelPageNo == 4){
+                hideDisplay('sect1', 'sect4');
+            }
+
             $('#exampleModalLevel4').modal('show');
         }
     </script>
@@ -77,9 +98,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -178,8 +200,8 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html">My Progress</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html">Progress</a></li>
                         </ul>
                     </li>
 
@@ -197,8 +219,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -316,7 +338,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type='button' class='btn-primary goRight' onclick="hideDisplay('sect1', 'sect2');" value='Next'/>
+                                    <input type='button' class='btn-primary goRight' onclick="saveOnlyPage('sect1', 'sect2', 1, false);" value='Next'/>
                                 </div>
                                 
 
@@ -336,21 +358,21 @@
                                                     <!-- <a href="https://vimeo.com/298219000" target="_blank" class="txt1">
                                                         <strong>PMR_neck_legs_feet</strong>
                                                     </a> -->
-                                                    <a href="#" onclick="addVideoLinkAddress('A', 'neck, legs, and feet relaxation'); return false;" class="txt1">
-                                                        <strong>PMR_neck_legs_feet</strong>
+                                                    <a href="#" onclick="addVideoLinkAddress('A', 'Progression muscle relaxation for neck, legs, and feet'); return false;" class="txt1">
+                                                        <strong>Progressive muscle relaxation for neck, legs, and feet.</strong>
                                                     </a>
                                                 </div>
                                                 <div class="sleepDiv">
-                                                    <a href="#" onclick="addVideoLinkAddress('B', 'chest, shoulders, back, and abdomen relaxation'); return false;" class="txt1">
-                                                        <strong>PMR_Chest_Shoulders_Back_Abdomen</strong>
+                                                    <a href="#" onclick="addVideoLinkAddress('B', 'Progression muscle relaxation for chest, shoulders, back, and abdomen'); return false;" class="txt1">
+                                                        <strong>Progression muscle relaxation for chest, shoulders, back, and abdomen.</strong>
                                                     </a>
                                                     <!-- <a href="https://vimeo.com/298216677" target="_blank" class="txt1">
                                                         <strong>PMR_Chest_Shoulders_Back_Abdomen</strong>
                                                     </a> -->
                                                 </div>
                                                 <div class="sleepDiv">
-                                                    <a href="#" onclick="addVideoLinkAddress('C', 'hands, arms, face, and head relaxation'); return false;" class="txt1">
-                                                        <strong>PMR_hands_arms_face_head</strong>
+                                                    <a href="#" onclick="addVideoLinkAddress('C', 'Progression muscle relaxation for hands, arms, face, and head'); return false;" class="txt1">
+                                                        <strong>Progressive muscle relaxation for hands, arms, face, and head.</strong>
                                                     </a>
                                                     <!-- <a href="https://vimeo.com/298217212" target="_blank" class="txt1">
                                                         <strong>PMR_hands_arms_face_head</strong>
@@ -370,7 +392,7 @@
                                         </div>
                                     </div>
                                     <input type='button' class='btn-secondary' onclick="hideDisplay('sect2', 'sect1');" value='Back'/>
-                                    <input type='button' class='btn-primary goRight' onclick="hideDisplay('sect2', 'sect3');" value='Next'/>
+                                    <input type='button' class='btn-primary goRight' onclick="saveOnlyPage('sect2', 'sect3', 2, false);" value='Next'/>
                                 </div>
 
                                 <div class="hidden" id="sect3">
@@ -382,7 +404,7 @@
                                                 <p>Breathing usually occurs naturally without much thought. A number of relaxation techniques involve taking a moment to focus on your breath. One strategy is to breathe from your belly rather than your chest. When you breathe in your chest, only a part of your lungs are filled. Your breath is shallower and your heart rate is faster. In contrast, belly breathe makes it easier to take slow deep breaths.</p>
 
                                                 <div class="sleepDiv">
-                                                    <a href="#" onclick="addVideoLinkAddress('D', 'difference between two types of breathing'); return false;" class="txt1">
+                                                    <a href="#" onclick="addVideoLinkAddress('D', 'Difference between two types of breathing'); return false;" class="txt1">
                                                         <strong>Watch this video to find out the difference between these two types of breathing.</strong>
                                                     </a>
                                                     <!-- <a href="https://vimeo.com/298215611" target="_blank" class="txt1">
@@ -408,7 +430,7 @@
                                         </div>
                                     </div>
                                     <input type='button' class='btn-secondary' onclick="hideDisplay('sect3', 'sect2');" value='Back'/>
-                                    <input type='button' class='btn-primary goRight'  onclick="hideDisplay('sect3', 'sect4');" value='Next'/>
+                                    <input type='button' class='btn-primary goRight'  onclick="saveOnlyPage('sect3', 'sect4', 3, false);" value='Next'/>
                                 </div>
 
 
@@ -422,7 +444,7 @@
                                                 <p class="formatItalics">This audio recording is a guided relaxation exercise that uses this strategy.</p>
 
                                                 <div class="sleepDiv">
-                                                    <a href="#" onclick="addVideoLinkAddress('E', 'relaxation suggestion'); return false;" class="txt1">
+                                                    <a href="#" onclick="addVideoLinkAddress('E', 'Relaxation suggestion'); return false;" class="txt1">
                                                         <strong>Relaxation suggestion</strong>
                                                     </a>
                                                     <!-- <a href="https://vimeo.com/298218903" target="_blank" class="txt1">
@@ -508,7 +530,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

@@ -20,6 +20,33 @@
     <script language="javascript">
 
         window.onload =  function() {
+
+            var myStatusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
+            var levelIsNotSavable = myStatusEntity.readInterventionGrouplevelsixArticle;
+            window.localStorage.setItem("levelIsNotSavable", levelIsNotSavable);
+
+            var levelSixEntity = JSON.parse(window.localStorage.getItem("levelSixEntity"));
+            if(levelSixEntity != null){
+                if(levelSixEntity.fears != null){
+                    document.getElementById('worriedTxt').value = levelSixEntity.fears;
+                }
+                if(levelSixEntity.strategy != null){
+                    document.getElementById('strategyTxt').value = levelSixEntity.strategy;
+                }
+            }
+
+            let trialNo = window.localStorage.getItem("trialNo");
+
+            if(levelIsNotSavable == true){
+                document.getElementById('btnSubmitLV6').disabled = true;
+            }
+            
+            if(trialNo == 1){
+                document.getElementById('forTrial2').style.display = 'none';
+            }
+
+            checkFieldsLevel6();
+
             $('#exampleModalLevel6').modal('show');
         }
     </script>
@@ -77,9 +104,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -178,8 +206,8 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html">My Progress</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html">Progress</a></li>
                         </ul>
                     </li>
 
@@ -197,8 +225,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -323,8 +351,9 @@
                                     Over the last few weeks you have learned a lot of new strategies to manage your sleep. You can continue to use any of the tools within the Health enSuite app to help support your improved sleep habits. 
                                 </div>
 
+                                <span id="progErMsg" style="color: red;"></span>
                                 <div class="sleepDiv">
-                                    <input type='button' class='btn-primary' id="btnSubmitLV6" value='Click To Conclude Level 6' disabled/>
+                                    <input type='button' class='btn-primary' id="btnSubmitLV6" value='Click To Conclude Level 6'/>
                                 </div>
 
                                 <div class="sleepDiv">
@@ -388,7 +417,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

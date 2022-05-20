@@ -37,7 +37,7 @@
                                 },
                                 success: function(result){
                                     checkforAdminRight();
-                                    console.log(result);
+                                    console.log("Dashboard: "+result);
                                     window.localStorage.setItem("providerName", result.name);
                                     window.localStorage.setItem("providerPhone", result.phonenumber);
                                     window.localStorage.setItem("providerEmail", result.email);
@@ -546,7 +546,7 @@
             if(authToken == null){
                 //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
                 //urlDomain = 'http://192.168.6.15:8083/';
-                urlDomain = 'http://healthensuit-env.eba-ippzhmtu.ca-central-1.elasticbeanstalk.com/';
+                urlDomain = 'https://apiv3.healthensuite.com/';
                 window.localStorage.setItem("urlDomain", urlDomain);
                 $('#loginModal').modal('show');
             }
@@ -576,11 +576,15 @@
                     }, 
                     error: function(msg){
                         //$("#errorContainer").html("Incorrect Username or Password");
-                        sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                        var content = "<span style='font-weight: bold'>Access denied.</span> <span>Please confirm your login credentials and your internet connectivity to proceed.</span>";
+                        swal({title: "", text: content, html: true});
+                        //sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
                     }
                 });
             }else{
-                sweetAlert("Attention!","Please fill the fields properly and login","info");
+                // sweetAlert("Attention","Please fill the fields properly and login");
+                var content = "<span>Please confirm your login information to proceed.</span>";
+                swal({title: "", text: content, html: true});
             }
             
         });//end of quick login

@@ -1,5 +1,55 @@
 var urlDomain = window.localStorage.getItem("urlDomain"); 
 
+// function downloadTaperFile(fileName) {
+//     //Set the File URL.
+//     var url = "themes/" + fileName;
+
+//     $.ajax({
+//         url: url,
+//         cache: false,
+//         xhr: function () {
+//             var xhr = new XMLHttpRequest();
+//             xhr.onreadystatechange = function () {
+//                 if (xhr.readyState == 2) {
+//                     if (xhr.status == 200) {
+//                         xhr.responseType = "blob";
+//                     } else {
+//                         xhr.responseType = "text";
+//                     }
+//                 }
+//             };
+//             return xhr;
+//         },
+//         success: function (data) {
+//             //Convert the Byte Data to BLOB object.
+//             var blob = new Blob([data], { type: "application/octetstream" });
+
+//             //Check the Browser type and download the File.
+//             var isIE = false || !!document.documentMode;
+//             if (isIE) {
+//                 window.navigator.msSaveBlob(blob, fileName);
+//             } else {
+//                 var url = window.URL || window.webkitURL;
+//                 link = url.createObjectURL(blob);
+//                 var a = $("<a />");
+//                 a.attr("download", fileName);
+//                 a.attr("href", link);
+//                 $("body").append(a);
+//                 a[0].click();
+//                 $("body").remove(a);
+//             }
+//         },
+//         error: function(msg){
+//             if(msg.status == "511"){
+//                 displayQuickAlert();
+//             }else{
+//                 var content = "<span style='font-weight: bold'>Download not successful.</span> <span>Taper Schedule is currently unavailable.</span>";
+//                 swal({title: "", text: content, html: true});
+//             } 
+//         }
+//     });
+// };
+
 function validateNewEmail(){
     var bt = document.getElementById('btnChangeEmail');
     var newE = $("#newEmail").val();
@@ -73,15 +123,21 @@ $(document).ready(function () {
                 }),
             success: function(result){
                 console.log(result);
-                swal({title: "Done!", text: "Your password has been change. You will be required to login again!", type: "success"},
+                swal({title: "", text: "Your password has been change. You will be required to login again.", type: "success"},
                 function(){ 
                     window.location.href = "patient-login.html";
                 }
                 );
             }, 
             error: function(msg){
-                $("#errorContainer").html("Unable to register");
-                sweetAlert("Change of password not successful!","Please ensure you typed your current password correctly","error");
+                if(msg.status == "511"){
+                    displayQuickAlert();
+                }else{
+                    $("#errorContainer").html("Unable to register");
+                    var content = "<span style='font-weight: bold'>Change of password not successful.</span> <span>Please ensure you typed your current password correctly.</span>";
+                    swal({title: "", text: content, html: true});
+                }
+                
             }
         });
     });
@@ -123,7 +179,8 @@ $(document).ready(function () {
                 } else{
                     emailIsElligible = false;
                     $("#divEmailErrorMsg").html("Email address already exist");
-                    sweetAlert("Email address exist!","","error");
+                    var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                    swal({title: "", text: content, html: true});
                     $emailNode.addClass('is-error');
                     bt.disabled = true;
                     confEmail.disabled = true;
@@ -133,7 +190,8 @@ $(document).ready(function () {
             error: function(msg){
                 emailIsElligible = false;
                 $("#divEmailErrorMsg").html("Email address already exist");
-                sweetAlert("Email address exist!","","error");
+                var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+                swal({title: "", text: content, html: true});
                 $emailNode.addClass('is-error');
                 bt.disabled = true;
             }
@@ -172,19 +230,26 @@ $(document).ready(function () {
                     }),
                 success: function(result){
                     console.log(result);
-                    swal({title: "Done!", text: "Your Email Address has been updated!", type: "success"},
+                    swal({title: "", text: "Your Email Address has been updated.", type: "success"},
                     function(){ 
                         window.location.href = "provider-dashboard.html";
                     }
                     );
                 }, 
                 error: function(msg){
-                    $("#errorContainer").html("Unable to register");
-                    sweetAlert("Failed to update Email Address!","Please try again shortly.","error");
+                    if(msg.status == "511"){
+                        displayQuickAlert();
+                    }else{
+                        $("#errorContainer").html("Unable to register");
+                        var content = "<span style='font-weight: bold'>Failed to update Email Address.</span> <span>Please try again shortly.</span>";
+                        swal({title: "", text: content, html: true});
+                    }
+                    
                 }
             });
         }else{
-            sweetAlert("Email address exist!","Please use another email address","error");
+            var content = "<span style='font-weight: bold'>Email address exist.</span> <span>Please use another email address.</span>";
+            swal({title: "", text: content, html: true});
         }
     });
     

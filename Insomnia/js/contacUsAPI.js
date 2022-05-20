@@ -22,15 +22,20 @@ $(document).ready(function () {
                 }),
             success: function(result){
                 console.log(result);
-                swal({title: "Done!", text: "You have voluntarily withdrawn yourself from the Health enSuite Insomnia study!", type: "success"},
+                var content = "<span style='font-weight: bold'>We are sad to see you go.</span> <span>You have voluntarily withdrawn yourself from the Health enSuite Insomnia study.</span>";
+                swal({title: "", text: content, html: true},
                 function(){ 
                     window.location.href = "../index.html";
                 }
                 );
             }, 
             error: function(msg){
-                $("#errorContainer").html("Unable to register");
-                sweetAlert("Your withdrawal attempt failed!","Please try again shortly","error");
+                if(msg.status == "511"){
+                    displayQuickAlert();
+                }else{
+                    $("#errorContainer").html("Unable to register");
+                    sweetAlert("Your withdrawal attempt failed.","Please try again shortly.");
+                }
             }
         });
     });
@@ -58,15 +63,19 @@ function submitFeedback(event, noteID){
             }),
         success: function(result){
             console.log(result);
-            swal({title: "Thank you!", text: "Your feedback has been captured!", type: "success"},
+            swal({title: "Done", text: "Your feedback has been captured. Thank you.", type: "success"},
             function(){ 
                 window.location.href = "patient-dashboard.html";
             }
             );
         }, 
         error: function(msg){
-            $("#errorContainer").html("Unable to register");
-            sweetAlert("Feedback submission failed!","Please try again shortly","error");
+            if(msg.status == "511"){
+                displayQuickAlert();
+            }else{
+                $("#errorContainer").html("Unable to register");
+                sweetAlert("Feedback submission failed.","Please try again shortly.");
+            }
         }
     });
 };

@@ -109,6 +109,53 @@ html {
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
+  .required{
+    color:red;
+    padding:0 5px;
+  }
+
+  .form-text-label{
+    font-weight: bold;
+    margin-bottom: 0px !important;
+  }
+
+  .bottom-border{
+    border: none !important;
+    border-bottom: 1px solid #ced4da !important;
+  }
+
+  .aniLbl{
+    color: #2087c8!important;
+    font-weight: 500;
+  }
+
+  #tableDiv{
+    display: none;
+  }
+
+
+  .tooltip {
+    padding: 0.25rem 0.5rem;
+    color: #fff;
+    text-align: justify!important;
+    background-color: #2087c8!important;
+    border-radius: 0.50rem;
+  }
+
+  .tooltip-inner {
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    color: #fff;
+    text-align: left!important;
+    background-color: #2087c8!important;
+    border-radius: 0.50rem;
+  }
+
+  .tooltip.show{
+    text-align:left;
+  }
+
+
   .disabled-link {
     pointer-events: none;
   }
@@ -203,7 +250,7 @@ html {
   #errorEmailContainer, #divResetPasswordMatch,
   #divCheckUsernameMatch, #errorFinalContainer,
   #divCheckUpdatePWordMatch, #divEmailErrorMsg,
-  #supErrorContainer{
+  #supErrorContainer, #divCheckAllField{
     color: #8c0615;
     font-weight: bold;
     text-align: center;

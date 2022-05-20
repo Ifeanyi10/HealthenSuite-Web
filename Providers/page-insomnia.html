@@ -294,6 +294,23 @@
                                         </tbody>
                                       </table> -->
 
+                                      <!-- <table class="table table-bordered" id="taperTableTest">
+                                        <thead id="taperTHeadTest">
+                                            <tr>
+                                                <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">?</b></span></th>
+                                                
+                                                <th>Rounded Application-determined Taper Dose (mg)</th>
+                                                <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">?</b></span></th>
+                                                <th>Provider-Recommended Taper Dose (mg)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="taperTBodyTest">
+
+                                        </tbody>
+                                    </table> -->
+
+                                    <!-- <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">?</b></span></th> -->
+
                                     <form id="formInsomnia">
 
                                         <div class="form-group" id="firstQ">
@@ -306,7 +323,7 @@
 
 
                                         <div class="form-group hidden" id="secondQ1">
-                                            <label class="lblQuestion">Is your patient taking benzodiazepines and/or Z-drugs <sup class="placeholder" id="bzra"><b title="">i</b></sup> for sleep?</label>
+                                            <label class="lblQuestion">Is your patient taking benzodiazepine receptor agonist(s) (BZRAs) <sup class="placeholder" id="bzra"><b title="">?</b></sup> for sleep?</label>
                                                 <span class="glyphicon glyphicon-phone" data-toggle="tooltip" title="Call Us"></span>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly2();" id="forSleepYes" name="optradio2"> Yes</label>
@@ -317,7 +334,7 @@
                                         </div>
 
                                         <div class="form-group hidden" id="thirdQ2">
-                                            <label class="lblQuestion">Is the patient regularly taking Benzodiazepines and/or Z-drugs (BZRAs*) for any other conditions other than sleep?</label>
+                                            <label class="lblQuestion">Is your patient regularly taking BZRAs for any other conditions other than sleep?</label>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly3();" id="notForSleepYes" name="optradio3"> Yes</label>
                                             <label class="radio-inline mr-3">
@@ -327,7 +344,7 @@
                                         </div>
 
                                         <div class="form-group hidden" id="thirdQ1">
-                                            <label class="lblQuestion">How many benzodiazepines and/or Z-drugs is your patient taking for sleep?</label>
+                                            <label class="lblQuestion">How many BZRAs is your patient taking for sleep?</label>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly4();" id="good" value="good" name="optradio4"> One</label>
                                             <label class="radio-inline mr-3">
@@ -345,20 +362,24 @@
                                             <label class="lblQuestion colorSubHeader">Health enSuite Insomnia Study</label>
 
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="patFName" placeholder="Patient’s First Name (required)" required>
+                                                <label for="patFName" class="form-text-label">Patient's First Name<span class="required">*</span></label>
+                                                <input type="text" class="form-control" id="patFName" placeholder="Patient’s first name (required)" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="patLName"  placeholder="Patient’s Last Name (required)" required>
+                                                <label for="patLName" class="form-text-label">Patient's Last Name<span class="required">*</span></label>
+                                                <input type="text" class="form-control" id="patLName"  placeholder="Patient’s last name (required)" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="number" class="form-control" id="patAge" placeholder="Patient's Age (required)" max="3" required>
+                                                <label for="patAge" class="form-text-label">Patient's Age<span class="required">*</span></label>
+                                                <input type="number" class="form-control" id="patAge" placeholder="Patient's age (required)" min="18" max="150" required>
+                                                <div id='ageError' style="color: red; font-weight: bolder;"></div>
                                             </div>
 
-                                            <div id='ageError' style="color: red; font-weight: bolder;"></div>
+                                            
 
                                             <div class="form-group">
-                                                <label class="lblQuestion">Gender:</label>
+                                                <label class="lblQuestion">Patient's Gender:<span class="required">*</span></label>
                                                 <label class="radio-inline mr-3">
                                                     <input type="radio" id="t1Male" value="MALE" name="optradio5" checked> Male</label>
                                                 <label class="radio-inline mr-3">
@@ -368,7 +389,9 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="email" class="form-control" id="patEmail"  placeholder="Patient’s Email (optional)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
+                                                <label for="patEmail" class="form-text-label">Patient's Email</label>
+                                                <input type="email" class="form-control" id="patEmail"  placeholder="Patient’s email (optional)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120">
+                                                <div id='emailError' style="color: red; font-weight: bolder;"></div>
                                             </div>
 
                                             <div class="row">
@@ -428,7 +451,7 @@
                                         </div> -->
 
                                         <div class="form-group hidden" id="fourthQ1">
-                                            <label class="lblQuestion">Is the patient willing to taper their BZRAs?</label>
+                                            <label class="lblQuestion">Is your patient willing to taper their BZRAs?</label>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly5();" id="willingYes" name="optradio6"> Yes</label>
                                             <label class="radio-inline mr-3">
@@ -438,7 +461,7 @@
                                         </div>
 
                                         <div class="form-group hidden" id="fifthQ1">
-                                            <label class="lblQuestion">Is the patient regularly taking Benzodiazepines and/or Z-drugs (BZRAs*) for any other conditions other than sleep?</label>
+                                            <label class="lblQuestion">Is your patient regularly taking BZRAs for any other conditions other than sleep?</label>
                                             <label class="radio-inline mr-3">
                                                 <input type="radio" onclick="hideDispaly6();" id="t2NotForSleepYes" name="optradio7"> Yes</label>
                                             <label class="radio-inline mr-3">
@@ -454,20 +477,24 @@
 
                                             <label class="lblQuestion colorSubHeader">Health enSuite Insomnia and deprescribing Study</label>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="pat2FName" placeholder="Patient’s First Name (required)" required>
+                                                <label for="pat2FName" class="form-text-label">Patient's First Name<span class="required">*</span></label>
+                                                <input type="text" class="form-control" id="pat2FName" placeholder="Patient’s first name (required)" required>
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" class="form-control" id="pat2LName"  placeholder="Patient’s Last Name (required)" required>
+                                                <label for="pat2LName" class="form-text-label">Patient's Last Name<span class="required">*</span></label>
+                                                <input type="text" class="form-control" id="pat2LName"  placeholder="Patient’s last lame (required)" required>
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="number" class="form-control" id="pat2Age" placeholder="Patient's Age (required)" max="3" required>
+                                                <label for="pat2Age" class="form-text-label">Patient's Age<span class="required">*</span></label>
+                                                <input type="number" class="form-control" id="pat2Age" placeholder="Patient's age (required)" min="18" max="150" required>
+                                                <div id='ageError2' style="color: red; font-weight: bolder;"></div>
                                             </div>
 
-                                            <div id='ageError2' style="color: red; font-weight: bolder;"></div>
+                                            
 
                                             <div class="form-group">
-                                                <label class="lblQuestion">Gender:</label>
+                                                <label class="lblQuestion">Patient's Gender:<span class="required">*</span></label>
                                                 <label class="radio-inline mr-3">
                                                     <input type="radio" id="t2Male" value="MALE" name="optradio21" checked> Male</label>
                                                 <label class="radio-inline mr-3">
@@ -477,7 +504,9 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="email" class="form-control" id="pat2Email"  placeholder="Patient’s Email (optional)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                                <label for="pat2Email" class="form-text-label">Patient's Email</label>
+                                                <input type="email" class="form-control" id="pat2Email"  placeholder="Patient’s email (optional)" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                                <div id='emailError2' style="color: red; font-weight: bolder;"></div>
                                             </div>
 
                                             <div class="row">
@@ -502,6 +531,18 @@
                                     </form>
                                 </div>
                             </div>
+
+                            <div class="card-body">
+                                <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Note</label>
+                                <div class="basic-form">
+                                    <form class="form-inline" style="margin-top: 0px; font-style: italic;">
+                                        <div class="form-group mb-2" style="flex: auto;">
+                                            <label class="lblAdjust">Patients taking over-the-counter medications (e.g. Gravol, Benadryl, Sleep-Eze, Advil, Tylenol, and other night time formulations), tricyclic antidepressants (e.g. Amitriptyline) and other medications like Seroquel and Trazodone are eligible to use this tool. However, these medications cannot be tapered using this tool.</label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -525,7 +566,7 @@
                                             Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                                         </div> <br/>
                                         <div style= "text-align:left; ">
-                                            Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
+                                            Step 1: Copy this link <strong>https://insomnia.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                         </div> <br/>
                                         <div style= "text-align:left; ">
                                             Step 2: You will be asked to enter your Referral code and your last name. Enter the Referral code exactly as it is printed here.
@@ -586,10 +627,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen','trial1Demo');" style="margin-right: 30px;">Back</button>
+                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen','screen1');" style="margin-right: 30px;">Back</button>
+                                        <!-- Adjusted after meeting with Rekha's team on 22nd November 2021
+                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen','trial1Demo');" style="margin-right: 30px;">Back</button> -->
                                     </div>
                                     <div class="col-lg-4">
-                                        <button type="button" id="cancelSchedule" class="btn-outline-danger" onclick="cancelApplication();">Cancel Application</button>
+                                        <button type="button" id="cancelSchedule" class="btn-colorSec" onclick="cancelApplication();">Home</button>
+                                        <!-- Rekha and Fatemeh asked me to change this from Cancel Application to Home button on 22nd November 2021
+                                        <button type="button" id="cancelSchedule" class="btn-outline-danger" onclick="cancelApplication();">Cancel Application</button> -->
                                     </div>
                                     <div class="col-lg-4">
                                         <button type="button" id="btnIgnoreDuplicate" class="btn-primary goRight">Ignore & Continue</button>
@@ -627,11 +672,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen2','trial2Demo');" style="margin-right: 30px;">Back</button>
+                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen2','screen1');" style="margin-right: 30px;">Back</button>
+                                        <!-- Adjusted after meeting with Rekha's team on 22nd November 2021
+                                        <button type="submit" class="btn-secondary" onclick="goBack('duplicateScreen2','trial1Demo');" style="margin-right: 30px;">Back</button> -->
                                     </div>
                                     <div class="col-lg-3"></div>
                                     <div class="col-lg-3">
-                                        <button type="button" id="cancelSchedule2" class="btn-outline-danger" onclick="cancelApplication();">Cancel Application</button>
+                                        <!-- Rekha and Fatemeh asked me to change this from Cancel Application to Home button on 22nd November 2021
+                                        <button type="button" id="cancelSchedule2" class="btn-outline-danger" onclick="cancelApplication();">Cancel Application</button> -->
+                                        <button type="button" id="cancelSchedule2" class="btn-colorSec" onclick="cancelApplication();">Home</button>
                                     </div>
                                     <div class="col-lg-3">
                                         <button type="button" id="btnIgnoreDuplicate2" class="btn-primary goRight">Ignore & Continue</button>
@@ -763,7 +812,8 @@
 
                                         <div class="lblQuestion">This page is designed to capture the starting point for the medication tapering.
                                             If the patient is tapering their current medication, enter the dose that is currently being taken. This may be different from the dose that was prescribed.
-                                            You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication. <span class="placeholder" id="regimen"><b title="">i</b></span>
+                                            You may want to consider switching your patient to a new medication before tapering. If this is the case, choose the new medication from the drop down list and enter the starting dose for this new medication. 
+                                            <!-- <span class="placeholder" id="regimen"><b title="">?</b></span> -->
                                         </div>
 
                                         <div class="bootstrap-modal">
@@ -865,20 +915,23 @@
 
                                         <div id='errorContainer3'></div>
 
-                                        <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 1:</label>
+                                        <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 1:<span class="required">*</span></label>
                                         <div class="form-group">
                                             <select id="idMedications1" class="form-control"></select>
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="number" class="form-control" id="dosage" name="dosage" placeholder="Enter Current Dose (mg)" minlength="10"/>
+                                            <label for="dosage" class="form-text-label">Patient's Current Dose 1<span class="required">*</span></label>
+                                            <input type="number" class="form-control" id="dosage" name="dosage" placeholder="Enter Current Dose (mg)" min="1" max="1000"/>
+                                            <div id='errorContainer4'></div>
                                         </div>
-                                        <div id='errorContainer4'></div>
+                                        
 
                                         <div class="form-group">
+                                            <label for="inputDuration" class="form-text-label">Duration of Medication 1<span class="required">*</span></label>
                                             <select id="inputDuration" onchange="checkDuration();" class="form-control">
                                                 <option value="">Duration of medication (e.g less than 14 days)</option>
-                                                <option value="10">Less than 14 days</option>
+                                                <option value="10" disabled>Less than 14 days</option>
                                                 <option value="20">14 to 29 days</option>
                                                 <option value="60">30 days to less than 4 months</option>
                                                 <option value="180">4 months or more, less than 12 months</option>
@@ -889,21 +942,23 @@
                                         </div></br>
 
                                         <div class="hidden" id="med2">
-                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 2:</label>
+                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px; margin-top: 10px;">Medication 2:<span class="required">*</span></label>
 
                                             <div class="form-group">
                                                 <select id="idMedications2" class="form-control"></select>
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="number" class="form-control" id="dosage2" name="dosage2" placeholder="Enter Current Dose (mg)" minlength="10" disabled/>
+                                                <label for="dosage2" class="form-text-label">Patient's Current Dose 2<span class="required">*</span></label>
+                                                <input type="number" class="form-control" id="dosage2" name="dosage2" placeholder="Enter Current Dose (mg)" min="1" max="100" disabled/>
                                             </div>
                                             <div id='errorContainer5'></div>
 
                                             <div class="form-group">
+                                                <label for="inputDuration2" class="form-text-label">Duration of Medication 2<span class="required">*</span></label>
                                                 <select id="inputDuration2" onchange="checkDuration();" class="form-control">
                                                     <option value="">Duration of medication (e.g less than 14 days)</option>
-                                                    <option value="10">Less than 14 days</option>
+                                                    <option value="10" disabled>Less than 14 days</option>
                                                     <option value="20">14 to 29 days</option>
                                                     <option value="60">30 days to less than 4 months</option>
                                                     <option value="180">4 months or more, less than 12 months</option>
@@ -957,7 +1012,7 @@
                     </div>
 
 
-                    <div class="col-lg-8 hidden" id="screen4">
+                    <div class="col-lg-12 hidden" id="screen4">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title colorPrimary">Proposed Taper Schedule</h4><hr><br>
@@ -986,7 +1041,7 @@
                                     </form>
                                 </div></br> -->
 
-                                <div class="table-responsive accordion" id="accordion-one">
+                                <div class="table-responsive no-overflow accordion" id="accordion-one">
 
                                     <!-- <label class="lblQuestion colorSubHeader">Medication 1: </label> <label class="lblQuestion colorSubHeader" id="drugNm"></label> -->
                                     <h5 class="mb-0 colorSubHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa" aria-hidden="true"></i> Medication 1: <span id="drugNm"></span> </h5>
@@ -996,13 +1051,13 @@
                                         <div class="row">
                                             <div class="col-lg-3"></div>
                                             <div class="col-lg-3" style="padding: 25px;">
-                                                <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px; font-size: 16px;"> <span class="placeholder" id="tipTapLength" style="display: inline-block;"><b title="">i</b></span>
+                                                <input type="number" class="form-control" id="tpLength" name="tpLength" placeholder="Taper Length" min="1" max="100" style="width: 80%; display: inline-block; margin-right: 5px; font-size: 16px;"> <span class="placeholder" id="tipTapLength" style="display: inline-block;"><b title="">?</b></span>
                                             </div>
                                             <div class="col-lg-3">
                                                 <button type="submit" id="btnRecompute" class="buttonBackTxt btnColorPrimary">Recompute</button>
                                             </div>
                                             <div class="col-lg-3">
-                                                <button type="submit" id="btnReset" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">i</b></span>
+                                                <button type="submit" id="btnReset" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset"><b title="">?</b></span>
                                             </div>
                                         </div>
 
@@ -1010,10 +1065,10 @@
                                             <thead id="taperTHead">
 
                                                 <tr>
-                                                    <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">i</b></span></th>
-                                                    <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">?</b></span></th>
+                                                    <!-- <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">?</b></span></th> -->
                                                     <th>Rounded Application-determined Taper Dose (mg)</th>
-                                                    <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">?</b></span></th>
                                                     <th>Provider-Recommended Taper Dose (mg)</th>
                                                 </tr>
                                             </thead>
@@ -1063,7 +1118,7 @@
 
 
 
-                                <div class="table-responsive accordion hidden" id="accordion-two">
+                                <div class="table-responsive no-overflow accordion hidden" id="accordion-two">
 
                                     <!-- <label class="lblQuestion colorSubHeader">Medication 2: </label> <label class="lblQuestion colorSubHeader" id="drugNm2"></label> -->
                                     <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1"><i class="fa" aria-hidden="true"></i>  Medication 2: <span id="drugNm2"></span> </h5>
@@ -1073,23 +1128,23 @@
                                         <div class="row">
                                             <div class="col-lg-3"></div>
                                             <div class="col-lg-3" style="padding: 25px;">
-                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" minlength="1" maxlength="3" style="width: 80%; display: inline-block; margin-right: 5px; font-size: 16px;"> <span class="placeholder" id="tipTapLength2" style="display: inline-block;"><b title="">i</b></span>
+                                                <input type="number" class="form-control" id="tpLength2" name="tpLength2" placeholder="Taper Length" min="1" max="100" style="width: 80%; display: inline-block; margin-right: 5px; font-size: 16px;"> <span class="placeholder" id="tipTapLength2" style="display: inline-block;"><b title="">?</b></span>
                                             </div>
                                             <div class="col-lg-3">
                                                 <button type="submit" id="btnRecompute2" class="buttonBackTxt btnColorPrimary">Recompute</button>
                                             </div>
                                             <div class="col-lg-3">
-                                                <button type="submit" id="btnReset2" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset2"><b title="">i</b></span>
+                                                <button type="submit" id="btnReset2" class="buttonBackTxt colorSec">Reset</button> <span class="placeholder" id="tipReset2"><b title="">?</b></span>
                                             </div>
                                         </div>
 
                                         <table class="table table-bordered" id="taperTable2">
                                             <thead id="taperTHead2">
                                                 <tr>
-                                                    <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">i</b></span></th>
-                                                    <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Taper week <span class="placeholder tipCol1" style="margin-left: 5px;"><b title="">?</b></span></th>
+                                                    <!-- <th>Application-determined Taper Dose (mg) <span class="placeholder tipCol2" style="margin-left: 5px;"><b title="">?</b></span></th> -->
                                                     <th>Rounded Application-determined Taper Dose (mg)</th>
-                                                    <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">i</b></span></th>
+                                                    <th>Recommended dose combinations (mg) <span class="placeholder tipCol4" style="margin-left: 5px;"><b title="">?</b></span></th>
                                                     <th>Provider-Recommended Taper Dose (mg)</th>
                                                 </tr>
                                             </thead>
@@ -1106,15 +1161,15 @@
                             </div>
 
                             <div class="card-body">
-                                <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Taper Start Date</label>
+                                <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Taper Start Date <span style="color: red; margin-left: 5px;">*</span></label>
                                 <div class="basic-form">
                                     <form class="form-inline">
                                         <div class="form-group mb-2">
-                                            <label class="lblAdjust">Select a start date for this taper schedule within the next 2 weeks:</label>
+                                            <label class="lblAdjust">Select a start date for this taper schedule within the next 2 weeks: </label>
                                             <!-- <input type="text" readonly="readonly" size="50" class="form-control-plaintext" value="Increase or decrease the total number of weeks and click 'Recompute'"> -->
                                         </div>
                                         <!-- <input type="text" class="form-control bootstrapMaterialDatePicker" onchange="validateStartDate();" placeholder="YYYY-MM-DD" id="mdate"> <span class="placeholder" id="tipStartDate"><b title="">?</b></span> -->
-                                        <input type='text' class="form-control" id="datepicker" onchange="validateStartDate('btnStartDate');" data-date-start-date="0d" data-date-end-date="+13d" data-date-format="yyyy-mm-dd" data-date-autoclose="true" placeholder='Select Taper Start Date' style="margin-right: 10px; width: 27%;">
+                                        <input type='text' class="form-control" id="datepicker" onchange="validateStartDate('btnStartDate');" data-date-start-date="0d" data-date-end-date="+13d" data-date-format="yyyy-mm-dd" data-date-autoclose="true" placeholder='Select Taper Start Date (required)' style="margin-right: 10px; width: 30%;">
                                         <!-- <span class="placeholder" id="tipStartDate"><b title="">i</b></span> -->
                                     </form>
 
@@ -1214,7 +1269,7 @@
                                     Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                                 </div> <br/>
                                 <div style= "text-align:left; ">
-                                    Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
+                                    Step 1: Copy this link <strong>https://insomnia.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                                 </div> <br/>
                                 <div style= "text-align:left; ">
                                     Step 2: You will be asked to enter your Referral code and your last name. Enter the Referral code exactly as it is printed here.
@@ -1282,7 +1337,7 @@
 
                                         <tr>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
-                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th>
+                                            <!-- <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th> -->
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Rounded Application-determined Taper Dose (mg)</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommended Taper Dose (mg)</th>
                                         </tr>
@@ -1341,7 +1396,7 @@
                                 Here are the steps to follow to be able to access the Health enSuite Insomnia app:
                             </div> <br/>
                             <div style= "text-align:left; ">
-                                Step 1: Copy this link <strong>https://app.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
+                                Step 1: Copy this link <strong>https://insomnia.healthensuite.com/Referral_Code/referral.html</strong> exactly as it is printed here to be able to access the application on the web browser on your computer or any other device enabled with internet connectivity.
                             </div> <br/>
                             <div style= "text-align:left; ">
                                 Step 2: You will be asked to enter your Referral code and your last name. Enter the Referral code exactly as it is printed here.
@@ -1408,7 +1463,7 @@
 
                                         <tr>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
-                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th>
+                                            <!-- <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th> -->
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Rounded Application-determined Taper Dose (mg)</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommended Taper Dose (mg)</th>
                                         </tr>
@@ -1428,7 +1483,7 @@
 
                                         <tr>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Taper week</th>
-                                            <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th>
+                                            <!-- <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Application-determined Taper Dose (mg)</th> -->
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Rounded Application-determined Taper Dose (mg)</th>
                                             <th style= "border: 1px solid #dddddd; text-align: left; padding: 8px;">Provider-Recommended Taper Dose (mg)</th>
                                         </tr>

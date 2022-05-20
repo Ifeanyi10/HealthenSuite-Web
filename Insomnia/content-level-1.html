@@ -19,8 +19,85 @@
 
     <script type="text/javascript">
         window.onload =  function() {
+            var myStatusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
+            var levelIsNotSavable = myStatusEntity.readInterventionGroupleveloneArticle;
+            var interventionLevelsEntity = JSON.parse(window.localStorage.getItem("interventionLevelsEntity"));
+            if(interventionLevelsEntity.levelOneEntity != null){
+                fillCheckBox('formSituation', 'sit', interventionLevelsEntity.levelOneEntity.whichBestdescribesYoursituation);
+            }
+            if(interventionLevelsEntity.levelOneEntity != null){
+                fillRadioButton('formFeeling', 'feel', interventionLevelsEntity.levelOneEntity.howIsitgoingSofar);
+            }
+            console.log(interventionLevelsEntity)
+            window.localStorage.setItem("levelIsNotSavable", levelIsNotSavable);
+            var levelPageNo = myStatusEntity.nextPage;
+            window.localStorage.setItem("levelPageNo", levelPageNo);
+            console.log("Page Number is: "+levelPageNo+" And LevelIsNotSavable is: "+levelIsNotSavable);
+
+            if(levelPageNo == 2){
+                hideDisplay('colOne', 'colTwo');
+            } else if(levelPageNo == 3){
+                hideDisplay('colOne', 'colTwo');
+                displayNav('navpills-1', 'navpills-2');
+            }else if(levelPageNo == 4){
+                hideDisplay('colOne', 'colTwo');
+                displayNav('navpills-1', 'navpills-3');
+            }else if(levelPageNo == 5){
+                hideDisplay('colOne', 'colTwo');
+                displayNav('navpills-1', 'navpills-4');
+            }else if(levelPageNo == 6){
+                hideDisplay('colOne', 'colTwo');
+                displayNav('navpills-1', 'navpills-6');
+            }
+            else if(levelPageNo == 7){
+                hideDisplay('colOne', 'colTwo');
+                displayNav('navpills-1', 'navpills-5');
+            }
+
+            let trialNo = window.localStorage.getItem("trialNo");
+            
+            if(trialNo == 1){
+                document.getElementById('trial2Sec1').style.display = 'none';
+                document.getElementById('trial2Sec2').style.display = 'none';
+            }
+
             document.getElementById('patFName').innerHTML  = window.localStorage.getItem("patientFirstName");
             $('#exampleModalLevel1').modal('show');
+
+            if(levelIsNotSavable == true){
+                document.getElementById('supName').readOnly = true;
+                document.getElementById('supRelation').readOnly = true;
+                document.getElementById('supEmail').readOnly = true;
+                document.getElementById('btnSubmitLV1Anyway').disabled = true;
+            }
+        }
+
+        function fillCheckBox(formId, nameId, entity){
+            var str = entity.split(',');
+            // console.log('This is...'+str)
+            var meds = document.forms[formId].elements[nameId];
+            for (i = 0; i < meds.length; i++) { 
+                medVal = meds[i].value;   
+                medVal = medVal.slice(0, 14).toString().replace(/^\s+|\s+$/gm,'');
+                strVal = str[i];
+                strVal = strVal.slice(0, 15).toString().replace(/^\s+|\s+$/gm,'');
+                if(medVal == strVal){
+                    meds[i].checked = true;
+                }
+            }
+        }
+
+        function fillRadioButton(formId, nameId, entity){
+            var radios = document.forms[formId].elements[nameId];
+            entity = entity.split(",", 1);
+            entity = entity[0].slice(0, 15).toString().replace(/^\s+|\s+$/gm,'');
+            for (i = 0; i < radios.length; i++) {  
+                radioVal = radios[i].value;   
+                radioVal = radioVal.slice(0, 15).toString().replace(/^\s+|\s+$/gm,'');
+                if (radioVal == entity) {
+                    radios[i].checked = true;
+                }
+            }
         }
     </script>
 
@@ -77,9 +154,10 @@
             <div class="header-content clearfix">
                 
                 <div class="nav-control">
-                    <div class="hamburger">
+                    <div class="nav-icon hamburger">
                         <span class="toggle-icon"><i class="icon-menu"></i></span>
                     </div>
+                    <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
                 
                 <div class="header-right">
@@ -178,8 +256,8 @@
                             <i class="icon-notebook menu-icon"></i><span class="nav-text">Task & Progress</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./task-list.html">My Task List</a></li>
-                            <li><a href="./program-content.html">My Progress</a></li>
+                            <li><a href="./task-list.html">Tasks</a></li>
+                            <li><a href="./program-content.html">Progress</a></li>
                         </ul>
                     </li>
 
@@ -197,8 +275,8 @@
                             <i class="icon-envelope menu-icon"></i><span class="nav-text">Contact Us</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./voluntary-withdrawal.html">Voluntory Withdrawal</a></li>
-                            <li><a href="./feedback.html">Feedback</a></li>
+                            <li><a href="./feedback.html">Contact Us</a></li>
+                            <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
                     
@@ -248,7 +326,7 @@
                                         <div class="modal-body">
                                             <label>Hello <strong id="patFName"></strong>,</label>
                                             <p>You will see that new information is available to you within the Health enSuite app.</p>
-                                            <p>Health enSuite Insomnia consists of a series of levels or content chapters. Each level has tasks you will need to complete before you can advance to the next level. These tasks include reading about new strategies for improving your sleep, watching videos, answering questions, completing daily sleep diaries, and tracking your medications. Each level is designed to take about one week to complete so that by the end of 6 weeks you will have completed the entire program.</p>
+                                            <p>Health enSuite Insomnia consists of a series of levels or content chapters. Each level has tasks you will need to complete before you can advance to the next level. These tasks include Readings about new strategies for improving your sleep, watching videos, answering questions, completing daily sleep diaries, and tracking your medications. Each level is designed to take about one week to complete so that by the end of 6 weeks you will have completed the entire program.</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
@@ -262,7 +340,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title colorPrimary">Level 1 – Introduction to Health EnSuite Insomnia </h4><hr>
+                                <h4 class="card-title colorPrimary">Level 1 – Introduction to Health enSuite Insomnia </h4><hr>
                                 
                                 <div id="colOne">
                                     <div class="justifyDiv">
@@ -271,7 +349,7 @@
                                     <div class="justifyDiv">
                                         The main goals for this first week are for you to continue tracking your sleep patterns using the sleep diaries, and learn about some of the common causes and consequences of insomnia.  
                                     </div>
-                                    <div class="justifyDiv">
+                                    <div class="justifyDiv" id="trial2Sec1">
                                         It may also be time to start reducing your use of sleeping pills. Follow the medication schedule recommended by your health care provider. 
                                     </div>
     
@@ -283,12 +361,12 @@
                                     <div class="consentInfoBody" style="margin-top: 0px;">
                                         - 	Complete at least 5 sleep diaries within a week
                                     </div>
-                                    <div class="consentInfoBody">
+                                    <div class="consentInfoBody" style="margin-top: 0px;">
                                         - 	Complete the readings and activities for level 1 (Introduction to Health enSuite)
                                     </div>
 
                                     <div class="general-button">
-                                        <button type="button" onclick="hideDisplay('colOne', 'colTwo');" class="btn-primary goRight">Next</button>
+                                        <button type="button" id="level1Pg1" onclick="saveOnlyPage('colOne', 'colTwo', 1, false);" class="btn-primary goRight">Next</button>
                                     </div>
     
                                 </div>
@@ -323,23 +401,23 @@
                                                     
                                                     <form id="formSituation">
                                                         <div class="form-group">
-                                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Which of the following best describes your situation (check all that apply):</label>
+                                                            <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Which of the following best describes your situation (check all that apply): <span id="descErMsg" style="color: red;"></span></label>
                     
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="It often takes me more than 30 minutes to fall asleep.">It often takes me more than 30 minutes to fall asleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('level1Pg2', 'formSituation', 'sit', 'descErMsg')" value="It often takes me more than 30 minutes to fall asleep.">It often takes me more than 30 minutes to fall asleep.</label>
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="I wake up frequently throughout the night and have trouble getting back to sleep.">I wake up frequently throughout the night and have trouble getting back to sleep.</label>   
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('level1Pg2', 'formSituation', 'sit', 'descErMsg')" value="I wake up frequently throughout the night and have trouble getting back to sleep.">I wake up frequently throughout the night and have trouble getting back to sleep.</label>   
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="I regularly wake up too early in the morning and cannot get back to sleep.">I regularly wake up too early in the morning and cannot get back to sleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('level1Pg2', 'formSituation', 'sit', 'descErMsg')" value="I regularly wake up too early in the morning and cannot get back to sleep.">I regularly wake up too early in the morning and cannot get back to sleep.</label>
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('btnNext1', 'formSituation', 'sit')" value="My sleep quality is poor. I would like to improve the quality of my sleep.">My sleep quality is poor. I would like to improve the quality of my sleep.</label>
+                                                                    <input type="checkbox" class="form-check-input" name="sit" onchange="validateCheckoffs('level1Pg2', 'formSituation', 'sit', 'descErMsg')" value="My sleep quality is poor. I would like to improve the quality of my sleep.">My sleep quality is poor. I would like to improve the quality of my sleep.</label>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -347,8 +425,8 @@
                                                 </div>
                                             </div>
                                             <div class="general-button">
-                                                <button type="submit" onclick="hideDisplay('colTwo', 'colOne');" class="btn-secondary" style="margin-right: 30px;">Back</button>
-                                                <button type="button" id="btnNext1" onclick="displayNav('navpills-1', 'navpills-2');" class="btn-primary goRight" disabled>Next</button>
+                                                <button type="submit" onclick="hideDisplayLevel('colTwo', 'colOne');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" id="level1Pg2" onclick="goToNextPage('navpills-1', 'navpills-2', 'descErMsg', true);" class="btn-primary goRight">Next</button>
                                             </div>
                                         </div>
 
@@ -366,8 +444,8 @@
                                                 </div>
                                             </div>
                                             <div class="general-button">
-                                                <button type="submit" onclick="displayNav('navpills-2', 'navpills-1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
-                                                <button type="button" onclick="displayNav('navpills-2', 'navpills-3');" class="btn-primary goRight">Next</button>
+                                                <button type="submit" onclick="displayNavLevel('navpills-2', 'navpills-1');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" onclick="saveOnlyPage('navpills-2', 'navpills-3', 3, true);" class="btn-primary goRight">Next</button>
                                             </div>
                                         </div>
 
@@ -399,8 +477,8 @@
                                                 </div>
                                             </div>
                                             <div class="general-button">
-                                                <button type="submit" onclick="displayNav('navpills-3', 'navpills-2');" class="btn-secondary" style="margin-right: 30px;">Back</button>
-                                                <button type="button" onclick="displayNav('navpills-3', 'navpills-4');" class="btn-primary goRight">Next</button>
+                                                <button type="submit" onclick="displayNavLevel('navpills-3', 'navpills-2');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" onclick="saveOnlyPage('navpills-3', 'navpills-4', 4, true);" class="btn-primary goRight">Next</button>
                                             </div>
                                         </div>
 
@@ -415,49 +493,53 @@
                                                         <!-- <h3 class="consentInfoHeadSmall">Sleeping pills</h3> -->
                                                         <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Sleeping pills</label>
                                                         <p>Sleeping pills may seem like an easy way to manage your sleep. Unfortunately sleeping pills only work as a short term remedy for sleep problems. After a few weeks, sleeping pills can become less effective in promoting good sleep. But many people continue using sleeping pills for weeks or even years. This can happen even when there are adverse side effects like daytime drowsiness and difficulty concentrating.</p>
-                                                        <p>Your health care provider has recommended a plan that will gradually reduce the amount  of the sleeping pills you are taking. The goal is for you to eventually be able to stop taking sleeping pills and get a good night’s sleep.</p>
-                                                        <p>How is it going so far?</p>
-                                                        <form id="formFeeling">
-                                                            <div class="form-group">
-                                                                <label class="lblQuestion">Which of the following best describes your feelings about this plan?</label>
+                                                        
+                                                        <div id="trial2Sec2">
+                                                            <p>Your health care provider has recommended a plan that will gradually reduce the amount  of the sleeping pills you are taking. The goal is for you to eventually be able to stop taking sleeping pills and get a good night’s sleep.</p>
+                                                            <p>How is it going so far?</p>
+                                                            <form id="formFeeling">
+                                                                <div class="form-group">
+                                                                    <label class="lblQuestion">Which of the following best describes your feelings about this plan? <span id="feelErMsg" style="color: red;"></span></label>
 
-                                                                <div class="form-check mb-3">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('confident', 'btnNext4');" name="feel" value="I feel confident I will be able to stick to this plan">I feel confident I will be able to stick to this plan. </label>
-                                                                </div>
-                                                                <div class="form-check mb-3">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('difficult', 'btnNext4');" name="feel" value="I think it will be very difficult for me to stick to this plan">I think it will be very difficult for me to stick to this plan.</label>   
-                                                                </div>
-                                                                <div class="form-check mb-3">
-                                                                    <label class="form-check-label">
-                                                                        <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('unknown', 'btnNext4');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label>
-                                                                </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('confident', 'feelErMsg');" name="feel" value="I feel confident I will be able to stick to this plan">I feel confident I will be able to stick to this plan. </label>
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('difficult', 'feelErMsg');" name="feel" value="I think it will be very difficult for me to stick to this plan">I think it will be very difficult for me to stick to this plan.</label>   
+                                                                    </div>
+                                                                    <div class="form-check mb-3">
+                                                                        <label class="form-check-label">
+                                                                            <!-- <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('unknown', 'level1Pg5');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label> -->
+                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('unknown', 'feelErMsg');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label>
+                                                                    </div>
 
-                                                                <div class="modal fade" id="exampleModalCenter">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="modalContentTitle"></h5>
-                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <p id="modalContentBd"></p>
+                                                                    <!-- <div class="modal fade" id="exampleModalCenter">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="modalContentTitle"></h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <p id="modalContentBd"></p>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
+                                                                    
                                                                 </div>
-                                                                
-                                                            </div>
-                                                        </form>
+                                                            </form>
+                                                        </div>
 
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="general-button">
-                                                    <button type="button" id="btnHideMe" onclick="displayNav('navpills-4', 'navpills-3');" class="btn-secondary" style="margin-right: 30px;">Back</button>
-                                                    <button type="button" id="btnNext4" onclick="displayNav('navpills-4', 'navpills-6');" class="btn-primary goRight" disabled>Next</button>
+                                                    <button type="button" id="btnHideMe" onclick="displayNavLevel('navpills-4', 'navpills-3');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                    <button type="button" id="level1Pg5" onclick="goToNextOmitPage('navpills-4', 'navpills-6', 'navpills-5', 'feelErMsg', true);" class="btn-primary goRight">Next</button>
                                                     <!-- <input type='button' class='btn-colorSec goRight' id="btnContSleepPill" onclick="showNote('content4-2');" value='Continue...'/> -->
                                                 </div>
 
@@ -468,10 +550,73 @@
                                                 <div class="col-md-12">
                                                     <!-- <h3 class="consentInfoHeadSmall">Why is it a good idea to reduce my medications gradually?</h3> -->
                                                     <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Why is it a good idea to reduce my medications gradually?</label>
-                                                    <p>Sudden changes in medications increase your risk of <strong style="font-style: italic;">withdrawal symptoms.</strong></p>
+                                                    <p>Sudden changes in medications increase your risk of <strong style="font-style: italic; color: #2087c8;" onclick="displaySymptoms();">withdrawal symptoms.</strong></p>
                                                     <div class="linkDiv hidden" id="symps">Withdrawal symptoms might include: insomnia, anxiety, irritability, headaches, sweating, shaking or tremors, pounding heart, nausea, dizziness, unsteadiness, difficulty concentrating, sensitivity to noise and light, ringing in the ears, confusion/delirium, depression, seizures</div>
 
                                                     <p>The risk of withdrawal symptoms is reduced when medication changes are slow and gradual. The plan your health care provider has recommended takes this slow, gradual approach. Your sleeping pill dose is reduced slowly over a period of many weeks or months. A small change happens each time you start a new dose.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal fade" id="symptomsModalCenter">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Withdrawal Symptoms</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Withdrawal symptoms might include:</p>
+                                                            <div class="consentInfoBody">
+                                                                •	insomnia 
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	anxiety
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	irritability
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	headaches
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	sweating
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	shaking or tremors
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	pounding heart
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	nausea
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	dizziness
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	unsteadiness
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	difficulty concentrating
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	sensitivity to noise and light
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	ringing in the ears
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	confusion/delirium
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	depression
+                                                            </div>
+                                                            <div class="consentInfoBody">
+                                                                •	seizures
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -488,8 +633,8 @@
                                                 </div>
                                             </div>
                                             <div class="general-button">
-                                                <button type="submit" onclick="displayNav('navpills-6', 'navpills-4');" class="btn-secondary" style="margin-right: 30px;">Back</button>
-                                                <button type="button" onclick="displayNav('navpills-6', 'navpills-5');" class="btn-primary goRight">Next</button>
+                                                <button type="submit" onclick="displayNavLevel('navpills-6', 'navpills-4');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="button" onclick="saveOnlyPage('navpills-6', 'navpills-5', 6, true);" class="btn-primary goRight">Next</button>
                                             </div>
                                         </div>
 
@@ -554,7 +699,7 @@
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title">Remember!!!</h5>
+                                                                    <h5 class="modal-title">Remember</h5>
                                                                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                                     </button>
                                                                 </div>
@@ -569,6 +714,34 @@
                                                         </div>
                                                     </div>
 
+
+                                                    <div class="hidden" id="supportForm">
+
+                                                        <label class="lblQuestion">Support Person</label>
+                                                        <div class="form-group">
+                                                            <label for="supName" class="form-text-label">Full Name<span class="required">*</span></label>
+                                                            <input type="text" class="form-control" id="supName" placeholder="Enter support person full name" required>
+                                                        </div>
+            
+                                                        <div class="form-group">
+                                                            <label for="supRelation" class="form-text-label">Relationship<span class="required">*</span></label>
+                                                            <input type="text" class="form-control" id="supRelation"  placeholder="My relationship to this person (spouse, relative, friend, etc.)" required>
+                                                        </div>
+            
+                                                        <div class="form-group">
+                                                            <label for="supEmail" class="form-text-label">Email<span class="required">*</span></label>
+                                                            <input type="email" class="form-control" id="supEmail"  placeholder="Enter support person Email address" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
+                                                        </div>
+
+                                                        <div id='supErrorContainer'></div>
+
+                                                        <div class="general-button">
+                                                            <!-- <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button> -->
+                                                            <button type="button"  id="btnSubmitLV1" class="btn-primary" style="width: 20%; margin-left: 40%; margin-right: 40%;" disabled>Submit</button>
+                                                        </div>
+            
+                                                    </div>
+
                                                     <div>
                                                         <label class="lblQuestion">Things to do this week:</label>
                                                         <p>Use the sleep diary to track when you go to bed at night and when you get up in the morning. Record your sleep quality each day. Note the dose of any medications you are taking. To advance to the next level you will need to complete at least 5 of these entries.</p>
@@ -578,36 +751,12 @@
                                                             </a>
                                                         </div> -->
                                                     </div>
-
-                                                    <div class="hidden" id="supportForm">
-
-                                                        <div id='supErrorContainer'></div>
-            
-                                                        <label class="lblQuestion">Support Person</label>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="supName" placeholder="Support Person Name" required>
-                                                        </div>
-            
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="supRelation"  placeholder="My relationship to this person (spouse, relative, friend, etc.)" required>
-                                                        </div>
-            
-                                                        <div class="form-group">
-                                                            <input type="email" class="form-control" id="supEmail"  placeholder="Support Person Email" pattern="(?!test@test\.com$)[a-z0-9._%+-]{3,}@[a-z]{3,}\.[a-z]{2,}(?:\.[a-z]{2,})?" max="120" required>
-                                                        </div>
-
-                                                        <div class="general-button">
-                                                            <!-- <button type="submit" id="btnBackTrial2" onclick="goBack('trial2Demo','fifthQ1');" class="btn btn-dark mb-2" style="margin-right: 30px;">Back</button> -->
-                                                            <button type="button"  id="btnSubmitLV1" class="btn-primary" style="width: 20%; margin-left: 40%; margin-right: 40%;" disabled>Submit</button>
-                                                        </div>
-            
-                                                    </div>
                                                     
                                                     
                                                 </div>
                                             </div>
                                             <div class="general-button">
-                                                <button type="submit" onclick="displayNav('navpills-5', 'navpills-6');" class="btn-secondary" style="margin-right: 30px;">Back</button>
+                                                <button type="submit" onclick="displayJumpNavLevel('navpills-5', 'navpills-6', 'navpills-4');" class="btn-secondary" style="margin-right: 30px;">Back</button>
                                                 <!-- <button type="button" onclick="displayNav('navpills-4', 'navpills-5');" class="buttonPlainTxt btnColorPrimary goRight">Next</button> -->
                                             </div>
 
@@ -678,7 +827,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2020</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************

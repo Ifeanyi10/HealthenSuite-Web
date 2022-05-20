@@ -42,8 +42,8 @@ $(document).ready(function () {
         console.log("You are in this tab and the token is Patients: "+authToken);
         if(authToken == null){
             //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
-            //urlDomain = 'http://192.168.6.15:8083/';
-            urlDomain = 'https://api.healthensuite.com/';
+            urlDomain = 'https://apiv3.healthensuite.com/';
+            // urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }
@@ -70,14 +70,18 @@ $(document).ready(function () {
                     window.localStorage.setItem("patientToken", result.token);
                     window.localStorage.setItem("token", authTokenProvider);
                     $('#loginModal').modal('hide');
+                    window.location.href = "patient-dashboard.html";
                 }, 
                 error: function(msg){
                     //$("#errorContainer").html("Incorrect Username or Password");
-                    sweetAlert("Incorrect username or password!","Please confirm your login credentials and try again.","error");
+                    var content = "<span style='font-weight: bold'>Access denied.</span> <span>Please confirm your login information and your internet connectivity to proceed.</span>";
+                    swal({title: "", text: content, html: true});
                 }
             });
         }else{
-            sweetAlert("Attention!","Please fill the fields properly and login","info");
+            // sweetAlert("Attention","Please fill the fields properly and login.");
+            var content = "<span>Please confirm your login information to proceed.</span>";
+            swal({title: "", text: content, html: true});
         }
         
     });//end of quick login

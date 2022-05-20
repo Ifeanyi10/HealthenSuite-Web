@@ -21,6 +21,8 @@ function getProviderProfile(){
         success: function(result){
             console.log(result);
             if(result == true){
+                var videoTit = window.localStorage.getItem("videoTitle");
+                document.getElementById("vTitle").innerHTML = videoTit;
                 var fileLoc = window.localStorage.getItem("fileLoc");
                 var video = $('#divVideo video')[0];
                 video.src = fileLoc;

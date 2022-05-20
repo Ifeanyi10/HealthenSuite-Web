@@ -14,7 +14,9 @@ function logout(){
 }
 
 function notEligibleAlert(){
-    swal({title: "This patient is not ELIGIBLE!", text: "This tool is only designed to help patients reduce and stop up to two BZRAs for insomnia.", type: "error"},
+
+    var content = "<span style='font-weight: bold'>This patient is not eligible</span> <span> since this tool is designed to help patients reduce/stop up to two BZRAs for insomnia.</span>";
+    swal({title: "", text: content , html: true},
                 function(){ 
                     //window.location.href = "provider-dashboard.html";
                 }
@@ -22,13 +24,13 @@ function notEligibleAlert(){
 }
 
 function infoAlert(){
-    swal({title: "Select the OPPOSITE!", text: "Please select the opposite of what you selected to continue.", type: "info"},
+    var content = "<span style='font-weight: bold'>Please select 'Yes'</span> <span>to proceed with the sleep medication deprescribing study.</span>";
+    swal({title: "", text: content, html: true},
                 function(){ 
                     //window.location.href = "provider-dashboard.html";
                 }
                 );
 }
-
 
 function hideDispaly1() {
     var x = document.getElementById('firstQ');
@@ -253,8 +255,8 @@ function displaySreeen2() {
     var x = document.getElementById('screen1');
     var y = document.getElementById('screen2');
 
-        y.style.display = 'block';         
-        x.style.display = 'none';
+    y.style.display = 'block';         
+    x.style.display = 'none';
 }
 
 function prpareScreen3(dispalyValue, otherDisplayValeu, medOptions){
@@ -519,11 +521,13 @@ function displaySreeen3() {
     if(howMany == limit){
         y.style.display = 'block';  
         x.style.display = 'none';
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     } else if(howMany == 1 && limit == 2){
         swal({
-            title: "",
+            title: "Attention",
              text: "You indicated that your patient is currently taking 1 benzodiazepines and/or Z-drugs earlier but you selected 2 BZRA medication(s) here.",
-            type: "info",
+            // type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
             confirmButtonText: "Yes, I am aware. Continue",
@@ -538,6 +542,8 @@ function displaySreeen3() {
                 swal.close()
                 y.style.display = 'block';  
                 x.style.display = 'none';
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             } else {
                 swal.close();
             }
@@ -546,9 +552,9 @@ function displaySreeen3() {
 
     } else if(howMany == 2 && limit == 1){
         swal({
-            title: "",
+            title: "Attention",
              text: "You indicated that your patient is currently taking 2 benzodiazepines and/or Z-drugs earlier but you selected 1 BZRA medication(s) here.",
-            type: "info",
+            // type: "info",
             showCancelButton: true,
             confirmButtonColor: "#2087c8",
             confirmButtonText: "Yes, I am aware. Continue",
@@ -563,6 +569,8 @@ function displaySreeen3() {
                 swal.close()
                 y.style.display = 'block';  
                 x.style.display = 'none';
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             } else {
                 swal.close()
             }
@@ -577,8 +585,11 @@ function displaySreeen4() {
     var x = document.getElementById('screen3');
     var y = document.getElementById('screen4');
 
-        y.style.display = 'block';         
-        x.style.display = 'none';
+    y.style.display = 'block';         
+    x.style.display = 'none';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 function displaySreeen5() {
@@ -588,8 +599,11 @@ function displaySreeen5() {
     document.getElementById('pName').innerHTML =  window.localStorage.getItem("patientName");
     document.getElementById('pFirstName').innerHTML =  window.localStorage.getItem("patientFName");
 
-        y.style.display = 'block';         
-        x.style.display = 'none';
+    y.style.display = 'block';         
+    x.style.display = 'none';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 function goBack(firstDisplay, secondDisplay){
@@ -598,6 +612,9 @@ function goBack(firstDisplay, secondDisplay){
     
     x.style.display = 'none';
     y.style.display = 'block';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 function goBackQ2(firstDisplay, secondDisplay){
@@ -610,6 +627,8 @@ function goBackQ2(firstDisplay, secondDisplay){
     }else{
         y.style.display = 'block';
     }  
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 
@@ -621,6 +640,9 @@ $('#btnBackScreen5').on('click', function(event){
 
     y.style.display = 'none';         
     x.style.display = 'block';
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 });
 
 $(document).ready(function () {
@@ -636,14 +658,16 @@ $(document).ready(function () {
 
         var y = document.getElementById('screen4');
         y.style.display = 'none';
-        displaySreeen3();
+        var z = document.getElementById('screen3');
+        z.style.display = 'block';
+        //displaySreeen3();
     });
 
     //Go back to screen 2
     $('#btnBackScreen3').on('click', function(event){
         event.preventDefault();
         if(limit < 1){
-            sweetAlert("Attention!","Please click on the Add/Remove Medication button to add medication before you go back.","info");
+            sweetAlert("Attention","Please click on the Add/Remove Medication button to add medication before you go back.");
         }else{
             var y = document.getElementById('screen3');
             y.style.display = 'none';
@@ -815,7 +839,7 @@ for (i = 0; i < checkboxes2.length; i++) {
 
 
 $('#bzra').tooltip({
-    title: "BZRAs are benzodiazepine receptor agonists and include the benzodiazepines and Z-drugs. Patients taking over-the-counter medications (e.g., Gravol, Benedryl, Sleep-Eze, Advil, Tylenol, and other night time formulations), tricyclic antidepressants (e.g., Amitriptyline) and other medications like Seroquel, Trazodone are eligible to use this tool. However, these medications cannot be tapered using this tool.",
+    title: "BZRAs include benzodiazepines and Z-drugs.",
     placement: "right",
     trigger: 'hover' 
 })
