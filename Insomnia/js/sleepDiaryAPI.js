@@ -6,6 +6,7 @@ var requiredFieldsAreFilled = false;
 var variableOk = true;
 var lastQuestionIsSelected = false;
 var time1 = false; var time2 = false; var time3 = false; var time4 = false;
+var otherAmTaken1, otherMedName1;
 
 // function fillSleepDiaryFields(){
 //     var bt = document.getElementById('btnSDNext');
@@ -48,8 +49,8 @@ function AddMed(med2, am2, med3, am3, btnId){
 function buildAnyMedBlock(medName, medAm, medId){
     var anyMedBlock = {};
 
-    otherMedName = $(medName).text();
-    otherAmTaken = $(medAm).text();
+    var otherMedName = $(medName).text();
+    var otherAmTaken = $(medAm).text();
     var otherMedID = window.localStorage.getItem(medId);
     if(otherMedID != null){
         otherMedID = parseInt(otherMedID);
@@ -63,6 +64,11 @@ function buildAnyMedBlock(medName, medAm, medId){
             "medicationName": otherMedName,
             "amount": otherAmTaken
         }
+    }
+
+    if(medName == "#anyMedName" || medName == "#otherMedName"){
+        otherMedName1 = otherMedName;
+        otherAmTaken1 = otherAmTaken;
     }
 
     return anyMedBlock;
@@ -151,27 +157,37 @@ function displaySleepMed(div1, div2, hds){
         spMinuteOpt.style.border = "1px solid #BCBCBC";
     }
 
-    //var bedT = rearrangeTime(bdT, 'bedTime');
-    var bedT = rearrangeTime('pickHour1', 'pickMinute1', 'amPm1');
+    // //var bedT = rearrangeTime(bdT, 'bedTime');
+    // var bedT = rearrangeTime('pickHour1', 'pickMinute1', 'amPm1');
     
-    //var tryBedT = rearrangeTime(tryBdT, 'trySleepTime');
-    var tryBedT = rearrangeTime('pickHour2', 'pickMinute2', 'amPm2');
+    // //var tryBedT = rearrangeTime(tryBdT, 'trySleepTime');
+    // var tryBedT = rearrangeTime('pickHour2', 'pickMinute2', 'amPm2');
 
-    //var wakeT = rearrangeTime(wkT, 'finalAwakeTime');
-    var wakeT = rearrangeTime('pickHour3', 'pickMinute3', 'amPm3');
+    // //var wakeT = rearrangeTime(wkT, 'finalAwakeTime');
+    // var wakeT = rearrangeTime('pickHour3', 'pickMinute3', 'amPm3');
     
-    //var tryWakeT = rearrangeTime(outWkT, 'outOfBedTime');
-    var tryWakeT = rearrangeTime('pickHour4', 'pickMinute4', 'amPm4');
+    // //var tryWakeT = rearrangeTime(outWkT, 'outOfBedTime');
+    // var tryWakeT = rearrangeTime('pickHour4', 'pickMinute4', 'amPm4');
 
-    bedDiff = tryBedT - bedT;
+    var hourOpts = document.getElementById('hourOpt').value;
+    var minuteOpts = document.getElementById('minuteOpt').value;
+    var spHourOpts = document.getElementById('spHourOpt').value;
+    var spMinuteOpts = document.getElementById('spMinuteOpt').value;
+
+
+    bedDiff = calculateTimeDiff('pickHour1', 'pickMinute1', 'amPm1', 'pickHour2', 'pickMinute2', 'amPm2');
+    // bedDiff = tryBedT - bedT;
     console.log("Bed time difference: " + bedDiff);
 
-    wakeDiff = tryWakeT - wakeT;
+    wakeDiff = calculateTimeDiff('pickHour3', 'pickMinute3', 'amPm3', 'pickHour4', 'pickMinute4', 'amPm4');
+    // wakeDiff = tryWakeT - wakeT;
     console.log("Wake time difference: " + wakeDiff);
 
+    timeInterval = calculateTimeIntervals('pickHour2', 'pickMinute2', 'amPm2', 'pickHour3', 'pickMinute3', 'amPm3', spHourOpts, spMinuteOpts, hourOpts, minuteOpts)
     // timeIsOkay = checkBedTime('pickHour1', 'amPm1')
 
-    timeDiffIsOkay = checkBedAndWakeUpTime('pickHour2', 'amPm2', 'pickHour3', 'amPm3')
+    timeDiffIsOkay = checkBedAndWakeUpTime('pickHour2', 'pickMinute2', 'amPm2', 'pickHour3', 'pickMinute3', 'amPm3');
+    // timeDiffIsOkay = checkBedAndWakeUpTime('pickHour2', 'amPm2', 'pickHour3', 'amPm3')
     console.log("The time differencessss: " + timeDiffIsOkay);
 
     checkWakeUpCount();
@@ -194,11 +210,13 @@ function displaySleepMed(div1, div2, hds){
 
     // if(!timeIsOkay){
     //     sweetAlert("Attention","Check Question #1. The time you get to bed to sleep seems too late.");
-    // }else 
+    // }else timeInterval
     if(bedDiff < 0){
         sweetAlert("Attention","Check Question #1 and #2. The time you tried to sleep is before your bed time.");
     }else if(!timeDiffIsOkay){
         sweetAlert("Attention","Check Question #2 and #6. The time you tried to sleep is the same or beyond your wake up time.");
+    }else if(timeInterval < 0){
+        sweetAlert("Attention","Check Question #2, #3, #5, and #6. The time you tried to sleep, the time it took you to fall asleep and the number of awakenings is the same or beyond your wake up time.");
     }else if(wakeDiff < 0){
         sweetAlert("Attention","Check Question #6 and #7. Your out of bed time is before your final awakening time.");
     }else{
@@ -290,39 +308,134 @@ function checkBedTime(hrId, amPmId){
     return timeIsOkay;
 }
 
-function checkBedAndWakeUpTime(hrId, amPmId, hrId2, amPmId2){
+function checkBedAndWakeUpTime(hrId1, mnId1, amPmId1, hrId2, mnId2, amPmId2){
     var timeIsOkay = true;
-    let selectedHour = document.getElementById(hrId).value;
-    var selectedAmPm = document.getElementById(amPmId).value;
+    var diff = calculateTimeDiff(hrId1, mnId1, amPmId1, hrId2, mnId2, amPmId2);
 
-    let selectedHour2 = document.getElementById(hrId2).value;
-    var selectedAmPm2 = document.getElementById(amPmId2).value;
-
-    if(selectedAmPm == "AM" && selectedAmPm2 == "AM"){
-        if(selectedHour >= selectedHour2 && selectedHour != 12){
-            timeIsOkay = false;
-        }
+    if(diff <= 0){
+        timeIsOkay = false;
     }
     return timeIsOkay;
 }
 
-function rearrangeTime(hrId, mnId, amPmId){
-    let selectedHour = document.getElementById(hrId).value;
-    let selectedMinute = document.getElementById(mnId).value;
-    var selectedAmPm = document.getElementById(amPmId).value;
-    console.log("selectedMinute: "+selectedMinute)
-    if(selectedAmPm == "AM"){
-        if(selectedHour == 12){
-            selectedHour = 24;
-        }else{
-            selectedHour += 24;
-        } 
+// function checkBedAndWakeUpTime(hrId, amPmId, hrId2, amPmId2){
+//     var timeIsOkay = true;
+//     let selectedHour = document.getElementById(hrId).value;
+//     var selectedAmPm = document.getElementById(amPmId).value;
+
+//     let selectedHour2 = document.getElementById(hrId2).value;
+//     var selectedAmPm2 = document.getElementById(amPmId2).value;
+
+//     if(selectedAmPm == "AM" && selectedAmPm2 == "AM"){
+//         if(selectedHour >= selectedHour2 && selectedHour != 12){
+//             timeIsOkay = false;
+//         }
+//     }
+//     return timeIsOkay;
+// }
+
+function calculateTimeDiff(hrId1, mnId1, amPmId1, hrId2, mnId2, amPmId2){
+    var firstDate = "01/01/2022";
+    var secondDate = "01/02/2022";
+    let selectedHour = document.getElementById(hrId1).value;
+    let selectedMinute = document.getElementById(mnId1).value;
+    var selectedAmPm = document.getElementById(amPmId1).value;
+    let selectedHour2 = document.getElementById(hrId2).value;
+    let selectedMinute2 = document.getElementById(mnId2).value;
+    var selectedAmPm2 = document.getElementById(amPmId2).value;
+    var firstTime = selectedHour+":"+selectedMinute+" "+selectedAmPm;
+    var secondTime = selectedHour2+":"+selectedMinute2+" "+selectedAmPm2;
+    
+    var timeStart = new Date(firstDate + " " + firstTime);
+    var timeEnd = "";
+    if(selectedAmPm == "PM" && selectedAmPm2 == "AM"){
+        timeEnd = new Date(secondDate + " " + secondTime);
+    }else{
+        timeEnd = new Date(firstDate + " " + secondTime);
     }
-    console.log("Raw hours: "+selectedHour)
-    let hrs = 60 * selectedHour
-    console.log("The given time is: "+ selectedHour + selectedMinute)
-    return hrs + selectedMinute;
+
+    // console.log("timeEnd: "+timeEnd)
+    // console.log("timeStart2: "+timeStart)
+
+    var diff = (timeEnd - timeStart) / 60000; //dividing by seconds and milliseconds
+
+    var minutes = diff % 60;
+    var hour = (diff - minutes) / 60;
+
+    var inMinutes = (hour * 60) + minutes;
+
+    console.log("Time Difference in minutes: "+inMinutes)
+    console.log("Time Difference in Hours: "+hour)
+    
+    return inMinutes;
 }
+
+function addHoursToDate(date, hours) {
+    return new Date(new Date(date).setHours(date.getHours() + hours));
+}
+
+function addMinutesToDate(date, minutes) {
+    return new Date(new Date(date).setMinutes(date.getMinutes() + minutes));
+}
+
+function calculateTimeIntervals(hrId1, mnId1, amPmId1, hrId2, mnId2, amPmId2, hr1, mn1, hr2, mn2){
+    var firstDate = "01/01/2022";
+    var secondDate = "01/02/2022";
+    let selectedHour = document.getElementById(hrId1).value;
+    let selectedMinute = document.getElementById(mnId1).value;
+    var selectedAmPm = document.getElementById(amPmId1).value;
+    let selectedHour2 = document.getElementById(hrId2).value;
+    let selectedMinute2 = document.getElementById(mnId2).value;
+    var selectedAmPm2 = document.getElementById(amPmId2).value;
+    var firstTime = selectedHour+":"+selectedMinute+" "+selectedAmPm;
+    var secondTime = selectedHour2+":"+selectedMinute2+" "+selectedAmPm2;
+    
+    var timeStart = new Date(firstDate + " " + firstTime);
+    var timeEnd = "";
+    if(selectedAmPm == "PM" && selectedAmPm2 == "AM"){
+        timeEnd = new Date(secondDate + " " + secondTime);
+    }else{
+        timeEnd = new Date(firstDate + " " + secondTime);
+    }
+    // console.log("timeStart1: "+timeStart)
+    var myHours = parseInt(hr1) + parseInt(hr2);
+    let myMinutes = parseInt(mn1) + parseInt(mn2);
+    timeStart = addHoursToDate(timeStart, myHours);
+    timeStart = addMinutesToDate(timeStart, myMinutes);
+
+    // console.log("timeEnd: "+timeEnd)
+    // console.log("timeStart2: "+timeStart)
+
+    var diff = (timeEnd - timeStart) / 60000; //dividing by seconds and milliseconds
+
+    var minutes = diff % 60;
+    var hour = (diff - minutes) / 60;
+
+    var inMinutes = (hour * 60) + minutes;
+
+    console.log("Time Difference in minutes: "+inMinutes)
+    console.log("Time Difference in Hours: "+hour)
+    
+    return inMinutes;
+}
+
+// function rearrangeTime(hrId, mnId, amPmId){
+//     let selectedHour = document.getElementById(hrId).value;
+//     let selectedMinute = document.getElementById(mnId).value;
+//     var selectedAmPm = document.getElementById(amPmId).value;
+//     console.log("selectedMinute: "+selectedMinute)
+//     if(selectedAmPm == "AM"){
+//         if(selectedHour == 12){
+//             selectedHour = 24;
+//         }else{
+//             selectedHour = parseInt(selectedHour + 24);
+//         } 
+//     }
+//     console.log("Raw hours: "+selectedHour)
+//     let hrs = 60 * selectedHour
+//     console.log("The given time is: "+ (hrs + selectedMinute))
+//     return (hrs + selectedMinute);
+// }
 
 function reformatTime(hrId, mnId, amPmId){
     let selectedHour = document.getElementById(hrId).value;
@@ -675,7 +788,7 @@ $(document).ready(function () {
         var anyMedBlock1 = {};
         var anyMedBlock2 = {};
         var anyMedBlock3 = {};
-        var otherAmTaken, otherMedName;
+        
         if(trialNo == 1){
             anyMedBlock1 = buildAnyMedBlock('#anyMedName', '#anyAmTaken', 'anyMedID');
             anyMedBlock2 = buildAnyMedBlock('#anyMedName2', '#anyAmTaken2', 'anyMedID2');
@@ -766,7 +879,8 @@ $(document).ready(function () {
         //window.location.href = "sleep-medication.html";
 
         var otherMedIsValidated = false;
-        if(tookAnotherMedication && (otherMedName != "" && otherAmTaken != "")){
+        if(tookAnotherMedication && (otherMedName1 != "" && otherAmTaken1 != "")){
+            console.log("This is empty: "+otherMedName1+" and then: "+otherAmTaken1)
             otherMedIsValidated = true;
         }else if(!tookAnotherMedication){
             otherMedIsValidated = true;

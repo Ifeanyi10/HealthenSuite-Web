@@ -44,7 +44,13 @@
                                     var currentDate = '';
                                     var prevDate = '';
 
-                                    document.getElementById('tableDiv').style.display = 'block';
+                                    if(result.sleepDiaries != null){
+                                        document.getElementById('headTit').innerHTML = "My Task List";
+                                        document.getElementById('tableDiv').style.display = 'block';
+                                    }else{
+                                        document.getElementById('headTit').innerHTML = "No Task Yet";
+                                    }
+                                    
 
                                     var randomGroupID = window.localStorage.getItem("randomGroupID");
                                     
@@ -393,6 +399,15 @@
                         </ul>
                     </li>
 
+                    <li class="mega-menu mega-menu-sm tp-sched" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-clock menu-icon"></i><span class="nav-text">Taper Schedule</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./taper-schedule.html">My Taper Schedule</a></li>
+                        </ul>
+                    </li>
+
                     <li class="mega-menu mega-menu-sm spDiary">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
@@ -526,9 +541,9 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title colorPrimary">My Task List</h4><hr>
+                                <h4 class="card-title colorPrimary" id="headTit">My Task List</h4><hr>
                                 <div class="active-member">
-                                    <div class="table-responsive" id="tableDiv">
+                                    <div class="table-responsive hidden" id="tableDiv">
                                         <table class="table table-xs mb-0">
                                             <thead>
                                                 <tr>

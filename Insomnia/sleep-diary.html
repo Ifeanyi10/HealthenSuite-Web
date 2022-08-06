@@ -81,22 +81,23 @@
                 reformatAndSetTime(formatTime(mySleep.bedTime), 'pickHour1', 'pickMinute1', 'amPm1')
                 //document.getElementById('trySleepTime').value = formatTime(mySleep.tryTosleepTime);
                 reformatAndSetTime(formatTime(mySleep.tryTosleepTime), 'pickHour2', 'pickMinute2', 'amPm2')
+                
                 var sduration = mySleep.durationBeforesleepoff;
                 let hrSp = parseInt(sduration / 60);
                 //document.getElementById("spHourOpt").selectedIndex = hrSp + 1;
-                document.getElementById("spHourOpt").selectedIndex = hrSp;
+                document.getElementById("spHourOpt").selectedIndex = hrSp + 1;
                 let minSp = parseInt(sduration % 60);
                 //document.getElementById("spMinuteOpt").selectedIndex = minSp + 1;
-                document.getElementById("spMinuteOpt").selectedIndex = minSp;
+                document.getElementById("spMinuteOpt").selectedIndex = minSp + 1;
                 var wakeCount = mySleep.wakeUptimeCount;
                 document.getElementById('wakeUpCount').innerHTML = wakeCount;
                 var wDuration = mySleep.totalWakeUpduration;
                 let hrWk = parseInt(wDuration / 60);
                 //document.getElementById("hourOpt").selectedIndex = hrWk + 1;
-                document.getElementById("hourOpt").selectedIndex = hrWk;
+                document.getElementById("hourOpt").selectedIndex = hrWk + 1;
                 let minWk = parseInt(wDuration % 60);
                 //document.getElementById("minuteOpt").selectedIndex = minWk + 1;
-                document.getElementById("minuteOpt").selectedIndex = minWk;
+                document.getElementById("minuteOpt").selectedIndex = minWk + 1;
                 //document.getElementById('finalAwakeTime').value = formatTime(mySleep.finalWakeupTime);
                 reformatAndSetTime(formatTime(mySleep.finalWakeupTime), 'pickHour3', 'pickMinute3', 'amPm3')
                 //document.getElementById('outOfBedTime').value = formatTime(mySleep.timeLeftbed);
@@ -406,6 +407,15 @@
                         </ul>
                     </li>
 
+                    <li class="mega-menu mega-menu-sm tp-sched" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-clock menu-icon"></i><span class="nav-text">Taper Schedule</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./taper-schedule.html">My Taper Schedule</a></li>
+                        </ul>
+                    </li>
+
                     <li class="mega-menu mega-menu-sm">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
@@ -523,8 +533,8 @@
                                                 <select class="form-control hrClass" id="pickHour1"></select>
                                                 <select class="form-control" id="pickMinute1"></select>
                                                 <select class="form-control" id="amPm1">
-                                                    <option value="AM" selected>AM</option>
-                                                    <option value="PM">PM</option>
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM" selected>PM</option>
                                                 </select>
                                             </div>
                                             <div class="form-group" id="pickHour1Err" style="color: #8c0615; font-weight: bolder;"></div>
@@ -539,8 +549,8 @@
                                                 <select class="form-control hrClass" id="pickHour2"></select>
                                                 <select class="form-control" id="pickMinute2"></select>
                                                 <select class="form-control" id="amPm2">
-                                                    <option value="AM" selected>AM</option>
-                                                    <option value="PM">PM</option>
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM" selected>PM</option>
                                                 </select>
                                             </div>
                                             <div class="form-group" id="pickHour2Err" style="color: #8c0615; font-weight: bolder;"></div>
@@ -581,7 +591,7 @@
                                                 <select class="form-control" id="pickMinute3"></select>
                                                 <select class="form-control" id="amPm3">
                                                     <option value="AM">AM</option>
-                                                    <!-- <option value="PM">PM</option> -->
+                                                    <option value="PM">PM</option>
                                                 </select>
                                             </div>
                                             <div class="form-group" id="pickHour3Err" style="color: #8c0615; font-weight: bolder;"></div>
@@ -595,7 +605,7 @@
                                                 <select class="form-control" id="pickMinute4"></select>
                                                 <select class="form-control" id="amPm4">
                                                     <option value="AM">AM</option>
-                                                    <!-- <option value="PM">PM</option> -->
+                                                    <option value="PM">PM</option>
                                                 </select>
                                             </div>
                                             <div class="form-group" id="pickHour4Err" style="color: #8c0615; font-weight: bolder;"></div>
@@ -674,7 +684,7 @@
 
                                     <div class="hidden" id="trial2Med" style="margin-top: 10px;">
                                         <div class="col-md-6">
-                                            <label>How much <strong id="medName1"></strong> did you take today? (Number Only) <span style="color: red;">*</span></label>
+                                            <label>How much <strong id="medName1"></strong> (milligrams) did you take today? (Number Only) <span style="color: red;">*</span></label>
                                             <div class="form-control edittDiv NumberDiv" id="medName1Val" contenteditable="true" inputmode=numeric></div>
                                             <div class="form-group" id="medNameVal1Error" style="color: #8c0615; font-weight: bolder;"></div>
                                             <!-- <select class="form-control" id="doseOpt" onchange="this.nextElementSibling.value=this.value">
@@ -691,7 +701,7 @@
                                                 </datalist> -->
 
                                             <div class="hidden"  id="extraMed">
-                                                <label class="sleepMargin">How much <strong id="medName2"></strong> did you take today? (Number Only) <span style="color: red;">*</span></label>
+                                                <label class="sleepMargin">How much <strong id="medName2"></strong> (milligrams) did you take today? (Number Only) <span style="color: red;">*</span></label>
                                                 <div class="form-control edittDiv NumberDiv" id="medName2Val" contenteditable="true" inputmode=numeric></div>
                                                 <div class="form-group" id="medName2ValError" style="color: #8c0615; font-weight: bolder;"></div>
                                                  <!-- <input class="form-control" list="doseOpt2" name="doseVal2" id="doseVal2">
@@ -709,9 +719,10 @@
                                             
                                         </div>
                                         <div class="col-md-12 hidden" id="otherMedInfo">
+                                            <label class="lblQuestion sleepMargin">How many milligrams or pills or tablespoons, as applicable?</label><br/>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label class="sleepMargin">Medication Name 1:</label>
+                                                    <label class="sleepMargin">Medication Name 1: </label>
                                                     <div class="form-control edittDiv" id="otherMedName" contenteditable="true"></div>
                                                     <!-- <input type="text" class="form-control" id="otherMedName" placeholder="Enter medication name"> -->
                                                 </div>
@@ -765,6 +776,7 @@
 
                                         </div>
                                         <div class="col-md-12 hidden" id="anyMedInfo">
+                                            <label class="lblQuestion sleepMargin">How many milligrams or pills or tablespoons, as applicable?</label><br/>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label class="sleepMargin">Medication Name 1:</label>

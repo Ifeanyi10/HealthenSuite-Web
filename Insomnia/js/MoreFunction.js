@@ -7,6 +7,11 @@ function logout(){
 
 $(document).ready(function () {
 
+    var trialNo = window.localStorage.getItem("trialNo");
+    if(trialNo == 2){
+        $(".tp-sched").css('display', 'block');  
+    }
+
     var enableSpClock = window.localStorage.getItem("enableSpClock");
 
     console.log('Sleep Clock is: '+ enableSpClock)

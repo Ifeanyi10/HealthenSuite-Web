@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html class="h-100" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Health enSuite Patient Feedback</title>
+    <title>Health enSuite Patient Medication Tab</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
-    <!-- Pignose Calender -->
+    <!-- Custom Stylesheet -->
     <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
     <!-- Page plugins css -->
     <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
@@ -19,41 +20,109 @@
     <!-- Daterange picker plugins css -->
     <link href="./plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
     <link href="./plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
 
-    <!-- <script language="javascript">
+    <script language="javascript">
 
-                    window.onload = function getPatientsProfile(){
-                            let url = 'http://health.us-east-2.elasticbeanstalk.com/insomnia/v1/patient/accessid';
+        window.onload = function getProviderPatients(){
+                            var urlDomain = window.localStorage.getItem("urlDomain");
+                            let url = urlDomain + 'insomnia/v1/tapper/saved-tapperschedule';
                             let authToken = window.localStorage.getItem("patientToken");
-                            alert(authToken);
+                            console.log(authToken);
+                            $("#taperTable").find("tbody").empty(); //clear all the content from tbody here.
+                            $("#taperTable2").find("tbody").empty(); //clear all the content from tbody here.
+                            var secondTB = document.getElementById('accordion-two');
+                            secondTB.style.display = 'none';
+                            var tableBody = '#taperTBody';
+                            var captionName = 'drugNm';
+                            var schDate = document.getElementById('schDate');
+                            var schList = document.getElementById('schList');
                             $.ajax({
                                 url: url,
                                 type: 'GET',
                                 headers: {
-                                    'Content-Type': 'application/json',
+                                    'Content-Type': 'application/json', 
                                     'Accept': '*/*',
                                     'Authorization': 'Bearer '+ authToken
                                 },
                                 success: function(result){
                                     console.log(result);
+                                    // var taperStartDate = result.taperStartDate;
+                                    schDate.style.display = 'block';
+                                    schList.style.display = 'block';
+                                    document.getElementById('headTit').innerHTML = "Taper Schedule";
+                                    document.getElementById('stDate').innerHTML = result.taperStartDate;
 
-                                    window.localStorage.setItem("patientsID", result.id);
+                                    $(result.recommendedMedicationsmedications).each(function(i, taper){
+                                        document.getElementById(captionName).innerHTML  = taper.medicationName;
+                                        $(taper.weeklyschedue).each(function(i, def){
 
-                                    window.localStorage.setItem("patientLastName", result.lastName);
-                                    window.localStorage.setItem("patientFirstName", result.firstName);
-                                    window.localStorage.setItem("patientPhone", result.phoneNumber);
-                                    window.localStorage.setItem("patientEmail", result.email);
-                                    console.log(window.localStorage.getItem("patientsID"));
-                                },
+                                            window["td"+i+1]= document.createElement('td');
+                                            window["td"+i+1].style.border = '1px solid #dddddd';
+                                            window["td"+i+1].style.textAlign = 'center';
+                                            window["td"+i+1].style.padding = '8px';
+
+                                            window["td"+i+2] = document.createElement('td');
+                                            window["td"+i+2].style.border = '1px solid #dddddd';
+                                            window["td"+i+2].style.textAlign = 'center';
+                                            window["td"+i+2].style.padding = '8px';
+
+                                            window["td"+i+3] = document.createElement('td');
+                                            window["td"+i+3].style.border = '1px solid #dddddd';
+                                            window["td"+i+3].style.textAlign = 'left';
+                                            window["td"+i+3].style.padding = '8px';
+                                            window["td"+i+3].style.display = 'flex';
+
+                                            window["td"+i+4] = document.createElement('td');
+                                            window["td"+i+4].style.border = '1px solid #dddddd';
+                                            window["td"+i+4].style.textAlign = 'center';
+                                            window["td"+i+4].style.padding = '8px';
+                                            
+                                            window["td"+i+5] = document.createElement('td');
+                                            window["td"+i+5].style.border = '1px solid #dddddd';
+                                            window["td"+i+5].style.textAlign = 'center';
+                                            window["td"+i+5].style.padding = '8px';
+                                            
+
+                                            $(tableBody).append($("<tr>")
+                                            .append($(window["td"+i+1]).append(def.weekcount))
+                                            .append($(window["td"+i+2]).append(def.medicationname))
+                                            .append($(window["td"+i+4]).append(def.dose))
+                                            .append($(window["td"+i+3]).append(def.startDate))
+                                            .append($(window["td"+i+5]).append(def.endDate)));
+ 
+
+                                        });
+                                        tableBody = '#taperTBody2';
+                                        captionName = 'drugNm2';
+                                        if(i > 0){
+                                            secondTB.style.display = 'block';
+                                        }
+                                        
+                                    });
+                                   
+                                   // });
+
+                                }, 
                                 error: function(msg){
-                                    console.log("Loading Patients details failed");
+                                    console.log("Loading taper schedule details failed");
+                                   document.getElementById('headTit').innerHTML = "No Taper Schedule Recorded";
                                 }
                             });
+
+                                
                         }
 
-          </script> -->
+                                                    
+          </script>
 
 </head>
 
@@ -73,7 +142,7 @@
         Preloader end
     ********************-->
 
-
+    
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -104,7 +173,7 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
+        <div class="header">    
             <div class="header-content clearfix">
 
                 <div class="nav-control">
@@ -113,23 +182,22 @@
                     </div>
                     <label class="aniLbl">Click on the blue section or the hamburger icon to expand the side menu.</label>
                 </div>
-
+                
                 <div class="header-right">
                     <ul class="clearfix">
-
+                        
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
                                 <img src="images/user/form-user.png" height="40" width="40" alt="">
                             </div>
-                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                            <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
                                         <li>
                                             <a href="patient-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
                                         </li>
-
-                                        <li><a href="../index.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                        <li><a href="../index.html" onclick="logout();"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -145,7 +213,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">
+        <div class="nk-sidebar">           
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Patient Dashboard</li>
@@ -210,7 +278,7 @@
                             <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Sleep Medication</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="./program-content.html">My Sleep Medication</a></li>
+                            <li><a href="./sleep-medication.html">My Sleep Medication</a></li>
                         </ul>
                     </li> -->
 
@@ -243,8 +311,7 @@
                             <li><a href="./voluntary-withdrawal.html">Voluntary Withdrawal</a></li>
                         </ul>
                     </li>
-
-
+                    
                 </ul>
             </div>
         </div>
@@ -259,142 +326,107 @@
 
             <div class="container-fluid mt-3">
                 <div class="row">
-                    <!-- <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="col-lg-12" id="patientMedList">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">SLEEP DIARY</h4>
-                                <h5 class="mt-3">Completed <span class="float-right">10%</span></h5>
-                                <div class="progress" style="height: 9px">
-                                    <div class="progress-bar bg-danger wow  progress-" style="width: 10%;" role="progressbar"><span class="sr-only">60% Complete</span>
-                                    </div>
+                                <h4 class="card-title colorPrimary" id="headTit"></h4><hr><br>
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 hidden" id="schDate">
+                                    <label class="baseTopicStyle">Taper Start Date: </label>
+                                    <label id="stDate"></label>
                                 </div>
+                            
+                                <div class="scrollit hidden" id="schList">
+
+                                <div class="table-responsive no-overflow accordion" id="accordion-one">
+
+                                    <!-- <label class="lblQuestion colorSubHeader">Medication 1: </label> <label class="lblQuestion colorSubHeader" id="drugNm"></label> -->
+                                    <h5 class="mb-0 colorSubHeader" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><i class="fa" aria-hidden="true"></i> Medication 1: <span id="drugNm"></span> </h5>
+
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordion-one">
+
+
+                                        <table class="table table-bordered" id="taperTable">
+                                            <thead id="taperTHead">
+
+                                                <tr>
+                                                    <th>Taper week</th>
+                                                    <th>Medication Name</th>
+                                                    <th>Taper Dose (mg)</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="taperTBody">
+                                                
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div><br/></br>
+
+
+
+                                <div class="table-responsive no-overflow accordion hidden" id="accordion-two">
+
+                                    <!-- <label class="lblQuestion colorSubHeader">Medication 2: </label> <label class="lblQuestion colorSubHeader" id="drugNm2"></label> -->
+                                    <h5 class="mb-0" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne1"><i class="fa" aria-hidden="true"></i>  Medication 2: <span id="drugNm2"></span> </h5>
+
+                                    <div id="collapseOne1" class="collapse show" data-parent="#accordion-two">
+
+                                        <table class="table table-bordered" id="taperTable2">
+                                            <thead id="taperTHead2">
+                                                <tr>
+                                                    <th>Taper week</th>
+                                                    <th>Medication Name</th>
+                                                    <th>Provider-Recommended Taper Dose (mg)</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="taperTBody2">
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
 
                             </div>
-                        </div>
 
-                    </div> -->
-
-                    <div class="col-lg-12 col-md-12 col-sm-12" >
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title colorPrimary">My Feedback</h4><hr>
-
-                                <div>
-                                    <!-- <h3 class="consentInfoHeadSmall justifyDiv">Contact Us</h3> -->
-                                    <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Contact Us</label>
-                                </div>
-                                
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label class="consentInfoBody">By Email:</label>
-                                    <label class="consentInfoBody">TeamHealthEnSuite@iwk.nshealth.ca</label>
-                                </div>
-                                
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <label class="consentInfoBody">By Phone:</label>
-                                    <label class="consentInfoBody">(902) 470 7934 or call toll-free number: 1-877-341-8309 press 5</label>
-                                </div>
-
-                                <div>
-                                    <input type='button' class='btn-primary' onclick="hideDisplay('reportMessage','suggestMessage');" value='You need help or want to report an issue, click here. Your suggestions to improve our app are always welcome.'/>
-                                </div>
-
-                                <!-- <div>
-                                    <input type='button' class='btn-primary' onclick="hideDisplay('reportMessage','suggestMessage');" value='Click to give a suggestion'/>
-                                </div>
-
-                                <div>
-                                    <input type='button' class='btn-primary' onclick="hideDisplay('suggestMessage','reportMessage');" value='Click to report a bug/need help'/>
-                                </div> -->
-
-
-                                <div class="sleepDiv hidden" id="suggestMessage">
-                                    <div>
-                                        <!-- <h3 class="consentInfoHeadSmall justifyDiv">Suggestion Note</h3> -->
-                                        <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Suggestion Note</label>
-                                    </div>
-                                    <div class="input-group">
-                                        <textarea rows="4" cols="85" maxlength = "500" name="comment" id="suggestNote" form="usrform" placeholder="Enter note here..."> </textarea>
-                                    </div>
-                                    <input type='button' class='btn-primary' onclick="submitFeedback(event, 'suggestNote');" id="btnSuggestSubmit" value='Submit Suggestion'/>
-                                    <!-- <div class="sleepDiv">
-                                        
-                                    </div> -->
-                                </div>
-
-
-                                <div class="sleepDiv hidden" id="reportMessage">
-                                    <!-- <div>
-                                        
-                                        <label class="lblQuestion colorSubHeader" style="margin-bottom: 0px;">Report Note</label>
-                                    </div>
-                                    <div class="input-group">
-                                        <textarea rows="4" cols="85" name="comment" id="reportNote" form="usrform" placeholder="Enter note here..."> </textarea>
-                                    </div>
-                                    <input type='button' class='btn-primary' onclick="submitFeedback(event, 'reportNote');" id="btnReportSubmit" value='Submit Report'/> -->
-                                    
-                                </div>
-
-                            </div>
                         </div>
                     </div>
 
 
+                   
+
+
+                    
+                      
                 </div>
-
-                <div class="bootstrap-modal">
-                    <!-- Modal Change Email-->
-                    <div class="modal fade" id="loginModal">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalTitle">Patient Quick Login</h5>
-                                    <!-- <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                    </button> -->
-                                </div>
-                                <div class="modal-body">
-                                    <div class="lookup">
-                                        You have been away! Please sign in again. This is to ensure that your account is not access by someone else.
-                                    </div>
-                                    <form class="mt-5 mb-5 login-input">
-
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="quickUsername" placeholder="Username">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="password" class="form-control" id="quickPass" placeholder="Password">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" id="btnQuickLogin" class="btn btn-primary">Sign In</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+                <!-- #/ container -->
             </div>
-            <!-- #/ container -->
         </div>
         <!--**********************************
             Content body end
         ***********************************-->
-
-
+        
+        
         <!--**********************************
             Footer start
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuite Research Team</a> 2022</p>
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Health enSuit Research Team</a> 2022</p>
             </div>
         </div>
         <!--**********************************
             Footer end
         ***********************************-->
-    </div>
+  
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -407,6 +439,26 @@
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+
+    <!-- Chartjs -->
+    <script src="./plugins/chart.js/Chart.bundle.min.js"></script>
+    <!-- Circle progress -->
+    <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+    <!-- Datamap -->
+    <script src="./plugins/d3v3/index.js"></script>
+    <script src="./plugins/topojson/topojson.min.js"></script>
+    <script src="./plugins/datamaps/datamaps.world.min.js"></script>
+    <!-- Morrisjs -->
+    <script src="./plugins/raphael/raphael.min.js"></script>
+    <script src="./plugins/morris/morris.min.js"></script>
+    <!-- Pignose Calender -->
+    <script src="./plugins/moment/moment.min.js"></script>
+    <script src="./plugins/pg-calendar/js/pignose.calendar.min.js"></script>
+    <!-- ChartistJS -->
+    <script src="./plugins/chartist/js/chartist.min.js"></script>
+    <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+
+    <!-- <script src="./js/dashboard/dashboard-1.js"></script> -->
 
     <script src="./plugins/moment/moment.js"></script>
     <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
@@ -423,13 +475,12 @@
     <script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
 
     <script src="./js/plugins-init/form-pickers-init.js"></script>
-    <script src="./js/plugins-init/form-pickers-init.js"></script>
+
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
 
     <script src="js/MoreFunction.js"></script>
     <script src="js/sleepDairyInit.js"></script>
-    <script src="js/contacUsAPI.js"></script>
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
-
 </body>
 
 </html>

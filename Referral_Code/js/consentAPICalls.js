@@ -2,6 +2,8 @@
 var urlDomain = 'https://apiv3.healthensuite.com/';
 
 emailIsElligible = false;
+var phoneInput = "";
+var fullPhoneNumber = "";
 
 function validateEmail(){
     //var bt = document.getElementById('btnConcentSubmit');
@@ -36,9 +38,13 @@ function validateEmail(){
     var patientNum = $("#patLNum").val();
     var mobileIsgood = false;
     if(patientNum != ''){
-        if(isMobile(patientNum)){
+        var isValidNum = phoneInput.isValidNumber();
+        // if(isMobile(patientNum)){
+        if(isValidNum){
             mobileIsgood = true;
             $("#mobileNumberError").html(" ");
+            fullPhoneNumber = phoneInput.getNumber();
+            console.log('Full Phone phone number: '+fullPhoneNumber)
         }else{
             mobileIsgood = false;
             $("#mobileNumberError").html("Ensure you a valid mobile number.");
@@ -127,6 +133,18 @@ function validateEmail(){
 
  
  $(document).ready(function () {
+
+    const phoneInputField = document.querySelector("#patLNum");
+    phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "CA",
+            nationalMode: true,
+            separateDialCode: true,
+            preferredCountries: ["CA", "US"],
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+
     $('[data-toggle="tooltip"]').tooltip();
 
     //var bt = document.getElementById('btnConcentSubmit');
@@ -178,7 +196,9 @@ function validateEmail(){
             isValid = true;
         
         // Validate phone Number
-        if (!isMobile(currentphone)){
+        var isValidNum = phoneInput.isValidNumber();
+        // if (!isMobile(currentphone)){
+        if (!isValidNum){
             //bt.disabled = true;
             $("#mobileNumberError").html("Ensure you a valid mobile number.");
             $(this).css("border","1px solid red");
@@ -186,6 +206,8 @@ function validateEmail(){
             //bt.disabled = false;
             $("#mobileNumberError").html(" ");
             $(this).css("border",".5px solid #BCBCBC");
+            fullPhoneNumber = phoneInput.getNumber();
+            console.log('Full Phone phone number: '+fullPhoneNumber)
         }
 
     });
@@ -195,7 +217,7 @@ function validateEmail(){
     $('#btnConcentSubmit').on('click', function(event){
         event.preventDefault();
         var patEmail = document.getElementById('patEmail').value;
-        var patientNum = document.getElementById('patLNum').value;
+        // var patientNum = document.getElementById('patLNum').value;
         var patientToken = window.localStorage.getItem("patToken");
         let url = urlDomain + 'insomnia/v1/patient/consent';
 
@@ -212,7 +234,7 @@ function validateEmail(){
                     'Accept': '*/*',
                     'Authorization': 'Bearer '+ patientToken             
                 },
-                data: JSON.stringify({"email": patEmail, "phoneNumber": patientNum}),
+                data: JSON.stringify({"email": patEmail, "phoneNumber": fullPhoneNumber}),
                 success: function(result){
                     var eligibitySubmitted = false;
                     window.localStorage.setItem("eligibitySubmitted", eligibitySubmitted);

@@ -3,6 +3,8 @@
 var urlDomain = 'https://apiv3.healthensuite.com/';
 var emailIsElligible = false;
 var mobileNumberIsElligible = false;
+var phoneInput = "";
+var fullPhoneNumber = "";
 
 // function validatePassword(){
 //     var bt = document.getElementById('btnSubmit');
@@ -108,15 +110,18 @@ function getHowYouHearAboutUs() {
 function ValidateMobileNumber(currentphone){
     if(currentphone.length != 0){
         console.log('Phone: '+currentphone)
+        var isValidNum = phoneInput.isValidNumber();
         // Validate phone Number
-        if (!isMobile(currentphone)){
+        // if (!isMobile(currentphone)){
+        if (!isValidNum){
             $("#errorMobileContainer").html("Invalid mobile number.");
             $(this).css("border","1px solid red");
             mobileNumberIsElligible = false;
         }else{
             $("#errorMobileContainer").html(" ");
             $(this).css("border",".5px solid #BCBCBC");
-            mobileNumberIsElligible = true;
+            fullPhoneNumber = phoneInput.getNumber();
+            console.log('Full Phone phone number: '+fullPhoneNumber)
         }
     }else{
         $("#errorMobileContainer").html(" ");
@@ -189,6 +194,16 @@ function isEmail(email) {
 
 
 $(document).ready(function () {
+
+    const phoneInputField = document.querySelector("#phone");
+    phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "CA",
+            nationalMode: true,
+            separateDialCode: true,
+            preferredCountries: ["CA", "US"],
+          utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
 
     var bt = document.getElementById('btnSubmit');
     bt.disabled = true;
@@ -281,7 +296,7 @@ $(document).ready(function () {
         var provName = firstName + " " + lastName;
         var province = document.getElementById("inputProvince").value;
         var email = document.getElementById("email").value;
-        var phone = document.getElementById("phone").value;
+        // var phone = document.getElementById("phone").value;
         var mailAddress = document.getElementById("mailAdd").value;
         var username = document.getElementById("usName").value;
         var password = document.getElementById("pass").value;
@@ -299,7 +314,7 @@ $(document).ready(function () {
                         'Accept': '*/*'
                     },
                     data: JSON.stringify({"email": email, "howyouheardaboutUse": aboutUs,
-                        "mailingAddress": mailAddress, "name": provName, "password": password, "phonenumber": phone,
+                        "mailingAddress": mailAddress, "name": provName, "password": password, "phonenumber": fullPhoneNumber,
                         "province": province, "username": username}),
                     success: function(result){
                         console.log(result);

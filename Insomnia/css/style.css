@@ -119,6 +119,12 @@ html {
     margin-bottom: 0px !important;
   }
 
+  .scrollit {
+    overflow:auto;
+    padding-right: 10px;
+    max-height: 700px;
+  }
+
   .bottom-border{
     border: none !important;
     border-bottom: 1px solid #ced4da !important;
@@ -295,6 +301,12 @@ html {
     font-weight: bold;
     margin-top: 8px;
     padding-left: 20px;
+  }
+
+  .baseTopicStyle{ 
+    font-weight: bold;
+    margin-left: -15px;
+    margin-bottom: 15px;
   }
 
 
@@ -11287,10 +11299,16 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
       float: right; }
     
     #accordion-two [data-toggle="collapse"] .fa:before {
+      content: "\f068"; }
+    
+    #accordion-two [data-toggle="collapse"].collapsed .fa:before {
+      content: "\f067"; }
+
+    /* #accordion-two [data-toggle="collapse"] .fa:before {
       content: "\f106"; }
     
     #accordion-two [data-toggle="collapse"].collapsed .fa:before {
-      content: "\f107"; }
+      content: "\f107"; } */
     
     #accordion-three .fa {
       float: right; }

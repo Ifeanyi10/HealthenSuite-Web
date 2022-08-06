@@ -387,6 +387,20 @@ function UpdateSelectedSingle(tableId){
     });
 }
 
+
+function getTableDoses(tableRow, tableIdName){
+    var delim = "_WK_";
+    var dose = ""
+    var firstDoses = "";
+    $(tableRow).each(function(i, def) {
+        dose = document.getElementById(tableIdName).rows[i + 1].cells[3].innerHTML;
+        firstDoses += dose+delim;
+    });
+    firstDoses = firstDoses.slice(0, -4); 
+    return firstDoses;
+    // console.log("This is a sampler: "+firstDoses)
+}
+
 function UpdateSelectedDouble(tableId){
     $('#taperTable2 tbody tr').each(function(i, def) {
         //var selection = $(this).find('td:last option:selected').val();
@@ -900,8 +914,7 @@ function fillTableTest(){
 $(document).ready(function () {
 
     //sampleUpdateAColumn("#sampTB tbody tr", "sampTB");
-    //fillTableTest();
-    
+    //fillTableTest()
 
     var btT1 = document.getElementById('btnTrial1');
     btT1.disabled = true;
@@ -3012,7 +3025,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         var patID = window.localStorage.getItem("patientID");
-        var med2 = window.localStorage.getItem("med2Store");       
+        var med2 = window.localStorage.getItem("med2Store").trim();       
         var tpLength1 = window.localStorage.getItem("weekNo1");
         var tpLength2 = window.localStorage.getItem("weekNo2");
         var tapperStartDate = window.localStorage.getItem("tapperStartDate");
@@ -3027,9 +3040,12 @@ $(document).ready(function () {
             let conceptId1 = window.localStorage.getItem("conceptId1Store");
 
             if(med2 != ''){
+                var firstDoses = getTableDoses('#taperTable tbody tr', 'taperTable');
 
                 if(oneMedicationReturned){
                     UpdateSelectedSingle('taperTable1Print');
+
+                    var concateTaperInfo = tapperStartDate+"_RMS_"+med1+"_RM_ "+firstDoses
                     $.ajax({
                         url: url,
                         type: 'POST',
@@ -3047,7 +3063,8 @@ $(document).ready(function () {
                             "taperLength" : tpLength1,
                             "taperStartDate": tapperStartDate, 
                             "conceptID" : conceptId1
-                        }]
+                        }],
+                        "taperSchedule": concateTaperInfo,
                     }),
                         success: function(result){
                             console.log(result);
@@ -3056,6 +3073,17 @@ $(document).ready(function () {
                             } else{
                                 $("#errorFinalContainer").html("Unable to submit final medication");
                             }
+                            console.log(JSON.stringify({"patientID": patID, "regimenDTOList":
+                            [{
+                            "sleepMedication" : med1,
+                            "currentDose" : floatDosage,
+                            "medicationDuration" : intDuration,
+                            "taperLength" : tpLength1,
+                            "taperStartDate": tapperStartDate, 
+                            "conceptID" : conceptId1
+                            }],
+                            "taperSchedule": concateTaperInfo,
+                        }));
                         }, 
                         error: function(msg){
                             $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");
@@ -3077,6 +3105,8 @@ $(document).ready(function () {
                     // destination.parentNode.replaceChild(copy, destination);
                     UpdateSelectedSingle('taperTable2Print');
                     UpdateSelectedDouble('taperTable3Print')
+                    var secondDoses = getTableDoses('#taperTable2 tbody tr', 'taperTable2');
+                    var concateTaperInfo = tapperStartDate+"_RMS_"+med1+"_RM_ "+firstDoses+"_RMS_"+med2+" _RM_ "+secondDoses
 
                     $.ajax({
                         url: url,
@@ -3103,8 +3133,9 @@ $(document).ready(function () {
                         "taperLength" : tpLength2,
                         "taperStartDate": tapperStartDate, 
                         "conceptID" : conceptId2
-                        }]
-                        
+                        }],
+                        "taperSchedule": concateTaperInfo,
+                
                     }),
                         success: function(result){
                             console.log(result);
@@ -3130,7 +3161,8 @@ $(document).ready(function () {
                             "taperLength" : tpLength2,
                             "taperStartDate": tapperStartDate, 
                             "conceptID" : conceptId2
-                            }]
+                            }],
+                            "taperSchedule": concateTaperInfo,
                             
                         }));
                             
@@ -3146,6 +3178,8 @@ $(document).ready(function () {
 
             }else{
                 //UpdateSelectedData('taperTable');
+                var firstDoses = getTableDoses('#taperTable tbody tr', 'taperTable');
+                var concateTaperInfo = tapperStartDate+"_RMS_"+med1+"_RM_ "+firstDoses
                 UpdateSelectedSingle('taperTable1Print');
                 $.ajax({
                     url: url,
@@ -3164,7 +3198,8 @@ $(document).ready(function () {
                         "taperLength" : tpLength1,
                         "taperStartDate": tapperStartDate, 
                         "conceptID" : conceptId1
-                    }]
+                    }],
+                    "taperSchedule": concateTaperInfo,
                 }),
                     success: function(result){
                         console.log(result);
@@ -3173,6 +3208,18 @@ $(document).ready(function () {
                         } else{
                             $("#errorFinalContainer").html("Unable to submit final medication");
                         }
+                        console.log(JSON.stringify({"patientID": patID, "regimenDTOList":
+                            [{
+                            "sleepMedication" : med1,
+                            "currentDose" : floatDosage,
+                            "medicationDuration" : intDuration,
+                            "taperLength" : tpLength1,
+                            "taperStartDate": tapperStartDate, 
+                            "conceptID" : conceptId1
+                            }],
+                            "taperSchedule": concateTaperInfo,
+                            
+                        }));
                     }, 
                     error: function(msg){
                         $("#errorFinalContainer").html("Unable to submit final medication, please try again shortly");

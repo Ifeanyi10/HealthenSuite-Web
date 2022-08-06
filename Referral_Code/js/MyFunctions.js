@@ -53,7 +53,7 @@ function hideDispaly1(firstQ, secondQ, disqualify1, yesAns, noAns) {
         document.getElementById('seventhQ').style.display = 'none';     
         $('input[name=optradio7]').prop("checked",false);
 
-        z.style.display = 'none';            
+        // z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
         sub.style.display = 'none';
         if(disqualify1 == 'disqualify1'){
@@ -108,7 +108,7 @@ function hideDispaly2(firstQ, secondQ, disqualify1, yesAns, noAns) {
         document.getElementById('seventhQ').style.display = 'none';     
         $('input[name=optradio7]').prop("checked",false);
 
-        z.style.display = 'none';            
+        // z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
         sub.style.display = 'none';
      
@@ -156,7 +156,7 @@ function hideDispaly4(firstQ, secondQ, disqualify1, yesAns, noAns) {
         document.getElementById('seventhQ').style.display = 'none';     
         $('input[name=optradio7]').prop("checked",false);
 
-        z.style.display = 'none';            
+        // z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
         sub.style.display = 'none';
      
@@ -195,7 +195,7 @@ function hideDispaly5(firstQ, secondQ, disqualify1, yesAns, noAns) {
         document.getElementById('seventhQ').style.display = 'none';     
         $('input[name=optradio7]').prop("checked",false);
 
-        z.style.display = 'none';            
+        // z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
         sub.style.display = 'none';
      
@@ -227,7 +227,7 @@ function hideDispaly6(firstQ, secondQ, disqualify1, yesAns, noAns) {
                    
         $('input[name=optradio7]').prop("checked",false);
 
-        z.style.display = 'none';            
+        // z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
         sub.style.display = 'none';
      
@@ -254,7 +254,7 @@ function hideDispaly7(firstQ, secondQ, disqualify1, yesAns, noAns) {
         //x.style.display = 'none';
         y.style.display = 'block'; 
 
-        z.style.display = 'none';            
+        // z.style.display = 'none';            
     } else if (document.getElementById(noAns).checked){
         sub.style.display = 'none';
 
@@ -331,7 +331,7 @@ function getCheckedSymptomValues() {
         //validateMedCheck();
         //x.style.display = 'none';
         y.style.display = 'block'; 
-        z.style.display = 'none';
+        // z.style.display = 'none';
         $('input[name=optradio4]').prop("checked",false); 
 
         document.getElementById('fifthQ').style.display = 'none';     
@@ -376,7 +376,7 @@ function symptomHideDispaly() {
         validateMedCheck();
         //x.style.display = 'none';
         y.style.display = 'block'; 
-        z.style.display = 'none';
+        // z.style.display = 'none';
         $('input[name=optradio4]').prop("checked",false); 
 
         document.getElementById('fifthQ').style.display = 'none';     
@@ -549,7 +549,11 @@ function discontinue(){
         error: function(msg){
             //$("#errorContainer").html("Incorrect Username or Password");
             //sweetAlert("Unable to submit your eligibilty response.","You may have submitted your consent before now.");
-            var content = "<span style='font-weight: bold'>Discontinue request not completed.</span> <span>Please try again shortly.</span>";
+            if(msg.status == "501"){
+                var content = "<span style='font-weight: bold'>Discontinue request not completed.</span> <span>We are experiencing a temporal delay. Please try again shortly.</span>";
+            } else{
+                var content = "<span style='font-weight: bold'>Discontinue request not completed.</span> <span>Please try again shortly.</span>";
+            }
             swal({title: "", text: content, html: true});
         }
     });
@@ -595,7 +599,12 @@ function submitElligible(){
         error: function(msg){
             //$("#errorContainer").html("Incorrect Username or Password");
             //sweetAlert("Unable to submit your eligibilty response.","You may have submitted your consent before now.");
-            var content = "<span style='font-weight: bold'>Unable to submit your eligibilty response.</span> <span>You may have submitted your consent before now.</span>";
+            if(msg.status == "501"){
+                var content = "<span style='font-weight: bold'>Unable to submit your eligibilty response.</span> <span>We are experiencing a temporal delay. Please try again shortly.</span>";
+            }else{
+                var content = "<span style='font-weight: bold'>Unable to submit your eligibilty response.</span> <span>You may have submitted your consent before now.</span>";
+            }
+            
             swal({title: "", text: content, html: true});
         }
     });
@@ -710,8 +719,17 @@ function displayField(el, btnId, divId, qLength, checkbox, checkbox2, divName){
 
 function Check(el, btnId, divId, qLength) {
     var button = document.getElementById(btnId);
+    var elemID = el.id;
 
     var nbr_checked_radios = document.querySelectorAll(divId+' input[type=radio]:checked').length;
+
+    if(qLength == 21){
+        if(elemID == "life2" || elemID == "life3" || elemID == "life4"){
+            var content = "<span style='font-weight: bold'>If you ever feel that you are in immediate danger of harming yourself or someone else, you should seek help right away by going to your nearest emergency room or calling 911.</span>";
+            swal({title: "", text: content, html: true});
+        }
+    }
+
     /*
        'nbr_checked_radios==0' : mean if no radio button is checked 
     */

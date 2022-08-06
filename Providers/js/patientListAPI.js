@@ -214,16 +214,19 @@ function getPatDetatail(){
         var med1 = userObj.regimen[0].sleepMedication;
         document.getElementById('medN1').innerHTML = med1;
         var dose1 = userObj.regimen[0].currentDose;
-        document.getElementById('dose1').innerHTML = dose1;
-
-        var med2 = userObj.regimen[1].sleepMedication;
+        document.getElementById('dose1').innerHTML = dose1+"mg";
+        var regiLength = userObj.regimen.length;
+        var med2 ="";
+        if(regiLength > 1){
+            med2 = userObj.regimen[1].sleepMedication;
+        }
         // var med2 ="";
         if(med2 == '' || med2 == null){
             document.getElementById('med2Div').style.display = 'none';
         }else{
             document.getElementById('medN2').innerHTML = med2;
             var dose1 = userObj.regimen[1].currentDose;
-            document.getElementById('dose2').innerHTML = dose1;
+            document.getElementById('dose2').innerHTML = dose1+"mg";
         }
     }
 

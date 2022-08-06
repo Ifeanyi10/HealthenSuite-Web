@@ -7,6 +7,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.2.0/jspdf.umd.min.js"></script> -->
 
 <!--===============================================================================================-->	
@@ -33,6 +34,11 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="js/sweetalert/css/sweetalert.css" rel="stylesheet">
 <!--===============================================================================================-->
+<link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 </head>
 <body class="colorBackground">
 	
@@ -263,7 +269,7 @@
                                                     After you have completed the baseline assessment, you will be randomly assigned (similar to flipping a coin) to one of the groups to receive either intervention at the beginning of the study or after 6 months of enrollment. Both groups will receive information about the causes of insomnia and cognitive behavioural strategies to relieve insomnia symptoms and improve sleep. In one group all of the information you will receive is available from the beginning. Once you have access to this information, you will be able to revisit this content within the Health enSuite app as often as you like over the next 8 weeks. In the other group, the content is organized in a series of modules or levels. Only the content for Level 1 will be available in the first week. To advance to level 2 you will need to complete specific tasks within the program. There are a total of 6 levels each with new content and features designed to help improve sleep.  If you are assigned to this group, you will receive notifications prompting you to complete different tasks within the app (e.g., completing sleep diaries).
                                                 </div>
                                                 <div class="justifyDiv">
-                                                    You can expect to be involved in the study for a total of 14 weeks: 2 weeks of baseline assessment, 8 weeks of intervention, and 2 weeks assessment at 3 months and again at 6 months follow up. Each assessments include completing sleep diaries in addition to a set of questionnaires about your physical and mental health for 14 consecutive days. It is important that you complete the follow-up assessment so that we know how well the treatment you received worked for you. At the end of the trials, you will no longer have access to Health enSuite Insomnia.
+                                                    You can expect to be involved in the study for a total of 14 weeks: 2 weeks of baseline assessment, 8 weeks of intervention, and 2 weeks assessment at 3 months and again at 6 months follow up. Each assessments include completing sleep diaries in addition to a set of questionnaires about your physical and mental health for 14 consecutive days. It is important that you complete the follow-up assessment so that we know how well the treatment you received worked for you. At the end of the entire study, you will no longer have access to Health enSuite Insomnia.
                                                 </div>
                                             <!-- </div> -->
                                         </div>
@@ -309,7 +315,7 @@
                                                     Health enSuite Insomnia in no way replaces decisions made by or the treatment plan given to you by your primary healthcare provider. The Health enSuite Insomnia App will only be used to assist your healthcare provider to support a deprescribing decision or to refer you to cognitive behavioural therapy. You may experience withdrawal symptoms associated with changes to your medications. In most cases these symptoms may subside within a few days. If you experience serious side effects associated with your medication schedule, or severe discomfort or distress associated with restricted sleep, please contact your health care provider. If you experience this, please contact your health care provider. You may also let us know by emailing our study coordinator at <strong>TeamHealthEnSuite@iwk.nshealth.ca</strong> or calling 902- 470-7934 or toll-free number: 1-877-341-8309 press 5, Monday to Friday from 9:00 am – 5:00 pm Atlantic Time. You may also use the <strong>Contact Us</strong> button on the Health enSuite Insomnia homepage to report any problems.
                                                 </div>
                                                 <div class="justifyDiv">
-                                                    We will be responsible for protecting your personal health information. However, there is a rare possibility that your personal health information release inadvertently. 
+                                                    We will be responsible for protecting your personal health information. Our app has been designed with advanced security protections, however, as with any application, in the rare event of a security breach, your information may be accessed by someone outside of the study. If this were to happen, you would be notified as soon as possible.
                                                 </div>
                                             <!-- </div> -->
 
@@ -994,7 +1000,8 @@
                                             
                                             <div class="form-group">
                                                 <span class="label-input100">Mobile Number</span><span style="color: red;">*</span>
-                                                <input type="text" class="form-control" id="patLNum"  placeholder="Mobile Number (required)" pattern="([0|\+[0-9]{1,5})?([7-9][0-9]{9})$" min="10" required title="E.g 902-100-1234" data-toggle="tooltip" data-placement="right">
+                                                <!-- <input type="text" class="form-control" id="patLNum"  placeholder="Mobile Number (required)" pattern="([0|\+[0-9]{1,5})?([7-9][0-9]{9})$" min="10" required title="E.g 902-100-1234" data-toggle="tooltip" data-placement="right"> -->
+                                                <input type="tel" class="form-control" id="patLNum"  placeholder="Mobile Number (required)" pattern="([0|\+[0-9]{1,5})?([7-9][0-9]{9})$" min="10" required title="E.g 902-100-1234" data-toggle="tooltip" data-placement="right">
                                                 <div class="form-group" id='mobileNumberError' style="color: #8c0615; font-weight: bolder;"></div>
                                             </div>
 
@@ -1081,6 +1088,9 @@
 <!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
+<!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
+    <!-- <script src="js/intlTelInput-jquery.min.js"></script>  -->
+
 	<script src="js/main.js"></script>
     <script src="js/MyFunctions.js"></script>
     <!-- <script src="plugins/common/common.min.js"></script> -->

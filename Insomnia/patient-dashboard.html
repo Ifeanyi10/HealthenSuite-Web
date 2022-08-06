@@ -71,6 +71,10 @@
 
                                     storeLevelEntityObjects(payLoadResult);
 
+                                    if(trialNo == 2){
+                                        $(".tp-sched").css('display', 'block');  
+                                    }
+
                                     var dateCreated = result.date_Created;
                                     var patDateCreated = dateCreated.split("T", 1);
                                     document.getElementById("dashHeader").innerHTML = decideDashboardHeaderText(patDateCreated);
@@ -202,6 +206,7 @@
                                     }else{
                                         document.getElementById('todayLink').style.display = 'none';
                                         document.getElementById('prevLink').style.display = 'none'; 
+                                        document.getElementById('mNote').style.display = 'block'; 
                                         $(".spRep").css('display', 'none'); 
                                         $(".spDiary").css('display', 'none'); 
                                         window.localStorage.setItem("notallowed", true);
@@ -311,6 +316,7 @@
                                 $(".spRep").css('display', 'none'); 
                                 $(".spDiary").css('display', 'none'); 
                             }
+                
                         }
 
                         function storeLevelEntityObjects(myResult){
@@ -479,6 +485,15 @@
                         </ul>
                     </li>
 
+                    <li class="mega-menu mega-menu-sm tp-sched" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-clock menu-icon"></i><span class="nav-text">Taper Schedule</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./taper-schedule.html">My Taper Schedule</a></li>
+                        </ul>
+                    </li>
+
                     <li class="mega-menu mega-menu-sm spDiary">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-note menu-icon"></i><span class="nav-text">Sleep Diary</span>
@@ -583,6 +598,12 @@
                                 <h4 class="card-title colorPrimary" id="dashHeader"></h4><hr>
                                 <div class="justifyDiv">
                                     The next step is to begin tracking your sleep patterns. Please take a few minutes to fill out a sleep diary each morning for the next 2 weeks. This lets us know your starting point. If you forget to fill your sleep diary one morning, then you can still go back and fill it up to a day later. 
+                                </div><br>
+
+                                <div class="hidden" id="mNote">
+                                    <div class="justifyDiv colorPrimary">
+                                        <strong>Please note:</strong> You will receive instructions to access your first sleep diary in your email in 1-2 days.
+                                    </div>
                                 </div><br>
 
                                 <div>

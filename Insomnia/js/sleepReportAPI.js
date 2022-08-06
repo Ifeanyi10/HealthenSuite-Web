@@ -11,10 +11,10 @@ function formatTime(n) {
     return  rhours + " hour(s) and " + rminutes + " minute(s).";
 }
 
-function PrintReportDiv() {  
+async function PrintReportDiv() {  
     var patName =  "Health enSuite Sleep Report - " + window.localStorage.getItem("newDStart") + ' -To- ' + window.localStorage.getItem("newDEnd")  + '-' + window.localStorage.getItem("patientLastName");
     var divContents = document.getElementById("printDivContentReport").innerHTML;  
-    var printWindow = window.open('', '', 'height=800,width=800');  
+     
 
     var imgData = document.getElementById('container').toDataURL('image/png', 1.0);
     var imgData2 = document.getElementById('container2').toDataURL('image/png', 1.0);
@@ -32,6 +32,9 @@ function PrintReportDiv() {
         // windowContent += '<img src="' + imgData + '"><br>';
         // windowContent += '<img src="' + imgData2 + '">';
 
+    // var printWindow = window.open('', '', 'height=800,width=800'); 
+
+    var printWindow = window.open('', '', 'height=800,width=800'); 
 
     printWindow.document.write('<html><head><title>');  
     printWindow.document.write(patName); 
@@ -40,6 +43,8 @@ function PrintReportDiv() {
     //printWindow.document.write(divContents);  
     printWindow.document.write(windowContent);  
     printWindow.document.write('</body></html>');  
+
+    await new Promise(r => setTimeout(r, 2000));
     printWindow.document.close();  
     printWindow.print();  
 } 
@@ -635,8 +640,13 @@ $(document).ready(function () {
                 error: function(msg){
                     //alert(msg)
                     $("#errorContainer").html("Unable to generate");
-                    var content = "<span style='font-weight: bold'>Sleep report generation failed.</span> <span>Please try again shortly.</span>";
+                    var content = "<span style='font-weight: bold'>Sleep diary report cannot be generated.</span> <span>Please confirm the dates entered.</span>";
                     swal({title: "", text: content, html: true});
+                    console.log(JSON.stringify({
+                        "startDate" : newDStart,
+                        "endDate" : newDEnd
+                        }));
+                    
                     //sweetAlert("Sleep report generation failed!","Please try again shortly","error");
                 }
             });

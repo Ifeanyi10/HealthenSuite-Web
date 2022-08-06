@@ -76,15 +76,20 @@
             var str = entity.split(',');
             // console.log('This is...'+str)
             var meds = document.forms[formId].elements[nameId];
-            for (i = 0; i < meds.length; i++) { 
-                medVal = meds[i].value;   
-                medVal = medVal.slice(0, 14).toString().replace(/^\s+|\s+$/gm,'');
+            for (i = 0; i < str.length; i++) { 
                 strVal = str[i];
                 strVal = strVal.slice(0, 15).toString().replace(/^\s+|\s+$/gm,'');
+
+                for (i = 0; i < meds.length; i++) { 
+                medVal = meds[i].value;   
+                medVal = medVal.slice(0, 14).toString().replace(/^\s+|\s+$/gm,'');
+                
                 if(medVal == strVal){
                     meds[i].checked = true;
                 }
             }
+            }
+            
         }
 
         function fillRadioButton(formId, nameId, entity){
@@ -211,6 +216,15 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./patient-profile.html">My Profile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="mega-menu mega-menu-sm tp-sched" style="display: none;">
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-clock menu-icon"></i><span class="nav-text">Taper Schedule</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="./taper-schedule.html">My Taper Schedule</a></li>
                         </ul>
                     </li>
 
