@@ -22,12 +22,17 @@
             var myStatusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
             var levelIsNotSavable = myStatusEntity.readInterventionGroupleveloneArticle;
             var interventionLevelsEntity = JSON.parse(window.localStorage.getItem("interventionLevelsEntity"));
+            var supportName = interventionLevelsEntity.levelOneEntity.supportPersonname;
             if(interventionLevelsEntity.levelOneEntity != null){
                 fillCheckBox('formSituation', 'sit', interventionLevelsEntity.levelOneEntity.whichBestdescribesYoursituation);
-            }
-            if(interventionLevelsEntity.levelOneEntity != null){
                 fillRadioButton('formFeeling', 'feel', interventionLevelsEntity.levelOneEntity.howIsitgoingSofar);
+                if(supportName != "" || supportName != null){
+                    document.getElementById('supName').value = interventionLevelsEntity.levelOneEntity.supportPersonname;
+                    document.getElementById('supRelation').value = interventionLevelsEntity.levelOneEntity.supportPersonrelationshipt;
+                    document.getElementById('supEmail').value = interventionLevelsEntity.levelOneEntity.supportPersonemail;
+                }
             }
+
             console.log(interventionLevelsEntity)
             window.localStorage.setItem("levelIsNotSavable", levelIsNotSavable);
             var levelPageNo = myStatusEntity.nextPage;
@@ -69,23 +74,31 @@
                 document.getElementById('supRelation').readOnly = true;
                 document.getElementById('supEmail').readOnly = true;
                 document.getElementById('btnSubmitLV1Anyway').disabled = true;
+                fillRadioButton('fromDescribe', 'abt', interventionLevelsEntity.levelOneEntity.sleepalone);
+                // document.getElementById('Q1').style.display = 'block';
+                // document.getElementById('Q2').style.display = 'block';
+                // document.getElementById('Q3').style.display = 'block';
+                if(supportName != "" || supportName != null){
+                    document.getElementById('supportForm').style.display = 'block';
+                }
             }
         }
 
         function fillCheckBox(formId, nameId, entity){
             var str = entity.split(',');
-            // console.log('This is...'+str)
+            console.log('This is...'+str)
             var meds = document.forms[formId].elements[nameId];
             for (i = 0; i < str.length; i++) { 
-                strVal = str[i];
-                strVal = strVal.slice(0, 15).toString().replace(/^\s+|\s+$/gm,'');
-
-                for (i = 0; i < meds.length; i++) { 
-                medVal = meds[i].value;   
+                strVal = str[i].trim();
+                strVal = strVal.slice(0, 14).toString();
+                console.log('This is 2...'+strVal)
+                for (p = 0; p < meds.length; p++) { 
+                medVal = meds[p].value;   
                 medVal = medVal.slice(0, 14).toString().replace(/^\s+|\s+$/gm,'');
-                
+                console.log('This is 3...'+medVal)
                 if(medVal == strVal){
-                    meds[i].checked = true;
+                    meds[p].checked = true;
+                    console.log('Cheeeecccckkk...'+medVal)
                 }
             }
             }

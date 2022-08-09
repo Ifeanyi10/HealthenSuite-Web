@@ -513,7 +513,16 @@ function goToNextPage(firstDisplay, secondDisplay, errId, isNav){
     }else{
         let trialNo = window.localStorage.getItem("trialNo");
         var situation = getCheckedValues('formSituation', 'sit');
+        // console.log("This is situation: "+situation);
         if(trialNo == 1 && situation != ""){
+            if(isNav == false){
+                hideDisplay(firstDisplay, secondDisplay);
+            }else{
+                displayNav(firstDisplay, secondDisplay);
+            } 
+            buttonClickedIsOkay = true;
+            questionIsAnswered = false;
+        }else if(trialNo == 2 && situation != ""){
             if(isNav == false){
                 hideDisplay(firstDisplay, secondDisplay);
             }else{
@@ -540,8 +549,16 @@ function goToNextOmitPage(firstDisplay, secondDisplay, thirdDisplay, errId, isNa
         questionIsAnswered = false;
     }else{
         let trialNo = window.localStorage.getItem("trialNo");
-        // let trialNo = 1;
+        var soFar = getCheckedValues('formFeeling', 'feel');
         if(trialNo == 1){
+            if(isNav == false){
+                hideDisplay(firstDisplay, thirdDisplay);
+            }else{
+                displayNav(firstDisplay, thirdDisplay);
+            } 
+            buttonClickedIsOkay = true;
+            questionIsAnswered = false;
+        }else if(trialNo == 2 && soFar != ""){
             if(isNav == false){
                 hideDisplay(firstDisplay, thirdDisplay);
             }else{
