@@ -188,7 +188,15 @@ function drawLineChart2(dt1, dt2, xValues, yValues, containerID, chatTag, yAxesT
                         display: true,
                         labelString: dt1 + " - " + dt2
                         // labelString: "Selected Date Range"
-                    }
+                    },
+                    type: 'time',
+                    position: 'bottom',
+                    time: {
+                    displayFormats: {
+                        day: 'MM-DD'
+                    },
+                    unit: 'day'
+                    },
                 }],
                 yAxes: [{
                     ticks: {
@@ -253,7 +261,15 @@ function drawLineChart3(dt1, dt2, xValues, yValues, containerID, chatTag, yAxesT
                         display: true,
                         labelString: dt1 + " - " + dt2
                         // labelString: "Selected Date Range"
-                    }
+                    },
+                    type: 'time',
+                    position: 'bottom',
+                    time: {
+                    displayFormats: {
+                        day: 'MM-DD'
+                    },
+                    unit: 'day'
+                    },
                 }],
                 yAxes: [{
                     ticks: {min: 0, max: maxValue},
@@ -313,7 +329,15 @@ function drawLineChart4(dt1, dt2, xValues, yValues, containerID, chatTag, yAxesT
                         display: true,
                         labelString: dt1 + " - " + dt2
                         // labelString: "Selected Date Range"
-                    }
+                    },
+                    type: 'time',
+                    position: 'bottom',
+                    time: {
+                    displayFormats: {
+                        day: 'MM-DD'
+                    },
+                    unit: 'day'
+                    },
                 }],
                 yAxes: [{
                     ticks: {min: 0, max: maxValue},

@@ -726,6 +726,7 @@ $(document).ready(function () {
                 }
 
                 var spAlone = getCheckedValues('fromDescribe', 'abt');
+                var nomiPerson = getCheckedValues('fromDescribe', 'nomi');
                 var supName = document.getElementById("supName").value;
                 var supEmail = document.getElementById("supEmail").value;
                 var supRelation = document.getElementById("supRelation").value;
@@ -744,6 +745,7 @@ $(document).ready(function () {
                         "whichBestdescribesYoursituation" : descSituation,
                         "howIsitgoingSofar" : soFar,
                         "sleepalone" : spAlone,
+                        "nominateRoommate": nomiPerson,
                         "supportPersonname" : supName,
                         "supportPersonemail" : supEmail,
                         "supportPersonrelationshipt": supRelation
@@ -796,6 +798,7 @@ $(document).ready(function () {
                 }
 
                 var spAlone = getCheckedValues('fromDescribe', 'abt');
+                var nomiPerson = getCheckedValues('fromDescribe', 'nomi');
                 var supName = "";
                 var supEmail = "";
                 var supRelation = "";
@@ -814,6 +817,7 @@ $(document).ready(function () {
                         "whichBestdescribesYoursituation" : descSituation,
                         "howIsitgoingSofar" : soFar,
                         "sleepalone" : spAlone,
+                        "nominateRoommate": nomiPerson,
                         "supportPersonname" : supName,
                         "supportPersonemail" : supEmail,
                         "supportPersonrelationshipt": supRelation

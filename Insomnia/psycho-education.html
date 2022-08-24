@@ -23,6 +23,7 @@
             var urlDomain = window.localStorage.getItem("urlDomain");
             let url = urlDomain + 'insomnia/v1/intervention/getpsychoeducation';
             let authToken = window.localStorage.getItem("patientToken");
+            var myStatusEntity = JSON.parse(window.localStorage.getItem("statusEntity"));
 
             $.ajax({
                 url: url,
@@ -36,6 +37,7 @@
                     console.log(result);
                     window.localStorage.setItem("psychoID", result.id);
                     let trialNo = window.localStorage.getItem("trialNo");
+                    confirmFilledBoxes(myStatusEntity);
                     // let trialNo = 1;
                     if(trialNo == 1){
                         document.getElementById('trial2Sec2').style.display = 'none';
@@ -46,6 +48,46 @@
                 }
             });
 
+        }
+
+        function confirmFilledBoxes(results){
+            let result = results.lastPsychoeducationObject;
+            // console.log("The result: "+JSON.stringify(result))
+            let iDontKnow = result.idontknow;
+            let iFeelConfident = result.ifeelconfident;
+            let iThinkItsDifficult = result.ithinkitsdifficult;
+            let moreThan30MinsToSleep = result.morethan30MinstoSleep;
+            let sleepQualityPoor = result.sleepqualitypoor;
+            let wakeupFrequentlyAtNight = result.wakeupfrequentlyatnight;
+            let wakeupTooEarly = result.wakeuptooearly;
+
+            if(moreThan30MinsToSleep){
+                checkBox('formSituation', 'sit', 0)
+            }
+            if(wakeupFrequentlyAtNight){
+                checkBox('formSituation', 'sit', 1)
+            }
+            if(wakeupTooEarly){
+                checkBox('formSituation', 'sit', 2)
+            }
+            if(sleepQualityPoor){
+                checkBox('formSituation', 'sit', 3)
+            }
+
+            if(iFeelConfident){
+                checkBox('formFeeling', 'feel', 0)
+            }
+            else if(iThinkItsDifficult){
+                checkBox('formFeeling', 'feel', 1)
+            }
+            else if(iDontKnow){
+                checkBox('formFeeling', 'feel', 2)
+            }
+        }
+
+        function checkBox(formId, nameId, posi){
+            var box = document.forms[formId].elements[nameId];
+            box[posi].checked = true; 
         }
     </script>
 

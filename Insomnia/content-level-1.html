@@ -75,6 +75,10 @@
                 document.getElementById('supEmail').readOnly = true;
                 document.getElementById('btnSubmitLV1Anyway').disabled = true;
                 fillRadioButton('fromDescribe', 'abt', interventionLevelsEntity.levelOneEntity.sleepalone);
+                var nomiPer = interventionLevelsEntity.levelOneEntity.nominateRoommate;
+                if(nomiPer != null || nomiPer != ''){
+                    fillRadioButton('fromDescribe', 'nomi', nomiPer);
+                }
                 // document.getElementById('Q1').style.display = 'block';
                 // document.getElementById('Q2').style.display = 'block';
                 // document.getElementById('Q3').style.display = 'block';
@@ -530,16 +534,16 @@
 
                                                                     <div class="form-check mb-3">
                                                                         <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('confident', 'feelErMsg');" name="feel" value="I feel confident I will be able to stick to this plan">I feel confident I will be able to stick to this plan. </label>
+                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('confident', 'feelErMsg');" name="feel" value="I feel confident I will be able to stick to this plan.">I feel confident I will be able to stick to this plan. </label>
                                                                     </div>
                                                                     <div class="form-check mb-3">
                                                                         <label class="form-check-label">
-                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('difficult', 'feelErMsg');" name="feel" value="I think it will be very difficult for me to stick to this plan">I think it will be very difficult for me to stick to this plan.</label>   
+                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('difficult', 'feelErMsg');" name="feel" value="I think it will be very difficult for me to stick to this plan.">I think it will be very difficult for me to stick to this plan.</label>   
                                                                     </div>
                                                                     <div class="form-check mb-3">
                                                                         <label class="form-check-label">
                                                                             <!-- <input type="radio" class="form-check-input" data-toggle="modal" data-target="#exampleModalCenter" onclick="fillModalContentValue('unknown', 'level1Pg5');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label> -->
-                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('unknown', 'feelErMsg');" name="feel" value="I don’t know what the plan is">I don’t know what the plan is. What can I do to find out?</label>
+                                                                            <input type="radio" class="form-check-input" onclick="fillModalContentValueLevels('unknown', 'feelErMsg');" name="feel" value="I don’t know what the plan is. What can I do to find out?">I don’t know what the plan is. What can I do to find out?</label>
                                                                     </div>
 
                                                                     <!-- <div class="modal fade" id="exampleModalCenter">
@@ -678,15 +682,15 @@
                     
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="radio" class="form-check-input" onclick="showQuestion('Q1','Q2','Q3','supportForm');" name="abt" value="I sleep alone">I sleep alone. </label>
+                                                                    <input type="radio" class="form-check-input" onclick="showQuestion('Q1','Q2','Q3','supportForm');" name="abt" value="I sleep alone.">I sleep alone. </label>
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="radio" class="form-check-input" onclick="showQuestion('Q2','Q1','Q3','supportForm');" name="abt" value="I share my bedroom with another person, but I sleep in my own bed">I share my bedroom with another person, but I sleep in my own bed.</label>   
+                                                                    <input type="radio" class="form-check-input" onclick="showQuestion('Q2','Q1','Q3','supportForm');" name="abt" value="I share my bedroom with another person, but I sleep in my own bed.">I share my bedroom with another person, but I sleep in my own bed.</label>   
                                                             </div>
                                                             <div class="form-check mb-3">
                                                                 <label class="form-check-label">
-                                                                    <input type="radio" class="form-check-input" onclick="showQuestion('Q3','Q1','Q2','supportForm');" name="abt" value="I share a bed with another person">I share a bed with another person.</label>
+                                                                    <input type="radio" class="form-check-input" onclick="showQuestion('Q3','Q1','Q2','supportForm');" name="abt" value="I share a bed with another person.">I share a bed with another person.</label>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -703,11 +707,11 @@
                                                     <div class="form-group hidden" id="Q2">
                                                         <label class="lblQuestion">Would you like to nominate your roommate to support you throughout this program? This person will be sent tips and information related to the skills you are learning.</label><br/>
                                                         <label class="radio-inline mr-3">
-                                                            <input type="radio" onclick="showSupport('supportForm');" id="nominateYes" name="optradio2"> I would like to nominate this person. </label><br/>
+                                                            <input type="radio" onclick="showSupport('supportForm');" id="nominateYes" name="nomi" value="I would like to nominate this person."> I would like to nominate this person. </label><br/>
                                                         <label class="radio-inline mr-3">
-                                                            <input type="radio" onclick="showSupport('supportForm');" id="someoneYes" name="optradio2"> I would like to nominate someone else.</label><br/>
+                                                            <input type="radio" onclick="showSupport('supportForm');" id="someoneYes" name="nomi" value="I would like to nominate someone else."> I would like to nominate someone else.</label><br/>
                                                         <label class="radio-inline mr-3">
-                                                            <input type="radio" onclick="removeSupport('supportForm');" data-toggle="modal" data-target="#recommendModalCenter" id="nominateNo" name="optradio2"> I do not want to nominate a support person.</label><br/>
+                                                            <input type="radio" onclick="removeSupport('supportForm');" data-toggle="modal" data-target="#recommendModalCenter" id="nominateNo" name="nomi" value="I do not want to nominate a support person."> I do not want to nominate a support person.</label><br/>
             
                                                     </div>
 
