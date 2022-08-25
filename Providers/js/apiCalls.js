@@ -1,6 +1,6 @@
 //var urlDomain = window.localStorage.getItem("urlDomain");
-//var urlDomain = 'https://api.healthensuite.com/';
-var urlDomain = 'https://apiv3.healthensuite.com/';
+var urlDomain = 'https://api.healthensuite.com/';
+// var urlDomain = 'https://apiv3.healthensuite.com/';
 var emailIsElligible = false;
 var mobileNumberIsElligible = false;
 var phoneInput = "";

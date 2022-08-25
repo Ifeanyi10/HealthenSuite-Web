@@ -972,8 +972,8 @@ $(document).ready(function () {
         authTokenPatient = window.localStorage.getItem("patientToken");
         console.log("You are in this tab and the token is: "+authToken);
         if(authToken == null){
-            urlDomain = 'https://apiv3.healthensuite.com/';
-            // urlDomain = 'https://api.healthensuite.com/';
+            // urlDomain = 'https://apiv3.healthensuite.com/';
+            urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }

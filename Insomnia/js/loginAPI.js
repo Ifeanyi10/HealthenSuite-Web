@@ -1,6 +1,6 @@
 //var urlDomain = 'http://health001-env.eba-v5mudubf.us-east-2.elasticbeanstalk.com/';
-var urlDomain = 'https://apiv3.healthensuite.com/';
-// var urlDomain = 'https://api.healthensuite.com/';
+// var urlDomain = 'https://apiv3.healthensuite.com/';
+var urlDomain = 'https://api.healthensuite.com/';
 
 function isEmail(email) {
     // eslint-disable-next-line no-useless-escape

@@ -42,8 +42,8 @@ $(document).ready(function () {
         console.log("You are in this tab and the token is Patients: "+authToken);
         if(authToken == null){
             //urlDomain = 'http://health.us-east-2.elasticbeanstalk.com/';
-            urlDomain = 'https://apiv3.healthensuite.com/';
-            // urlDomain = 'https://api.healthensuite.com/';
+            // urlDomain = 'https://apiv3.healthensuite.com/';
+            urlDomain = 'https://api.healthensuite.com/';
             window.localStorage.setItem("urlDomain", urlDomain);
             $('#loginModal').modal('show');
         }

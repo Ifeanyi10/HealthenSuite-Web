@@ -1,5 +1,5 @@
-// var urlDomain = 'https://api.healthensuite.com/';
-var urlDomain = 'https://apiv3.healthensuite.com/';
+var urlDomain = 'https://api.healthensuite.com/';
+// var urlDomain = 'https://apiv3.healthensuite.com/';
 
 // function validatePassword(){
 //     var bt = document.getElementById('btnSubmit');

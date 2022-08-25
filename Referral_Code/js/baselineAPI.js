@@ -1,5 +1,5 @@
-// var urlDomain = 'https://api.healthensuite.com/';
-var urlDomain = 'https://apiv3.healthensuite.com/';
+var urlDomain = 'https://api.healthensuite.com/';
+// var urlDomain = 'https://apiv3.healthensuite.com/';
 
 function getQuestionValues(formID, elementName) {
     var abouts = document.forms[formID].elements[elementName];
